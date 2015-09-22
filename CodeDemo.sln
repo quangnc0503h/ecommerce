@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quang.Auth.BusinessLogic", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quang.Auth.Api", "Presentation\Quang.Auth.Api\Quang.Auth.Api.csproj", "{10E81B83-7F97-4530-9EB3-0D9937261AB8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quang.Auth.Web", "Presentation\Quang.Auth.Web\Quang.Auth.Web.csproj", "{AFCEE3B6-7213-4020-AC20-F59B36F74F94}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{10E81B83-7F97-4530-9EB3-0D9937261AB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10E81B83-7F97-4530-9EB3-0D9937261AB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10E81B83-7F97-4530-9EB3-0D9937261AB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFCEE3B6-7213-4020-AC20-F59B36F74F94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFCEE3B6-7213-4020-AC20-F59B36F74F94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFCEE3B6-7213-4020-AC20-F59B36F74F94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFCEE3B6-7213-4020-AC20-F59B36F74F94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,5 +59,6 @@ Global
 		{088BA5AB-929A-454F-8180-FE6E889860A0} = {03B490BF-1E6E-4CA4-A06A-0347C2B3AECD}
 		{978EAFF6-DAFB-44DC-BD0B-23EA34959E8A} = {03B490BF-1E6E-4CA4-A06A-0347C2B3AECD}
 		{10E81B83-7F97-4530-9EB3-0D9937261AB8} = {D8907202-B402-4B56-B8BD-74D1B72BA281}
+		{AFCEE3B6-7213-4020-AC20-F59B36F74F94} = {D8907202-B402-4B56-B8BD-74D1B72BA281}
 	EndGlobalSection
 EndGlobal
