@@ -1,4 +1,4 @@
-// Generated on 2015-09-22 using generator-angular 0.12.1
+// Generated on 2015-09-08 using generator-angular 0.12.1
 'use strict';
 
 // # Globbing
@@ -8,16 +8,17 @@
 // 'test/spec/**/*.js'
 
 module.exports = function (grunt) {
-
+    // Load grunt tasks automatically
+    require('load-grunt-tasks')(grunt);
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
   // Automatically load required Grunt tasks
-  require('jit-grunt')(grunt, {
-    useminPrepare: 'grunt-usemin',
-    ngtemplates: 'grunt-angular-templates',
-    cdnify: 'grunt-google-cdn'
-  });
+  //require('jit-grunt')(grunt, {
+  //  useminPrepare: 'grunt-usemin',
+  //  ngtemplates: 'grunt-angular-templates',
+  //  cdnify: 'grunt-google-cdn'
+  //});
 
   // Configurable paths for the application
   var appConfig = {
@@ -70,7 +71,7 @@ module.exports = function (grunt) {
     // The actual grunt server settings
     connect: {
       options: {
-        port: 9000,
+        port: 9001,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: 'localhost',
         livereload: 35729
@@ -96,7 +97,7 @@ module.exports = function (grunt) {
       },
       test: {
         options: {
-          port: 9001,
+          port: 9000,
           middleware: function (connect) {
             return [
               connect.static('.tmp'),
@@ -405,7 +406,49 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
-    }
+    },
+      // ng-constants
+    ngconstant: {
+        // Options for all targets
+        options: {
+            space: '  ',
+            wrap: '"use strict";\n\n {%= __ngModule %}',
+            name: 'config',
+        },
+        // Environment targets
+        development: {
+            options: {
+                dest: '<%= yeoman.app %>/scripts/config.js'
+            },
+            constants: {
+                ENV: {
+                    version: '1.0.0', // Must be x.x.x
+                    name: 'development',
+                    urlIframeSso: 'http://localhost:9001/cdlsi.html',
+                    urlApiAuth: 'http://localhost:21355/',
+                    urlApiDanhMuc: '',
+                    urlApiKeHoach: '',
+                    urlApiBanVe: ''
+                }
+            }
+        },
+        production: {
+            options: {
+                dest: '<%= yeoman.app %>/scripts/config.js'
+            },
+            constants: {
+                ENV: {
+                    version: '1.0.0', // Must be x.x.x
+                    name: 'production',
+                    urlIframeSso: 'http://dev2.authadmin.vnticketonline.vn:10006/cdlsi.html',
+                    urlApiAuth: 'http://dev2.authadmin.vnticketonline.vn:10006/auth/',
+                    urlApiDanhMuc: 'http://dev2.danhmuc.vnticketonline.vn/api/',
+                    urlApiKeHoach: '',
+                    urlApiBanVe: ''
+                }
+            }
+        }
+    },
   });
 
 
@@ -416,6 +459,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+       'ngconstant:development', // ADD THIS
       'wiredep',
       'concurrent:server',
       'autoprefixer:server',
@@ -431,6 +475,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
+     'ngconstant:development', // ADD THIS
     'wiredep',
     'concurrent:test',
     'autoprefixer',
@@ -440,6 +485,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    	'ngconstant:production', // ADD THIS
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
