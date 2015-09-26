@@ -532,33 +532,6 @@ namespace Quang.Auth.DataAccess
             }
         }
 
-        private static UserApp _parseUserAppObj(Dictionary<string, string> row)
-        {
-            var userApp = new UserApp();
-            userApp.Id = Int32.Parse(row["Id"]);
-            userApp.UserId = Int32.Parse(row["UserId"]);
-            userApp.IsActive = false;
-            if (!string.IsNullOrEmpty(row["IsActive"]))
-            {
-                userApp.IsActive = Int32.Parse(row["IsActive"]) > 0;
-            }
-            userApp.ApiType = AppApiType.None;
-            if (!string.IsNullOrEmpty(row["ApiType"]))
-            {
-                int apiTypeInt = Int32.Parse(row["ApiType"]);
-                if (apiTypeInt == 1)
-                {
-                    userApp.ApiType = AppApiType.ClientApi;
-                }
-            }
-
-            userApp.ApiName = row["ApiName"];
-            userApp.ApiKey = row["ApiKey"];
-            userApp.ApiSecret = row["ApiSecret"];
-            userApp.AppHosts = row["AppHosts"];
-            userApp.AppIps = row["AppIps"];
-
-            return userApp;
-        }
+      
     }
 }
