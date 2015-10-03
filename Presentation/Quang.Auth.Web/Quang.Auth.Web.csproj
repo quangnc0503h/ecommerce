@@ -60,7 +60,20 @@
   <ItemGroup>
     <Content Include="app\.buildignore" />
     <Content Include="app\.htaccess" />
+    <Content Include="app\scripts\auth.js" />
+    <Content Include="app\scripts\common.js" />
+    <Content Include="app\scripts\config.js" />
+    <Content Include="app\scripts\controllers\group.js" />
+    <Content Include="app\scripts\services\authinterceptorservice.js" />
+    <Content Include="app\scripts\services\authservice.js" />
+    <Content Include="app\scripts\services\groupService.js" />
+    <Content Include="app\scripts\services\permissionservice.js" />
+    <Content Include="app\scripts\services\termservice.js" />
+    <Content Include="app\scripts\services\tokensmanagerservice.js" />
+    <Content Include="app\scripts\services\userservice.js" />
+    <Content Include="app\views\group.html" />
     <Content Include="bower.json" />
+    <Content Include="package.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

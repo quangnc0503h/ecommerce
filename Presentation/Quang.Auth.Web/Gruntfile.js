@@ -425,7 +425,7 @@ module.exports = function (grunt) {
                     version: '1.0.0', // Must be x.x.x
                     name: 'development',
                     urlIframeSso: 'http://localhost:9001/cdlsi.html',
-                    urlApiAuth: 'http://localhost:21355/',
+                    urlApiAuth: 'http://localhost:8085/',
                     urlApiDanhMuc: '',
                     urlApiKeHoach: '',
                     urlApiBanVe: ''

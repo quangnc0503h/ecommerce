@@ -46,7 +46,8 @@
                     <td>{{item.Description}}</td>
                     <td class="text-center" show-if-authenticated="100"><a ng-href="/#group/users/{{item.Id}}">Có {{item.TotalMembers}} thành viên</a></td>
                     <td class="text-center">
-                        <button type="button" class="btn btn-default" ng-click="openDialogGrantUser(item)" show-if-authenticated="140">Phân quyền</button>
+                        <!--<button type="button" class="btn btn-default" ng-click="openDialogGrantUser(item)" show-if-authenticated="140">Phân quyền</button>-->
+                        <button type="button" class="btn btn-default" ng-click="openDialogGrantUser(item)">Phân quyền</button>
                         <button type="button" class="btn btn-default" ng-click="openDialogEditItem(item.Id)">Sửa</button>
                         <button type="button" class="btn btn-default" ng-click="removeItem(item.Id)" ng-disabled="isDisabledBtnDelete{{item.Id }}">Xóa</button>
                     </td>
