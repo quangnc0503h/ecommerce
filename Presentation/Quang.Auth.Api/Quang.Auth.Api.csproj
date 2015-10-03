@@ -246,6 +246,7 @@
     </Compile>
     <Compile Include="Models\FilterGroupInputModel.cs" />
     <Compile Include="Models\FilterInputModel.cs" />
+    <Compile Include="Models\FilterPermissionModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
