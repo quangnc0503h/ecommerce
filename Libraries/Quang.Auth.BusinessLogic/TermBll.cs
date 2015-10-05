@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Quang.Auth.DataAccess;
 using Quang.Auth.Entities;
 using System.Threading.Tasks;
@@ -54,14 +52,10 @@ namespace Quang.Auth.BusinessLogic
             foreach (var term in terms)
             {
                 var key = term.RoleKey;
-                foreach(var roleKey in listRoleKey)
+                foreach (var roleKey in listRoleKey.Where(roleKey => roleKey.Key == key))
                 {
-                    if(roleKey.Key == key)
-                    {
-                        term.RoleKeyLabel = roleKey.Value.RoleKeyLabel;
-                    }
+                    term.RoleKeyLabel = roleKey.Value.RoleKeyLabel;
                 }
-             
             }
             return (terms);
         }
@@ -75,7 +69,7 @@ namespace Quang.Auth.BusinessLogic
             var term = await TermDal.GetOneTerm(termId);
             if (term != null)
             {
-                var item = GetListRoleOptions().Where(m => m.RoleKey == term.RoleKey).FirstOrDefault();
+                var item = GetListRoleOptions().FirstOrDefault(m => m.RoleKey == term.RoleKey);
                 if (item != null)
                 {
                     term.RoleKeyLabel = item.RoleKeyLabel;
@@ -210,7 +204,7 @@ namespace Quang.Auth.BusinessLogic
         {
             var terms = await GetAllTerms();
             var roles = GetListRoleOptions();
-            var missingRoles = roles.Where(m => !terms.Any(n => n.RoleKey == m.RoleKey)).ToArray();
+            var missingRoles = roles.Where(m => terms.All(n => n.RoleKey != m.RoleKey)).ToArray();
             return (missingRoles);
         }
 
@@ -241,13 +235,17 @@ namespace Quang.Auth.BusinessLogic
             foreach (var term in terms)
             {
                 var key = term.Key.RoleKey;
-                if (listRoleKey[term.Key.RoleKey] != null)
+                foreach (var roleKey in listRoleKey)
                 {
-                    term.Key.RoleKeyLabel = listRoleKey[term.Key.RoleKey].RoleKeyLabel;
+                    if (roleKey.Key == key)
+                    {
+                        term.Key.RoleKeyLabel = roleKey.Value.RoleKeyLabel;
+                    }
                 }
-                var userTerm = userTerms.Where(m => m.Key.Id == term.Key.Id).SingleOrDefault();
+              
+                var userTerm = userTerms.SingleOrDefault(m => m.Key.Id == term.Key.Id);
                 var isCustom = userTerm.Key != null ? true : false;
-                var isAccess = isCustom ? userTerm.Value : false;
+                var isAccess = isCustom && userTerm.Value;
                 items.Add(new GrantUserTerm { Term = term.Key, IsCustom = isCustom, IsAccess = isAccess, GroupIsAccess = term.Value });
             }
             return (items);
@@ -256,7 +254,7 @@ namespace Quang.Auth.BusinessLogic
         {
             IList<GrantGroupTerm> items = new List<GrantGroupTerm>();
             var terms = await TermDal.GetAllTerms();
-            var groupTerms = await TermDal.GetTermsByGroup(groupId);
+            var groupTerms = (await TermDal.GetTermsByGroup(groupId)).ToList();
             var listRoleKey = GetListRoleDictionary();
             foreach (var term in terms)
             {
@@ -264,8 +262,8 @@ namespace Quang.Auth.BusinessLogic
                 {
                     term.RoleKeyLabel = listRoleKey[term.RoleKey].RoleKeyLabel;
                 }
-                var groupTerm = groupTerms.Where(m => m.Id == term.Id).SingleOrDefault();
-                var isAccess = groupTerm != null ? true : false;
+                var groupTerm = groupTerms.SingleOrDefault(m => m.Id == term.Id);
+                var isAccess = groupTerm != null;
                 items.Add(new GrantGroupTerm { Term = term, IsAccess = isAccess });
             }
             return (items);
@@ -274,12 +272,12 @@ namespace Quang.Auth.BusinessLogic
         {
             userGrants = userGrants ?? new GrantUserTerm[] { };
             var currentUserTerms = await TermDal.GetTermsByUser(userId);
-            var newUserTerms = userGrants.Where(m => m.IsCustom == true)
-                                .Where(m => !currentUserTerms.Any(n => n.Key.Id == m.Term.Id)
+            var newUserTerms = userGrants.Where(m => m.IsCustom)
+                                .Where(m => currentUserTerms.All(n => n.Key.Id != m.Term.Id)
                                             || currentUserTerms.Any(n => n.Key.Id == m.Term.Id && n.Value != m.IsAccess)
                                 ).ToArray();
             var oldUserTerms = currentUserTerms.Where(m => userGrants.Any(n => n.Term.Id == m.Key.Id && n.IsCustom == false)
-                                           || newUserTerms.Any(n => n.Term.Id == m.Key.Id && n.IsCustom == true && n.IsAccess != m.Value)
+                                           || newUserTerms.Any(n => n.Term.Id == m.Key.Id && n.IsCustom && n.IsAccess != m.Value)
                                 ).ToArray();
 
             // Remove old user terms
@@ -386,17 +384,11 @@ namespace Quang.Auth.BusinessLogic
                 {
                     return true;
                 }
-                else
+                if ((item1 != null && item2 == null) || (item1 == null && item2 != null))
                 {
-                    if ((item1 != null && item2 == null) || (item1 == null && item2 != null))
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        return item1.Id == item2.Id;
-                    }
+                    return false;
                 }
+                return item1.Id == item2.Id;
             }
 
             public int GetHashCode(Term item)
