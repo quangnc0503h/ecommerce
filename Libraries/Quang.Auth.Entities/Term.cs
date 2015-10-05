@@ -23,4 +23,12 @@ namespace Quang.Auth.Entities
 
         public bool IsAccess { get; set; }
     }
+
+    public class GrantUserTerm
+    {
+        public Term Term { get; set; }
+        public bool IsCustom { get; set; }
+        public bool IsAccess { get; set; }
+        public bool GroupIsAccess { get; set; }
+    }
 }

@@ -7,7 +7,7 @@
  * # LoginCtrl
  * Controller of the authclientApp
  */
-angular.module('authclientApp')
+angular.module('quangauthwebApp')
   .controller('LoginCtrl', ['$scope', '$location', 'authService', 'ngAuthSettings', 'ENV', function ($scope, $location, authService, ngAuthSettings, ENV) {
       if (authService.authentication.isAuth) {
           $location.path('/');

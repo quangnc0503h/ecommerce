@@ -1,0 +1,121 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Danh sách các quyền</h3>
+    </div>
+    <div class="panel-body">
+        <nav class="pagination-container">
+            <pagination boundary-links="true" ng-change="pageChanged()" total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" class="pagination" max-size="maxSize" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+        </nav>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid container-fluid-filter">
+                <div class="collapse navbar-collapse">
+                    <form class="navbar-form navbar-left">
+                        <button type="button" class="btn btn-default" ng-click="removeCheckedItems()" ng-disabled="isDisabledBtnDeleteAll">Xóa các quyền đã chọn</button>
+                        <button type="button" class="btn btn-default" ng-click="openDialogCreateItem()">Thêm mới quyền</button>
+                    </form>
+                    <form class="navbar-form navbar-right" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Tìm kiếm..." ng-model="qsearch">
+                        </div>
+                        <button type="submit" class="btn btn-default" ng-click="searchItems()">GO</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center"><input type="checkbox" ng-model="selectedAll" ng-click="checkAll()" /></th>
+                    <th class="text-center">ID</th>
+                    <th>Tên quyền</th>
+                    <th>Diễn giải</th>
+                    <th class="text-center" style="width: 320px;">Tùy chọn</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="item in items">
+                    <td class="text-center"><input type="checkbox" ng-model="item.Selected" /></td>
+                    <td class="text-center">{{item.Id }}</td>
+                    <td>{{item.Name}}</td>
+                    <td>{{item.Description}}</td>
+                    <td class="text-center">
+                        
+                        <!--<button type="button" class="btn btn-default" ng-click="goToGrantItem(item.Id)" show-if-authenticated="130">Thiết lập chức năng</button>-->
+                        <button type="button" class="btn btn-default" ng-click="goToGrantItem(item.Id)">Thiết lập chức năng</button>
+                        <button type="button" class="btn btn-default" ng-click="openDialogEditItem(item.Id)">Sửa</button>
+                        <button type="button" class="btn btn-default" ng-click="removeItem(item.Id)" ng-disabled="isDisabledBtnDelete{{item.Id}}">Xóa</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid container-fluid-filter">
+                <div class="collapse navbar-collapse">
+                    <form class="navbar-form navbar-left">
+                        <button type="button" class="btn btn-default" ng-click="removeCheckedItems()" ng-disabled="isDisabledBtnDeleteAll">Xóa các quyền đã chọn</button>
+                        <button type="button" class="btn btn-default" ng-click="openDialogCreateItem()">Thêm mới quyền</button>
+                    </form>
+                    <form class="navbar-form navbar-right" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Tìm kiếm..." ng-model="qsearch">
+                        </div>
+                        <button type="submit" class="btn btn-default" ng-click="searchItems()">GO</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <nav class="pagination-container">
+            <pagination boundary-links="true" ng-change="pageChanged()" total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" class="pagination" max-size="maxSize" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+        </nav>
+    </div>
+</div>
+
+<!-- Begin modal create -->
+<script type="text/ng-template" id="modalCreatePermissionContent.html">
+    <form name="addForm" id="addForm" novalidate valid-submit="createItem()">
+        <div class="modal-header">
+            <h3 class="modal-title">Thêm mới quyền</h3>
+        </div>
+        <div class="modal-body">
+            <div class="form-group" show-errors>
+                <label class="control-label" for="name">Tên quyền:</label>
+                <input type="text" class="form-control" id="name" name="name" ng-model="item.Name" required autofocus />
+                <p class="help-block" ng-show="addForm.name.$error.required">Tên quyền không được bỏ trống</p>
+            </div>
+            <div class="form-group" show-errors>
+                <label class="control-label" for="description">Diễn giải:</label>
+                <input type="text" class="form-control" id="description" name="description" ng-model="item.Description" />
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" type="submit" ng-disabled="isDisabledBtnCreate">Thêm mới</button>
+            <button class="btn btn-default" type="button" ng-click="cancel()">Đóng</button>
+        </div>
+    </form>
+</script>
+<!-- End modal create -->
+<!-- Begin modal edit -->
+<script type="text/ng-template" id="modalEditPermissionContent.html">
+    <form name="editForm" id="editForm" novalidate valid-submit="updateItem()">
+        <div class="modal-header">
+            <h3 class="modal-title">Hiệu chỉnh thông tin quyền</h3>
+        </div>
+        <div class="modal-body">
+            <div class="form-group" show-errors>
+                <label class="control-label" for="name">Tên quyền:</label>
+                <input type="text" class="form-control" id="name" name="name" ng-model="item.Name" required autofocus />
+                <p class="help-block" ng-show="editForm.name.$error.required">Tên quyền không được bỏ trống</p>
+            </div>
+            <div class="form-group" show-errors>
+                <label class="control-label" for="description">Diễn giải:</label>
+                <input type="text" class="form-control" id="description" name="description" ng-model="item.Description" />
+                <p class="help-block" ng-show="editForm.description.$error.required">Diễn giải không được bỏ trống</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" type="submit" ng-disabled="isDisabledBtnUpdate">Cập nhật</button>
+            <button class="btn btn-default" type="button" ng-click="cancel()">Đóng</button>
+        </div>
+    </form>
+</script>
+<!-- End modal edit -->

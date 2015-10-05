@@ -91,7 +91,7 @@ namespace Quang.Auth.Api.Controllers
             {
                 foreach (var user in users)
                 {
-                    //await PermissionBll.GenerateRolesForUser(user.Id);
+                    await PermissionBll.GenerateRolesForUser(user.Id);
                 }
                 result.Status = 0;
             }

@@ -7,7 +7,7 @@
  * # UnauthorizedCtrl
  * Controller of the authclientApp
  */
-angular.module('authclientApp')
+angular.module('quangauthwebApp')
 .controller('UnauthorizedCtrl', ['$scope', '$location', '$modalInstance', 'Message', 'MessageDetail', function ($scope, $location, $modalInstance, Message, MessageDetail) {
     $scope.Message = Message;
     $scope.MessageDetail = MessageDetail;

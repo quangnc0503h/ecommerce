@@ -63,7 +63,7 @@ namespace Quang.Auth.BusinessLogic
         /// </summary>
         /// <param name="termId"></param>
         /// <returns></returns>
-        public static async Task<Term> GetOneTerm(int termId)
+        public static async Task<Term> GetOneTerm(long termId)
         {
             var term = await TermDal.GetOneTerm(termId);
             if (term != null)
@@ -216,7 +216,7 @@ namespace Quang.Auth.BusinessLogic
         {
             return await TermDal.GetGroupUsersBelongToTerm(termId);
         }
-        public static IEnumerable<ActionRoleItem> GetListRoleOptions()
+        public  static IEnumerable<ActionRoleItem> GetListRoleOptions()
         {
             return GetListRoleDictionary().Select(m => m.Value).ToArray();
         }
@@ -225,7 +225,26 @@ namespace Quang.Auth.BusinessLogic
         {
             return ActionRole.ToListDictionary();
         }
-        public async static Task<IEnumerable<GrantGroupTerm>> GetGrantTermsGroup(int groupId)
+        public static async  Task<IEnumerable<GrantUserTerm>> GetGrantTermsUser(long userId)
+        {
+            IList<GrantUserTerm> items = new List<GrantUserTerm>();
+            var terms = await TermDal.GetUserTermsWithGroupAccess(userId);
+            var userTerms = await TermDal.GetTermsByUser(userId);
+            var listRoleKey = GetListRoleDictionary();
+            foreach (var term in terms)
+            {
+                if (listRoleKey[term.Key.RoleKey] != null)
+                {
+                    term.Key.RoleKeyLabel = listRoleKey[term.Key.RoleKey].RoleKeyLabel;
+                }
+                var userTerm = userTerms.Where(m => m.Key.Id == term.Key.Id).SingleOrDefault();
+                var isCustom = userTerm.Key != null ? true : false;
+                var isAccess = isCustom ? userTerm.Value : false;
+                items.Add(new GrantUserTerm { Term = term.Key, IsCustom = isCustom, IsAccess = isAccess, GroupIsAccess = term.Value });
+            }
+            return (items);
+        }
+        public async static Task<IEnumerable<GrantGroupTerm>> GetGrantTermsGroup(long groupId)
         {
             IList<GrantGroupTerm> items = new List<GrantGroupTerm>();
             var terms = await TermDal.GetAllTerms();
@@ -243,7 +262,53 @@ namespace Quang.Auth.BusinessLogic
             }
             return (items);
         }
+        public static async Task<int> UpdateUserGrant(long userId, IEnumerable<GrantUserTerm> userGrants)
+        {
+            userGrants = userGrants ?? new GrantUserTerm[] { };
+            var currentUserTerms = await TermDal.GetTermsByUser(userId);
+            var newUserTerms = userGrants.Where(m => m.IsCustom == true)
+                                .Where(m => !currentUserTerms.Any(n => n.Key.Id == m.Term.Id)
+                                            || currentUserTerms.Any(n => n.Key.Id == m.Term.Id && n.Value != m.IsAccess)
+                                ).ToArray();
+            var oldUserTerms = currentUserTerms.Where(m => userGrants.Any(n => n.Term.Id == m.Key.Id && n.IsCustom == false)
+                                           || newUserTerms.Any(n => n.Term.Id == m.Key.Id && n.IsCustom == true && n.IsAccess != m.Value)
+                                ).ToArray();
 
+            // Remove old user terms
+            foreach (var oldUserTerm in oldUserTerms)
+            {
+               await  TermDal.RemoveTermFromUser(userId, oldUserTerm.Key.Id);
+            }
+
+            // Add new user terms
+            foreach (var newUserTerm in newUserTerms)
+            {
+                await TermDal.AddTermToUser(userId, newUserTerm.Term.Id, newUserTerm.IsAccess);
+            }
+
+            return 1;
+        }
+        public static async Task<int> UpdateGroupGrant(long groupId, IEnumerable<GrantGroupTerm> groupGrants)
+        {
+            groupGrants = groupGrants ?? new GrantGroupTerm[] { };
+            var currentGroupTerms = await TermDal.GetTermsByGroup(groupId);
+            var newGroupTerms = groupGrants.Where(m => m.IsAccess == true && !currentGroupTerms.Any(n => n.Id == m.Term.Id)).ToArray();
+            var oldGroupTerms = currentGroupTerms.Where(m => groupGrants.Any(n => n.IsAccess == false && n.Term.Id == m.Id)).ToArray();
+
+            // Remove old user terms
+            foreach (var oldGroupTerm in oldGroupTerms)
+            {
+                await TermDal.RemoveTermFromGroup(groupId, oldGroupTerm.Id);
+            }
+
+            // Add new user terms
+            foreach (var newGroupTerm in newGroupTerms)
+            {
+                await TermDal.AddTermToGroup(groupId, newGroupTerm.Term.Id);
+            }
+
+            return (1);
+        }
         public static async Task ReUpdateUserRole(long userId)
         {
             var currentUserRoles = await UserRolesDal.GetRolesByUserId(userId);

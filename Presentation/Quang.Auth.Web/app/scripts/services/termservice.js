@@ -7,7 +7,7 @@
  * # termservice
  * Service in the authclientApp.
  */
-angular.module('authclientApp')
+angular.module('quangauthwebApp')
   .service('termService', ['$resource', 'ENV', function ($resource, ENV) {
       
       var rs = $resource('', {}, {
@@ -31,7 +31,7 @@ angular.module('authclientApp')
       serviceFactory.listRoleOptions = function (callback) {
           rs.listRole().$promise.then(function (res) {
               if (callback) {
-                  callback(res.Options);
+                  callback(res.Data);
               }
           });
       }
@@ -40,7 +40,7 @@ angular.module('authclientApp')
           filter = filter ? filter : {};
           rs.query(filter).$promise.then(function (res) {
               if (callback) {
-                  callback({ items: res.DanhSachTerms, totalCount: res.TotalCount });
+                  callback({ items: res.Data, totalCount: res.Total });
               }
           });
       }
@@ -48,7 +48,7 @@ angular.module('authclientApp')
       serviceFactory.getGrantUserTerms = function (id, callback) {
           rs.getGrantUserTerms({ Id: id }).$promise.then(function (res) {
               if (callback) {
-                  callback(res);
+                  callback(res.Data);
               }
           });
       }
@@ -56,7 +56,7 @@ angular.module('authclientApp')
       serviceFactory.getGrantedUsersByTerm = function (id, callback) {
           rs.getGrantedUsersByTerm({ Id: id }).$promise.then(function (users) {
               if (callback) {
-                  callback(users);
+                  callback(users.Data);
               }
           });
       }
@@ -64,7 +64,7 @@ angular.module('authclientApp')
       serviceFactory.getGrantGroupTerms = function (id, callback) {
           rs.getGrantGroupTerms({ Id: id }).$promise.then(function (res) {
               if (callback) {
-                  callback(res);
+                  callback(res.Data);
               }
           });
       }
@@ -72,8 +72,8 @@ angular.module('authclientApp')
       serviceFactory.getTerm = function (id, callback) {
           rs.read({ Id: id }).$promise.then(function (res) {
               if (callback) {
-                  if (res.Term) {
-                      callback(res.Term);
+                  if (res) {
+                      callback(res);
                   } else {
                       callback({});
                   }
@@ -116,7 +116,7 @@ angular.module('authclientApp')
       serviceFactory.getMissingTerms = function (callback) {
           rs.getMissingTerms().$promise.then(function (res) {
               if (callback) {
-                  callback(res); // Return 0 on success
+                  callback(res.Data); // Return 0 on success
               }
           });
       }

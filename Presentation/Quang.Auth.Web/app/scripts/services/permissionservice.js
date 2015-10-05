@@ -7,7 +7,7 @@
  * # permissionservice
  * Service in the authclientApp.
  */
-angular.module('authclientApp')
+angular.module('quangauthwebApp')
   .service('permissionService', ['$resource', 'ENV', function ($resource, ENV) {
       
       var rs = $resource('', {}, {
@@ -27,7 +27,7 @@ angular.module('authclientApp')
       serviceFactory.listAllOptions = function (callback) {
           rs.listAll().$promise.then(function (res) {
               if (callback) {
-                  callback(res.DanhSachPermissions);
+                  callback(res.Data);
               }
           });
       }
@@ -36,7 +36,7 @@ angular.module('authclientApp')
           filter = filter ? filter : {};
           rs.query(filter).$promise.then(function (res) {
               if (callback) {
-                  callback({ items: res.DanhSachPermissions, totalCount: res.TotalCount });
+                  callback({ items: res.Data, totalCount: res.Total });
               }
           });
       }
@@ -44,8 +44,8 @@ angular.module('authclientApp')
       serviceFactory.getPermission = function (id, callback) {
           rs.read({ Id: id }).$promise.then(function (res) {
               if (callback) {
-                  if (res.Permission) {
-                      callback(res.Permission);
+                  if (res) {
+                      callback(res);
                   } else {
                       callback({});
                   }

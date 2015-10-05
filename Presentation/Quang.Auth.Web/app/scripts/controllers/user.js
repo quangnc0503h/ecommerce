@@ -7,7 +7,7 @@
  * # UserCtrl
  * Controller of the authclientApp
  */
-angular.module('authclientApp')
+angular.module('quangauthwebApp')
   .controller('UserCtrl', ['$scope', '$modal', '$location', '$routeParams', 'userService', 'groupService', 'localDataService', function ($scope, $modal, $location, $routeParams, userService, groupService, localDataService) {
       var pagekey = 'UserCtrlPageInfo' + ($routeParams.groupId ? $routeParams.groupId : '');
       var pageInfo = { qsearch: '', groupId: ($routeParams.groupId ? parseInt($routeParams.groupId) : ''), currentPage: 1, itemsPerPage: 10 };
@@ -34,6 +34,7 @@ angular.module('authclientApp')
               OrderBy: '',
           }
           userService.listUser(filter, function (res) {
+              console.log(res);
               $scope.items = res.items;
               $scope.totalItems = res.totalCount;
               loaded = true;

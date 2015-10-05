@@ -7,7 +7,7 @@
  * # PermissionCtrl
  * Controller of the authclientApp
  */
-angular.module('authclientApp')
+angular.module('quangauthwebApp')
   .controller('PermissionCtrl', ['$scope', '$modal', '$location', 'permissionService', 'localDataService', function ($scope, $modal, $location, permissionService, localDataService) {
       var pagekey = 'PermissionCtrlPageInfo';
       var pageInfo = { qsearch: '', currentPage: 1, itemsPerPage: 10 };

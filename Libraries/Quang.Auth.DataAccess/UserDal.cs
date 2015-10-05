@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
+using System.Security.Claims;
 
 namespace Quang.Auth.DataAccess
 {
@@ -151,7 +152,7 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
 
-                var id = await conn.QueryAsync<ulong>(commandText, parameters);
+                var id = await conn.QueryAsync<long>(commandText, parameters);
                 results = (long)id.Single();
             }
 
@@ -310,7 +311,7 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
                 
-                var id = await conn.QueryAsync<ulong>(sql, parameters);
+                var id = await conn.QueryAsync<long>(sql, parameters);
                 results = (long)id.Single();
             }
 
@@ -532,6 +533,12 @@ namespace Quang.Auth.DataAccess
             }
         }
 
-      
+        public static async Task<IList<Claim>> GetClaimsAsync(long userId)
+        {
+            ClaimsIdentity identity = await UserClaimsDal.GetByUserId(userId);
+
+            return (identity.Claims.ToList());
+        }
+
     }
 }

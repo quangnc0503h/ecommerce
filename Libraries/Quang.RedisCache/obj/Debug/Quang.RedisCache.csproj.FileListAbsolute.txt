@@ -1,0 +1,16 @@
+C:\Projects\ecommerce\Libraries\Quang.RedisCache\obj\Debug\Quang.RedisCache.csprojResolveAssemblyReference.cache
+C:\Projects\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Quang.RedisCache.dll
+C:\Projects\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Quang.RedisCache.pdb
+C:\Projects\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Jil.dll
+C:\Projects\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Newtonsoft.Json.dll
+C:\Projects\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Sigil.dll
+C:\Projects\ecommerce\Libraries\Quang.RedisCache\bin\Debug\StackExchange.Redis.dll
+C:\Projects\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Jil.pdb
+C:\Projects\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Jil.xml
+C:\Projects\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Newtonsoft.Json.xml
+C:\Projects\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Sigil.pdb
+C:\Projects\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Sigil.xml
+C:\Projects\ecommerce\Libraries\Quang.RedisCache\bin\Debug\StackExchange.Redis.pdb
+C:\Projects\ecommerce\Libraries\Quang.RedisCache\bin\Debug\StackExchange.Redis.xml
+C:\Projects\ecommerce\Libraries\Quang.RedisCache\obj\Debug\Quang.RedisCache.dll
+C:\Projects\ecommerce\Libraries\Quang.RedisCache\obj\Debug\Quang.RedisCache.pdb

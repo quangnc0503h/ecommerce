@@ -117,9 +117,42 @@ namespace Quang.Auth.BusinessLogic
         /// <param name="permissionId"></param>
         /// <param name="permissionGrants"></param>
         /// <returns></returns>
-        public async static Task<long> UpdatePermissionGrants(long permissionId, IEnumerable<PermissionGrant> permissionGrants)
+        public async static Task<long> UpdatePermissionGrants(long permissionId, IEnumerable<PermissionGrant> allowGrants, IEnumerable<PermissionGrant> denyGrants)
         {
-            return await PermissionDal.UpdatePermissionGrants(permissionId, permissionGrants);
+            foreach (var item in allowGrants)
+            {
+                item.Type = 1;
+                item.PermissionId = permissionId;
+                if (item.IsExactPattern)
+                {
+                    item.TermPattern = null;
+                }
+                else
+                {
+                    item.TermExactPattern = null;
+                }
+            }
+            foreach (var item in denyGrants)
+            {
+                item.Type = 0;
+                item.PermissionId = permissionId;
+                if (item.IsExactPattern)
+                {
+                    item.TermPattern = null;
+                }
+                else
+                {
+                    item.TermExactPattern = null;
+                }
+            }
+            var permissionGrants = allowGrants.Concat(denyGrants)
+                .Where(m => (m.IsExactPattern && !string.IsNullOrEmpty(m.TermExactPattern)) || (!m.IsExactPattern && !string.IsNullOrEmpty(m.TermPattern))).ToArray();
+            var result = await PermissionDal.UpdatePermissionGrants(permissionId, permissionGrants);
+
+            // Reupdate role for all groups/users
+            await GenerateRolesForUserByPermission(permissionId);
+
+            return result;
         }
 
         public async static Task<long> DeletePermissionGrant(IEnumerable<long> Ids)
@@ -132,9 +165,12 @@ namespace Quang.Auth.BusinessLogic
         /// </summary>
         /// <param name="groupId"></param>
         /// <returns></returns>
-        public async static Task<IEnumerable<Permission>> GetGroupPermissions(long groupId)
+        public async static Task<IEnumerable<PermissionItemGrant>> GetGroupPermissions(long groupId)
         {
-            return await PermissionDal.GetGroupPermissions(groupId);
+            var allPermissions = await PermissionDal.GetAllPermissions();
+            var groupPermissions = (await PermissionDal.GetGroupPermissions(groupId)).Select(m => m.Id).ToArray();
+            var result = allPermissions.Select(m => new PermissionItemGrant { IsGranted = groupPermissions.Contains(m.Id), Permission = m }).ToArray();
+            return result;
         }
         /// <summary>
         /// 
@@ -335,7 +371,7 @@ namespace Quang.Auth.BusinessLogic
             }
             return result;
         }
-        public static async Task<int> GenerateRolesForUserByPermission(int permissionId)
+        public static async Task<long> GenerateRolesForUserByPermission(long permissionId)
         {
             var userIds = await GetAllUserIdHasPermission(permissionId);
             foreach (var userId in userIds)

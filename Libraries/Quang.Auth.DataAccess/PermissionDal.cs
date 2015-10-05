@@ -148,7 +148,7 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
 
-                var id = await conn.QueryAsync<ulong>(sql, parameters);
+                var id = await conn.QueryAsync<long>(sql, parameters);
                 results = (long)id.Single();
             }
 

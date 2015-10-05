@@ -7,7 +7,7 @@
  * # userservice
  * Service in the authclientApp.
  */
-angular.module('authclientApp')
+angular.module('quangauthwebApp')
   .service('userService', ['$resource', 'ENV', function ($resource, ENV) {
       
       var rs = $resource('', {}, {
@@ -36,7 +36,7 @@ angular.module('authclientApp')
           filter = filter ? filter : {};
           rs.query(filter).$promise.then(function (res) {
               if (callback) {
-                  callback({ items: res.DanhSachUsers, totalCount: res.TotalCount });
+                  callback({ items: res.Data, totalCount: res.Total });
               }
           });
       }
@@ -44,8 +44,8 @@ angular.module('authclientApp')
       serviceFactory.getUser = function (id, callback) {
           rs.read({ Id: id }).$promise.then(function (res) {
               if (callback) {
-                  if (res.User) {
-                      callback(res.User);
+                  if (res) {
+                      callback(res);
                   } else {
                       callback({});
                   }
@@ -56,8 +56,8 @@ angular.module('authclientApp')
       serviceFactory.getCurrentUser = function (callback) {
           rs.readCurrentUser().$promise.then(function (res) {
               if (callback) {
-                  if (res.User) {
-                      callback(res.User);
+                  if (res) {
+                      callback(res);
                   } else {
                       callback({});
                   }

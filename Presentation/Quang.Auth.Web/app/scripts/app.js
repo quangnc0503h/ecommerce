@@ -37,12 +37,106 @@ app.config(function ($routeProvider, $authProvider) {
       .otherwise({
         redirectTo: '/'
       });
+    $routeProvider.when("/login", {
+        controller: "LoginCtrl",
+        templateUrl: "views/login.html",
+        resolve: $authProvider.routeResolve()
+    });
+
+    $routeProvider.when("/logout", {
+        controller: "LogoutCtrl",
+        templateUrl: "views/logout.html",
+        resolve: $authProvider.routeResolve()
+    });
+
+    $routeProvider.when("/changepass", {
+        controller: "ChangepassCtrl",
+        templateUrl: "views/changepass.html",
+        resolve: $authProvider.routeResolve()
+    });
+
+    $routeProvider.when("/signup", {
+        controller: "SignupCtrl",
+        templateUrl: "views/signup.html",
+        resolve: $authProvider.routeResolve()
+    });
+
+    $routeProvider.when("/settings", {
+        controller: "SettingsCtrl",
+        templateUrl: "views/settings.html",
+        resolve: $authProvider.routeResolve()
+    });
+
+    $routeProvider.when("/tokens", {
+        controller: "TokensmanagerCtrl",
+        templateUrl: "views/tokens.html",
+        resolve: $authProvider.routeResolve()
+    });
+
+    $routeProvider.when("/associate", {
+        controller: "associateController",
+        templateUrl: "views/associate.html",
+        resolve: $authProvider.routeResolve()
+    });
+
     $routeProvider.when("/group", {
         controller: "GroupCtrl",
         templateUrl: "views/group.html",
-       resolve: $authProvider.routeResolve()
+        resolve: $authProvider.routeResolve()
     });
 
+    $routeProvider.when("/group/grant/:id", {
+        controller: "GroupGrantCtrl",
+        templateUrl: "views/group-grant.html",
+        resolve: $authProvider.routeResolve()
+    });
+
+    $routeProvider.when("/role", {
+        controller: "PermissionCtrl",
+        templateUrl: "views/permission.html",
+        resolve: $authProvider.routeResolve()
+    });
+    $routeProvider.when("/role/grant/:id", {
+        controller: "PermissionGrantCtrl",
+        templateUrl: "views/permission-grant.html",
+        resolve: $authProvider.routeResolve()
+    });
+
+    $routeProvider.when("/term", {
+        controller: "TermCtrl",
+        templateUrl: "views/term.html",
+        resolve: $authProvider.routeResolve()
+    });
+
+    $routeProvider.when("/user", {
+        controller: "UserCtrl",
+        templateUrl: "views/user.html",
+        resolve: $authProvider.routeResolve()
+    });
+
+    $routeProvider.when("/group/users/:groupId", {
+        controller: "UserCtrl",
+        templateUrl: "views/user.html",
+        resolve: $authProvider.routeResolve()
+    });
+
+    $routeProvider.when("/user/add", {
+        controller: "UserEditCtrl",
+        templateUrl: "views/user-edit.html",
+        resolve: $authProvider.routeResolve()
+    });
+
+    $routeProvider.when("/user/edit/:id", {
+        controller: "UserEditCtrl",
+        templateUrl: "views/user-edit.html",
+        resolve: $authProvider.routeResolve()
+    });
+
+    $routeProvider.when("/user/grant/:id", {
+        controller: "UserGrantCtrl",
+        templateUrl: "views/user-grant.html",
+        resolve: $authProvider.routeResolve()
+    });
   });
   
   app.constant('ngAuthSettings', {

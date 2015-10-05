@@ -2,6 +2,7 @@
 using Quang.Auth.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Quang.Auth.BusinessLogic
@@ -39,6 +40,214 @@ namespace Quang.Auth.BusinessLogic
         {
             return await UserDal.GetOneUser(userId);
         }
+
+        public static async Task<User> GetOneUser(long userId, bool getGroups)
+        {
+            var user = await  UserDal.GetOneUser(userId);
+            
+            
+            if (getGroups)
+            {
+                user.UserGroups = await UserDal.GetGroupsByUser(userId);
+            }
+            
+
+            var claims = await UserDal.GetClaimsAsync(user.Id);
+            var displayName = claims.FirstOrDefault(m => m.Type == "displayName");
+            if (displayName != null)
+            {
+                user.DisplayName = displayName.Value;
+            }
+
+            return user;
+        }
+
+        public static async Task<long> CreateUser(User input)
+        {
+            var result = 1;
+       
+            var res = await UserDal.Insert(input);
+            result = 1;
+            if (res > 0)
+            {
+                input.Id = input.Id;
+                if (!string.IsNullOrEmpty(input.Password))
+                {
+                    //res = await UserManager.AddPasswordAsync(user.Id, input.Password);
+                    if (res > 0)
+                    {
+                        // Update display name
+                        res = await UserClaimsDal.Insert( new Claim("displayName", input.DisplayName), input.Id);
+
+                        // Update groups
+                        if (input.UserGroups != null)
+                        {
+                            foreach (var group in input.UserGroups)
+                            {
+                                await UserDal.AddUserToGroup(group.Id, input.Id);
+                            }
+                        }
+                        result = 0;
+                    }
+                }
+                else
+                {
+                    result = 0;
+                }
+            }
+
+            return result;
+        }
+        public static async Task<int> UpdateUser(User input)
+        {
+            return await UpdateUser(input, false);
+        }
+
+        public static async Task<int> UpdateUser(User input, bool updateGroups)
+        {
+            var result =   1 ;
+            var user = await UserDal.GetOneUser(input.Id);
+            if (user != null)
+            {
+                bool canUpdate = true;
+                if (user.UserName != input.UserName)
+                {
+                    var currentUser = (await UserDal.GetUserByName(input.UserName))[0];
+                    if (currentUser != null && currentUser.Id > 0 && currentUser.Id != user.Id)
+                    {
+                        canUpdate = false;
+                    }
+                }
+                if (canUpdate)
+                {
+                    user.UserName = input.UserName;
+                    user.Email = input.Email;
+                    user.PhoneNumber = input.PhoneNumber;
+                    if (!string.IsNullOrEmpty(input.Password))
+                    {
+                        //user.PasswordHash = UserDal.HashPassword(input.Password);
+                    }
+                    var res = await UserDal.Update(user);
+                    if (res > 0)
+                    {
+                        // Update display name
+                        var scopeClaims = new string[] { "displayName" };
+                        var claims = (await UserClaimsDal.GetByUserId(user.Id)).Claims.ToList();
+                        foreach (var claim in claims.Where(m => scopeClaims.Contains(m.Type)))
+                        {
+                            res = await UserClaimsDal.Delete(user.Id, claim);
+                        }
+                        res = await UserClaimsDal.Insert( new Claim("displayName", input.DisplayName),user.Id);
+
+                        if (updateGroups)
+                        {
+                            // Update groups
+                            var currentGroups = (await UserDal.GetGroupsByUser(user.Id)).Select(m => m.Id).ToArray();
+                            if (input.UserGroups != null)
+                            {
+                                foreach (var newGroup in input.UserGroups.Where(m => !currentGroups.Contains(m.Id)))
+                                {
+                                    await UserDal.AddUserToGroup(newGroup.Id, user.Id);
+                                }
+                                foreach (var oldGroup in currentGroups.Where(m => !input.UserGroups.Select(n => n.Id).Contains(m)))
+                                {
+                                    await UserDal.RemoveUserFromGroup(oldGroup, user.Id);
+                                }
+                            }
+                        }
+                        result = 0;
+                    }
+                }
+            }
+            return result;
+        }
+        public async static Task<int> DeleteUser(List<long> Ids)
+        {
+            var result = 1;
+            if (Ids != null && Ids.Count() > 0)
+            {
+                bool success = false;
+                foreach (var id in Ids)
+                {
+                    var user = await UserDal.GetOneUser(id);
+                    if (user != null)
+                    {
+                        var res = await UserDal.Delete(user);
+                        if (res > 0)
+                        {
+                            // Remove all groups from user
+                            var groups = await UserDal.GetGroupsByUser(user.Id);
+                            foreach (var group in groups)
+                            {
+                                await UserBll.RemoveUserFromGroup(group.Id, user.Id);
+                            }
+
+                            // Remove all term from user
+                            var terms = await TermBll.GetTermsByUser(user.Id);
+                            foreach (var term in terms)
+                            {
+                                await TermBll.RemoveTermFromUser(user.Id, term.Key.Id);
+                            }
+
+                            // Remove all permission from group
+                            await PermissionBll.DeleteUserPermissions(user.Id);
+
+                            // Set success result
+                            if (!success)
+                            {
+                                success = res ==0;
+                            }
+                        }
+                    }
+                }
+                if (success)
+                {
+                    result = 0;
+                }
+            }
+            return result;
+        }
+        public static async Task<int> CheckExistUserName(string userName, long id)
+        {
+            var result =   0 ;
+            var user = (await UserDal.GetUserByName(userName))[0];
+            if (user != null)
+            {
+                if (id > 0)
+                {
+                    if (user.Id != id)
+                    {
+                        result = 1;
+                    }
+                }
+                else
+                {
+                    result = 1;
+                }
+            }
+            return result;
+        }
+
+        public static async Task<int> CheckExistEmail(string email, long id)
+        {
+            var result =  0 ;
+            var user = (await UserDal.GetUserByEmail(email))[0];
+            if (user != null)
+            {
+                if (id > 0)
+                {
+                    if (user.Id != id)
+                    {
+                        result = 1;
+                    }
+                }
+                else
+                {
+                    result = 1;
+                }
+            }
+            return result;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -59,7 +268,17 @@ namespace Quang.Auth.BusinessLogic
         /// <returns></returns>
         public async static Task<IEnumerable<User>> GetPaging(int pageSize, int pageNumber, long? groupId, string keyword)
         {
-            return await UserDal.GetPaging(pageSize, pageNumber, groupId, keyword);
+            IEnumerable<User> users = await UserDal.GetPaging(pageSize, pageNumber, groupId, keyword);
+            foreach (var user in users)
+            {
+                var claims = (await UserDal.GetClaimsAsync(user.Id));
+                var displayName = claims.FirstOrDefault(m => m.Type == "displayName");
+                if (displayName != null)
+                {
+                    user.DisplayName = displayName.Value;
+                }
+            }
+            return users;
         }
         /// <summary>
         /// 

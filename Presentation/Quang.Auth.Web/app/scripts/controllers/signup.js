@@ -7,7 +7,7 @@
  * # SignupCtrl
  * Controller of the authclientApp
  */
-angular.module('authclientApp')
+angular.module('quangauthwebApp')
 .controller('SignupCtrl', ['$scope', '$location', '$timeout', 'authService', function ($scope, $location, $timeout, authService) {
     $scope.savedSuccessfully = false;
     $scope.message = "";

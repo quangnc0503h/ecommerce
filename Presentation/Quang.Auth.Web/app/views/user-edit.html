@@ -1,0 +1,82 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title" ng-hide="item.Id > 0">Thêm mới thành viên</h3>
+        <h3 class="panel-title" ng-show="item.Id > 0">Hiệu chỉnh thành viên</h3>
+    </div>
+    <div class="panel-body">
+
+        <form name="editForm" novalidate valid-submit="updateUser()">
+            <!--
+            <div class="form-group" show-errors>
+                <label class="control-label" for="">Trạng thái:</label>
+                <div>
+                    <input type="radio" name="status" ng-model="item.Status" value="1" ng-required="!item.Status" /> Đã xác nhận
+                    <input type="radio" name="status" ng-model="item.Status" value="0" ng-required="!item.Status" /> Chưa xác nhận
+                    <p class="help-block" ng-show="editForm.status.$error.required">Vui lòng chọn trạng thái</p>
+                </div>
+            </div>
+            -->
+
+            <div class="form-group" show-errors>
+                <label class="control-label" for="username">Tên đăng nhập:</label>
+                <input type="text" class="form-control w50" id="username" name="username" ng-model="item.UserName" ng-pattern="/^[0-9a-zA-Z\_]*$/" required check-exist-username="{{item.Id}}" autofocus />
+                <p class="help-block" ng-show="editForm.username.$error.required">Tên đăng nhập không được bỏ trống</p>
+                <p class="help-block" ng-show="editForm.username.$error.pattern">Tên đăng nhập không không đúng</p>
+                <p class="help-block" ng-show="editForm.username.$error.checkExistUsername">Tên đăng nhập này đã tồn tại</p>
+            </div>
+
+            <div class="form-group" show-errors>
+                <label class="control-label" for="displayName">Tên hiển thị:</label>
+                <input type="text" class="form-control w50" id="displayName" name="displayName" ng-model="item.DisplayName" required />
+                <p class="help-block" ng-show="editForm.displayName.$error.required">Tên hiển thị không được bỏ trống</p>
+            </div>
+            
+            <div class="form-group" show-errors>
+                <label class="control-label" for="email">Email:</label>
+                <input type="email" class="form-control w50" id="email" name="email" ng-model="item.Email" required />
+                <p class="help-block" ng-show="editForm.email.$error.required">Email không được bỏ trống</p>
+                <p class="help-block" ng-show="editForm.email.$error.email">Vui lòng nhập đúng định dạng email</p>
+            </div>
+
+            <div class="form-group" show-errors>
+                <label class="control-label" for="phoneNumber">Điện thoại:</label>
+                <input type="text" class="form-control w50" id="phoneNumber" name="phoneNumber" ng-model="item.PhoneNumber" />
+                <p class="help-block" ng-show="editForm.phoneNumber.$error.required">Điện thoại không được bỏ trống</p>
+            </div>
+
+            <div class="form-group" show-errors>
+                <label class="control-label" for="password">Mật khẩu:</label>
+                <input type="password" class="form-control w50" id="password" name="password" ng-model="item.Password" ng-required="!item.Id" />
+                <p class="help-block" ng-show="editForm.password.$error.required">Mật khẩu không được bỏ trống</p>
+            </div>
+
+            <div class="form-group" show-errors>
+                <label class="control-label" for="confirmPassword">Xác nhận mật khẩu:</label>
+                <input type="password" class="form-control w50" id="confirmPassword" name="confirmPassword" ng-model="item.ConfirmPassword" ng-required="!item.Id" password-verify="item.Password" />
+                <p class="help-block" ng-show="editForm.confirmPassword.$error.required">Xác nhận mật khẩu không được bỏ trống</p>
+                <p class="help-block" ng-show="editForm.confirmPassword.$error.passwordVerify">Xác nhận mật khẩu không chính xác</p>
+            </div>
+
+            <div ng-repeat="userGroup in item.UserGroups">
+                <div class="form-group input-group w70" show-errors style="float: left; margin-right: 8px;">
+                    <span class="input-group-addon">Nhóm số {{$index + 1}}:</span>
+                    <select class="form-control" id="groupId{{$index}}" name="groupId{{$index}}" ng-model="userGroup.Id" ng-options="i.Id as i.Name for i in listGroups" required>
+                        <option value="">-- Chọn nhóm --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-default" ng-click="addItem($index)"><span class="glyphicon glyphicon-plus-sign"></span> Thêm nhóm</button> &nbsp;
+                    <button type="button" class="btn btn-default" ng-click="removeItem($index)"><span class="glyphicon glyphicon-minus-sign"></span> Bỏ nhóm</button>
+                </div>
+            </div>
+            <p ng-hide="item.UserGroups.length > 0">
+                <button type="button" class="btn btn-default" ng-click="addItem(-1)"><span class="glyphicon glyphicon-plus-sign"></span> Thêm nhóm</button>
+            </p>
+
+            <p style="clear: both;">
+                <button type="button" class="btn btn-default" ng-click="backToList()">Quay về danh sách</button> &nbsp;
+                <button type="submit" class="btn btn-primary" ng-disabled="isDisabledBtnUpdate">Lưu lại</button>
+            </p>
+        </form>
+    </div>
+</div>

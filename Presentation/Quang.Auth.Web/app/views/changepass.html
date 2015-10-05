@@ -1,0 +1,39 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Đổi mật khẩu</h3>
+    </div>
+    <div class="panel-body">
+
+        <form name="editForm" novalidate valid-submit="changePass()">
+
+            <div class="form-group" show-errors>
+                <label class="control-label" for="username">Tên đăng nhập:</label>
+                <input type="text" class="form-control w50" ng-model="user.UserName" disabled />
+            </div>
+
+            <div class="form-group" show-errors ng-hide="!user.HasPassword">
+                <label class="control-label" for="oldPassword">Mật khẩu hiện tại:</label>
+                <input type="password" class="form-control w50" id="oldPassword" name="oldPassword" ng-model="item.OldPassword" ng-required="user.HasPassword" autofocus />
+                <p class="help-block" ng-show="editForm.oldPassword.$error.required">Mật khẩu hiện tại không được bỏ trống</p>
+            </div>
+
+            <div class="form-group" show-errors>
+                <label class="control-label" for="newPassword">Mật khẩu:</label>
+                <input type="password" class="form-control w50" id="newPassword" name="newPassword" ng-model="item.NewPassword" ng-required="!item.Id" />
+                <p class="help-block" ng-show="editForm.newPassword.$error.required">Mật khẩu không được bỏ trống</p>
+            </div>
+
+            <div class="form-group" show-errors>
+                <label class="control-label" for="confirmPassword">Xác nhận mật khẩu:</label>
+                <input type="password" class="form-control w50" id="confirmPassword" name="confirmPassword" ng-model="item.ConfirmPassword" required="!item.NewPassword" password-verify="item.NewPassword" />
+                <p class="help-block" ng-show="editForm.confirmPassword.$error.required">Xác nhận mật khẩu không được bỏ trống</p>
+                <p class="help-block" ng-show="editForm.confirmPassword.$error.passwordVerify">Xác nhận mật khẩu không chính xác</p>
+            </div>
+
+            <p style="clear: both;">
+                <button type="reset" class="btn btn-default">Làm lại</button> &nbsp;
+                <button type="submit" class="btn btn-primary">Đổi mật khẩu</button>
+            </p>
+        </form>
+    </div>
+</div>

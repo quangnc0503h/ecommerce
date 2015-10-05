@@ -7,7 +7,7 @@
  * # ChangepassCtrl
  * Controller of the authclientApp
  */
-angular.module('authclientApp')
+angular.module('quangauthwebApp')
   .controller('ChangepassCtrl', ['$scope', '$location', 'authService', 'userService', 'groupService', function ($scope, $location, authService, userService, groupService) {
       
       $scope.item = {};

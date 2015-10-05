@@ -22,6 +22,8 @@ namespace Quang.Auth.Entities
         /// </summary>
         public virtual string Email { get; set; }
 
+        public string Password { get; set; }
+
         /// <summary>
         ///     True if the email is confirmed, default is false
         /// </summary>
@@ -66,5 +68,9 @@ namespace Quang.Auth.Entities
         ///     Used to record failures for the purposes of lockout
         /// </summary>
         public virtual int AccessFailedCount { get; set; }
+
+        public string DisplayName { get; set; }
+
+        public IEnumerable<Group> UserGroups { get; set; }
     }
 }

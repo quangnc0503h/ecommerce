@@ -5,6 +5,8 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
+using Quang.Auth.Entities;
+
 namespace Quang.Auth.DataAccess
 {
     public static class UserClaimsDal
@@ -17,15 +19,15 @@ namespace Quang.Auth.DataAccess
         public async static Task<ClaimsIdentity> GetByUserId(long userId)
         {
             ClaimsIdentity claims = new ClaimsIdentity();
-            string commandText = "Select ClaimType, ClaimValue from UserClaims where UserId = @userId";
+            string commandText = "Select ClaimType , ClaimValue from UserClaims where UserId = @userId";
             Dictionary<string, object> parameters = new Dictionary<string, object>() { { "@UserId", userId } };
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
-                var rows = await conn.QueryAsync<Claim>(commandText, parameters);
+                var rows = await conn.QueryAsync<UserClaim>(commandText, parameters);
                 foreach (var row in rows)
                 {
-                   // Claim claim = new Claim(row["ClaimType"], row["ClaimValue"]);
-                    claims.AddClaim(row);
+                    Claim claim = new Claim(row.ClaimType, row.ClaimValue);
+                    claims.AddClaim(claim);
                 }
             }
                

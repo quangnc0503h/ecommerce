@@ -1,0 +1,81 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Thiết lập chức năng truy cập đối với quyền <strong>{{permission.Name}}</strong></h3>
+    </div>
+    <div class="panel-body">
+        <form name="editForm" novalidate valid-submit="updatePermissionGrant()">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th class="w50 text-center">Chức năng được phép truy cập</th>
+                        <th class="w50 text-center">Chức năng bị hạn chế truy cập</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div ng-repeat="allowItem in allowItems" class="form-group input-group" show-errors style="float: left; margin-right: 8px;">
+                                <span class="input-group-addon">
+                                    <input type="radio" name="allowIsExactPattern{{$index}}" id="allowIsExactPattern{{$index}}1" ng-model="allowItem.IsExactPattern" ng-value="true" /> <label for="allowIsExactPattern{{$index}}1" style="font-weight: normal;">Chính xác</label>
+                                    <input type="radio" name="allowIsExactPattern{{$index}}" id="allowIsExactPattern{{$index}}0" ng-model="allowItem.IsExactPattern" ng-value="false" /> <label for="allowIsExactPattern{{$index}}0" style="font-weight: normal;">Tương đối</label>
+                                </span>
+                                <div ng-show="allowItem.IsExactPattern">
+                                    <select class="form-control" id="allowTermPattern{{$index}}" name="allowTermPattern{{$index}}" ng-model="allowItem.TermExactPattern" ng-options="value.RoleKey as value.RoleKeyLabel group by value.Group for value in listRoleOptions">
+                                        <option value="">-- Chọn quyền --</option>
+                                    </select>
+                                </div>
+                                <div ng-show="!allowItem.IsExactPattern">
+                                    <autocomplete id="allowTermExactPattern{{$index}}" name="allowTermExactPattern{{$index}}" ng-model="allowItem.TermPattern" data="listRoles" attrplaceholder="Chọn quyền.."></autocomplete>
+                                </div>
+                                <span class="input-group-addon" style="cursor: pointer" ng-click="removeItemAllow($index)"><span class="glyphicon glyphicon-minus"></span> Xóa</span>
+                                <p class="help-block" ng-show="editForm.allowTermPattern{{$index}}.$error.required">Quyền không được bỏ trống</p>
+                                <p class="help-block" ng-show="editForm.allowTermExactPattern{{$index}}.$error.required">Quyền không được bỏ trống</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div ng-repeat="denyItem in denyItems" class="form-group input-group" show-errors style="float: left; margin-right: 8px;">
+                                <span class="input-group-addon">
+                                    <input type="radio" name="denyIsExactPattern{{$index}}" id="denyIsExactPattern{{$index}}1" ng-model="denyItem.IsExactPattern" ng-value="true" /> <label for="denyIsExactPattern{{$index}}1" style="font-weight: normal;">Chính xác</label>
+                                    <input type="radio" name="denyIsExactPattern{{$index}}" id="denyIsExactPattern{{$index}}0" ng-model="denyItem.IsExactPattern" ng-value="false" /> <label for="denyIsExactPattern{{$index}}0" style="font-weight: normal;">Tương đối</label>
+                                </span>
+                                <div ng-show="denyItem.IsExactPattern">
+                                    <select class="form-control" id="denyTermPattern{{$index}}" name="denyTermPattern{{$index}}" ng-model="denyItem.TermExactPattern" ng-options="value.RoleKey as value.RoleKeyLabel group by value.Group for value in listRoleOptions">
+                                        <option value="">-- Chọn quyền --</option>
+                                    </select>
+                                </div>
+                                <div ng-show="!denyItem.IsExactPattern">
+                                    <autocomplete id="denyTermExactPattern{{$index}}" name="denyTermExactPattern{{$index}}" ng-model="denyItem.TermPattern" data="listRoles" attrplaceholder="Chọn quyền.."></autocomplete>
+                                </div>
+                                <span class="input-group-addon" style="cursor: pointer" ng-click="removeItemDeny($index)"><span class="glyphicon glyphicon-minus"></span> Xóa</span>
+                                <p class="help-block" ng-show="editForm.denyTermPattern{{$index}}.$error.required">Quyền không được bỏ trống</p>
+                                <p class="help-block" ng-show="editForm.denyTermExactPattern{{$index}}.$error.required">Quyền không được bỏ trống</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr data-ng-repeat="item in items">
+                        <td>
+                            <input type="checkbox" ng-model="item.IsAccess" id="isAccess{{$index}}" />
+                            <label for="isAccess{{$index}}" ng-show="item.IsAccess" style="font-weight: normal">Có quyền truy cập</label>
+                            <label for="isAccess{{$index}}" ng-show="!item.IsAccess" style="font-weight: normal">Không có quyền truy cập</label>
+                        </td>
+                        <td>{{item.Term.RoleKeyLabel }}</td>
+                        <td>{{item.Term.Name }}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="button" class="btn btn-default" ng-click="addItemAllow()"><span class="glyphicon glyphicon-plus-sign"></span> Thêm chức năng được truy cập</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-default" ng-click="addItemDeny()"><span class="glyphicon glyphicon-plus-sign"></span> Thêm chức năng bị hạn chế</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <p style="clear: both;">
+                <button type="button" class="btn btn-default" ng-click="backToList()">Quay về danh sách quyền</button> &nbsp;
+                <button type="submit" class="btn btn-primary" ng-disabled="isDisabledBtnUpdate">Thực hiện thiết lập</button>
+            </p>
+        </form>
+    </div>
+</div>

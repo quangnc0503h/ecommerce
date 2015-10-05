@@ -7,7 +7,7 @@
  * # TokensmanagerCtrl
  * Controller of the authclientApp
  */
-angular.module('authclientApp')
+angular.module('quangauthwebApp')
    .controller('TokensmanagerCtrl', ['$scope', 'tockensmanagerService', function ($scope, tokensManagerService) {
        $scope.refreshTokens = [];
 

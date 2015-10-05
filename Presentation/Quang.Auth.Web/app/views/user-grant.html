@@ -1,0 +1,50 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Phân quyền đối với thành viên <strong>{{user.UserName}}</strong></h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <!--<th class="text-center">ID</th>-->
+                    <th class="w40 text-center">Thiết lập quyền</th>
+                    <th class="w30">Mã quyền</th>
+                    <th class="w30">Tên quyền</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="item in items">
+                    <!--<td class="text-center">{{item.Term.Id}}</td>-->
+                    <td>
+                        <input type="radio" ng-model="item.IsCustom" id="isCustom{{$index}}0" ng-value="false" /> <label for="isCustom{{$index}}0" style="font-weight: normal">Theo nhóm</label> &nbsp;
+                        <input type="radio" ng-model="item.IsCustom" id="isCustom{{$index}}1" ng-value="true" /> <label for="isCustom{{$index}}1" style="font-weight: normal">Thiết lập riêng</label> &nbsp;
+                        <input type="checkbox" ng-model="item.IsAccess" id="isAccess{{$index}}" ng-show="item.IsCustom == true" />
+                        <input type="checkbox" ng-model="item.GroupIsAccess" ng-show="item.IsCustom == false" disabled />
+                        <label for="isAccess{{$index}}" ng-show="item.IsCustom && item.IsAccess" style="font-weight: normal">Có quyền truy cập</label>
+                        <label for="isAccess{{$index}}" ng-show="item.IsCustom && !item.IsAccess" style="font-weight: normal">Không có quyền truy cập</label>
+
+                        <label for="isAccess{{$index}}" ng-show="!item.IsCustom && item.GroupIsAccess" style="font-weight: normal">Có quyền truy cập</label>
+                        <label for="isAccess{{$index}}" ng-show="!item.IsCustom && !item.GroupIsAccess" style="font-weight: normal">Không có quyền truy cập</label>
+                    </td>
+                    <td>{{item.Term.RoleKeyLabel }}</td>
+                    <td>{{item.Term.Name }}</td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <input type="radio" ng-model="isCustomAll" id="isCustomAll0" ng-value="false" ng-click="checkIsCustomAll()" /> <label for="isCustomAll0">Tất cả theo nhóm</label> &nbsp;
+                        <input type="radio" ng-model="isCustomAll" id="isCustomAll1" ng-value="true" ng-click="checkIsCustomAll()" /> <label for="isCustomAll1">Tất cả thiết lập riêng</label> &nbsp;
+
+                        <input type="checkbox" ng-model="isAccessAll" id="isAccessAll" ng-click="checkIsAccessAll()" ng-disabled="!isCustomAll" />
+                        <label for="isAccessAll" ng-show="isAccessAll">Tất cả có quyền truy cập</label>
+                        <label for="isAccessAll" ng-show="!isAccessAll">Tất cả không có quyền truy cập</label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p style="clear: both;">
+            <button type="button" class="btn btn-default" ng-click="backToList()">Quay về danh sách thành viên</button> &nbsp;
+            <button type="button" class="btn btn-primary" ng-click="updateGrant()">Thực hiện phân quyền</button>
+        </p>
+    </div>
+</div>
