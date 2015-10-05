@@ -8,7 +8,9 @@
             <span class="sr-only">Chú ý:</span>
             Các mã chức năng sau chưa được thêm vào hệ thống
             <ul style="margin-top: 10px;">
-                <li ng-repeat="missingTerm in missingTerms" style="color: #3c763d;">{{missingTerm.RoleKeyLabel}} <a href="javascript:;" ng-click="openDialogCreateItem({{missingTerm.RoleKey}})">Thêm</a></li>
+                <li ng-repeat="missingTerm in missingTerms" style="color: #3c763d;">{{missingTerm.RoleKeyLabel}}
+                 <a href="javascript:;" ng-click="openDialogCreateItem({{missingTerm.RoleKey}})">Thêm</a>
+                </li>
             </ul>
         </div>
         <nav class="pagination-container">

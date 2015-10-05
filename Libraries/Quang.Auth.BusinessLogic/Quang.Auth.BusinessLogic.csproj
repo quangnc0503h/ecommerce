@@ -56,6 +56,10 @@
       <Project>{3e3016b2-17f3-4e98-a7e9-33bba15aca6f}</Project>
       <Name>Quang.Auth.Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Quang.Common\Quang.Common.csproj">
+      <Project>{44efc64f-1ec9-4075-a13b-5be544881ba0}</Project>
+      <Name>Quang.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

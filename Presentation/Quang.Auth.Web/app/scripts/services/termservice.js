@@ -18,7 +18,7 @@ angular.module('quangauthwebApp')
           save: { method: 'POST', url: ENV.urlApiAuth + 'api/Term/UpdateTerm' },
           remove: { method: 'POST', url: ENV.urlApiAuth + 'api/Term/DeleteTerm' },
           listRole: { method: 'GET', url: ENV.urlApiAuth + 'api/Term/ListRoleOptions' },
-          getMissingTerms: { method: 'GET', url: ENV.urlApiAuth + 'api/Term/GetMissingTerms', isArray: true },
+          getMissingTerms: { method: 'GET', url: ENV.urlApiAuth + 'api/Term/GetMissingTerms'},
           getGrantUserTerms: { method: 'POST', url: ENV.urlApiAuth + 'api/Term/GetGrantTermsUser', isArray: true },
           updateUserGrant: { method: 'POST', url: ENV.urlApiAuth + 'api/Term/UpdateUserGrant' },
           getGrantGroupTerms: { method: 'POST', url: ENV.urlApiAuth + 'api/Term/GetGrantTermsGroup', isArray: true },
@@ -116,6 +116,7 @@ angular.module('quangauthwebApp')
       serviceFactory.getMissingTerms = function (callback) {
           rs.getMissingTerms().$promise.then(function (res) {
               if (callback) {
+                  //console.log(res);
                   callback(res.Data); // Return 0 on success
               }
           });

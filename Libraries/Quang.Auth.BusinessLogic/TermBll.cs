@@ -5,6 +5,8 @@ using System.Text;
 using Quang.Auth.DataAccess;
 using Quang.Auth.Entities;
 using System.Threading.Tasks;
+using Quang.Common.Auth;
+
 namespace Quang.Auth.BusinessLogic
 {
     public  static class TermBll
@@ -51,10 +53,15 @@ namespace Quang.Auth.BusinessLogic
             var listRoleKey = GetListRoleDictionary();
             foreach (var term in terms)
             {
-                if (listRoleKey[term.RoleKey] != null)
+                var key = term.RoleKey;
+                foreach(var roleKey in listRoleKey)
                 {
-                    term.RoleKeyLabel = listRoleKey[term.RoleKey].RoleKeyLabel;
+                    if(roleKey.Key == key)
+                    {
+                        term.RoleKeyLabel = roleKey.Value.RoleKeyLabel;
+                    }
                 }
+             
             }
             return (terms);
         }
@@ -233,6 +240,7 @@ namespace Quang.Auth.BusinessLogic
             var listRoleKey = GetListRoleDictionary();
             foreach (var term in terms)
             {
+                var key = term.Key.RoleKey;
                 if (listRoleKey[term.Key.RoleKey] != null)
                 {
                     term.Key.RoleKeyLabel = listRoleKey[term.Key.RoleKey].RoleKeyLabel;
