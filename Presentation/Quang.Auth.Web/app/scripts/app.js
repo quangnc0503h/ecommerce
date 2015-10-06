@@ -8,31 +8,33 @@
  *
  * Main module of the application.
  */
-var app = angular.module('quangauthwebApp', ['config',
-    'ngAnimate',
-    'ngAria',
-    'ngCookies',
-    'ngMessages',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch',
-    'ui.bootstrap',
-     'LocalStorageModule',
-     'xdLocalStorage', 'auth',
+var app = angular
+    .module('quangauthwebApp', [
+        'config',
+        'ngAnimate',
+        'ngCookies',
+        'ngMessages',
+        'ngResource',
+        'ngRoute',
+        'ngSanitize',
+        'ngTouch',
+        'ui.bootstrap',
+        'LocalStorageModule',
+        'xdLocalStorage',
+        'auth',
         'angular-loading-bar'
-]);
+    ]);
 app.config(function ($routeProvider, $authProvider) {
     $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
-      })
+       .when('/', {
+           templateUrl: 'views/main.html',
+           controller: 'MainCtrl',
+           resolve: $authProvider.routeResolve()
+       })
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl',
-        controllerAs: 'about'
+        resolve: $authProvider.routeResolve()
       })
       .otherwise({
         redirectTo: '/'

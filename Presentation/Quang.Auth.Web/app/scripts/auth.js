@@ -1,6 +1,7 @@
 ﻿(function (window, angular, undefined) {
     'use strict';
     var module = angular.module('auth', ['config']).provider('$auth', $authProvider);
+
     function $authProvider() {
         var t = this;
         this.routeResolve = function (resolve) {

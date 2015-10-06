@@ -2,11 +2,14 @@
 
 angular.module('quangauthwebApp')
     .directive('showIfAuthenticated', ['$rootScope', 'authService', function ($rootScope, authService) {
+       
         var render = function ($scope, element, attrs, ctrl) {
+            
             $rootScope.$watch("isAuthLoaded", function () {
+                
                 if ($rootScope.isAuthLoaded == true) {
                     if (attrs.showIfAuthenticated == 'false' || attrs.showIfAuthenticated === false || attrs.showIfAuthenticated === '0') {
-                        console.log(authService.authentication.isAuth);
+                        
                         if (authService.authentication.isAuth) {
                             element.hide();
                         } else {

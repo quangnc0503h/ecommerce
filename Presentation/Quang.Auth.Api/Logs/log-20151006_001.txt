@@ -1,0 +1,2 @@
+﻿2015-10-06 15:55:47.702 +07:00 [Information] HTTP "GET" for "/"
+2015-10-06 15:55:48.508 +07:00 [Information] HTTP "GET" for "/__browserLink/requestData/9d012816211c4542b5c9a6e30f6d8783?version=2"
