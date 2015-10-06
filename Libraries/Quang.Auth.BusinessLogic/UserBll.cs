@@ -309,6 +309,11 @@ namespace Quang.Auth.BusinessLogic
         {
             return await UserDal.RemoveUserFromGroup(groupId, userId);
         }
+        public static async Task<UserApp> GetUserApp(string userApiKey)
+        {
+            return await GetUserApp(userApiKey, true);
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -363,6 +368,29 @@ namespace Quang.Auth.BusinessLogic
                 }
             }
             return (users);
+        }
+        public async static Task<List<string>> GetRolesByUserId(long userId)
+        {
+            return await UserRolesDal.GetRolesByUserId(userId);
+        }
+
+        public async static Task<IList<Claim>> GetClaimsAsync(long userId)
+        {
+            return (await UserClaimsDal.GetByUserId(userId)).Claims.ToList();
+        }
+
+        public static async Task<User> FindUserAsync(string loginProvider, string providerKey)
+        {
+            return await UserDal.FindUserAsync(loginProvider, providerKey);
+        }
+        public static async Task<long> InsertUserLogIn(long userId, string loginProvider, string providerKey)
+        {
+            return await UserLoginDal.Insert(userId, loginProvider, providerKey);
+        }
+
+        public async static Task<long> InsertUserClaim(string claimValue, string claimType, long userId)
+        {
+            return await UserClaimsDal.Insert(claimValue, claimType, userId);
         }
     }
 }

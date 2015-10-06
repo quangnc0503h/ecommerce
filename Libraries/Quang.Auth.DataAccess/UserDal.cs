@@ -32,6 +32,23 @@ namespace Quang.Auth.DataAccess
 
             return users;
         }
+
+        public static async Task<User> FindUserAsync(string loginProvider, string providerKey)
+        {
+            List<User> users = new List<User>();
+            var commandText = "select u.* from Users u inner join ExternalLogins l on l.UserId = u.UserId where l.LoginProvider = @loginProvider and l.ProviderKey = @providerKey";
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("loginProvider", loginProvider);
+            parameters.Add("providerKey", providerKey);
+            using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
+            {
+
+                var data = await conn.QueryAsync<User>(commandText, parameters);
+                users = data.ToList();
+            }
+
+            return users.FirstOrDefault();
+        }
         /// <summary>
         /// Returns a list of TUser instances given a user name
         /// </summary>
@@ -124,6 +141,7 @@ namespace Quang.Auth.DataAccess
 
             return results;
         }
+      
         /// <summary>
         /// Inserts a new user in the Users table
         /// </summary>

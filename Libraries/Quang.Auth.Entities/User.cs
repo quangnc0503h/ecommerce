@@ -1,12 +1,23 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace Quang.Auth.Entities
 {
-    public class User
+    public class User :  IUser<long>
     {
+        public User(string userName)
+            : this()
+        {
+            UserName = userName;
+        }
+
+        public User()
+        {
+        }
+
         /// <summary>
         /// User ID
         /// </summary>

@@ -8,6 +8,7 @@ using Microsoft.Owin.Security.Facebook;
 using Microsoft.Owin.Security.Google;
 using System.Configuration;
 using System.Threading.Tasks;
+using Quang.Auth.Api.Providers;
 
 namespace Quang.Auth.Api
 {
@@ -25,8 +26,8 @@ namespace Quang.Auth.Api
         {
             // Configure the db context and user manager to use a single instance per request
             //app.CreatePerOwinContext(ApplicationDbContext.Create);
-           // app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-            //app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
+            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
@@ -39,7 +40,7 @@ namespace Quang.Auth.Api
             OAuthOptions = new OAuthAuthorizationServerOptions
             {
                 TokenEndpointPath = new PathString("/token"),
-              //  Provider = new ApplicationOAuthProvider(PublicClientId),
+                Provider = new ApplicationOAuthProvider(PublicClientId),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                 AccessTokenExpireTimeSpan = AccessTokenExpireTimeSpan,
                 AllowInsecureHttp = true
@@ -62,7 +63,7 @@ namespace Quang.Auth.Api
             {
                 AppId = ConfigurationManager.AppSettings["OAuth.Facebook.AppId"],
                 AppSecret = ConfigurationManager.AppSettings["OAuth.Facebook.AppSecret"],
-                //Provider = new FacebookAuthProvider()
+                Provider = new FacebookAuthProvider()
             };
             facebookAuthOptions.Scope.Add("email"); // Get external email
             app.UseFacebookAuthentication(facebookAuthOptions);
@@ -71,7 +72,7 @@ namespace Quang.Auth.Api
             {
                 ClientId = ConfigurationManager.AppSettings["OAuth.Google.ClientId"],
                 ClientSecret = ConfigurationManager.AppSettings["OAuth.Google.ClientSecret"],
-                //Provider = new GoogleAuthProvider()
+                Provider = new GoogleAuthProvider()
             };
             googleAuthOptions.Scope.Add("email"); // Get external email
             app.UseGoogleAuthentication(googleAuthOptions);

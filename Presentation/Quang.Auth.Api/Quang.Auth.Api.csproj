@@ -233,10 +233,12 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\LogConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PermissionController.cs" />
@@ -246,13 +248,22 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\DataSourceResultModel.cs" />
+    <Compile Include="Models\ExternalLoginViewModel.cs" />
     <Compile Include="Models\FilterGroupInputModel.cs" />
     <Compile Include="Models\FilterInputModel.cs" />
     <Compile Include="Models\FilterPermissionModel.cs" />
+    <Compile Include="Models\ParsedExternalAccessToken.cs" />
+    <Compile Include="Models\RegisterBindingModel.cs" />
+    <Compile Include="Models\RegisterExternalBindingModel.cs" />
     <Compile Include="Models\TermModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\ApplicationOAuthProvider.cs" />
+    <Compile Include="Providers\FacebookAuthProvider.cs" />
+    <Compile Include="Providers\GoogleAuthProvider.cs" />
+    <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

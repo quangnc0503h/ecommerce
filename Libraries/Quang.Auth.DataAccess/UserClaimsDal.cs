@@ -84,6 +84,27 @@ namespace Quang.Auth.DataAccess
             return results;
         }
 
+        public async static Task<long> Insert(string claimValue, string claimType, long userId)
+        {
+            string commandText = "Insert into UserClaims (ClaimValue, ClaimType, UserId) values (@value, @type, @userId)";
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("value", claimValue);
+            parameters.Add("type", claimType);
+            parameters.Add("userId", userId);
+
+
+            long results;
+
+            using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
+            {
+
+                results = await conn.ExecuteAsync(commandText, parameters);
+
+            }
+
+            return results;
+        }
+
         /// <summary>
         /// Deletes a claim from a user 
         /// </summary>

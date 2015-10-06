@@ -70,6 +70,7 @@
     <Compile Include="TermDal.cs" />
     <Compile Include="UserClaimsDal.cs" />
     <Compile Include="UserDal.cs" />
+    <Compile Include="UserLoginDal.cs" />
     <Compile Include="UserRoleDal.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>

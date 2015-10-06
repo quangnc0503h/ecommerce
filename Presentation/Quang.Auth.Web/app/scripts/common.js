@@ -6,12 +6,13 @@ angular.module('quangauthwebApp')
             $rootScope.$watch("isAuthLoaded", function () {
                 if ($rootScope.isAuthLoaded == true) {
                     if (attrs.showIfAuthenticated == 'false' || attrs.showIfAuthenticated === false || attrs.showIfAuthenticated === '0') {
-                        //if (authService.authentication.isAuth) {
-                        //    element.hide();
-                        //} else {
-                        //    element.show();
-                        //}
-                        element.show();
+                        console.log(authService.authentication.isAuth);
+                        if (authService.authentication.isAuth) {
+                            element.hide();
+                        } else {
+                            element.show();
+                        }
+                        //element.show();
                     } else if (attrs.showIfAuthenticated == 'true' || attrs.showIfAuthenticated === true || attrs.showIfAuthenticated === '1') {
                         if (authService.authentication.isAuth) {
                             element.show();
