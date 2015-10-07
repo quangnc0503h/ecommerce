@@ -142,40 +142,7 @@ namespace Quang.Auth.DataAccess
             return results;
         }
       
-        /// <summary>
-        /// Inserts a new user in the Users table
-        /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
-        public async static Task<long> Insert(User user)
-        {
-            string commandText = @"Insert into Users (UserName, Id, PasswordHash, SecurityStamp,Email,EmailConfirmed,PhoneNumber,PhoneNumberConfirmed, AccessFailedCount,LockoutEnabled,LockoutEndDateUtc,TwoFactorEnabled)
-                values (@name, null, @pwdHash, @SecStamp,@email,@emailconfirmed,@phonenumber,@phonenumberconfirmed,@accesscount,@lockoutenabled,@lockoutenddate,@twofactorenabled)";
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("@name", user.UserName);
-            parameters.Add("@id", user.Id);
-            parameters.Add("@pwdHash", user.PasswordHash);
-            parameters.Add("@SecStamp", user.SecurityStamp);
-            parameters.Add("@email", user.Email);
-            parameters.Add("@emailconfirmed", user.EmailConfirmed);
-            parameters.Add("@phonenumber", user.PhoneNumber);
-            parameters.Add("@phonenumberconfirmed", user.PhoneNumberConfirmed);
-            parameters.Add("@accesscount", user.AccessFailedCount);
-            parameters.Add("@lockoutenabled", user.LockoutEnabled);
-            parameters.Add("@lockoutenddate", user.LockoutEndDateUtc);
-            parameters.Add("@twofactorenabled", user.TwoFactorEnabled);
-
-            long results;
-
-            using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
-            {
-
-                var id = await conn.QueryAsync<long>(commandText, parameters);
-                results = (long)id.Single();
-            }
-
-            return results;
-        }
+        
         /// <summary>
         /// Deletes a user from the Users table
         /// </summary>
@@ -213,37 +180,7 @@ namespace Quang.Auth.DataAccess
         {
             return await Delete(user.Id);
         }
-        public async static Task<long> Update(User user)
-        {
-            string commandText = @"Update Users set UserName = @userName, PasswordHash = @pswHash, SecurityStamp = @secStamp, 
-                Email=@email, EmailConfirmed=@emailconfirmed, PhoneNumber=@phonenumber, PhoneNumberConfirmed=@phonenumberconfirmed,
-                AccessFailedCount=@accesscount, LockoutEnabled=@lockoutenabled, LockoutEndDateUtc=@lockoutenddate, TwoFactorEnabled=@twofactorenabled  
-                WHERE Id = @userId";
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("@userName", user.UserName);
-            parameters.Add("@pswHash", user.PasswordHash);
-            parameters.Add("@secStamp", user.SecurityStamp);
-            parameters.Add("@userId", user.Id);
-            parameters.Add("@email", user.Email);
-            parameters.Add("@emailconfirmed", user.EmailConfirmed);
-            parameters.Add("@phonenumber", user.PhoneNumber);
-            parameters.Add("@phonenumberconfirmed", user.PhoneNumberConfirmed);
-            parameters.Add("@accesscount", user.AccessFailedCount);
-            parameters.Add("@lockoutenabled", user.LockoutEnabled);
-            parameters.Add("@lockoutenddate", user.LockoutEndDateUtc);
-            parameters.Add("@twofactorenabled", user.TwoFactorEnabled);
-
-            long results;
-
-            using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
-            {
-
-                var id = await conn.QueryAsync<ulong>(commandText, parameters);
-                results = (long)id.Single();
-            }
-
-            return results;
-        }
+      
         //public async static Task<IEnumerable<User>> GetAllUsers()
         //{
         //    IList<User> users = new List<User>();

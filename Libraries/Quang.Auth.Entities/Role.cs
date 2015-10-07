@@ -7,26 +7,9 @@ using System.Threading.Tasks;
 
 namespace Quang.Auth.Entities
 {
-    public class Role : IRole<int>
+    public class Role
     {
-        public Role()
-        {
-            //Id = Guid.NewGuid().ToString();
-        }
-        /// <summary>
-        /// Constructor that takes names as argument 
-        /// </summary>
-        /// <param name="name"></param>
-        public Role(string name) : this()
-        {
-            Name = name;
-        }
-
-        public Role(string name, int id)
-        {
-            Name = name;
-            Id = id;
-        }
+      
         /// <summary>
         /// Role ID
         /// </summary>

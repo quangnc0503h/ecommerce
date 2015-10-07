@@ -1,54 +1,26 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using AspNet.Identity.MySQL;
+
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Quang.Auth.Api.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 
 namespace Quang.Auth.Api
 {
-    public class UserStore : IUserStore<ApplicationUser, long>
-    {
-        public Task CreateAsync(ApplicationUser user)
-        {
-            throw new NotImplementedException();
-        }
-        public Task DeleteAsync(ApplicationUser user)
-        {
-            throw new NotImplementedException();
-        }
-        public Task<ApplicationUser> FindByIdAsync(long userId)
-        {
-            throw new NotImplementedException();
-        }
-        public Task<ApplicationUser> FindByNameAsync(string userName)
-        {
-            throw new NotImplementedException();
-        }
-        public Task UpdateAsync(ApplicationUser user)
-        {
-            throw new NotImplementedException();
-        }
-        public void Dispose()
-        {
 
-        }
-    }
-    public class ApplicationUserManager : UserManager<ApplicationUser, long>
+    public class ApplicationUserManager : UserManager<ApplicationUser, int>
     {
-        public ApplicationUserManager(IUserStore<ApplicationUser, long> store)
-           : base(store)
+        public ApplicationUserManager(IUserStore<ApplicationUser, int> store)
+            : base(store)
         {
         }
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            var manager = new ApplicationUserManager(new UserStore());
+            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>() as MySQLDatabase));
             // Configure validation logic for usernames
-            manager.UserValidator = new UserValidator<ApplicationUser, long>(manager)
+            manager.UserValidator = new UserValidator<ApplicationUser, int>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
@@ -65,35 +37,33 @@ namespace Quang.Auth.Api
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser, long>(dataProtectionProvider.Create("ASP.NET Identity"));
+                manager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser, int>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
         }
     }
 
-    public class RoleStore : IRoleStore<ApplicationRole, int>
-    {
-        public Task CreateAsync(ApplicationRole role) { throw new NotImplementedException(); }
-        public Task DeleteAsync(ApplicationRole role) { throw new NotImplementedException(); }
-        public Task<ApplicationRole> FindByIdAsync(int roleId) { throw new NotImplementedException(); }
-        public Task<ApplicationRole> FindByNameAsync(string roleName) { throw new NotImplementedException(); }
-        public Task UpdateAsync(ApplicationRole role) { throw new NotImplementedException(); }
-        public void Dispose() {  }
-    }
     public class ApplicationRoleManager : RoleManager<ApplicationRole, int>
     {
-        public ApplicationRoleManager(RoleStore store)
+        public ApplicationRoleManager(RoleStore<ApplicationRole> store)
             : base(store)
         {
         }
 
         public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options, IOwinContext context)
         {
-            var manager = new ApplicationRoleManager(new RoleStore());
+            var manager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(context.Get<ApplicationDbContext>() as MySQLDatabase));
 
             return manager;
         }
 
-      
+        public override IQueryable<ApplicationRole> Roles
+        {
+            get
+            {
+                RoleStore<ApplicationRole> store = Store as RoleStore<ApplicationRole>;
+                return store.Roles;
+            }
+        }
     }
 }

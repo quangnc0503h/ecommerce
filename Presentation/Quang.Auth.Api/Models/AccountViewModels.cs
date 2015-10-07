@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Quang.Auth.Api.Models
 {
+    // Models returned by AccountController actions.
+
     public class ExternalLoginViewModel
     {
         public string Name { get; set; }
@@ -23,6 +22,15 @@ namespace Quang.Auth.Api.Models
         public IEnumerable<UserLoginInfoViewModel> Logins { get; set; }
 
         public IEnumerable<ExternalLoginViewModel> ExternalLoginProviders { get; set; }
+    }
+
+    public class UserInfoViewModel
+    {
+        public string Email { get; set; }
+
+        public bool HasRegistered { get; set; }
+
+        public string LoginProvider { get; set; }
     }
 
     public class UserLoginInfoViewModel

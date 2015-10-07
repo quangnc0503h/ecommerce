@@ -12,12 +12,38 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
 using Quang.Auth.Entities;
 using Quang.Common.Auth;
+using System.Security.Claims;
 
 namespace Quang.Auth.Api.Controllers
 {
     [RoutePrefix("api/User")]
     public class UserController : ApiController
     {
+        private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManager;
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManager ?? Request.GetOwinContext().GetUserManager<ApplicationRoleManager>();
+            }
+            private set
+            {
+                _roleManager = value;
+            }
+        }
         [HttpPost]
        // [AppAuthorize(Roles = ActionRole.HeThong.Users)]
         [Route("GetAll")]
@@ -87,22 +113,41 @@ namespace Quang.Auth.Api.Controllers
         {
             try
             {
-                var entity = new Quang.Auth.Entities.User
+                var result = new NotificationResultModel();
+                var user = new ApplicationUser();
+                user.Email = input.Email;
+                user.UserName = input.UserName;
+                user.PhoneNumber = input.PhoneNumber;
+                var res = await UserManager.CreateAsync(user);
+                result.Status = 1;
+                if (res.Succeeded)
                 {
-                    UserName = input.UserName,
-                    Email = input.Email,
-                    PhoneNumber = input.PhoneNumber,
-                    DisplayName = input.DisplayName,
-                    PasswordHash = input.PasswordHash,
-                    Password= input.Password
-                };
-                var result = await UserBll.CreateUser(entity);
-                if (result == 0)
-                {
-                    //await _termBll.ReUpdateUserRole(input.Id);
-                    await PermissionBll.GenerateRolesForUser(input.Id);
+                    input.Id = user.Id;
+                    if (!string.IsNullOrEmpty(input.Password))
+                    {
+                        res = await UserManager.AddPasswordAsync(user.Id, input.Password);
+                        if (res.Succeeded)
+                        {
+                            // Update display name
+                            res = await UserManager.AddClaimAsync(user.Id, new Claim("displayName", input.DisplayName));
+
+                            // Update groups
+                            if (input.UserGroups != null)
+                            {
+                                foreach (var group in input.UserGroups)
+                                {
+                                   await UserBll.AddUserToGroup(group.Id, user.Id);
+                                }
+                            }
+                            result.Status = 0;
+                        }
+                    }
+                    else
+                    {
+                        result.Status = 0;
+                    }
                 }
-                return new NotificationResultModel { Status = (int)result };
+                return result;
             }
             catch (Exception ex)
             {
@@ -121,22 +166,67 @@ namespace Quang.Auth.Api.Controllers
             try
             {
                 var result = new NotificationResultModel { Status = 1 };
-                var entity = new Quang.Auth.Entities.User
+                
+                var user = await UserManager.FindByIdAsync((int)input.Id);
+                if (user != null)
                 {
-                    UserName = input.UserName,
-                    Email = input.Email,
-                    PhoneNumber = input.PhoneNumber,
-                    DisplayName = input.DisplayName,
-                    PasswordHash = input.PasswordHash,
-                    Password = input.Password
-                };
-                result.Status = await UserBll.UpdateUser(entity, true);
+                    bool canUpdate = true;
+                    if (user.UserName != input.UserName)
+                    {
+                        var currentUser = await UserManager.FindByNameAsync(input.UserName);
+                        if (currentUser != null && currentUser.Id > 0 && currentUser.Id != user.Id)
+                        {
+                            canUpdate = false;
+                        }
+                    }
+                    if (canUpdate)
+                    {
+                        user.UserName = input.UserName;
+                        user.Email = input.Email;
+                        user.PhoneNumber = input.PhoneNumber;
+                        if (!string.IsNullOrEmpty(input.Password))
+                        {
+                            user.PasswordHash = UserManager.PasswordHasher.HashPassword(input.Password);
+                        }
+                        var res = await UserManager.UpdateAsync(user);
+                        if (res.Succeeded)
+                        {
+                            // Update display name
+                            var scopeClaims = new string[] { "displayName" };
+                            var claims = await UserManager.GetClaimsAsync(user.Id);
+                            foreach (var claim in claims.Where(m => scopeClaims.Contains(m.Type)))
+                            {
+                                res = await UserManager.RemoveClaimAsync(user.Id, claim);
+                            }
+                            res = await UserManager.AddClaimAsync(user.Id, new Claim("displayName", input.DisplayName));
+
+                            if (input.UpdateGroups)
+                            {
+                                // Update groups
+                                var currentGroups = (await UserBll.GetGroupsByUser(user.Id)).Select(m => m.Id).ToArray();
+                                if (input.UserGroups != null)
+                                {
+                                    foreach (var newGroup in input.UserGroups.Where(m => !currentGroups.Contains(m.Id)))
+                                    {
+                                      await   UserBll.AddUserToGroup(newGroup.Id, user.Id);
+                                    }
+                                    foreach (var oldGroup in currentGroups.Where(m => !input.UserGroups.Select(n => n.Id).Contains(m)))
+                                    {
+                                        await UserBll.RemoveUserFromGroup(oldGroup, user.Id);
+                                    }
+                                }
+                            }
+                            result.Status = 0;
+                        }
+                    }
+                }
                 if (result.Status == 0)
                 {
                     //await _termBll.ReUpdateUserRole(input.Id);
                     await PermissionBll.GenerateRolesForUser(input.Id);
                 }
                 return result;
+                
             }
             catch (Exception ex)
             {
@@ -155,23 +245,61 @@ namespace Quang.Auth.Api.Controllers
             try
             {
                 var result = new NotificationResultModel { Status = 1 };
-                //input.Id = User.Identity.GetUserId<int>();
-                //input.Password = null;
-                //input.ConfirmPassword = null;
-                //input.UserGroups = null;
-                var entity = new Quang.Auth.Entities.User
+                input.Id = User.Identity.GetUserId<int>();
+                input.UpdateGroups = false;
+                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId<int>());
+                if (user != null)
                 {
-                    UserName = input.UserName,
-                    Email = input.Email,
-                    PhoneNumber = input.PhoneNumber,
-                    DisplayName = input.DisplayName,
-                    PasswordHash = input.PasswordHash,
-                    Password = input.Password,
-                    Id = User.Identity.GetUserId<int>()
-                };
-                result.Status = await UserBll.UpdateUser(entity, true);
-                // var result = await _userBll.UpdateUser(input);
+                    bool canUpdate = true;
+                    if (user.UserName != input.UserName)
+                    {
+                        var currentUser = await UserManager.FindByNameAsync(input.UserName);
+                        if (currentUser != null && currentUser.Id > 0 && currentUser.Id != user.Id)
+                        {
+                            canUpdate = false;
+                        }
+                    }
+                    if (canUpdate)
+                    {
+                        user.UserName = input.UserName;
+                        user.Email = input.Email;
+                        user.PhoneNumber = input.PhoneNumber;
+                        if (!string.IsNullOrEmpty(input.Password))
+                        {
+                            user.PasswordHash = UserManager.PasswordHasher.HashPassword(input.Password);
+                        }
+                        var res = await UserManager.UpdateAsync(user);
+                        if (res.Succeeded)
+                        {
+                            // Update display name
+                            var scopeClaims = new string[] { "displayName" };
+                            var claims = await UserManager.GetClaimsAsync(user.Id);
+                            foreach (var claim in claims.Where(m => scopeClaims.Contains(m.Type)))
+                            {
+                                res = await UserManager.RemoveClaimAsync(user.Id, claim);
+                            }
+                            res = await UserManager.AddClaimAsync(user.Id, new Claim("displayName", input.DisplayName));
 
+                            if (input.UpdateGroups)
+                            {
+                                // Update groups
+                                var currentGroups = (await UserBll.GetGroupsByUser(user.Id)).Select(m => m.Id).ToArray();
+                                if (input.UserGroups != null)
+                                {
+                                    foreach (var newGroup in input.UserGroups.Where(m => !currentGroups.Contains(m.Id)))
+                                    {
+                                        await UserBll.AddUserToGroup(newGroup.Id, user.Id);
+                                    }
+                                    foreach (var oldGroup in currentGroups.Where(m => !input.UserGroups.Select(n => n.Id).Contains(m)))
+                                    {
+                                        await UserBll.RemoveUserFromGroup(oldGroup, user.Id);
+                                    }
+                                }
+                            }
+                            result.Status = 0;
+                        }
+                    }
+                }
                 return result;
                 
             }
@@ -308,7 +436,7 @@ namespace Quang.Auth.Api.Controllers
             result.ApiKey = ClientApiProvider.GenerateApiKey();
             result.ApiSecret = ClientApiProvider.GenerateApiSecret();
 
-            return result;
+            return await Task.FromResult<GenerateUserAppApiKeyModel>( result);
         }
     }
 }

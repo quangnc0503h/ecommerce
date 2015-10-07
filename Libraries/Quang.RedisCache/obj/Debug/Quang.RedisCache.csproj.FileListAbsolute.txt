@@ -1,4 +1,3 @@
-C:\Projects\ecommerce\Libraries\Quang.RedisCache\obj\Debug\Quang.RedisCache.csprojResolveAssemblyReference.cache
 C:\Projects\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Quang.RedisCache.dll
 C:\Projects\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Quang.RedisCache.pdb
 C:\Projects\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Jil.dll

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using AspNet.Identity.MySQL;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
@@ -6,8 +7,7 @@ using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Linq;
 using Quang.Auth.Api.Models;
 using Quang.Auth.Api.Results;
-using Quang.Auth.BusinessLogic;
-using Quang.Auth.Entities;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -22,12 +22,39 @@ using System.Web.Http;
 
 namespace Quang.Auth.Api.Controllers
 {
+
+    [Authorize]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
-      //  private ApplicationUserManager _userManager;
+        private ApplicationUserManager _userManager;
+
+        public AccountController()
+        {
+        }
+        /*
+        public AccountController(ApplicationUserManager userManager,
+            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
+        {
+            UserManager = userManager;
+             AccessTokenFormat = accessTokenFormat;
+        }*/
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
+
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("UserInfo")]
@@ -50,7 +77,164 @@ namespace Quang.Auth.Api.Controllers
             Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
             return Ok();
         }
-       
+
+        // GET api/Account/ManageInfo?returnUrl=%2F&generateState=true
+        [Route("ManageInfo")]
+        public async Task<ManageInfoViewModel> GetManageInfo(string returnUrl, bool generateState = false)
+        {
+            IdentityUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId<int>());
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            List<UserLoginInfoViewModel> logins = new List<UserLoginInfoViewModel>();
+
+            //foreach (IdentityUserLogin linkedAccount in user.Logins)
+            //{
+            //    logins.Add(new UserLoginInfoViewModel
+            //    {
+            //        LoginProvider = linkedAccount.LoginProvider,
+            //        ProviderKey = linkedAccount.ProviderKey
+            //    });
+            //}
+
+
+            if (user.PasswordHash != null)
+            {
+                logins.Add(new UserLoginInfoViewModel
+                {
+                    LoginProvider = LocalLoginProvider,
+                    ProviderKey = user.UserName,
+                });
+            }
+
+            return new ManageInfoViewModel
+            {
+                LocalLoginProvider = LocalLoginProvider,
+                Email = user.UserName,
+                Logins = logins,
+                ExternalLoginProviders = GetExternalLogins(returnUrl, generateState)
+            };
+        }
+
+        // POST api/Account/ChangePassword
+        [Route("ChangePassword")]
+        public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId<int>(), model.OldPassword,
+                model.NewPassword);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok();
+        }
+
+        // POST api/Account/SetPassword
+        [Route("SetPassword")]
+        public async Task<IHttpActionResult> SetPassword(SetPasswordBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId<int>());
+            if (user == null)
+            {
+                return BadRequest("Not found user");
+            }
+
+            if (!string.IsNullOrEmpty(user.PasswordHash))
+            {
+                return BadRequest("Not allow create password");
+            }
+
+            IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId<int>(), model.NewPassword);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok();
+        }
+
+        // POST api/Account/AddExternalLogin
+        [Route("AddExternalLogin")]
+        public async Task<IHttpActionResult> AddExternalLogin(AddExternalLoginBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+
+            AuthenticationTicket ticket = AccessTokenFormat.Unprotect(model.ExternalAccessToken);
+
+            if (ticket == null || ticket.Identity == null || (ticket.Properties != null
+                && ticket.Properties.ExpiresUtc.HasValue
+                && ticket.Properties.ExpiresUtc.Value < DateTimeOffset.UtcNow))
+            {
+                return BadRequest("External login failure.");
+            }
+
+            ExternalLoginData externalData = ExternalLoginData.FromIdentity(ticket.Identity);
+
+            if (externalData == null)
+            {
+                return BadRequest("The external login is already associated with an account.");
+            }
+
+            IdentityResult result = await UserManager.AddLoginAsync(User.Identity.GetUserId<int>(),
+                new UserLoginInfo(externalData.LoginProvider, externalData.ProviderKey));
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok();
+        }
+
+        // POST api/Account/RemoveLogin
+        [Route("RemoveLogin")]
+        public async Task<IHttpActionResult> RemoveLogin(RemoveLoginBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            IdentityResult result;
+
+            if (model.LoginProvider == LocalLoginProvider)
+            {
+                result = await UserManager.RemovePasswordAsync(User.Identity.GetUserId<int>());
+            }
+            else
+            {
+                result = await UserManager.RemoveLoginAsync(User.Identity.GetUserId<int>(),
+                    new UserLoginInfo(model.LoginProvider, model.ProviderKey));
+            }
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok();
+        }
+
         // GET api/Account/ExternalLogin
         [OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
@@ -102,10 +286,32 @@ namespace Quang.Auth.Api.Controllers
                 }
             }
 
-            var user = await UserBll.FindUserAsync(externalLogin.LoginProvider, externalLogin.ProviderKey);
+            ApplicationUser user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider, externalLogin.ProviderKey));
 
             bool hasRegistered = user != null;
-          
+            /*
+            if (hasRegistered)
+            {
+                Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+                
+                 ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
+                    OAuthDefaults.AuthenticationType);
+                ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
+                    CookieAuthenticationDefaults.AuthenticationType);
+
+                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user);
+                Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
+            }
+            else
+            {
+                IEnumerable<Claim> claims = externalLogin.GetClaims();
+                ClaimsIdentity identity = new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
+                Authentication.SignIn(identity);
+            }
+
+            return Ok();
+            */
+
             redirectUri = string.Format("{0}#external_access_token={1}&provider={2}&haslocalaccount={3}&external_user_name={4}&external_email={5}",
                                             redirectUri,
                                             externalLogin.ExternalAccessToken,
@@ -116,6 +322,8 @@ namespace Quang.Auth.Api.Controllers
 
             return Redirect(redirectUri);
         }
+
+        // GET api/Account/ExternalLogins?returnUrl=%2F&generateState=true
         [AllowAnonymous]
         [Route("ExternalLogins")]
         public IEnumerable<ExternalLoginViewModel> GetExternalLogins(string returnUrl, bool generateState = false)
@@ -155,6 +363,8 @@ namespace Quang.Auth.Api.Controllers
 
             return logins;
         }
+
+        // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
@@ -164,17 +374,18 @@ namespace Quang.Auth.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, Password = model.Password };
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
 
-            var result = await UserBll.CreateUser(user);
+            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
-            if (result == 0)
+            if (!result.Succeeded)
             {
-                return null;
+                return GetErrorResult(result);
             }
 
             return Ok();
         }
+
         // POST api/Account/RegisterExternal
         //[OverrideAuthentication]
         //[HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
@@ -195,7 +406,7 @@ namespace Quang.Auth.Api.Controllers
 
             //IdentityUser user = await _repo.FindAsync(new UserLoginInfo(model.Provider, verifiedAccessToken.user_id));
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
-            var user = await UserBll.FindUserAsync(model.Provider, verifiedAccessToken.ProviderKey);
+            ApplicationUser user = await UserManager.FindAsync(new UserLoginInfo(model.Provider, verifiedAccessToken.ProviderKey));
 
             bool hasRegistered = user != null;
 
@@ -207,10 +418,10 @@ namespace Quang.Auth.Api.Controllers
             user = new ApplicationUser() { UserName = model.Provider.ToLower() + verifiedAccessToken.ProviderKey.ToLower(), Email = model.Email };
 
             //IdentityResult result = await _repo.CreateAsync(user);
-            var result = await UserBll.CreateUser(user);
-            if (result == 0)
+            IdentityResult result = await UserManager.CreateAsync(user);
+            if (!result.Succeeded)
             {
-                return null;
+                return GetErrorResult(result);
             }
 
             var info = new ExternalLoginInfo()
@@ -220,22 +431,49 @@ namespace Quang.Auth.Api.Controllers
             };
 
             //result = await _repo.AddLoginAsync(user.Id, info.Login);
-            var iresult = await UserBll.InsertUserLogIn(user.Id, info.Login.LoginProvider, info.Login.ProviderKey) ;
-            if (iresult ==0)
+            result = await UserManager.AddLoginAsync(user.Id, info.Login);
+            if (!result.Succeeded)
             {
-                return null;
+                return GetErrorResult(result);
             }
 
             // Add display name
-            iresult = await UserBll.InsertUserClaim(model.UserName, "displayName", user.Id);
+            result = await UserManager.AddClaimAsync(user.Id, new Claim("displayName", model.UserName));
 
             //generate access token response
             var accessTokenResponse = await GenerateLocalAccessTokenResponse(user);
 
             return Ok(accessTokenResponse);
 
-          
+            /*
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var info = await Authentication.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                return InternalServerError();
+            }
+
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+
+            IdentityResult result = await UserManager.CreateAsync(user);
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            result = await UserManager.AddLoginAsync(user.Id, info.Login);
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result); 
+            }
+            return Ok();
+            */
         }
+
         [AllowAnonymous]
         [HttpGet]
         [Route("ObtainLocalAccessToken")]
@@ -254,7 +492,7 @@ namespace Quang.Auth.Api.Controllers
             }
 
             //IdentityUser user = await _repo.FindAsync(new UserLoginInfo(provider, verifiedAccessToken.user_id));
-            var user = await UserBll.FindUserAsync(provider, verifiedAccessToken.ProviderKey);
+            ApplicationUser user = await UserManager.FindAsync(new UserLoginInfo(provider, verifiedAccessToken.ProviderKey));
 
             bool hasRegistered = user != null;
 
@@ -269,16 +507,18 @@ namespace Quang.Auth.Api.Controllers
             return Ok(accessTokenResponse);
 
         }
+
         protected override void Dispose(bool disposing)
         {
-            //if (disposing && _userManager != null)
-            //{
-            //    _userManager.Dispose();
-            //    _userManager = null;
-            //}
+            if (disposing && _userManager != null)
+            {
+                _userManager.Dispose();
+                _userManager = null;
+            }
 
             base.Dispose(disposing);
         }
+
         private string ValidateClientAndRedirectUri(HttpRequestMessage request, ref string redirectUriOutput)
         {
 
@@ -333,7 +573,6 @@ namespace Quang.Auth.Api.Controllers
 
             return match.Value;
         }
-
 
         private async Task<ParsedExternalAccessToken> VerifyExternalAccessToken(string provider, string accessToken)
         {
@@ -395,6 +634,7 @@ namespace Quang.Auth.Api.Controllers
 
             return parsedToken;
         }
+
         private JObject GenerateLocalAccessTokenResponseBackup(ApplicationUser user)
         {
 
@@ -427,20 +667,21 @@ namespace Quang.Auth.Api.Controllers
 
             return tokenResponse;
         }
-        private async Task<JObject> GenerateLocalAccessTokenResponse(User user)
+
+        private async Task<JObject> GenerateLocalAccessTokenResponse(ApplicationUser user)
         {
 
             var tokenExpiration = TimeSpan.FromDays(1);
 
-          //  var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
-            ClaimsIdentity identity = new ClaimsIdentity(OAuthDefaults.AuthenticationType);
-            //ClaimsIdentity identity = await user.GenerateUserIdentityAsync(userManager, OAuthDefaults.AuthenticationType);
+            //ClaimsIdentity identity = new ClaimsIdentity(OAuthDefaults.AuthenticationType);
+            ClaimsIdentity identity = await user.GenerateUserIdentityAsync(userManager, OAuthDefaults.AuthenticationType);
 
             //identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
             //identity.AddClaim(new Claim(ClaimTypes.Role, ));
 
-            var roles = await UserBll.GetRolesByUserId(user.Id);
+            var roles = await userManager.GetRolesAsync(user.Id);
 
             IDictionary<string, string> data = new Dictionary<string, string>();
             data.Add("userName", user.UserName);
@@ -452,7 +693,7 @@ namespace Quang.Auth.Api.Controllers
                 ExpiresUtc = DateTime.UtcNow.Add(tokenExpiration),
             };
 
-            var claims = await UserBll.GetClaimsAsync(user.Id);
+            var claims = await userManager.GetClaimsAsync(user.Id);
             var displayName = claims.FirstOrDefault(m => m.Type == "displayName");
 
             var ticket = new AuthenticationTicket(identity, props);
@@ -472,7 +713,9 @@ namespace Quang.Auth.Api.Controllers
 
             return tokenResponse;
         }
+
         #region Helpers
+
         private IAuthenticationManager Authentication
         {
             get { return Request.GetOwinContext().Authentication; }
@@ -506,6 +749,7 @@ namespace Quang.Auth.Api.Controllers
 
             return null;
         }
+
         private class ExternalLoginData
         {
             public string LoginProvider { get; set; }
@@ -576,6 +820,7 @@ namespace Quang.Auth.Api.Controllers
                 return HttpServerUtility.UrlTokenEncode(data);
             }
         }
+
         #endregion
     }
 }

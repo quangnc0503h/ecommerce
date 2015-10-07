@@ -39,6 +39,8 @@ namespace Quang.Auth.Api.Models
         public string PasswordHash { get; set; }
 
         public IEnumerable<Group> UserGroups { get; set; }
+
+        public bool UpdateGroups { get; set; }
     }
 
     public class CheckUserExistInput

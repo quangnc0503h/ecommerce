@@ -248,15 +248,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\AccountBindingModels.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DataSourceResultModel.cs" />
-    <Compile Include="Models\ExternalLoginViewModel.cs" />
     <Compile Include="Models\FilterGroupInputModel.cs" />
     <Compile Include="Models\FilterInputModel.cs" />
     <Compile Include="Models\FilterPermissionModel.cs" />
-    <Compile Include="Models\ParsedExternalAccessToken.cs" />
-    <Compile Include="Models\RegisterBindingModel.cs" />
-    <Compile Include="Models\RegisterExternalBindingModel.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\TermModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -292,6 +290,10 @@
     <Folder Include="Extentions\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\AspNet.Identity.MySQL\AspNet.Identity.MySQL.csproj">
+      <Project>{26f6ecf9-4369-417b-8cf2-54fa92df3660}</Project>
+      <Name>AspNet.Identity.MySQL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Libraries\Quang.Auth.BusinessLogic\Quang.Auth.BusinessLogic.csproj">
       <Project>{978eaff6-dafb-44dc-bd0b-23ea34959e8a}</Project>
       <Name>Quang.Auth.BusinessLogic</Name>

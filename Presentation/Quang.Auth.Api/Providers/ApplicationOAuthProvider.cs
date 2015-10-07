@@ -1,11 +1,13 @@
-﻿using Quang.Auth.BusinessLogic;
-using Quang.Auth.Api.Models;
-using Quang.Common.Auth;
+﻿
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
+
+using Quang.Auth.Api.Models;
+using Quang.Auth.BusinessLogic;
+using Quang.Common.Auth;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +37,7 @@ namespace Quang.Auth.Api.Providers
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
-         //   var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
+            var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
             IFormCollection form = await context.Request.ReadFormAsync();
 
             var clientAuthorization = form.Get("cauthorization");
@@ -66,7 +68,7 @@ namespace Quang.Auth.Api.Providers
             else
             {
 
-                user = await UserBll.get(context.UserName, context.Password);
+                user = await userManager.FindAsync(context.UserName, context.Password);
             }
 
             if (user == null)
@@ -113,7 +115,7 @@ namespace Quang.Auth.Api.Providers
                 var incomingBase64Signature = autherizationHeaderArray[1];
                 var nonce = autherizationHeaderArray[2];
                 var requestTimeStamp = autherizationHeaderArray[3];
-               // var userBll = UnityConfig.GetConfiguredContainer().Resolve<IUserBll>();
+                //var userBll = UnityConfig.GetConfiguredContainer().Resolve<IUserBll>();
                 var userApp = await UserBll.GetUserApp(apiKey);
                 if (userApp != null && !string.IsNullOrEmpty(userApp.ApiSecret))
                 {
@@ -125,7 +127,7 @@ namespace Quang.Auth.Api.Providers
                         if (isValid)
                         {
                             var userManager = context.GetUserManager<ApplicationUserManager>();
-                            var user = await userManager.FindByIdAsync(userApp.UserId);
+                            var user = await userManager.FindByIdAsync((int)userApp.UserId);
                             if (user != null)
                             {
                                 result = new Tuple<ApplicationUser, string>(user, userApp.ApiSecret);
