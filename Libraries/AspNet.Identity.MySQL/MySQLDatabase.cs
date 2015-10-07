@@ -18,7 +18,7 @@ namespace AspNet.Identity.MySQL
         /// Default constructor which uses the "DefaultConnection" connectionString
         /// </summary>
         public MySQLDatabase()
-            : this("Security")
+            : this("QuangAuth")
         {
         }
 

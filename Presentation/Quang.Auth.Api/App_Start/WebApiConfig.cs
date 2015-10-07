@@ -10,6 +10,7 @@ namespace Quang.Auth.Api
     {
         public static void Register(HttpConfiguration config)
         {
+           // config.EnableCors();
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 

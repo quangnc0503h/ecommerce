@@ -38,7 +38,7 @@ namespace Quang.Auth.Api.Models
 
         public static ApplicationDbContext Create()
         {
-            return new ApplicationDbContext("Security");
+            return new ApplicationDbContext("QuangAuth");
         }
     }
 }

@@ -36,7 +36,12 @@ namespace Quang.Auth.Api.Providers
         
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+            // context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+            string corsHeader = "Access-Control-Allow-Origin";
+            if (!context.Response.Headers.ContainsKey(corsHeader))
+            {
+                context.Response.Headers.Add(corsHeader, new[] { "*" });
+            }
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
             IFormCollection form = await context.Request.ReadFormAsync();
 
