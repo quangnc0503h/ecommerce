@@ -25,3 +25,5 @@ C:\Projects\ecommerce\Libraries\Quang.Common\bin\Debug\Jil.xml
 C:\Projects\ecommerce\Libraries\Quang.Common\obj\Debug\Quang.Common.csprojResolveAssemblyReference.cache
 C:\Projects\ecommerce\Libraries\Quang.Common\obj\Debug\Quang.Common.dll
 C:\Projects\ecommerce\Libraries\Quang.Common\obj\Debug\Quang.Common.pdb
+C:\Projects\ecommerce\Libraries\Quang.Common\bin\Debug\System.Web.Http.dll
+C:\Projects\ecommerce\Libraries\Quang.Common\bin\Debug\System.Web.Http.xml

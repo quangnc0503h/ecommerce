@@ -84,6 +84,7 @@
     <Content Include="app\scripts\services\termservice.js" />
     <Content Include="app\scripts\services\tokensmanagerservice.js" />
     <Content Include="app\scripts\services\userservice.js" />
+    <Content Include="app\styles\autocomplete.css" />
     <Content Include="app\views\associate.html" />
     <Content Include="app\views\changepass.html" />
     <Content Include="app\views\group-grant.html" />
