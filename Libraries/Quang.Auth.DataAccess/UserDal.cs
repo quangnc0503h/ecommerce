@@ -115,7 +115,7 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
 
-                var id = await conn.QueryAsync<ulong>(commandText, parameters);
+                var id = await conn.QueryAsync<long>(commandText, parameters);
                 results = (int)id.Single();
             }
 
@@ -159,10 +159,10 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
 
-                var id = await conn.QueryAsync<ulong>(commandText, parameters);
+                var id = await conn.QueryAsync<long>(commandText, parameters);
                 results = (long)id.Single();
                 commandText = "Delete from UserRoles where UserId = @userId";
-                await conn.QueryAsync<ulong>(commandText, parameters);
+                await conn.QueryAsync<long>(commandText, parameters);
             }
 
             

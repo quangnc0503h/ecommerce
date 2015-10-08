@@ -1,6 +1,6 @@
 ﻿<!doctype html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <title></title>
     <meta name="description" content="">
@@ -12,68 +12,63 @@
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
-      <link rel="stylesheet" href="styles/autocomplete.css">
+    <link rel="stylesheet" href="styles/autocomplete.css">
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
-  </head>
-  <body ng-app="quangauthwebApp">
-    <!--[if lte IE 8]>
+</head>
+<body ng-app="quangauthwebApp">
+    <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-
     <!-- Add your site or application content here -->
-      <div class="header">
-          <div class="navbar navbar-default" role="navigation">
-              <div class="container">
-                  <div class="navbar-header">
-                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-                          <span class="sr-only">Toggle navigation</span>
-                          <span class="icon-bar"></span>
-                          <span class="icon-bar"></span>
-                          <span class="icon-bar"></span>
-                      </button>
-                      <a class="navbar-brand" href="#/"><img alt="Đường sắt Việt Nam" src="images/yeoman.png" style="width: 30px; height: 30px;"></a>
-                  </div>
+    <div class="header">
+        <div class="navbar navbar-default" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#/"><img alt="Đường sắt Việt Nam" src="images/yeoman.png" style="width: 30px; height: 30px;"></a>
+                </div>
 
-                  <div class="collapse navbar-collapse" id="js-navbar-collapse">
-                      <ul class="nav navbar-nav">
-                          <li menu-active-url="$"><a href="#/">Home</a></li>
-                          <li show-if-authenticated="100" style="display: none;" menu-active-url="user"><a ng-href="#/user">Quản lý thành viên</a></li>
-                          <li show-if-authenticated="110" style="display: none;" menu-active-url="group"><a ng-href="#/group">Quản lý nhóm</a></li>
-                          <li show-if-authenticated="120" style="display: none;" menu-active-url="role"><a ng-href="#/role">Quản lý quyền</a></li>
-                          <li show-if-authenticated="130" style="display: none;" menu-active-url="term"><a ng-href="#/term">Quản lý chức năng</a></li>
-                          <!--<li  menu-active-url="user"><a ng-href="#/user">Quản lý thành viên</a></li>
-                          <li  menu-active-url="group"><a ng-href="#/group">Quản lý nhóm</a></li>
-                          <li  menu-active-url="role"><a ng-href="#/role">Quản lý quyền</a></li>
-                          <li  menu-active-url="term"><a ng-href="#/term">Quản lý chức năng</a></li>-->
-                      </ul>
-                      <ul class="nav navbar-nav navbar-right">
-                          <li show-if-authenticated="true" menu-active-url="(settings|changepass)" class="dropdown" style="display: none;">
-                              <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Xin chào <strong auth-data="displayName"></strong><span class="caret"></span></a>
-                              <ul class="dropdown-menu" role="menu">
-                                  <li><a ng-href="#/settings"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Cài đặt cá nhân</a></li>
-                                  <li><a ng-href="#/changepass"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Đổi mật khẩu</a></li>
-                                  <li><a ng-href="#/logout"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> <strong>Thoát</strong></a></li>
-                              </ul>
-                          </li>
-                      </ul>
-                  </div>
-              </div>
-          </div>
-      </div>
+                <div class="collapse navbar-collapse" id="js-navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li menu-active-url="$"><a href="#/">Home</a></li>
+                        <li show-if-authenticated="100" style="display: none;" menu-active-url="user"><a ng-href="#/user">Quản lý thành viên</a></li>
+                        <li show-if-authenticated="110" style="display: none;" menu-active-url="group"><a ng-href="#/group">Quản lý nhóm</a></li>
+                        <li show-if-authenticated="120" style="display: none;" menu-active-url="role"><a ng-href="#/role">Quản lý quyền</a></li>
+                        <li show-if-authenticated="130" style="display: none;" menu-active-url="term"><a ng-href="#/term">Quản lý chức năng</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li show-if-authenticated="true" menu-active-url="(settings|changepass)" class="dropdown" style="display: none;">
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Xin chào <strong auth-data="displayName"></strong><span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a ng-href="#/settings"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Cài đặt cá nhân</a></li>
+                                <li><a ng-href="#/changepass"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Đổi mật khẩu</a></li>
+                                <li><a ng-href="#/logout"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> <strong>Thoát</strong></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-      <div class="container-fluid">
-          <div class="auth-initializing"></div>
-          <div ng-view=""></div>
-      </div>
+    <div class="container">
+        <div class="auth-initializing"></div>
+        <div ng-view=""></div>
+    </div>
 
-      <div class="footer">
-          <div class="container">
-              <p></p>
-          </div>
-      </div>
+    <div class="footer">
+        <div class="container">
+            <p></p>
+        </div>
+    </div>
 
- 
+
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -90,40 +85,41 @@
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
-      <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-      <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
-      <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
-      <script src="bower_components/xdLocalStorage/app/scripts/services/xd-utils.js"></script>
-      <script src="bower_components/xdLocalStorage/app/scripts/xdLocalStorage.js"></script>
-      <script src="bower_components/xdLocalStorage/app/scripts/ng-xdLocalStorage.js"></script>
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-      <script src="scripts/config.js"></script>
-      <script src="scripts/auth.js"></script>
-      <script src="scripts/app.js"></script>
-      
-      <script src="scripts/controllers/user.js"></script>
-      <script src="scripts/controllers/changepass.js"></script>
-      <script src="scripts/controllers/settings.js"></script>
-      <script src="scripts/controllers/group.js"></script>
-      <script src="scripts/controllers/permission.js"></script>
-      <script src="scripts/controllers/term.js"></script>
-      <script src="scripts/controllers/signup.js"></script>
-      <script src="scripts/controllers/login.js"></script>
-      <script src="scripts/controllers/unauthorized.js"></script>
-      <script src="scripts/controllers/refresh.js"></script>
-      <script src="scripts/controllers/tokensmanager.js"></script>
-      <script src="scripts/controllers/associate.js"></script>
-      <script src="scripts/services/authinterceptorservice.js"></script>
-      <script src="scripts/services/authservice.js"></script>
-      <script src="scripts/services/tokensmanagerservice.js"></script>
-      <script src="scripts/services/userservice.js"></script>
-      <script src="scripts/services/groupservice.js"></script>
-      <script src="scripts/services/permissionservice.js"></script>
-      <script src="scripts/services/termservice.js"></script>
-      <script src="scripts/controllers/main.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
+    <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+    <script src="bower_components/xdLocalStorage/app/scripts/services/xd-utils.js"></script>
+    <script src="bower_components/xdLocalStorage/app/scripts/xdLocalStorage.js"></script>
+    <script src="bower_components/xdLocalStorage/app/scripts/ng-xdLocalStorage.js"></script>
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/config.js"></script>
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/autocomplete.js"></script>
+    <script src="scripts/controllers/user.js"></script>
+    <script src="scripts/controllers/changepass.js"></script>
+    <script src="scripts/controllers/settings.js"></script>
+    <script src="scripts/controllers/group.js"></script>
+    <script src="scripts/controllers/permission.js"></script>
+    <script src="scripts/controllers/term.js"></script>
+    <script src="scripts/controllers/signup.js"></script>
+    <script src="scripts/controllers/login.js"></script>
+    <script src="scripts/controllers/unauthorized.js"></script>
+    <script src="scripts/controllers/refresh.js"></script>
+    <script src="scripts/controllers/tokensmanager.js"></script>
+    <script src="scripts/controllers/associate.js"></script>
+    <script src="scripts/services/authinterceptorservice.js"></script>
+    <script src="scripts/services/authservice.js"></script>
+    <script src="scripts/services/tokensmanagerservice.js"></script>
+    <script src="scripts/services/userservice.js"></script>
+    <script src="scripts/services/groupservice.js"></script>
+    <script src="scripts/services/permissionservice.js"></script>
+    <script src="scripts/services/termservice.js"></script>
+    <script src="scripts/controllers/main.js"></script>
 
-        <script src="scripts/controllers/about.js"></script>
-      <script src="scripts/common.js"></script>
-        <!-- endbuild -->
+    <script src="scripts/controllers/about.js"></script>
+    <script src="scripts/common.js"></script>
+    <script src="scripts/directives/validation.js"></script>
+    <!-- endbuild -->
 </body>
 </html>

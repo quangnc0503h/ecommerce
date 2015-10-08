@@ -28,8 +28,8 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
                 
-                var data = await conn.QueryAsync<long>(commandText, parameters);
-                results = data.FirstOrDefault();
+                var data = await conn.ExecuteAsync(commandText, parameters);
+                results = data;
             }
             return results;
         }
@@ -46,14 +46,14 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
 
-                var data = await conn.QueryAsync<long>(commandText, parameters);
-                results = data.FirstOrDefault();
+                var data = await conn.ExecuteAsync(commandText, parameters);
+                results = data;
                 commandText = "Delete from UserTerms where TermId in (" + string.Join(",", Ids.ToArray()) + ")";
-                await conn.QueryAsync<long>(commandText, new Dictionary<string, object>());
+                await conn.ExecuteAsync(commandText, new Dictionary<string, object>());
 
                 // Remove terms from GroupTerms
                 commandText = "Delete from GroupTerms where TermId in (" + string.Join(",", Ids.ToArray()) + ")";
-                await conn.QueryAsync<long>(commandText, new Dictionary<string, object>());
+                await conn.ExecuteAsync(commandText, new Dictionary<string, object>());
 
             }
             return results;
@@ -79,8 +79,8 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
 
-                var data = await conn.QueryAsync<long>(commandText, parameters);
-                results = data.FirstOrDefault();
+                var data = await conn.ExecuteAsync(commandText, parameters);
+                results = data;
             }
             return results;
         }
@@ -98,8 +98,8 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
 
-                var data = await conn.QueryAsync<long>(commandText, parameters);
-                results = data.FirstOrDefault();
+                var data = await conn.ExecuteAsync(commandText, parameters);
+                results = data;
             }
             return results;
         }
@@ -369,8 +369,8 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
 
-                var id = await conn.QueryAsync<ulong>(commandText, parameters);
-                results = (long)id.Single();
+                var id = await conn.ExecuteAsync(commandText, parameters);
+                results = (long)id;
             }
 
             return results;
@@ -388,8 +388,8 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
 
-                var id = await conn.QueryAsync<ulong>(commandText, parameters);
-                results = (long)id.Single();
+                var id = await conn.ExecuteAsync(commandText, parameters);
+                results = id;
             }
 
             return results;
@@ -409,8 +409,8 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
 
-                var id = await conn.QueryAsync<ulong>(commandText, parameters);
-                results = (long)id.Single();
+                var id = await conn.ExecuteAsync(commandText, parameters);
+                results = (long)id;
             }
 
             return results;
@@ -428,8 +428,8 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
 
-                var id = await conn.QueryAsync<ulong>(commandText, parameters);
-                results = (long)id.Single();
+                var id = await conn.ExecuteAsync(commandText, parameters);
+                results = (long)id;
             }
 
             return results;

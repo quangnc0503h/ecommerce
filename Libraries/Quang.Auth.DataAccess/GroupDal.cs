@@ -25,8 +25,8 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
 
-                var id = await conn.QueryAsync<ulong>(commandText, parameters);
-                results = (long)id.Single();
+                var id = await conn.ExecuteAsync(commandText, parameters);
+                results = id;
             }
 
             return results;
@@ -41,8 +41,8 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
 
-                var id = await conn.QueryAsync<ulong>(commandText, parameters);
-                results = (long)id.Single();
+                var id = await conn.ExecuteAsync(commandText, parameters);
+                results = id;
             }
 
             return results;
@@ -75,8 +75,8 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
 
-                var id = await conn.QueryAsync<ulong>(commandText, parameters);
-                results = (long)id.Single();
+                var id = await conn.ExecuteAsync(commandText, parameters);
+                results = id;
             }
 
             return results;
@@ -102,8 +102,8 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
 
-                var id = await conn.QueryAsync<ulong>(commandText, parameters);
-                results = (long)id.Single();
+                var id = await conn.ExecuteAsync(commandText, parameters);
+                results = id;
             }
 
             return results;
@@ -183,7 +183,7 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
 
-                var id = await conn.QueryAsync<ulong>(sql, parameters);
+                var id = await conn.QueryAsync<long>(sql, parameters);
                 results = (long)id.Single();
             }
 

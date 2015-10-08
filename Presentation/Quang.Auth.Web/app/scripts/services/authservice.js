@@ -46,7 +46,7 @@ angular.module('quangauthwebApp')
           }
 
           var deferred = $q.defer();
-          console.log(data);
+       //   console.log(data);
           $http.post(ENV.urlApiAuth + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
 
               if (loginData.useRefreshTokens) {

@@ -12,12 +12,13 @@ namespace Quang.Common.Auth
         public class HeThong
         {
 
-            public const string Users = "100";
-            public const string Groups = "110";
-            public const string Permissions = "120";
-            public const string Terms = "130";
-            public const string Grant = "140";
-            public const string UserApp = "150";
+            public const string Users = "100";// Quan ly thanh vien
+            public const string Groups = "110";//Quan ly group
+            public const string Permissions = "120";// Quan ly role
+            public const string Terms = "130";// Quan ly quyen
+            public const string Grant = "140";// Thiet lap ung dung
+            public const string UserApp = "150";// Quan ly ung dung
+            public const string Devices = "160";// Quan ly thiet bi
 
             public class User
             {
@@ -26,6 +27,16 @@ namespace Quang.Common.Auth
                 public const string Add = "103";
                 public const string Delete = "104";
             }
+        }
+        public class HelpView
+        {
+            public const string HeThong = "001";
+            public const string DanhMuc = "002";
+            public const string SoatVe = "003";
+            public const string PublicApi = "004";
+            public const string KeHoach = "007";
+            public const string Report = "008";
+            public const string HangHoa = "00A";
         }
         public class DanhMuc
         {
@@ -44,7 +55,16 @@ namespace Quang.Common.Auth
         {
 
         }
-
+        public class ValidateTicket
+        {
+            public const string SoatVe = "300";
+        }
+        public class Report
+        {
+            public const string BCNhanh = "801";
+            public const string BCDoanhThuBanHang = "802";
+            public const string BCDoanhThuThucHien = "803";
+        }
         private static IDictionary<string, ActionRoleItem> _dictionaryItems;
         public static IDictionary<string, ActionRoleItem> ToListDictionary()
         {

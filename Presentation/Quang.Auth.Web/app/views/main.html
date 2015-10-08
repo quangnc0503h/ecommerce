@@ -1,4 +1,5 @@
-﻿<div class="row" show-if-authenticated="false" style="display: none;">
+﻿
+<div class="row placeholders" show-if-authenticated="false" style="display: none;">
     <div class="col-md-2">
         &nbsp;
     </div>
@@ -16,19 +17,15 @@
         &nbsp;
     </div>
 </div>
-<div class="row" show-if-authenticated="true" style="display: none;">
-    <div class="panel panel-default">
+<div class="row placeholders" show-if-authenticated="true" style="display: none;">
+    <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title">Các chức năng trong hệ thống</h3>
+            <h3 class="panel-title">Dasboard</h3>
         </div>
         <div class="panel-body">
             <div class="col-md-4">
                 <div class="list-group">
-                    <!--<a class="list-group-item active" href="javascript:v;">Quản lý danh mục</a>-->
-                    <a class="list-group-item" show-if-authenticated="100" ng-href="#/user">Quản lý thành viên</a>
-                    <a class="list-group-item" show-if-authenticated="110" ng-href="#/group">Quản lý nhóm</a>
-                    <a class="list-group-item" show-if-authenticated="120" ng-href="#/role">Quản lý quyền</a>
-                    <a class="list-group-item" show-if-authenticated="130" ng-href="#/term">Quản lý chức năng</a>
+
                 </div>
             </div>
             <div class="col-md-4">
@@ -39,4 +36,5 @@
             </div>
         </div>
     </div>
+    
 </div>

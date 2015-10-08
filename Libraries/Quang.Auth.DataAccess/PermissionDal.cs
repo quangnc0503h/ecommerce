@@ -29,7 +29,7 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
 
-                var id = await conn.QueryAsync<ulong>(commandText, parameters);
+                var id = await conn.QueryAsync<long>(commandText, parameters);
                 results = (long)id.Single();
             }
 
@@ -49,7 +49,7 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
 
-                var id = await conn.QueryAsync<ulong>(commandText, parameters);
+                var id = await conn.QueryAsync<long>(commandText, parameters);
                 results = (long)id.Single();
             }
 
@@ -80,7 +80,7 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
 
-                var id = await conn.QueryAsync<ulong>(commandText, parameters);
+                var id = await conn.QueryAsync<long>(commandText, parameters);
                 results = (long)id.Single();
             }
 
@@ -104,8 +104,8 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
 
-                var id = await conn.QueryAsync<ulong>(commandText, parameters);
-                results = (long)id.Single();
+                var id = await conn.ExecuteAsync(commandText, parameters);
+                results = id;
             }
 
             return results;
@@ -269,8 +269,8 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
 
-                var id = await conn.QueryAsync<ulong>(commandText, parameters);
-                results = (long)id.Single();
+                var id = await conn.ExecuteAsync(commandText, parameters);
+                results = id;
             }
 
             return results;
@@ -292,8 +292,8 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
 
-                var id = await conn.QueryAsync<ulong>(commandText, parameters);
-                results = (long)id.Single();
+                var id = await conn.ExecuteAsync(commandText, parameters);
+                results = id;
             }
 
             return results;
@@ -310,8 +310,8 @@ namespace Quang.Auth.DataAccess
                 using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
                 {
 
-                    var id = await conn.QueryAsync<ulong>(commandText, parameters);
-                    results = (long)id.Single();
+                    var id = await conn.ExecuteAsync(commandText, parameters);
+                    results = id;
                 }
 
                 return results;
@@ -390,8 +390,8 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
 
-                var id = await conn.QueryAsync<ulong>(commandText, parameters);
-                results = (long)id.Single();
+                var id = await conn.ExecuteAsync(commandText, parameters);
+                results = id;
             }
 
             return results;
@@ -410,8 +410,8 @@ namespace Quang.Auth.DataAccess
                 using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
                 {
 
-                    var id = await conn.QueryAsync<ulong>(commandText, parameters);
-                    results = (long)id.Single();
+                    var id = await conn.ExecuteAsync(commandText, parameters);
+                    results = id;
                 }
 
                 return results;
@@ -452,8 +452,8 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
 
-                var id = await conn.QueryAsync<ulong>(commandText, parameters);
-                results = (long)id.Single();
+                var id = await conn.ExecuteAsync(commandText, parameters);
+                results = (long)id;
             }
 
             return results;
@@ -472,8 +472,8 @@ namespace Quang.Auth.DataAccess
                 using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
                 {
 
-                    var id = await conn.QueryAsync<ulong>(commandText, parameters);
-                    results = (long)id.Single();
+                    var id = await conn.ExecuteAsync(commandText, parameters);
+                    results = id;
                 }
 
                 return results;
@@ -573,8 +573,8 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
 
-                var id = await conn.QueryAsync<ulong>(commandText, parameters);
-                results = (long)id.Single();
+                var id = await conn.ExecuteAsync(commandText, parameters);
+                results = id;
             }
 
             return results;
@@ -589,8 +589,8 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
 
-                var id = await conn.QueryAsync<ulong>(commandText, parameters);
-                results = (long)id.Single();
+                var id = await conn.ExecuteAsync(commandText, parameters);
+                results = (long)id;
             }
 
             return results;
@@ -605,8 +605,8 @@ namespace Quang.Auth.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
 
-                var id = await conn.QueryAsync<ulong>(commandText, parameters);
-                results = (long)id.Single();
+                var id = await conn.ExecuteAsync(commandText, parameters);
+                results = (long)id;
             }
 
             return results;

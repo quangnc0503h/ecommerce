@@ -149,7 +149,7 @@ namespace Quang.Common.Auth
                     Log.Logger.Information("current--signature:" + signatureString);
                 }
             }
-            return isValid;
+            return await Task.FromResult(isValid);
         }
 
         public static string[] GetAutherizationHeaderValues(string rawAuthzHeader)
