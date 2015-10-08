@@ -12,6 +12,7 @@ using System.Web.Http;
 
 namespace Quang.Auth.Api.Controllers
 {
+    //[Authorize]
     [RoutePrefix("api/Permission")]
     public class PermissionController : ApiController
     {

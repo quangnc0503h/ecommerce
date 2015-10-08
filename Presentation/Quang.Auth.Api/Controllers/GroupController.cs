@@ -8,13 +8,16 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Quang.Auth.Entities;
 using Quang.Auth.BusinessLogic;
+using Quang.Common.Auth;
+
 namespace Quang.Auth.Api.Controllers
 {
+    //[Authorize]
     [RoutePrefix("api/Group")]
     public class GroupController : ApiController
     {
         [HttpPost]
-        //[Authorize (Roles = ActionRole.HeThong.Groups)]
+        //[AppAuthorize(Roles = ActionRole.HeThong.Groups)]
         [Route("GetAll")]
         public async Task<GetListGrouputputModel> GetAll(FilterGroupInputModel filter)
         {

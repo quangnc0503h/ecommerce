@@ -23,7 +23,8 @@ namespace Quang.Common.Auth
             {
                 public const string Edit = "101";
                 public const string List = "102";
-                public const string Test = "103";
+                public const string Add = "103";
+                public const string Delete = "104";
             }
         }
         public class DanhMuc

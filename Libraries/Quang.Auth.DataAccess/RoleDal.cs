@@ -69,7 +69,7 @@ namespace Quang.Auth.DataAccess
             Role role;
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
-                var data = await conn.QueryAsync<Role>(commandText, new { });
+                var data = await conn.QueryAsync<Role>(commandText, parameters);
                 role = data.First();
             }
             return role.Name;
@@ -89,7 +89,7 @@ namespace Quang.Auth.DataAccess
             Role role;
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
-                var data = await conn.QueryAsync<Role>(commandText, new { });
+                var data = await conn.QueryAsync<Role>(commandText, parameters);
                 role = data.First();
             }
 
@@ -109,7 +109,7 @@ namespace Quang.Auth.DataAccess
             Role role;
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
-                var data = await conn.QueryAsync<Role>(commandText, new { });
+                var data = await conn.QueryAsync<Role>(commandText, parameters);
                 role = data.First();
             }
 
@@ -130,7 +130,7 @@ namespace Quang.Auth.DataAccess
             Role role;
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
-                var data = await conn.QueryAsync<Role>(commandText, new { });
+                var data = await conn.QueryAsync<Role>(commandText, parameters);
                 role = data.First();
             }
 

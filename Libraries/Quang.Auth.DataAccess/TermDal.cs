@@ -124,7 +124,7 @@ namespace Quang.Auth.DataAccess
             Dictionary<string, object> parameters = new Dictionary<string, object>() { { "@id", termId } };
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
-                var data = await conn.QueryAsync<Term>(commandText, new { });
+                var data = await conn.QueryAsync<Term>(commandText, parameters);
                 term = data.First();
             }            
             return term;

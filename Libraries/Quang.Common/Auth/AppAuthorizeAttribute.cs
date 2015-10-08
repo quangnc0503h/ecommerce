@@ -18,15 +18,19 @@ namespace Quang.Common.Auth
                     if (contentError != null && string.IsNullOrEmpty(contentError.MessageDetail))
                     {
                         var customContentError = new HttpError(contentError.Message);
+                       // var roleList = ActionRole.ToListDictionary();
                         if (actionContext.ControllerContext.RequestContext.Principal.Identity.IsAuthenticated)
                         {
                             var roleList = ActionRole.ToListDictionary();
-                            var roleItem = roleList[Roles];
                             string role = Roles;
-                            if (roleItem != null)
+                            foreach (var item in roleList)
                             {
-                                role = roleItem.RoleKeyLabel;
+                                if (item.Key == Roles)
+                                {
+                                    role = item.Value.RoleKeyLabel;
+                                }
                             }
+
                             customContentError.MessageDetail = string.Format("You must have permission in [{0}] to access this page.\n\nPls contact admin to support.", role);
                             actionContext.Response.Content = new ObjectContent<HttpError>(customContentError, responseContent.Formatter);
                         }

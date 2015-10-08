@@ -26,7 +26,7 @@ angular.module('quangauthwebApp')
           generateApiKey: { method: 'POST', url: ENV.urlApiAuth + 'api/User/GenerateUserAppApiKey' },
           changepass: { method: 'POST', url: ENV.urlApiAuth + 'api/Account/ChangePassword' },
           setpassword: { method: 'POST', url: ENV.urlApiAuth + 'api/Account/SetPassword' },
-          getUserPermissions: { method: 'POST', url: ENV.urlApiAuth + 'api/Permission/GetUserPermissions', isArray: true },
+          getUserPermissions: { method: 'POST', url: ENV.urlApiAuth + 'api/Permission/GetUserPermissions'},
           updateUserPermissions: { method: 'POST', url: ENV.urlApiAuth + 'api/Permission/UpdateUserPermissions' },
       });
 
@@ -124,7 +124,8 @@ angular.module('quangauthwebApp')
       serviceFactory.getUserClientApp = function (userId, callback) {
           rs.getUserClientApp({ Id: userId }).$promise.then(function (res) {
               if (callback) {
-                  callback(res.UserApp);
+                 // console.log(res);
+                  callback(res);
               }
           });
       }
@@ -140,6 +141,7 @@ angular.module('quangauthwebApp')
       serviceFactory.generateApiKey = function (callback) {
           rs.generateApiKey().$promise.then(function (res) {
               if (callback) {
+                  console.log(res);
                   callback(res);
               }
           });
@@ -172,7 +174,7 @@ angular.module('quangauthwebApp')
       serviceFactory.getUserPermissions = function (userId, callback) {
           rs.getUserPermissions({ Id: userId }).$promise.then(function (res) {
               if (callback) {
-                  callback(res);
+                  callback(res.Data);
               }
           });
       }

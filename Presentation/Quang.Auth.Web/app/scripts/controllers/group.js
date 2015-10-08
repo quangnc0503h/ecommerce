@@ -24,7 +24,7 @@ angular.module('quangauthwebApp').controller('GroupCtrl', ['$scope', '$modal', '
                 PageNumber: $scope.currentPage - 1,
                 OrderBy: '',
             }
-            groupService.listGroup(filter, function(res) {
+            groupService.listGroup(filter, function (res) {                
                 $scope.items = res.items;
                 $scope.totalItems = res.totalCount;
                 loaded = true;
@@ -240,6 +240,50 @@ angular.module('quangauthwebApp').controller('GroupCtrl', ['$scope', '$modal', '
                   $scope.isDisabledBtnUpdate = false;
               });
           }
+      };
+
+      $scope.cancel = function () {
+          $modalInstance.dismiss('cancel');
+      };
+  }]).controller('ModalGrantGroupCtrl', ['$scope', 'groupService', 'permissionService', '$modalInstance', 'group', function ($scope, groupService, permissionService, $modalInstance, group) {
+
+      $scope.group = group;
+      $scope.groupPermissions = [];
+
+      groupService.getGroupPermissions(group.Id, function (groupPermissions) {
+          $scope.groupPermissions = groupPermissions;
+      });
+
+      $scope.updateGroupPermissions = function () {
+          if ($scope.editForm.$valid) {
+              $scope.isDisabledBtnGrant = true;
+              var permissions = [];
+              angular.forEach($scope.groupPermissions, function (item) {
+                  if (item.IsGranted) {
+                      permissions.push(item.Permission.Id);
+                  }
+              });
+              groupService.updateGroupPermissions(group.Id, permissions, function (success) {
+                  if (success) {
+                      $modalInstance.close(true);
+                  } else {
+                      alert('Error: Pls try again!');
+                  }
+                  $scope.isDisabledBtnGrant = false;
+              });
+          }
+      };
+
+      // Action when click check all
+      $scope.checkAll = function () {
+          if ($scope.selectedAll) {
+              $scope.selectedAll = true;
+          } else {
+              $scope.selectedAll = false;
+          }
+          angular.forEach($scope.groupPermissions, function (item) {
+              item.IsGranted = $scope.selectedAll;
+          });
       };
 
       $scope.cancel = function () {

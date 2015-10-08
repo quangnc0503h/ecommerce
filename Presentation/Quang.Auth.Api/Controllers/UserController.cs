@@ -16,6 +16,7 @@ using System.Security.Claims;
 
 namespace Quang.Auth.Api.Controllers
 {
+    //[Authorize]
     [RoutePrefix("api/User")]
     public class UserController : ApiController
     {
@@ -45,7 +46,7 @@ namespace Quang.Auth.Api.Controllers
             }
         }
         [HttpPost]
-       // [AppAuthorize(Roles = ActionRole.HeThong.Users)]
+        //[AppAuthorize(Roles = ActionRole.HeThong.Users)]
         [Route("GetAll")]
         public async Task<DataSourceResultModel> GetAll(FilterUserModel filter)
         {
@@ -87,7 +88,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         [Route("GetCurrentUser")]
         public async Task<UserModel> GetCurrentUser()
         {
@@ -238,7 +239,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+       // [Authorize]
         [Route("UpdateCurrentUser")]
         public async Task<NotificationResultModel> UpdateCurrentUser(UserModel input)
         {
@@ -312,7 +313,7 @@ namespace Quang.Auth.Api.Controllers
            
         }
         [HttpPost]
-       // [AppAuthorize(Roles = ActionRole.HeThong.Users)]
+       //[AppAuthorize(Roles = ActionRole.HeThong.Users)]
         [Route("DeleteUser")]
         public async Task<NotificationResultModel> DeleteUser(DeleteInputModel input)
         {
@@ -351,7 +352,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        //[Authorize]
+       // [Authorize]
         [Route("CheckEmail")]
         public async Task<CheckUserExistOutput> CheckEmail(CheckUserExistInput input)
         {

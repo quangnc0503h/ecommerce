@@ -26,7 +26,7 @@ namespace Quang.Auth.Api
         public void ConfigureAuth(IAppBuilder app)
         {
             // Must be the first to be set otherwise it won't work.
-            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+            //app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             // Configure the db context and user manager to use a single instance per request
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
@@ -34,7 +34,12 @@ namespace Quang.Auth.Api
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
-            app.UseCookieAuthentication(new CookieAuthenticationOptions());
+            app.UseCookieAuthentication(new CookieAuthenticationOptions()
+            {
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                CookieHttpOnly = true,
+                CookieName = "Outpour.Api.Auth"
+            });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Configure the application for OAuth based flow

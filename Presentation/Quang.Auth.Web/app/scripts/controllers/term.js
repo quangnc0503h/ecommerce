@@ -43,7 +43,7 @@ angular.module('quangauthwebApp')
       // Load missing terms
       var reloadMissingTerms = function () {
           termService.getMissingTerms(function (missingTerms) {
-              console.log(missingTerms);
+              //console.log(missingTerms);
               $scope.missingTerms = missingTerms;
           });
       };

@@ -19,10 +19,10 @@ angular.module('quangauthwebApp')
           remove: { method: 'POST', url: ENV.urlApiAuth + 'api/Term/DeleteTerm' },
           listRole: { method: 'GET', url: ENV.urlApiAuth + 'api/Term/ListRoleOptions' },
           getMissingTerms: { method: 'GET', url: ENV.urlApiAuth + 'api/Term/GetMissingTerms'},
-          getGrantUserTerms: { method: 'POST', url: ENV.urlApiAuth + 'api/Term/GetGrantTermsUser', isArray: true },
+          getGrantUserTerms: { method: 'POST', url: ENV.urlApiAuth + 'api/Term/GetGrantTermsUser' },
           updateUserGrant: { method: 'POST', url: ENV.urlApiAuth + 'api/Term/UpdateUserGrant' },
-          getGrantGroupTerms: { method: 'POST', url: ENV.urlApiAuth + 'api/Term/GetGrantTermsGroup', isArray: true },
-          getGrantedUsersByTerm: { method: 'POST', url: ENV.urlApiAuth + 'api/Term/GetGrantedUsersByTerm', isArray: true },
+          getGrantGroupTerms: { method: 'POST', url: ENV.urlApiAuth + 'api/Term/GetGrantTermsGroup'},
+          getGrantedUsersByTerm: { method: 'POST', url: ENV.urlApiAuth + 'api/Term/GetGrantedUsersByTerm' },
           updateGroupGrant: { method: 'POST', url: ENV.urlApiAuth + 'api/Term/UpdateGroupGrant' },
       });
 
@@ -40,6 +40,7 @@ angular.module('quangauthwebApp')
           filter = filter ? filter : {};
           rs.query(filter).$promise.then(function (res) {
               if (callback) {
+                 // console.log(res.Data);
                   callback({ items: res.Data, totalCount: res.Total });
               }
           });
@@ -56,6 +57,7 @@ angular.module('quangauthwebApp')
       serviceFactory.getGrantedUsersByTerm = function (id, callback) {
           rs.getGrantedUsersByTerm({ Id: id }).$promise.then(function (users) {
               if (callback) {
+                 // console.log(users);
                   callback(users.Data);
               }
           });

@@ -34,7 +34,7 @@ angular.module('quangauthwebApp')
               OrderBy: '',
           }
           userService.listUser(filter, function (res) {
-              console.log(res);
+              //console.log(res);
               $scope.items = res.items;
               $scope.totalItems = res.totalCount;
               loaded = true;
@@ -233,6 +233,7 @@ angular.module('quangauthwebApp')
       $scope.userPermissions = [];
 
       userService.getUserPermissions(user.Id, function (userPermissions) {
+          console.log(userPermissions);
           $scope.userPermissions = userPermissions;
       });
 

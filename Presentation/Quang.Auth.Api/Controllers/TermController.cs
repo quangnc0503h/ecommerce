@@ -12,6 +12,7 @@ using System.Web.Http;
 
 namespace Quang.Auth.Api.Controllers
 {
+    //[Authorize]
     [RoutePrefix("api/Term")]
     public class TermController : ApiController
     {
@@ -22,10 +23,23 @@ namespace Quang.Auth.Api.Controllers
         {
             try
             {
+                var listRoleKey = TermBll.GetListRoleDictionary();
+                var terms = await TermBll.GetPaging(filter.PageSize, filter.PageNumber, filter.Keyword);
+                foreach (var term in terms)
+                {
+                    var key = term.RoleKey;
+                    foreach (var roleKey in listRoleKey)
+                    {
+                        if (roleKey.Key == key)
+                        {
+                            term.RoleKeyLabel = roleKey.Value.RoleKeyLabel;
+                        }
+                    }
+                }
                 var model = new DataSourceResultModel
                 {
                     Total = await TermBll.GetTotal(filter.Keyword),
-                    Data = await TermBll.GetPaging(filter.PageSize, filter.PageNumber, filter.Keyword)
+                    Data = terms
                 };
                 return model;
             }
