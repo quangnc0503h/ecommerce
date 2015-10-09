@@ -1,7 +1,0 @@
-﻿2015-10-05 08:53:45.888 +07:00 [Information] HTTP "POST" for "/api/Permission"
-2015-10-05 08:54:43.727 +07:00 [Information] HTTP "POST" for "/api/Permission"
-2015-10-05 08:55:21.901 +07:00 [Information] HTTP "POST" for "/api/Permission"
-2015-10-05 08:55:40.938 +07:00 [Information] HTTP "POST" for "/api/Permission/GetAll"
-2015-10-05 08:56:03.211 +07:00 [Information] HTTP "POST" for "/api/Permission/GetAll"
-2015-10-05 08:57:09.798 +07:00 [Information] HTTP "POST" for "/api/Permission/GetAll"
-2015-10-05 08:58:27.527 +07:00 [Information] HTTP "POST" for "/api/Permission/GetAll"

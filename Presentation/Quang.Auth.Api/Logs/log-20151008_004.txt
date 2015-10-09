@@ -1,6 +1,0 @@
-﻿2015-10-08 10:25:30.179 +07:00 [Information] HTTP "GET" for "/"
-2015-10-08 10:25:30.532 +07:00 [Information] HTTP "GET" for "/__browserLink/requestData/491f100fbe9848f088b93da0e634bee1?version=2"
-2015-10-08 10:26:29.044 +07:00 [Information] HTTP "POST" for "/api/user/GetUserClientApp"
-2015-10-08 10:53:26.362 +07:00 [Information] HTTP "OPTIONS" for "/api/User/GetAll"
-2015-10-08 10:53:26.708 +07:00 [Information] HTTP "POST" for "/api/User/GetAll"
-2015-10-08 10:53:26.843 +07:00 [Information] HTTP "GET" for "/api/Group/AllGroup"

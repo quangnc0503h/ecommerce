@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccessBase.cs" />
+    <Compile Include="DeviceDal.cs" />
     <Compile Include="GroupDal.cs" />
     <Compile Include="IDataAccess.cs" />
     <Compile Include="PermissionDal.cs" />

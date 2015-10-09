@@ -16,13 +16,13 @@ using System.Security.Claims;
 
 namespace Quang.Auth.Api.Controllers
 {
-    [AppAuthorize(Roles =ActionRole.HeThong.Users)]
+    //[AppAuthorize(Roles =ActionRole.HeThong.Users)]
     [RoutePrefix("api/User")]
     public class UserController : BaseApiController
     {
        
         [HttpPost]
-        //[AppAuthorize(Roles = ActionRole.HeThong.Users)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Users)]
         [Route("GetAll")]
         public async Task<DataSourceResultModel> GetAll(FilterUserModel filter)
         {
@@ -45,7 +45,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        //[AppAuthorize(Roles = ActionRole.HeThong.Users)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Users)]
         [Route("GetOneUser")]
         public async Task<UserModel> GetOneUser(GetOneInputModel input)
         {
@@ -64,7 +64,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         [Route("GetCurrentUser")]
         public async Task<UserModel> GetCurrentUser()
         {
@@ -84,7 +84,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        //[AppAuthorize(Roles = ActionRole.HeThong.Users)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Users)]
         [Route("CreateUser")]
         public async Task<NotificationResultModel> CreateUser(UserModel input)
         {
@@ -136,7 +136,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        //[AppAuthorize(Roles = ActionRole.HeThong.Users)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Users)]
         [Route("UpdateUser")]
         public async Task<NotificationResultModel> UpdateUser(UserModel input)
         {
@@ -215,7 +215,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-       // [Authorize]
+        [Authorize]
         [Route("UpdateCurrentUser")]
         public async Task<NotificationResultModel> UpdateCurrentUser(UserModel input)
         {
@@ -289,7 +289,7 @@ namespace Quang.Auth.Api.Controllers
            
         }
         [HttpPost]
-       //[AppAuthorize(Roles = ActionRole.HeThong.Users)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Users)]
         [Route("DeleteUser")]
         public async Task<NotificationResultModel> DeleteUser(DeleteInputModel input)
         {
@@ -310,7 +310,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         [Route("CheckUserName")]
         public async Task<CheckUserExistOutput> CheckUserName(CheckUserExistInput input)
         {
@@ -328,7 +328,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-       // [Authorize]
+        [Authorize]
         [Route("CheckEmail")]
         public async Task<CheckUserExistOutput> CheckEmail(CheckUserExistInput input)
         {
@@ -346,7 +346,7 @@ namespace Quang.Auth.Api.Controllers
             
         }
         [HttpPost]
-        //[AppAuthorize(Roles = ActionRole.HeThong.UserApp)]
+        [AppAuthorize(Roles = ActionRole.HeThong.UserApp)]
         [Route("GetUserClientApp")]
         public async Task<UserAppModel> GetUserClientApp(GetOneInputModel input)
         {
@@ -374,7 +374,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        //[AppAuthorize(Roles = ActionRole.HeThong.UserApp)]
+        [AppAuthorize(Roles = ActionRole.HeThong.UserApp)]
         [Route("UpdateUserClientApp")]
         public async Task<NotificationResultModel> UpdateUserClientApp(UserAppModel input)
         {
@@ -405,7 +405,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-      //  [AppAuthorize(Roles = ActionRole.HeThong.UserApp)]
+        [AppAuthorize(Roles = ActionRole.HeThong.UserApp)]
         [Route("GenerateUserAppApiKey")]
         public async Task<GenerateUserAppApiKeyModel> GenerateUserAppApiKey()
         {
