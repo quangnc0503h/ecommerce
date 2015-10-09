@@ -1,6 +1,7 @@
 ﻿using Quang.Auth.Api.Models;
 using Quang.Auth.BusinessLogic;
 using Quang.Auth.Entities;
+using Quang.Common.Auth;
 using StackExchange.Exceptional;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,10 @@ namespace Quang.Auth.Api.Controllers
 {
     //[Authorize]
     [RoutePrefix("api/Term")]
-    public class TermController : ApiController
+    public class TermController : BaseApiController
     {
         [HttpPost]
-       // [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
         [Route("GetAll")]
         public async Task<DataSourceResultModel> GetAll(FilterInputModel filter)
         {
@@ -53,7 +54,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        //[AppAuthorize(Roles = ActionRole.HeThong.Terms)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
         [Route("GetGrantedUsersByTerm")]
         public async Task<DataSourceResultModel> GetGrantedUsersByTerm(GetOneInputModel input)
         {
@@ -73,7 +74,7 @@ namespace Quang.Auth.Api.Controllers
        
 
         [HttpGet]
-        //[AppAuthorize(Roles = ActionRole.HeThong.Terms)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
         [Route("GetMissingTerms")]
         public async Task<DataSourceResultModel> GetMissingTerms()
         {
@@ -90,7 +91,7 @@ namespace Quang.Auth.Api.Controllers
             
         }
         [HttpPost]
-        //[AppAuthorize(Roles = ActionRole.HeThong.Terms)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
         [Route("GetOneTerm")]
         public async Task<TermModel> GetOneTerm(GetOneInputModel input)
         {
@@ -112,7 +113,7 @@ namespace Quang.Auth.Api.Controllers
            
         }
         [HttpPost]
-        //[AppAuthorize(Roles = ActionRole.HeThong.Terms)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
         [Route("CreateTerm")]
         public async Task<NotificationResultModel> CreateTerm(TermModel input)
         {
@@ -141,7 +142,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        //[AppAuthorize(Roles = ActionRole.HeThong.Terms)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
         [Route("UpdateTerm")]
         public async Task<NotificationResultModel> UpdateTerm(TermModel input)
         {
@@ -172,7 +173,7 @@ namespace Quang.Auth.Api.Controllers
           
         }
         [HttpPost]
-        //[AppAuthorize(Roles = ActionRole.HeThong.Terms)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
         [Route("DeleteTerm")]
         public async Task<NotificationResultModel> DeleteTerm(DeleteInputModel input)
         {
@@ -197,7 +198,7 @@ namespace Quang.Auth.Api.Controllers
            
         }
         [HttpGet]
-        //[AppAuthorize(Roles = ActionRole.HeThong.Terms)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
         [Route("ListRoleOptions")]
         public  Task<DataSourceResultModel> ListRoleOptions()
         {
@@ -217,7 +218,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        //[AppAuthorize(Roles = ActionRole.HeThong.Grant)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
         [Route("GetGrantTermsUser")]
         public async Task<DataSourceResultModel> GetGrantTermsUser(GetOneInputModel input)
         {
@@ -237,7 +238,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-      //  [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
         [Route("UpdateUserGrant")]
         public async Task<NotificationResultModel> UpdateUserGrant(UserGrantModel input)
         {
@@ -252,7 +253,7 @@ namespace Quang.Auth.Api.Controllers
             return result;
         }
         [HttpPost]
-    //    [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
+       [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
         [Route("GetGrantTermsGroup")]
         public async Task<DataSourceResultModel> GetGrantTermsGroup(GetOneInputModel input)
         {
@@ -272,7 +273,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-    //    [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
+       [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
         [Route("UpdateGroupGrant")]
         public async Task<NotificationResultModel> UpdateGroupGrant(GroupGrantModel input)
         {

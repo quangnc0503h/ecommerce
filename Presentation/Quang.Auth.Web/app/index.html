@@ -41,6 +41,7 @@
                         <li show-if-authenticated="110" style="display: none;" menu-active-url="group"><a ng-href="#/group">Quản lý nhóm</a></li>
                         <li show-if-authenticated="120" style="display: none;" menu-active-url="role"><a ng-href="#/role">Quản lý quyền</a></li>
                         <li show-if-authenticated="130" style="display: none;" menu-active-url="term"><a ng-href="#/term">Quản lý chức năng</a></li>
+                        <li show-if-authenticated="160" style="display: none" menu-active-url="device"><a ng-href="#/device">Quản lý thiết bị</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li show-if-authenticated="true" menu-active-url="(settings|changepass)" class="dropdown" style="display: none;">
@@ -115,6 +116,8 @@
     <script src="scripts/services/groupservice.js"></script>
     <script src="scripts/services/permissionservice.js"></script>
     <script src="scripts/services/termservice.js"></script>
+    <script src="scripts/services/deviceservice.js"></script>
+    <script src="scripts/controllers/divice.js"></script>
     <script src="scripts/controllers/main.js"></script>
 
     <script src="scripts/controllers/about.js"></script>

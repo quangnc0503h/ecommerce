@@ -16,35 +16,11 @@ using System.Security.Claims;
 
 namespace Quang.Auth.Api.Controllers
 {
-    //[Authorize]
+    [AppAuthorize(Roles =ActionRole.HeThong.Users)]
     [RoutePrefix("api/User")]
-    public class UserController : ApiController
+    public class UserController : BaseApiController
     {
-        private ApplicationUserManager _userManager;
-        private ApplicationRoleManager _roleManager;
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
-
-        public ApplicationRoleManager RoleManager
-        {
-            get
-            {
-                return _roleManager ?? Request.GetOwinContext().GetUserManager<ApplicationRoleManager>();
-            }
-            private set
-            {
-                _roleManager = value;
-            }
-        }
+       
         [HttpPost]
         //[AppAuthorize(Roles = ActionRole.HeThong.Users)]
         [Route("GetAll")]

@@ -25,10 +25,10 @@ namespace Quang.Auth.Api.Controllers
 
     [Authorize]
     [RoutePrefix("api/Account")]
-    public class AccountController : ApiController
+    public class AccountController : BaseApiController
     {
         private const string LocalLoginProvider = "Local";
-        private ApplicationUserManager _userManager;
+        //private ApplicationUserManager _userManager;
 
         public AccountController()
         {
@@ -41,17 +41,17 @@ namespace Quang.Auth.Api.Controllers
              AccessTokenFormat = accessTokenFormat;
         }*/
 
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
+        //public ApplicationUserManager UserManager
+        //{
+        //    get
+        //    {
+        //        return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+        //    }
+        //    private set
+        //    {
+        //        _userManager = value;
+        //    }
+        //}
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
@@ -510,10 +510,10 @@ namespace Quang.Auth.Api.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && _userManager != null)
+            if (disposing && UserManager != null)
             {
-                _userManager.Dispose();
-                _userManager = null;
+                UserManager.Dispose();
+                UserManager = null;
             }
 
             base.Dispose(disposing);

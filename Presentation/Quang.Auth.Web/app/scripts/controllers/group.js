@@ -201,7 +201,7 @@ angular.module('quangauthwebApp').controller('GroupCtrl', ['$scope', '$modal', '
         $scope.item = { Status: 1, ParentId: parentId };
         $scope.listAllParents = listAllParents;
         $scope.createItem = function () {
-            console.log($scope.addForm.$valid);
+            //console.log($scope.addForm.$valid);
             if ($scope.addForm.$valid) {
                 $scope.isDisabledBtnCreate = true;
                 groupService.createGroup($scope.item, function (success) {

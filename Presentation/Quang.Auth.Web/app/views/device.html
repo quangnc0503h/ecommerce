@@ -1,0 +1,315 @@
+﻿
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Danh sách các thiết bị</h3>
+    </div>
+    <div class="panel-body">
+        <nav class="pagination-container">
+            <pagination boundary-links="true" ng-change="pageChanged()" total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" class="pagination" max-size="maxSize" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+        </nav>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid container-fluid-filter">
+                <div class="collapse navbar-collapse">
+                    <form class="navbar-form navbar-left">
+                        <button type="button" class="btn btn-default" ng-click="removeCheckedItems()" ng-disabled="isDisabledBtnDeleteAll">Xóa các thiết bị đã chọn</button>
+                        <button type="button" class="btn btn-default" ng-click="openDialogCreateItem()">Thêm mới thiết bị</button>
+                        <button type="button" class="btn btn-default" ng-click="openDialogRequestWaiting()">Các yêu cầu đăng ký thiết bị</button>
+                    </form>
+                    <form class="navbar-form navbar-right" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Tìm kiếm..." ng-model="qsearch">
+                        </div>
+                        <button type="submit" class="btn btn-default" ng-click="searchItems()">GO</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center">
+                        <input type="checkbox" ng-model="selectedAll" ng-click="checkAll()">
+                    </th>
+                    <th class="text-center">Id </th>
+                    <th class="text-center">Tên đăng ký</th>
+                    <th class="text-center">Trạng thái</th>
+                    <th>Mã thiết bị</th>
+                    <th>Tên thiết bị</th>
+                    <th>Diễn giải</th>
+                    <th class="text-center" style="width: 140px">Tùy chọn</th>
+            <tbody>
+                <tr data-ng-repeat="item in items">
+                    <td class="text-center"><input type="checkbox" ng-model="item.Selected"></td>
+                    <td class="text-center">{{item.Id}}</td>
+                    <td class="text-center">{{item.RequestDeviceName}}</td>
+                    <td class="text-center">{{item.IsActived|isActiveText}}</td>
+                    <td>{{item.DeviceKey}}</td>
+                    <td>{{item.DeviceName}}</td>
+                    <td>{{item.DeviceDescription}} </td>
+                    <td class="text-center">
+                        <button type="button" class="btn btn-default" ng-click="openDialogEditItem(item.Id)">Sửa</button>
+                        <button type="button" class="btn btn-default" ng-click="removeItem(item.Id)" ng-disabled="isDisabledBtnDelete{{item.Id}}">Xóa</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid container-fluid-filter">
+                <div class="collapse navbar-collapse">
+                    <form class="navbar-form navbar-left">
+                        <button type="button" class="btn btn-default" ng-click="removeCheckedItems()" ng-disabled="isDisabledBtnDeleteAll">Xóa các thiết bị đã chọn</button>
+                        <button type="button" class="btn btn-default" ng-click="openDialogCreateItem()">Thêm mới thiết bị</button>
+                        <button type="button" class="btn btn-default" ng-click="openDialogRequestWaiting()">Các yêu cầu đăng ký thiết bị</button>
+                    </form>
+                    <form class="navbar-form navbar-right" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Tìm kiếm..." ng-model="qsearch">
+                        </div>
+                        <button type="submit" class="btn btn-default" ng-click="searchItems()">GO</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <nav class="pagination-container">
+            <pagination boundary-links="true" ng-change="pageChanged()" total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" class="pagination" max-size="maxSize" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+        </nav>
+    </div>
+</div> <!-- Begin modal requesting devices -->
+<script type="text/ng-template" id="modalRequestDeviceContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Danh sách các yêu cầu đăng ký thiết bị</h3>
+    </div>
+    <div class="modal-body">
+        <nav class="pagination-container">
+            <pagination boundary-links="true" ng-change="pageChanged()" total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" class="pagination" max-size="maxSize" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+        </nav>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid container-fluid-filter">
+                <div class="collapse navbar-collapse">
+                    <form class="navbar-form navbar-left">
+                        <button type="button" class="btn btn-default" ng-click="removeCheckedItems()" ng-disabled="isDisabledBtnDeleteAll">Xóa các yêu cầu đã chọn</button>
+                    </form>
+                    <form class="navbar-form navbar-right qsearch-bar" role="search">
+                        <input type="text" class="form-control" placeholder="Tìm theo mã thiết bị..." ng-model="qsearch">
+                        <p class="input-group" style="margin: 0;">
+                            <input type="text" class="form-control" placeholder="Tìm từ ngày..." ng-model="qdatefrom" ng-click="datePickerOpenedFrom=true" datepicker-popup="dd/MM/yyyy" is-open="datePickerOpenedFrom" show-weeks="false" show-button-bar="false" style="width: 120px; padding-right: 0px;">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="openDatePickerFrom($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </p>
+                        <p class="input-group" style="margin: 0;">
+                            <input type="text" class="form-control" placeholder="Tìm đến ngày..." ng-model="qdateto" ng-click="datePickerOpenedTo=true" datepicker-popup="dd/MM/yyyy" is-open="datePickerOpenedTo" show-weeks="false" show-button-bar="false" style="width: 120px; padding-right: 0px;">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="openDatePickerTo($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </p>
+                        <button type="submit" class="btn btn-default" ng-click="searchItems()">Tìm kiếm</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center"><input type="checkbox" ng-model="selectedAll" ng-click="checkAll()" /></th>
+                    <th class="text-center">Id</th>
+                    <th>Tên yêu cầu</th>
+                    <th>Mã thiết bị</th>
+                    <th>Ngày yêu cầu</th>
+                    <th>Do FPT cung cấp</th>
+                    <th class="text-center" style="width: 180px;">Tùy chọn</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="item in items">
+                    <td class="text-center"><input type="checkbox" ng-model="item.Selected" /></td>
+                    <td class="text-center">{{item.Id}}</td>
+                    <td class="text-center">{{item.RequestName}}</td>
+                    <td>{{item.DeviceKey}}</td>
+                    <td>{{item.Created|date:'dd/MM/yyyy HH:mm'}}</td>
+                    <td>{{getTrustText(item.IsTrust)}}</td>
+                    <td class="text-center">
+                        <button type="button" class="btn btn-default" ng-click="applyItem(item)">Đăng ký</button>
+                        <button type="button" class="btn btn-default" ng-click="removeItem(item.Id)" ng-disabled="isDisabledBtnDelete{{item.Id}}">Xóa</button>
+                    </td>
+                </tr>
+                <tr ng-show="items.length == 0">
+                    <td colspan="6">Không có yêu cầu nào</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" type="button" ng-click="close()">Đóng</button>
+    </div>
+</script> <!-- End modal requesting devices --> <!-- Begin modal create -->
+<script type="text/ng-template" id="modalCreateDeviceContent.html">
+    <form name="addForm" id="addForm" novalidate valid-submit="createItem()">
+        <div class="modal-header">
+            <h3 class="modal-title">Thêm mới thiết bị</h3>
+        </div>
+        <div class="modal-body">
+            <tabset>
+                <tab heading="Thông tin đăng ký">
+                    <div class="well-lg">
+                        <div class="form-group" show-errors>
+                            <label class="control-label" for="">Tên yêu cầu:</label>
+                            <div>
+                                <p>{{item.RequestDeviceName}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group" show-errors>
+                            <label class="control-label" for="">Trạng thái:</label>
+                            <div>
+                                <input type="radio" name="isActived" ng-model="item.IsActived" ng-value="1" ng-required="!item.IsActived" /> Có hoạt động
+                                <input type="radio" name="isActived" ng-model="item.IsActived" ng-value="0" ng-required="!item.IsActived" /> Không hoạt động
+                                <p class="help-block" ng-show="addForm.isActived.$error.required">Vui lòng chọn trạng thái</p>
+                            </div>
+                        </div>
+                        <div class="form-group" show-errors>
+                            <label class="control-label" for="deviceKey">Mã thiết bị:</label>
+                            <input type="text" class="form-control" id="deviceKey" name="deviceKey" ng-model="item.DeviceKey" required ng-pattern="/^[0-9a-zA-Z\-\_\.]*$/" check-exist-device="{{item.Id}}" />
+                            <p class="help-block" ng-show="addForm.deviceKey.$error.required">Mã thiết bị không được bỏ trống</p>
+                            <p class="help-block" ng-show="addForm.deviceKey.$error.pattern">Mã thiết bị không không đúng</p>
+                            <p class="help-block" ng-show="addForm.deviceKey.$error.checkExistDevice">Mã thiết bị này đã tồn tại</p>
+                        </div>
+                        <!--
+                        <div class="form-group" show-errors>
+                            <label class="control-label" for="deviceSecret">Mật khẩu thiết bị:</label>
+                            <input type="text" class="form-control" id="deviceSecret" name="deviceSecret" ng-model="item.DeviceSecret" required />
+                            <p class="help-block" ng-show="addForm.deviceSecret.$error.required">Mã thiết bị không được bỏ trống</p>
+                        </div>
+                        -->
+                        <div class="form-group" show-errors>
+                            <label class="control-label" for="deviceName">Tên thiết bị:</label>
+                            <input type="text" class="form-control" id="deviceName" name="deviceName" ng-model="item.DeviceName" required />
+                            <p class="help-block" ng-show="addForm.deviceName.$error.required">Tên thiết bị không được bỏ trống</p>
+                        </div>
+                        <div class="form-group" show-errors>
+                            <label class="control-label" for="deviceDescription">Diễn giải:</label>
+                            <input type="text" class="form-control" id="deviceDescription" name="deviceDescription" ng-model="item.DeviceDescription" />
+                            <p class="help-block" ng-show="addForm.deviceDescription.$error.required">Diễn giải không được bỏ trống</p>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="Thông tin thiết bị">
+                    <div class="well-lg">
+                        <div class="form-group" show-errors>
+                            <label class="control-label" for="SerialNumber">SerialNumber:</label>
+                            <input type="text" class="form-control" id="SerialNumber" name="SerialNumber" ng-model="item.SerialNumber" />
+                        </div>
+                        <div class="form-group" show-errors>
+                            <label class="control-label" for="IMEI">IMEI:</label>
+                            <input type="text" class="form-control" id="IMEI" name="IMEI" ng-model="item.IMEI" />
+                        </div>
+                        <div class="form-group" show-errors>
+                            <label class="control-label" for="Manufacturer">Manufacturer:</label>
+                            <input type="text" class="form-control" id="Manufacturer" name="Manufacturer" ng-model="item.Manufacturer" />
+                        </div>
+                        <div class="form-group" show-errors>
+                            <label class="control-label" for="Model">Model:</label>
+                            <input type="text" class="form-control" id="Model" name="Model" ng-model="item.Model" />
+                        </div>
+                        <div class="form-group" show-errors>
+                            <label class="control-label" for="Platform">Platform:</label>
+                            <input type="text" class="form-control" id="Platform" name="Platform" ng-model="item.Platform" />
+                        </div>
+                        <div class="form-group" show-errors>
+                            <label class="control-label" for="PlatformVersion">PlatformVersion:</label>
+                            <input type="text" class="form-control" id="PlatformVersion" name="PlatformVersion" ng-model="item.PlatformVersion" />
+                        </div>
+                    </div>
+                </tab>
+            </tabset>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" type="submit" ng-disabled="isDisabledBtnCreate">Thêm mới</button>
+            <button class="btn btn-default" type="button" ng-click="cancel()">Đóng</button>
+        </div>
+    </form>
+</script> <!-- End modal create --> <!-- Begin modal edit -->
+<script type="text/ng-template" id="modalEditDeviceContent.html">
+    <form name="editForm" id="editForm" novalidate valid-submit="updateItem()">
+        <div class="modal-header">
+            <h3 class="modal-title">Hiệu chỉnh thông tin thiết bị</h3>
+        </div>
+        <div class="modal-body">
+            <tabset>
+                <tab heading="Thông tin đăng ký">
+                    <div class="well-lg">
+                        <div class="form-group" show-errors>
+                            <label class="control-label" for="">Tên yêu cầu:</label>
+                            <div>
+                                <p>{{item.RequestDeviceName}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group" show-errors>
+                            <label class="control-label" for="">Trạng thái:</label>
+                            <div>
+                                <input type="radio" name="isActived" ng-model="item.IsActived" ng-value="true" ng-required="!item.IsActived" /> Có hoạt động
+                                <input type="radio" name="isActived" ng-model="item.IsActived" ng-value="false" ng-required="!item.IsActived" /> Không hoạt động
+                                <p class="help-block" ng-show="editForm.isActived.$error.required">Vui lòng chọn trạng thái</p>
+                            </div>
+                        </div>
+                        <div class="form-group" show-errors>
+                            <label class="control-label" for="deviceKey">Mã thiết bị:</label>
+                            <input type="text" class="form-control" id="deviceKey" name="deviceKey" ng-model="item.DeviceKey" required ng-pattern="/^[0-9a-zA-Z\-\_\.]*$/" check-exist-device="{{item.Id}}" />
+                            <p class="help-block" ng-show="editForm.deviceKey.$error.required">Mã thiết bị không được bỏ trống</p>
+                            <p class="help-block" ng-show="editForm.deviceKey.$error.pattern">Mã thiết bị không không đúng</p>
+                            <p class="help-block" ng-show="editForm.deviceKey.$error.checkExistDevice">Mã thiết bị này đã tồn tại</p>
+                        </div>
+                        <!--
+                        <div class="form-group" show-errors>
+                            <label class="control-label" for="deviceSecret">Mật khẩu thiết bị:</label>
+                            <input type="text" class="form-control" id="deviceSecret" name="deviceSecret" ng-model="item.DeviceSecret" required />
+                            <p class="help-block" ng-show="editForm.deviceSecret.$error.required">Mã thiết bị không được bỏ trống</p>
+                        </div>
+                        -->
+                        <div class="form-group" show-errors>
+                            <label class="control-label" for="deviceName">Tên thiết bị:</label>
+                            <input type="text" class="form-control" id="deviceName" name="deviceName" ng-model="item.DeviceName" required />
+                            <p class="help-block" ng-show="editForm.deviceName.$error.required">Tên thiết bị không được bỏ trống</p>
+                        </div>
+                        <div class="form-group" show-errors>
+                            <label class="control-label" for="deviceDescription">Diễn giải:</label>
+                            <input type="text" class="form-control" id="deviceDescription" name="deviceDescription" ng-model="item.DeviceDescription" />
+                            <p class="help-block" ng-show="editForm.deviceDescription.$error.required">Diễn giải không được bỏ trống</p>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="Thông tin thiết bị">
+                    <div class="well-lg">
+                        <div class="form-group" show-errors>
+                            <label class="control-label" for="SerialNumber">SerialNumber:</label>
+                            <input type="text" class="form-control" id="SerialNumber" name="SerialNumber" ng-model="item.SerialNumber" />
+                        </div>
+                        <div class="form-group" show-errors>
+                            <label class="control-label" for="IMEI">IMEI:</label>
+                            <input type="text" class="form-control" id="IMEI" name="IMEI" ng-model="item.IMEI" />
+                        </div>
+                        <div class="form-group" show-errors>
+                            <label class="control-label" for="Manufacturer">Manufacturer:</label>
+                            <input type="text" class="form-control" id="Manufacturer" name="Manufacturer" ng-model="item.Manufacturer" />
+                        </div>
+                        <div class="form-group" show-errors>
+                            <label class="control-label" for="Model">Model:</label>
+                            <input type="text" class="form-control" id="Model" name="Model" ng-model="item.Model" />
+                        </div>
+                        <div class="form-group" show-errors>
+                            <label class="control-label" for="Platform">Platform:</label>
+                            <input type="text" class="form-control" id="Platform" name="Platform" ng-model="item.Platform" />
+                        </div>
+                        <div class="form-group" show-errors>
+                            <label class="control-label" for="PlatformVersion">PlatformVersion:</label>
+                            <input type="text" class="form-control" id="PlatformVersion" name="PlatformVersion" ng-model="item.PlatformVersion" />
+                        </div>
+                    </div>
+                </tab>
+            </tabset>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" type="submit" ng-disabled="isDisabledBtnUpdate">Cập nhật</button>
+            <button class="btn btn-default" type="button" ng-click="cancel()">Đóng</button>
+        </div>
+    </form>
+</script> <!-- End modal create -->

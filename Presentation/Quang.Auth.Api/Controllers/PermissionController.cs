@@ -1,6 +1,7 @@
 ﻿using Quang.Auth.Api.Models;
 using Quang.Auth.BusinessLogic;
 using Quang.Auth.Entities;
+using Quang.Common.Auth;
 using StackExchange.Exceptional;
 using System;
 using System.Collections.Generic;
@@ -14,12 +15,12 @@ namespace Quang.Auth.Api.Controllers
 {
     //[Authorize]
     [RoutePrefix("api/Permission")]
-    public class PermissionController : ApiController
+    public class PermissionController : BaseApiController
     {
         [HttpPost]
         //[Authorize (Roles = ActionRole.HeThong.Permissions)]
         [Route("GetAll")]
-        //[AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
         public async Task<DataSourceResultModel> GetAll(FilterPermissionModel filter)
         {
             try
@@ -41,7 +42,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        //[AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
         [Route("GetOnePermission")]
         public async Task<PermissionModel> GetOnePermission(GetOneInputModel input)
         {
@@ -60,7 +61,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-      //  [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
         [Route("UpdatePermission")]
         public async Task<NotificationResultModel> UpdatePermission(PermissionModel input)
         {
@@ -88,7 +89,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-      //  [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
         [Route("DeletePermission")]
         public async Task<NotificationResultModel> DeletePermission(DeleteInputModel input)
         {
@@ -130,7 +131,7 @@ namespace Quang.Auth.Api.Controllers
             
         }
         [HttpPost]
-        //[AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
         [Route("GetPermissionGrants")]
         public async Task<GetPermissionGrantsOutputModel> GetPermissionGrants(GetOneInputModel input)
         {
@@ -152,7 +153,7 @@ namespace Quang.Auth.Api.Controllers
            
         }
         [HttpPost]
-        //[AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
         [Route("UpdatePermissionGrants")]
         public async Task<NotificationResultModel> UpdatePermissionGrants(PermissionGrantsModel input)
         {
@@ -176,7 +177,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        //[AppAuthorize(Roles = ActionRole.HeThong.Grant)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
         [Route("GetUserPermissions")]
         public async Task<DataSourceResultModel> GetUserPermissions(GetOneInputModel input)
         {
@@ -195,7 +196,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        //[AppAuthorize(Roles = ActionRole.HeThong.Grant)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
         [Route("GetGroupPermissions")]
         public async Task<DataSourceResultModel> GetGroupPermissions(GetOneInputModel input)
         {
@@ -215,7 +216,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-     //   [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
+       [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
         [Route("UpdateUserPermissions")]
         public async Task<NotificationResultModel> UpdateUserPermissions(UserPermissionModel input)
         {
@@ -239,7 +240,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        //[AppAuthorize(Roles = ActionRole.HeThong.Grant)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
         [Route("UpdateGroupPermissions")]
         public async Task<NotificationResultModel> UpdateGroupPermissions(GroupPermissionModel input)
         {

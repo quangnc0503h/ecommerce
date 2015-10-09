@@ -69,6 +69,7 @@
     <Content Include="app\scripts\config.js" />
     <Content Include="app\scripts\controllers\associate.js" />
     <Content Include="app\scripts\controllers\changepass.js" />
+    <Content Include="app\scripts\controllers\divice.js" />
     <Content Include="app\scripts\controllers\group.js" />
     <Content Include="app\scripts\controllers\login.js" />
     <Content Include="app\scripts\controllers\permission.js" />
@@ -82,6 +83,7 @@
     <Content Include="app\scripts\directives\validation.js" />
     <Content Include="app\scripts\services\authinterceptorservice.js" />
     <Content Include="app\scripts\services\authservice.js" />
+    <Content Include="app\scripts\services\deviceservice.js" />
     <Content Include="app\scripts\services\groupService.js" />
     <Content Include="app\scripts\services\permissionservice.js" />
     <Content Include="app\scripts\services\termservice.js" />
@@ -90,6 +92,7 @@
     <Content Include="app\styles\autocomplete.css" />
     <Content Include="app\views\associate.html" />
     <Content Include="app\views\changepass.html" />
+    <Content Include="app\views\device.html" />
     <Content Include="app\views\group-grant.html" />
     <Content Include="app\views\group.html" />
     <Content Include="app\views\login.html" />

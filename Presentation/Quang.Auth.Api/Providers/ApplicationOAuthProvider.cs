@@ -119,8 +119,7 @@ namespace Quang.Auth.Api.Providers
                 var apiKey = autherizationHeaderArray[0];
                 var incomingBase64Signature = autherizationHeaderArray[1];
                 var nonce = autherizationHeaderArray[2];
-                var requestTimeStamp = autherizationHeaderArray[3];
-                //var userBll = UnityConfig.GetConfiguredContainer().Resolve<IUserBll>();
+                var requestTimeStamp = autherizationHeaderArray[3];                
                 var userApp = await UserBll.GetUserApp(apiKey);
                 if (userApp != null && !string.IsNullOrEmpty(userApp.ApiSecret))
                 {

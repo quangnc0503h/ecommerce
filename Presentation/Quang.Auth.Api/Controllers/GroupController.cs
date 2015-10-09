@@ -14,10 +14,10 @@ namespace Quang.Auth.Api.Controllers
 {
     //[Authorize]
     [RoutePrefix("api/Group")]
-    public class GroupController : ApiController
+    public class GroupController : BaseApiController
     {
         [HttpPost]
-        //[AppAuthorize(Roles = ActionRole.HeThong.Groups)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Groups)]
         [Route("GetAll")]
         public async Task<GetListGrouputputModel> GetAll(FilterGroupInputModel filter)
         {
@@ -63,7 +63,7 @@ namespace Quang.Auth.Api.Controllers
             return result;
         }
         [HttpPost]
-        //[AppAuthorize(Roles = ActionRole.HeThong.Groups)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Groups)]
         [Route("UpdateGroup")]
         public async Task<GroupOutputModel> UpdateGroup(GroupInputModel input)
         {
@@ -83,7 +83,7 @@ namespace Quang.Auth.Api.Controllers
             return result;
         }
         [HttpPost]
-      //  [AppAuthorize(Roles = ActionRole.HeThong.Groups)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Groups)]
         [Route("DeleteGroup")]
         public async Task<GroupOutputModel> DeleteGroup(DeleteGroupInputModel input)
         {

@@ -139,15 +139,20 @@ app.config(function ($routeProvider, $authProvider) {
         templateUrl: "views/user-grant.html",
         resolve: $authProvider.routeResolve()
     });
+    $routeProvider.when("/device", {
+        controller: "DeviceCtrl",
+        templateUrl: "views/device.html",
+        resolve: $authProvider.routeResolve()
+    });
   });
-  
+  //
   app.constant('ngAuthSettings', {
       clientId: 'ngAuthApp'
   });
-
-  //app.config(function ($httpProvider) {
-  //    $httpProvider.interceptors.push('authInterceptorService');
-  //});
+// day http header len api de check authentication
+  app.config(function ($httpProvider) {
+      $httpProvider.interceptors.push('authInterceptorService');
+  });
 
   app.run(['$rootScope', '$interval', 'localDataService', 'xdLocalStorage', 'authService', function ($rootScope, $interval, localDataService, xdLocalStorage, authService) {
       localDataService.init();
