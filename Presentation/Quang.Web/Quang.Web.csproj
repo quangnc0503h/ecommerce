@@ -58,6 +58,16 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\.buildignore" />
+    <Content Include="app\.htaccess" />
+    <Content Include="app\scripts\auth.js" />
+    <Content Include="app\scripts\authComplete.js" />
+    <Content Include="app\scripts\config.js" />
+    <Content Include="app\scripts\services\authInterceptorService.js" />
+    <Content Include="app\scripts\services\authservice.js" />
+    <Content Include="app\scripts\services\tockensmanagerservice.js" />
+    <Content Include="bower.json" />
+    <Content Include="package.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -66,6 +76,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\404.html" />
+    <Content Include="app\favicon.ico" />
+    <Content Include="app\images\yeoman.png" />
+    <Content Include="app\index.html" />
+    <Content Include="app\robots.txt" />
+    <Content Include="app\scripts\app.js" />
+    <Content Include="app\scripts\controllers\about.js" />
+    <Content Include="app\scripts\controllers\main.js" />
+    <Content Include="app\styles\main.css" />
+    <Content Include="app\views\about.html" />
+    <Content Include="app\views\main.html" />
+    <Content Include="Gruntfile.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

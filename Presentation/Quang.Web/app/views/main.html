@@ -1,0 +1,49 @@
+﻿<!--<h2>{{"Hello"|translate:"XXX":"YYY"}}</h2>-->
+<!--<h3>{{text}}</h3>-->
+<div class="row" show-if-authenticated="false" style="display: none;">
+    <div class="col-md-2">
+        &nbsp;
+    </div>
+    <div class="col-md-4">
+        <h2>Login</h2>
+        <p class="text-primary">If you have Username and Password, you can use the button below to access the secured content using a token.</p>
+        <p><a class="btn btn-info" href="#/login" role="button">Login &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Sign Up</h2>
+        <p class="text-primary">Use the button below to create Username and Password to access the secured content using a token.</p>
+        <p><a class="btn btn-info" href="#/signup" role="button">Sign Up &raquo;</a></p>
+    </div>
+    <div class="col-md-2">
+        &nbsp;
+    </div>
+</div>
+<div class="row" show-if-authenticated="true" style="display: none;">
+    <div class="panel panel-default" show-if-authenticated="200|210|220|230|240|250|260|270|280">
+        <div class="panel-heading">
+            <h3 class="panel-title">Các chức năng trong hệ thống</h3>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-4">
+                <div class="list-group">
+                    <!--<a class="list-group-item active" href="javascript:v;">Quản lý danh mục</a>-->
+                    <a class="list-group-item" show-if-authenticated="200" ng-href="#/dtkh">Đối tượng khách hàng<span class="badge">{{summary.CountAllDoiTuongKH}}</span></a>
+                    <a class="list-group-item" show-if-authenticated="210" ng-href="#/pttt">Phương thức thanh toán<span class="badge">{{summary.CountAllPhuongThucTT}}</span></a>
+                    <a class="list-group-item" show-if-authenticated="220" ng-href="#/ldkc">Lý do khóa chỗ<span class="badge">{{summary.CountAllLyDoKhoaCho}}</span></a>
+                    <a class="list-group-item" show-if-authenticated="230" ng-href="#/tuyen">Quản lý tuyến<span class="badge">{{summary.CountAllTuyen}}</span></a>
+                    <a class="list-group-item" show-if-authenticated="240" ng-href="#/ga">Quản lý ga<span class="badge">{{summary.CountAllGa}}</span></a>
+                    <a class="list-group-item" show-if-authenticated="250" ng-href="#/nhomcho">Nhóm chỗ<span class="badge">{{summary.CountAllNhomCho}}</span></a>
+                    <a class="list-group-item" show-if-authenticated="260" ng-href="#/loaicho">Loại chỗ<span class="badge">{{summary.CountAllLoaiCho}}</span></a>
+                    <a class="list-group-item" show-if-authenticated="270" ng-href="#/mactau">Mác tàu<span class="badge">{{summary.CountAllMacTau}}</span></a>
+                    <a class="list-group-item" show-if-authenticated="280" ng-href="#/toaxe">Toa xe<span class="badge">{{summary.CountAllToaXe}}</span></a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                &nbsp;
+            </div>
+            <div class="col-md-4">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+</div>
