@@ -25,7 +25,7 @@ namespace Quang.Auth.Api.Controllers
             try
             {
                 var listRoleKey = TermBll.GetListRoleDictionary();
-                var terms = await TermBll.GetPaging(filter.PageSize, filter.PageNumber, filter.Keyword);
+                var terms = (await TermBll.GetPaging(filter.PageSize, filter.PageNumber, filter.Keyword)).ToList();
                 foreach (var term in terms)
                 {
                     var key = term.RoleKey;

@@ -133,6 +133,13 @@
       <HintPath>..\..\packages\StackExchange.Exceptional.1.0.122\lib\StackExchange.Exceptional.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="StackExchange.Exceptional.MySQL">
+      <HintPath>..\..\packages\StackExchange.Exceptional.MySQL.1.0.122\lib\StackExchange.Exceptional.MySQL.dll</HintPath>
+    </Reference>
+    <Reference Include="StackExchange.Redis, Version=1.0.316.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\StackExchange.Redis.1.0.481\lib\net45\StackExchange.Redis.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.WebRequest" />

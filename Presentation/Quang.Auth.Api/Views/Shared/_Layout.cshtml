@@ -20,6 +20,9 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("API Help", "Index", "Swagger", new { area = "" }, null)</li>
+                    <li><a href="/exceptions.axd">View Exceptions</a></li>
                 </ul>
             </div>
         </div>

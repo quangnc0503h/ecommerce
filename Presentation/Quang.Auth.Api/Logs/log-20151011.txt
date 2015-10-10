@@ -1,0 +1,56 @@
+﻿2015-10-11 00:10:06.949 +07:00 [Information] HTTP "GET" for "/"
+2015-10-11 00:12:01.167 +07:00 [Information] HTTP "GET" for "/"
+2015-10-11 00:12:04.524 +07:00 [Error] Error caught in global handler: "The type initializer for 'StackExchange.Exceptional.Settings' threw an exception."
+System.TypeInitializationException: The type initializer for 'StackExchange.Exceptional.Settings' threw an exception. ---> System.Configuration.ConfigurationErrorsException: Required attribute 'type' not found. (D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Auth.Api\web.config line 23)
+   at System.Configuration.BaseConfigurationRecord.EvaluateOne(String[] keys, SectionInput input, Boolean isTrusted, FactoryRecord factoryRecord, SectionRecord sectionRecord, Object parentResult)
+   at System.Configuration.BaseConfigurationRecord.Evaluate(FactoryRecord factoryRecord, SectionRecord sectionRecord, Object parentResult, Boolean getLkg, Boolean getRuntimeObject, Object& result, Object& resultRuntimeObject)
+   at System.Configuration.BaseConfigurationRecord.GetSectionRecursive(String configKey, Boolean getLkg, Boolean checkPermission, Boolean getRuntimeObject, Boolean requestIsHere, Object& result, Object& resultRuntimeObject)
+   at System.Configuration.BaseConfigurationRecord.GetSection(String configKey)
+   at System.Web.HttpContext.GetSection(String sectionName)
+   at System.Web.Configuration.HttpConfigurationSystem.GetSection(String sectionName)
+   at System.Web.Configuration.HttpConfigurationSystem.System.Configuration.Internal.IInternalConfigSystem.GetSection(String configKey)
+   at System.Configuration.ConfigurationManager.GetSection(String sectionName)
+   at StackExchange.Exceptional.Settings..cctor() in C:\BuildAgent\work\d20fce4a5bb47bd3\StackExchange.Exceptional\Settings.cs:line 12
+   --- End of inner exception stack trace ---
+   at StackExchange.Exceptional.Settings.get_Current() in C:\BuildAgent\work\d20fce4a5bb47bd3\StackExchange.Exceptional\Settings.cs:line 16
+   at StackExchange.Exceptional.ErrorStore.get_IgnoreRegexes() in C:\BuildAgent\work\d20fce4a5bb47bd3\StackExchange.Exceptional\ErrorStore.cs:line 175
+   at StackExchange.Exceptional.ErrorStore.LogException(Exception ex, HttpContext context, Boolean appendFullStackTrace, Boolean rollupPerServer, Dictionary`2 customData, String applicationName) in C:\BuildAgent\work\d20fce4a5bb47bd3\StackExchange.Exceptional\ErrorStore.cs:line 680
+2015-10-11 00:12:04.645 +07:00 [Information] HTTP "GET" for "/exceptions.axd"
+2015-10-11 00:12:50.269 +07:00 [Information] HTTP "GET" for "/exceptions.axd"
+2015-10-11 00:12:50.445 +07:00 [Information] HTTP "GET" for "/exceptions.axd/css"
+2015-10-11 00:12:50.451 +07:00 [Information] HTTP "GET" for "/exceptions.axd/js"
+2015-10-11 00:12:50.667 +07:00 [Information] HTTP "GET" for "/exceptions.axd/top-bg.png"
+2015-10-11 00:14:33.766 +07:00 [Information] HTTP "GET" for "/"
+2015-10-11 00:14:34.991 +07:00 [Information] HTTP "GET" for "/__browserLink/requestData/16dfed0d71294e1683534b7d4f6f13d0?version=2"
+2015-10-11 00:14:54.723 +07:00 [Information] HTTP "GET" for "/exceptions.axd"
+2015-10-11 00:14:54.779 +07:00 [Information] HTTP "GET" for "/exceptions.axd/css"
+2015-10-11 00:14:54.837 +07:00 [Information] HTTP "GET" for "/exceptions.axd/js"
+2015-10-11 00:14:55.005 +07:00 [Information] HTTP "GET" for "/exceptions.axd/top-bg.png"
+2015-10-11 00:16:49.629 +07:00 [Information] HTTP "GET" for "/exceptions.axd"
+2015-10-11 00:16:49.813 +07:00 [Information] HTTP "GET" for "/exceptions.axd/css"
+2015-10-11 00:16:49.827 +07:00 [Information] HTTP "GET" for "/exceptions.axd/js"
+2015-10-11 00:16:49.993 +07:00 [Information] HTTP "GET" for "/exceptions.axd/top-bg.png"
+2015-10-11 00:18:18.195 +07:00 [Information] HTTP "POST" for "/exceptions.axd/delete-all"
+2015-10-11 00:18:18.462 +07:00 [Information] HTTP "GET" for "/exceptions.axd"
+2015-10-11 00:18:18.510 +07:00 [Information] HTTP "GET" for "/exceptions.axd/css"
+2015-10-11 00:18:18.518 +07:00 [Information] HTTP "GET" for "/exceptions.axd/js"
+2015-10-11 00:18:18.659 +07:00 [Information] HTTP "GET" for "/exceptions.axd/top-bg.png"
+2015-10-11 00:19:04.890 +07:00 [Error] Error caught in global handler: "The controller for path '/Swagger' was not found or does not implement IController."
+System.Web.HttpException (0x80004005): The controller for path '/Swagger' was not found or does not implement IController.
+   at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at Castle.Proxies.Invocations.IControllerFactory_CreateController.InvokeMethodOnTarget()
+   at Castle.DynamicProxy.AbstractInvocation.Proceed()
+   at Glimpse.Core.Extensibility.CastleInvocationToAlternateMethodContextAdapter.Proceed()
+   at Glimpse.Core.Extensions.AlternateMethodContextExtensions.TryProceedWithTimer(IAlternateMethodContext context, TimerResult& timerResult)
+   at Glimpse.Core.Extensibility.AlternateMethod.NewImplementation(IAlternateMethodContext context)
+   at Glimpse.Core.Extensibility.AlternateTypeToCastleInterceptorAdapter.Intercept(IInvocation invocation)
+   at Castle.DynamicProxy.AbstractInvocation.Proceed()
+   at Castle.Proxies.IControllerFactoryProxy.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+2015-10-11 00:19:04.933 +07:00 [Information] HTTP "GET" for "/Swagger"
