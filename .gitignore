@@ -2,3 +2,6 @@
 /packages
 /.vs
 /Libraries/Quang.Auth.DataAccess/bin
+/Presentation/Quang.Auth.Web/bin
+/Presentation/Quang.Web/obj
+/Presentation/Quang.Web/bin

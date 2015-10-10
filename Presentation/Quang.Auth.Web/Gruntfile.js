@@ -1,4 +1,4 @@
-// Generated on 2015-09-08 using generator-angular 0.12.1
+// Generated on 2015-03-14 using generator-angular 0.11.1
 'use strict';
 
 // # Globbing
@@ -8,17 +8,12 @@
 // 'test/spec/**/*.js'
 
 module.exports = function (grunt) {
-    // Load grunt tasks automatically
-    require('load-grunt-tasks')(grunt);
+
+  // Load grunt tasks automatically
+  require('load-grunt-tasks')(grunt);
+
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
-
-  // Automatically load required Grunt tasks
-  //require('jit-grunt')(grunt, {
-  //  useminPrepare: 'grunt-usemin',
-  //  ngtemplates: 'grunt-angular-templates',
-  //  cdnify: 'grunt-google-cdn'
-  //});
 
   // Configurable paths for the application
   var appConfig = {
@@ -74,7 +69,7 @@ module.exports = function (grunt) {
         port: 9001,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: 'localhost',
-        livereload: 35729
+        livereload: 35730
       },
       livereload: {
         options: {
@@ -183,8 +178,9 @@ module.exports = function (grunt) {
     // Automatically inject Bower components into the app
     wiredep: {
       app: {
-        src: ['<%= yeoman.app %>/index.html'],
-        ignorePath:  /\.\.\//
+        src: ['<%= yeoman.app %>/index.html', '<%= yeoman.app %>/cdlsi.html'],
+        ignorePath:  /\.\.\//,
+		//exclude: ['bower_components/bootstrap/dist/js/bootstrap.js']
       },
       test: {
         devDependencies: true,
@@ -220,7 +216,7 @@ module.exports = function (grunt) {
     // concat, minify and revision files. Creates configurations in memory so
     // additional tasks can operate on them
     useminPrepare: {
-      html: '<%= yeoman.app %>/index.html',
+      html: ['<%= yeoman.app %>/index.html', '<%= yeoman.app %>/cdlsi.html'],
       options: {
         dest: '<%= yeoman.dist %>',
         flow: {
@@ -239,16 +235,12 @@ module.exports = function (grunt) {
     usemin: {
       html: ['<%= yeoman.dist %>/{,*/}*.html'],
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
-      js: ['<%= yeoman.dist %>/scripts/{,*/}*.js'],
       options: {
         assetsDirs: [
           '<%= yeoman.dist %>',
           '<%= yeoman.dist %>/images',
           '<%= yeoman.dist %>/styles'
-        ],
-        patterns: {
-          js: [[/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g, 'Replacing references to images']]
-        }
+        ]
       }
     },
 
@@ -306,27 +298,15 @@ module.exports = function (grunt) {
           collapseWhitespace: true,
           conservativeCollapse: true,
           collapseBooleanAttributes: true,
-          removeCommentsFromCDATA: true
+          removeCommentsFromCDATA: true,
+          removeOptionalTags: true
         },
         files: [{
           expand: true,
           cwd: '<%= yeoman.dist %>',
-          src: ['*.html'],
+          src: ['*.html', 'views/{,*/}*.html'],
           dest: '<%= yeoman.dist %>'
         }]
-      }
-    },
-
-    ngtemplates: {
-      dist: {
-        options: {
-          module: 'quangauthwebApp',
-          htmlmin: '<%= htmlmin.dist.options %>',
-          usemin: 'scripts/scripts.js'
-        },
-        cwd: '<%= yeoman.app %>',
-        src: 'views/{,*/}*.html',
-        dest: '.tmp/templateCache.js'
       }
     },
 
@@ -362,6 +342,8 @@ module.exports = function (grunt) {
             '*.{ico,png,txt}',
             '.htaccess',
             '*.html',
+            'authComplete.min.js',
+            'views/{,*/}*.html',
             'images/{,*/}*.{webp}',
             'styles/fonts/{,*/}*.*'
           ]
@@ -370,10 +352,19 @@ module.exports = function (grunt) {
           cwd: '.tmp/images',
           dest: '<%= yeoman.dist %>/images',
           src: ['generated/*']
-        }, {
+        },{
+          //for bootstrap fonts
           expand: true,
+          dot: true,
           cwd: 'bower_components/bootstrap/dist',
-          src: 'fonts/*',
+          src: ['fonts/*.*'],
+          dest: '<%= yeoman.dist %>'
+        }, {
+          //for font-awesome
+          expand: true,
+          dot: true,
+          cwd: 'bower_components/font-awesome',
+          src: ['fonts/*.*'],
           dest: '<%= yeoman.dist %>'
         }]
       },
@@ -407,48 +398,49 @@ module.exports = function (grunt) {
         singleRun: true
       }
     },
-      // ng-constants
-    ngconstant: {
-        // Options for all targets
-        options: {
-            space: '  ',
-            wrap: '"use strict";\n\n {%= __ngModule %}',
-            name: 'config',
-        },
-        // Environment targets
-        development: {
-            options: {
-                dest: '<%= yeoman.app %>/scripts/config.js'
-            },
-            constants: {
-                ENV: {
-                    version: '1.0.0', // Must be x.x.x
-                    name: 'development',
-                    urlIframeSso: 'http://localhost:9001/cdlsi.html',
-                    urlApiAuth: 'http://localhost:8085/',
-                    urlApiDanhMuc: '',
-                    urlApiKeHoach: '',
-                    urlApiBanVe: ''
-                }
-            }
-        },
-        production: {
-            options: {
-                dest: '<%= yeoman.app %>/scripts/config.js'
-            },
-            constants: {
-                ENV: {
-                    version: '1.0.0', // Must be x.x.x
-                    name: 'production',
-                    urlIframeSso: 'http://dev2.authadmin.vnticketonline.vn:10006/cdlsi.html',
-                    urlApiAuth: 'http://dev2.authadmin.vnticketonline.vn:10006/auth/',
-                    urlApiDanhMuc: 'http://dev2.danhmuc.vnticketonline.vn/api/',
-                    urlApiKeHoach: '',
-                    urlApiBanVe: ''
-                }
-            }
-        }
-    },
+	
+	// ng-constants
+	ngconstant: {
+	  // Options for all targets
+	  options: {
+		space: '  ',
+		wrap: '"use strict";\n\n {%= __ngModule %}',
+		name: 'config',
+	  },
+	  // Environment targets
+	  development: {
+		options: {
+		  dest: '<%= yeoman.app %>/scripts/config.js'
+		},
+		constants: {
+		  ENV: {
+			version: '1.0.0', // Must be x.x.x
+			name: 'development',
+			urlIframeSso: 'http://localhost:9001/cdlsi.html',
+			urlApiAuth: 'http://localhost:8085/',
+			urlApiDanhMuc: 'http://localhost:19822/',
+			urlApiKeHoach: '',
+			urlApiBanVe: ''
+		  }
+		}
+	  },
+	  production: {
+		options: {
+		  dest: '<%= yeoman.app %>/scripts/config.js'
+		},
+		constants: {
+		  ENV: {
+			version: '1.0.0', // Must be x.x.x
+			name: 'production',
+			urlIframeSso: 'http://localhost:9001/cdlsi.html',
+			urlApiAuth: 'http://localhost:8085/',
+			urlApiDanhMuc: '',
+			urlApiKeHoach: '',
+			urlApiBanVe: ''
+		  }
+		}
+	  }
+	},
   });
 
 
@@ -459,7 +451,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-       'ngconstant:development', // ADD THIS
+	  'ngconstant:development', // ADD THIS
       'wiredep',
       'concurrent:server',
       'autoprefixer:server',
@@ -475,7 +467,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
-     'ngconstant:development', // ADD THIS
+	'ngconstant:development', // ADD THIS
     'wiredep',
     'concurrent:test',
     'autoprefixer',
@@ -485,12 +477,11 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    	'ngconstant:production', // ADD THIS
+	'ngconstant:production', // ADD THIS
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
-    'ngtemplates',
     'concat',
     'ngAnnotate',
     'copy:dist',
