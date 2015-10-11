@@ -1,0 +1,4 @@
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Quang.Cate.DataAccess.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Quang.Cate.DataAccess.pdb
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\obj\Debug\Quang.Cate.DataAccess.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\obj\Debug\Quang.Cate.DataAccess.pdb

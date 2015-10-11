@@ -1,0 +1,4 @@
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.BusinessLogic\bin\Debug\Quang.Cate.BusinessLogic.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.BusinessLogic\bin\Debug\Quang.Cate.BusinessLogic.pdb
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.BusinessLogic\obj\Debug\Quang.Cate.BusinessLogic.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.BusinessLogic\obj\Debug\Quang.Cate.BusinessLogic.pdb

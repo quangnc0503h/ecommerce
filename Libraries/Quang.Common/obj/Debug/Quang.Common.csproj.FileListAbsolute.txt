@@ -27,3 +27,32 @@ C:\Projects\ecommerce\Libraries\Quang.Common\obj\Debug\Quang.Common.dll
 C:\Projects\ecommerce\Libraries\Quang.Common\obj\Debug\Quang.Common.pdb
 C:\Projects\ecommerce\Libraries\Quang.Common\bin\Debug\System.Web.Http.dll
 C:\Projects\ecommerce\Libraries\Quang.Common\bin\Debug\System.Web.Http.xml
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\bin\Debug\Quang.Common.dll.config
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\bin\Debug\Quang.Common.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\bin\Debug\Quang.Common.pdb
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\bin\Debug\Microsoft.Owin.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\bin\Debug\Newtonsoft.Json.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\bin\Debug\Owin.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\bin\Debug\Quang.RedisCache.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\bin\Debug\Serilog.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\bin\Debug\Serilog.FullNetFx.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\bin\Debug\System.Net.Http.Formatting.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\bin\Debug\System.Web.Http.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\bin\Debug\StackExchange.Redis.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\bin\Debug\Jil.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\bin\Debug\Quang.RedisCache.pdb
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\bin\Debug\Microsoft.Owin.xml
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\bin\Debug\Newtonsoft.Json.xml
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\bin\Debug\Serilog.pdb
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\bin\Debug\Serilog.xml
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\bin\Debug\Serilog.FullNetFx.pdb
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\bin\Debug\Serilog.FullNetFx.xml
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\bin\Debug\System.Net.Http.Formatting.xml
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\bin\Debug\System.Web.Http.xml
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\bin\Debug\StackExchange.Redis.pdb
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\bin\Debug\StackExchange.Redis.xml
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\bin\Debug\Jil.pdb
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\bin\Debug\Jil.xml
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\obj\Debug\Quang.Common.csprojResolveAssemblyReference.cache
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\obj\Debug\Quang.Common.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\obj\Debug\Quang.Common.pdb

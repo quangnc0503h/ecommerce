@@ -1,0 +1,5 @@
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.Entities\bin\Debug\Quang.Cate.Entities.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.Entities\bin\Debug\Quang.Cate.Entities.pdb
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.Entities\obj\Debug\Quang.Cate.Entities.csprojResolveAssemblyReference.cache
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.Entities\obj\Debug\Quang.Cate.Entities.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.Entities\obj\Debug\Quang.Cate.Entities.pdb

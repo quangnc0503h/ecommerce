@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.22823.1
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quang.Web", "Presentation\Quang.Web\Quang.Web.csproj", "{BDF8FE7B-DCC7-4970-9AB6-91B649E52FE3}"
 EndProject
@@ -24,6 +24,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quang.RedisCache", "Libraries\Quang.RedisCache\Quang.RedisCache.csproj", "{EB81DD37-90C5-4E0C-8364-42EF4ADFF4CE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet.Identity.MySQL", "Libraries\AspNet.Identity.MySQL\AspNet.Identity.MySQL.csproj", "{26F6ECF9-4369-417B-8CF2-54FA92DF3660}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quang.Cate.Entities", "Libraries\Quang.Cate.Entities\Quang.Cate.Entities.csproj", "{1C680144-66CA-4F60-9C25-5684049632AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quang.Cate.DataAccess", "Libraries\Quang.Cate.DataAccess\Quang.Cate.DataAccess.csproj", "{353C730D-DD28-4043-A80F-907497EFF758}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quang.Cate.BusinessLogic", "Libraries\Quang.Cate.BusinessLogic\Quang.Cate.BusinessLogic.csproj", "{BD8CCE78-53F8-4FF6-9760-41455E4E0B93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +73,18 @@ Global
 		{26F6ECF9-4369-417B-8CF2-54FA92DF3660}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26F6ECF9-4369-417B-8CF2-54FA92DF3660}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26F6ECF9-4369-417B-8CF2-54FA92DF3660}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C680144-66CA-4F60-9C25-5684049632AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C680144-66CA-4F60-9C25-5684049632AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C680144-66CA-4F60-9C25-5684049632AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C680144-66CA-4F60-9C25-5684049632AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{353C730D-DD28-4043-A80F-907497EFF758}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{353C730D-DD28-4043-A80F-907497EFF758}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{353C730D-DD28-4043-A80F-907497EFF758}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{353C730D-DD28-4043-A80F-907497EFF758}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD8CCE78-53F8-4FF6-9760-41455E4E0B93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD8CCE78-53F8-4FF6-9760-41455E4E0B93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD8CCE78-53F8-4FF6-9760-41455E4E0B93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD8CCE78-53F8-4FF6-9760-41455E4E0B93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,5 +99,8 @@ Global
 		{44EFC64F-1EC9-4075-A13B-5BE544881BA0} = {03B490BF-1E6E-4CA4-A06A-0347C2B3AECD}
 		{EB81DD37-90C5-4E0C-8364-42EF4ADFF4CE} = {03B490BF-1E6E-4CA4-A06A-0347C2B3AECD}
 		{26F6ECF9-4369-417B-8CF2-54FA92DF3660} = {03B490BF-1E6E-4CA4-A06A-0347C2B3AECD}
+		{1C680144-66CA-4F60-9C25-5684049632AC} = {03B490BF-1E6E-4CA4-A06A-0347C2B3AECD}
+		{353C730D-DD28-4043-A80F-907497EFF758} = {03B490BF-1E6E-4CA4-A06A-0347C2B3AECD}
+		{BD8CCE78-53F8-4FF6-9760-41455E4E0B93} = {03B490BF-1E6E-4CA4-A06A-0347C2B3AECD}
 	EndGlobalSection
 EndGlobal

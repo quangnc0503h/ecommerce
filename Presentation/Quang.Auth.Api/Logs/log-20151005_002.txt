@@ -1,0 +1,6 @@
+﻿2015-10-05 16:47:36.928 +07:00 [Information] HTTP "GET" for "/"
+2015-10-05 16:47:37.401 +07:00 [Information] HTTP "GET" for "/__browserLink/requestData/b4c2feeb0b15423dbc7a79107b9c64a3?version=2"
+2015-10-05 16:47:47.104 +07:00 [Information] HTTP "POST" for "/api/User/GetAll"
+2015-10-05 16:48:55.329 +07:00 [Information] HTTP "GET" for "/"
+2015-10-05 16:48:55.570 +07:00 [Information] HTTP "GET" for "/__browserLink/requestData/9e80aff352f44460a16f3eb3139e2160?version=2"
+2015-10-05 16:49:23.307 +07:00 [Information] HTTP "POST" for "/api/User/GetAll"

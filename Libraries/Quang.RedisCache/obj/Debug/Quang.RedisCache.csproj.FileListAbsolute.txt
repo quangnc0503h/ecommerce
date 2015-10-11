@@ -14,3 +14,18 @@ C:\Projects\ecommerce\Libraries\Quang.RedisCache\bin\Debug\StackExchange.Redis.x
 C:\Projects\ecommerce\Libraries\Quang.RedisCache\obj\Debug\Quang.RedisCache.dll
 C:\Projects\ecommerce\Libraries\Quang.RedisCache\obj\Debug\Quang.RedisCache.pdb
 C:\Projects\ecommerce\Libraries\Quang.RedisCache\obj\Debug\Quang.RedisCache.csprojResolveAssemblyReference.cache
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Quang.RedisCache.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Quang.RedisCache.pdb
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Jil.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Newtonsoft.Json.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Sigil.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.RedisCache\bin\Debug\StackExchange.Redis.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Jil.pdb
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Jil.xml
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Newtonsoft.Json.xml
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Sigil.pdb
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Sigil.xml
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.RedisCache\bin\Debug\StackExchange.Redis.pdb
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.RedisCache\bin\Debug\StackExchange.Redis.xml
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.RedisCache\obj\Debug\Quang.RedisCache.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.RedisCache\obj\Debug\Quang.RedisCache.pdb
