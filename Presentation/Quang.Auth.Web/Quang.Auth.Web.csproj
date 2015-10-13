@@ -63,6 +63,7 @@
     <Content Include="app\authComplete.html" />
     <Content Include="app\authComplete.js" />
     <Content Include="app\authComplete.min.js" />
+    <Content Include="app\cdlsi.html" />
     <Content Include="app\scripts\auth.js" />
     <Content Include="app\scripts\autocomplete.js" />
     <Content Include="app\scripts\common.js" />

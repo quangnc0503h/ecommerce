@@ -3,3 +3,8 @@ C:\Projects\ecommerce\Libraries\Quang.Commerce.DataAccess\bin\Debug\Quang.Commer
 C:\Projects\ecommerce\Libraries\Quang.Commerce.DataAccess\obj\Debug\Quang.Commerce.DataAccess.csprojResolveAssemblyReference.cache
 C:\Projects\ecommerce\Libraries\Quang.Commerce.DataAccess\obj\Debug\Quang.Commerce.DataAccess.dll
 C:\Projects\ecommerce\Libraries\Quang.Commerce.DataAccess\obj\Debug\Quang.Commerce.DataAccess.pdb
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Commerce.DataAccess\bin\Debug\Quang.Commerce.DataAccess.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Commerce.DataAccess\bin\Debug\Quang.Commerce.DataAccess.pdb
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Commerce.DataAccess\obj\Debug\Quang.Commerce.DataAccess.csprojResolveAssemblyReference.cache
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Commerce.DataAccess\obj\Debug\Quang.Commerce.DataAccess.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Commerce.DataAccess\obj\Debug\Quang.Commerce.DataAccess.pdb

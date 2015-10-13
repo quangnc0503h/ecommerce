@@ -7,3 +7,4 @@ C:\Projects\ecommerce\Libraries\Quang.Cate.BusinessLogic\bin\Debug\Quang.Cate.Bu
 C:\Projects\ecommerce\Libraries\Quang.Cate.BusinessLogic\obj\Debug\Quang.Cate.BusinessLogic.csprojResolveAssemblyReference.cache
 C:\Projects\ecommerce\Libraries\Quang.Cate.BusinessLogic\obj\Debug\Quang.Cate.BusinessLogic.dll
 C:\Projects\ecommerce\Libraries\Quang.Cate.BusinessLogic\obj\Debug\Quang.Cate.BusinessLogic.pdb
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.BusinessLogic\obj\Debug\Quang.Cate.BusinessLogic.csprojResolveAssemblyReference.cache

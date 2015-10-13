@@ -3,3 +3,8 @@ C:\Projects\ecommerce\Libraries\Quang.Commerce.Entities\bin\Debug\Quang.Commerce
 C:\Projects\ecommerce\Libraries\Quang.Commerce.Entities\obj\Debug\Quang.Commerce.Entities.csprojResolveAssemblyReference.cache
 C:\Projects\ecommerce\Libraries\Quang.Commerce.Entities\obj\Debug\Quang.Commerce.Entities.dll
 C:\Projects\ecommerce\Libraries\Quang.Commerce.Entities\obj\Debug\Quang.Commerce.Entities.pdb
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Commerce.Entities\bin\Debug\Quang.Commerce.Entities.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Commerce.Entities\bin\Debug\Quang.Commerce.Entities.pdb
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Commerce.Entities\obj\Debug\Quang.Commerce.Entities.csprojResolveAssemblyReference.cache
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Commerce.Entities\obj\Debug\Quang.Commerce.Entities.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Commerce.Entities\obj\Debug\Quang.Commerce.Entities.pdb

@@ -3,3 +3,8 @@ C:\Projects\ecommerce\Presentation\Quang.Commerce.Admin\bin\Quang.Commerce.Admin
 C:\Projects\ecommerce\Presentation\Quang.Commerce.Admin\bin\Quang.Commerce.Admin.pdb
 C:\Projects\ecommerce\Presentation\Quang.Commerce.Admin\obj\Debug\Quang.Commerce.Admin.dll
 C:\Projects\ecommerce\Presentation\Quang.Commerce.Admin\obj\Debug\Quang.Commerce.Admin.pdb
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Commerce.Admin\bin\Quang.Commerce.Admin.dll.config
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Commerce.Admin\bin\Quang.Commerce.Admin.dll
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Commerce.Admin\bin\Quang.Commerce.Admin.pdb
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Commerce.Admin\obj\Debug\Quang.Commerce.Admin.dll
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Commerce.Admin\obj\Debug\Quang.Commerce.Admin.pdb

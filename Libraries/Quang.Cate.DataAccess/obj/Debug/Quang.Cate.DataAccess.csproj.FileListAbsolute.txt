@@ -7,3 +7,4 @@ C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Quang.Cate.DataA
 C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\obj\Debug\Quang.Cate.DataAccess.csprojResolveAssemblyReference.cache
 C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\obj\Debug\Quang.Cate.DataAccess.dll
 C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\obj\Debug\Quang.Cate.DataAccess.pdb
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\obj\Debug\Quang.Cate.DataAccess.csprojResolveAssemblyReference.cache
