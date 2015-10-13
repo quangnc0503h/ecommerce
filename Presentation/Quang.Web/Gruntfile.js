@@ -65,7 +65,7 @@ module.exports = function (grunt) {
     // The actual grunt server settings
     connect: {
       options: {
-        port: 9000,
+        port: 9002,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: 'localhost',
         livereload: 35729
@@ -420,9 +420,12 @@ module.exports = function (grunt) {
                 ENV: {
                     version: '1.0.0',
                     name: 'development',
-                    urlIframeSso: 'http://localhost:9000/cdlsi.html',
+                    urlLoginSso: 'http://localhost:9001/#/login',
+                    urlLogoutSso: 'http://localhost:9001/#/getout',
+                    urlIframeSso: 'http://localhost:9002/cdlsi.html',
                     urlApiAuth: 'http://localhost:8085/',
                     urlApiDanhMuc: 'http://localhost:19822/',
+                    urlWebAuth: 'http://localhost:9001/',
                     urlApiKeHoach: '',
                     urlApiBanVe: ''
                 }
@@ -436,9 +439,13 @@ module.exports = function (grunt) {
                 ENV: {
                     version: '1.0.0',
                     name: 'production',
+                    urlSso: '#{api.urlSso}',
+                    urlLoginSso: '#{api.urlLoginSso}',
+                    urlLogoutSso: '#{api.urlLogoutSso}',
                     urlIframeSso: 'http://dev2.danhmuc.vnticketonline.vn:10004/cdlsi.html',
                     urlApiAuth: 'http://dev2.danhmuc.vnticketonline.vn:10004/auth/',
                     urlApiDanhMuc: 'http://dev2.danhmuc.vnticketonline.vn:10004/',
+                    urlWebAuth: '#{api.urlWebAuth}',
                     urlApiKeHoach: '',
                     urlApiBanVe: ''
                 }

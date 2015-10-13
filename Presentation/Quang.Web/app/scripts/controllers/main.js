@@ -13,13 +13,15 @@ angular.module('quangwebApp')
       if (authService.authentication.isAuth) {
        
       }
-
+      //console.log(xdLocalStorage.getItem("url_3438512491993606", !0));
       $scope.login = function () {
           var str = new String(Math.random());
           var id = str.substr(str.indexOf(".") + 1);
+          console.log(id);
           xdLocalStorage.setItem('url_' + id, encodeURIComponent(window.location.href), true).then(function () {
-              window.location.href = ENV.urlLoginSso + '/' + id;
+             // window.location.href = ENV.urlLoginSso + '/' + id;
           });
+          
       }
 
       //$scope.text = translationService.translate('Hello1');

@@ -44,7 +44,11 @@ app.config(function ($routeProvider, $authProvider) {
         templateUrl: "views/login.html",
         resolve: $authProvider.routeResolve()
     });
-
+    $routeProvider.when("/login/:returnUrl", {
+        controller: "LoginCtrl",
+        templateUrl: "views/login.html",
+        resolve: $authProvider.routeResolve()
+    });
     $routeProvider.when("/logout", {
         controller: "LogoutCtrl",
         templateUrl: "views/logout.html",
