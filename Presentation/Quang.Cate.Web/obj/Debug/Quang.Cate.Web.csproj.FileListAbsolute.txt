@@ -1,0 +1,6 @@
+C:\Projects\ecommerce\Presentation\Quang.Cate.Web\bin\Quang.Cate.Web.dll.config
+C:\Projects\ecommerce\Presentation\Quang.Cate.Web\bin\Quang.Cate.Web.dll
+C:\Projects\ecommerce\Presentation\Quang.Cate.Web\bin\Quang.Cate.Web.pdb
+C:\Projects\ecommerce\Presentation\Quang.Cate.Web\obj\Debug\Quang.Cate.Web.csprojResolveAssemblyReference.cache
+C:\Projects\ecommerce\Presentation\Quang.Cate.Web\obj\Debug\Quang.Cate.Web.dll
+C:\Projects\ecommerce\Presentation\Quang.Cate.Web\obj\Debug\Quang.Cate.Web.pdb

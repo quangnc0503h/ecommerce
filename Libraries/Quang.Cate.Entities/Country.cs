@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Quang.Cate.Entities
 {
-    public class Class1
+    public class Country
     {
     }
 }

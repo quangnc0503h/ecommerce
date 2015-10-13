@@ -1,0 +1,5 @@
+C:\Projects\ecommerce\Libraries\Quang.Commerce.DataAccess\bin\Debug\Quang.Commerce.DataAccess.dll
+C:\Projects\ecommerce\Libraries\Quang.Commerce.DataAccess\bin\Debug\Quang.Commerce.DataAccess.pdb
+C:\Projects\ecommerce\Libraries\Quang.Commerce.DataAccess\obj\Debug\Quang.Commerce.DataAccess.csprojResolveAssemblyReference.cache
+C:\Projects\ecommerce\Libraries\Quang.Commerce.DataAccess\obj\Debug\Quang.Commerce.DataAccess.dll
+C:\Projects\ecommerce\Libraries\Quang.Commerce.DataAccess\obj\Debug\Quang.Commerce.DataAccess.pdb

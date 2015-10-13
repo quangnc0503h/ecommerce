@@ -60,12 +60,21 @@
   <ItemGroup>
     <Content Include="app\.buildignore" />
     <Content Include="app\.htaccess" />
+    <Content Include="app\cdlsi.html" />
     <Content Include="app\scripts\auth.js" />
     <Content Include="app\scripts\authComplete.js" />
+    <Content Include="app\scripts\common.js" />
     <Content Include="app\scripts\config.js" />
+    <Content Include="app\scripts\controllers\login.js" />
+    <Content Include="app\scripts\controllers\refresh.js" />
+    <Content Include="app\scripts\controllers\signup.js" />
+    <Content Include="app\scripts\controllers\tokensmanager.js" />
+    <Content Include="app\scripts\controllers\unauthorized.js" />
     <Content Include="app\scripts\services\authInterceptorService.js" />
     <Content Include="app\scripts\services\authservice.js" />
     <Content Include="app\scripts\services\tockensmanagerservice.js" />
+    <Content Include="app\views\login.html" />
+    <Content Include="app\views\logout.html" />
     <Content Include="bower.json" />
     <Content Include="package.json" />
     <None Include="Web.Debug.config">

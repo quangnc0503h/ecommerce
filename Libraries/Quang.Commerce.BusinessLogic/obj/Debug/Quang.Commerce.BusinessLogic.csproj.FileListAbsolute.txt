@@ -1,0 +1,5 @@
+C:\Projects\ecommerce\Libraries\Quang.Commerce.BusinessLogic\bin\Debug\Quang.Commerce.BusinessLogic.dll
+C:\Projects\ecommerce\Libraries\Quang.Commerce.BusinessLogic\bin\Debug\Quang.Commerce.BusinessLogic.pdb
+C:\Projects\ecommerce\Libraries\Quang.Commerce.BusinessLogic\obj\Debug\Quang.Commerce.BusinessLogic.csprojResolveAssemblyReference.cache
+C:\Projects\ecommerce\Libraries\Quang.Commerce.BusinessLogic\obj\Debug\Quang.Commerce.BusinessLogic.dll
+C:\Projects\ecommerce\Libraries\Quang.Commerce.BusinessLogic\obj\Debug\Quang.Commerce.BusinessLogic.pdb
