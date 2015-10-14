@@ -1,4 +1,4 @@
-// Generated on 2015-10-13 using generator-angular 0.12.1
+// Generated on 2015-10-09 using generator-angular 0.12.1
 'use strict';
 
 // # Globbing
@@ -9,16 +9,11 @@
 
 module.exports = function (grunt) {
 
-  // Time how long tasks take. Can help when optimizing build times
-  require('time-grunt')(grunt);
+    // Load grunt tasks automatically
+    require('load-grunt-tasks')(grunt);
 
-  // Automatically load required Grunt tasks
-  require('jit-grunt')(grunt, {
-    useminPrepare: 'grunt-usemin',
-    ngtemplates: 'grunt-angular-templates',
-    cdnify: 'grunt-google-cdn'
-  });
-
+    // Time how long tasks take. Can help when optimizing build times
+    require('time-grunt')(grunt);
   // Configurable paths for the application
   var appConfig = {
     app: require('./bower.json').appPath || 'app',
@@ -70,10 +65,10 @@ module.exports = function (grunt) {
     // The actual grunt server settings
     connect: {
       options: {
-        port: 9000,
+        port: 9003,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: 'localhost',
-        livereload: 35729
+        livereload: 35727
       },
       livereload: {
         options: {
@@ -96,7 +91,7 @@ module.exports = function (grunt) {
       },
       test: {
         options: {
-          port: 9001,
+          port: 9003,
           middleware: function (connect) {
             return [
               connect.static('.tmp'),
@@ -316,18 +311,18 @@ module.exports = function (grunt) {
       }
     },
 
-    ngtemplates: {
-      dist: {
-        options: {
-          module: 'quangeTourwebApp',
-          htmlmin: '<%= htmlmin.dist.options %>',
-          usemin: 'scripts/scripts.js'
-        },
-        cwd: '<%= yeoman.app %>',
-        src: 'views/{,*/}*.html',
-        dest: '.tmp/templateCache.js'
-      }
-    },
+    //ngtemplates: {
+    //  dist: {
+    //    options: {
+    //      module: 'quangwebApp',
+    //      htmlmin: '<%= htmlmin.dist.options %>',
+    //      usemin: 'scripts/scripts.js'
+    //    },
+    //    cwd: '<%= yeoman.app %>',
+    //    src: 'views/{,*/}*.html',
+    //    dest: '.tmp/templateCache.js'
+    //  }
+    //},
 
     // ng-annotate tries to make the code safe for minification automatically
     // by using the Angular long form for dependency injection.
@@ -361,6 +356,7 @@ module.exports = function (grunt) {
             '*.{ico,png,txt}',
             '.htaccess',
             '*.html',
+            'views/{,*/}*.html',
             'images/{,*/}*.{webp}',
             'styles/fonts/{,*/}*.*'
           ]
@@ -405,6 +401,56 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
+    },
+
+      // ng-constants
+    ngconstant: {
+        // Options for all targets
+        options: {
+            space: '  ',
+            wrap: '"use strict";\n\n {%= __ngModule %}',
+            name: 'config',
+        },
+        // Environment targets
+        development: {
+            options: {
+                dest: '<%= yeoman.app %>/scripts/config.js'
+            },
+            constants: {
+                ENV: {
+                    version: '1.0.0',
+                    name: 'development',
+                    urlLoginSso: 'http://localhost:9001/#/login',
+                    urlLogoutSso: 'http://localhost:9001/#/getout',
+                    urlIframeSso: 'http://localhost:9001/cdlsi.html',
+                    urlApiAuth: 'http://localhost:8085/',
+                    urlApiDanhMuc: 'http://localhost:19822/',
+                    urlWebAuth: 'http://localhost:9001/',
+                    urlApiKeHoach: '',
+                    urlApiBanVe: ''
+                }
+            }
+        },
+        production: {
+            options: {
+                dest: '<%= yeoman.app %>/scripts/config.js'
+            },
+            constants: {
+                ENV: {
+                    version: '1.0.0',
+                    name: 'production',
+                    urlSso: '#{api.urlSso}',
+                    urlLoginSso: '#{api.urlLoginSso}',
+                    urlLogoutSso: '#{api.urlLogoutSso}',
+                    urlIframeSso: 'http://localhost:9001/cdlsi.html',
+                    urlApiAuth: 'http://dev2.danhmuc.vnticketonline.vn:10004/auth/',
+                    urlApiDanhMuc: 'http://dev2.danhmuc.vnticketonline.vn:10004/',
+                    urlWebAuth: '#{api.urlWebAuth}',
+                    urlApiKeHoach: '',
+                    urlApiBanVe: ''
+                }
+            }
+        }
     }
   });
 
@@ -416,6 +462,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'ngconstant:development', // ADD THIS
       'wiredep',
       'concurrent:server',
       'autoprefixer:server',
@@ -431,6 +478,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
+    'ngconstant:development', // ADD THIS
     'wiredep',
     'concurrent:test',
     'autoprefixer',
@@ -440,11 +488,11 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'ngconstant:production', // ADD THIS
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
-    'ngtemplates',
     'concat',
     'ngAnnotate',
     'copy:dist',

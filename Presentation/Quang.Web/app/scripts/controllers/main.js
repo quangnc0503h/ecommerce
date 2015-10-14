@@ -17,11 +17,11 @@ angular.module('quangwebApp')
       $scope.login = function () {
           var str = new String(Math.random());
           var id = str.substr(str.indexOf(".") + 1);
-          console.log(id);
+         // console.log(id);
           xdLocalStorage.setItem('url_' + id, encodeURIComponent(window.location.href)).then(function () {
               window.location.href = ENV.urlLoginSso + '/' + id;
           });
-          console.log(xdLocalStorage.getItem("url_" + id));
+         // console.log(xdLocalStorage.getItem("url_" + id));
       }
 
       //$scope.text = translationService.translate('Hello1');

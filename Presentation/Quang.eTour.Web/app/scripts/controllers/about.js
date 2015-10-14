@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name quangeTourwebApp.controller:AboutCtrl
+ * @name quangwebApp.controller:AboutCtrl
  * @description
  * # AboutCtrl
- * Controller of the quangeTourwebApp
+ * Controller of the quangwebApp
  */
-angular.module('quangeTourwebApp')
+angular.module('quangwebApp')
   .controller('AboutCtrl', function () {
     this.awesomeThings = [
       'HTML5 Boilerplate',

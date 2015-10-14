@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -8,67 +8,85 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
     <!-- endbower -->
+      <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="quangeTourwebApp">
-    <!--[if lte IE 8]>
+  <body ng-app="quangwebApp">
+      <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-
-    <!-- Add your site or application content here -->
-    <div class="header">
-      <div class="navbar navbar-default" role="navigation">
-        <div class="container">
-          <div class="navbar-header">
-
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-
-            <a class="navbar-brand" href="#/">quangeTourweb</a>
+      <!-- Add your site or application content here -->
+      
+          <div class="navbar navbar-default navbar-static-top" role="navigation">
+              <div class="container-fluid">
+                  <div class="navbar-header">
+                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+                          <span class="sr-only">Toggle navigation</span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                      </button>
+                      <a class="navbar-brand" href="#/"><img alt="Đường sắt Việt Nam" src="images/yeoman.png" style="width: 30px; height: 30px;"></a>
+                  </div>
+                  <div class="collapse navbar-collapse" id="js-navbar-collapse">
+                      <ul class="nav navbar-nav">
+                          <li menu-active-url="$"><a ng-href="#/">Trang chủ</a></li>
+                          <!--<li show-if-authenticated="true" menu-active-url="user"><a ng-href="#/user">Quản lý người sử dụng</a></li>-->
+                          <li show-if-authenticated="200|210|220|230|240|250|260|270|280" menu-active-url="(ga|tuyen|pttt|nhomcho|loaicho|mactau|toaxe|dtkh|ldkc)" class="dropdown" style="display: none">
+                              <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Request <span class="caret"></span></a>
+                              <ul class="dropdown-menu" role="menu">
+                                  <li show-if-authenticated="200" style="display: none" menu-active-url="dtkh"><a ng-href="#/dtkh">Đối tượng khách hàng</a></li>
+                                  <li show-if-authenticated="210" style="display: none" menu-active-url="pttt"><a ng-href="#/pttt">Phương thức thanh toán</a></li>
+                                  <li show-if-authenticated="220" style="display: none" menu-active-url="ldkc"><a ng-href="#/ldkc">Lý do khóa chỗ</a></li>
+                                  <li show-if-authenticated="230" style="display: none" menu-active-url="tuyen"><a ng-href="#/tuyen">Quản lý tuyến</a></li>
+                                  <li show-if-authenticated="240" style="display: none" menu-active-url="ga"><a ng-href="#/ga">Quản lý ga</a></li>
+                                  <li show-if-authenticated="250" style="display: none" menu-active-url="nhomcho"><a ng-href="#/nhomcho">Nhóm chỗ</a></li>
+                                  <li show-if-authenticated="260" style="display: none" menu-active-url="loaicho"><a ng-href="#/loaicho">Loại chỗ</a></li>
+                                  <li show-if-authenticated="270" style="display: none" menu-active-url="mactau"><a ng-href="#/mactau">Mác tàu</a></li>
+                                  <li show-if-authenticated="280" style="display: none" menu-active-url="toaxe"><a ng-href="#/toaxe">Toa xe</a></li>
+                              </ul>
+                          </li>
+						   <li show-if-authenticated="200" style="display: none" menu-active-url="dtkh"><a ng-href="#/dtkh">Booking</a></li>
+						   <li show-if-authenticated="200" style="display: none" menu-active-url="dtkh"><a ng-href="#/dtkh">Tour</a></li>
+						   <li show-if-authenticated="210" style="display: none" menu-active-url="pttt"><a ng-href="#/pttt">Công việc</a></li>
+						   <li show-if-authenticated="210" style="display: none" menu-active-url="pttt"><a ng-href="#/pttt">Khách hàng</a></li>
+						   <li show-if-authenticated="210" style="display: none" menu-active-url="pttt"><a ng-href="#/pttt">Đối tác</a></li>
+						   <li show-if-authenticated="210" style="display: none" menu-active-url="pttt"><a ng-href="#/pttt">Thanh toán</a></li>
+						   <li show-if-authenticated="210" style="display: none" menu-active-url="pttt"><a ng-href="#/pttt">Báo cáo</a></li>
+						   <li show-if-authenticated="210" style="display: none" menu-active-url="pttt"><a ng-href="#/pttt">Nhân sự</a></li>
+                          <!--<li show-if-authenticated="true" menu-active-url="about"><a ng-href="#/about">About</a></li>-->
+                      </ul>
+                      <ul class="nav navbar-nav navbar-right">
+                          <li show-if-authenticated="true" menu-active-url="(changepass)" class="dropdown" style="display: none;">
+                              <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-asterisk"></span> <strong auth-data="displayName"></strong><span class="caret"></span></a>
+                              <ul class="dropdown-menu" role="menu">
+                                  <li><a href="http://localhost:9001/#/settings" target="_blank"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Cài đặt cá nhân</a></li>
+                                  <li><a href="http://localhost:9001/#/changepass" target="_blank"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Đổi mật khẩu</a></li>
+                                  <li><a ng-href="#/logout"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> <strong>Thoát</strong></a></li>
+                              </ul>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
           </div>
+      
+      <div class="container-fluid">
+          <div class="auth-initializing"></div>
+          <div ng-view=""></div>
+      </div>
+      <div class="footer">
+          <div class="container">
 
-          <div class="collapse navbar-collapse" id="js-navbar-collapse">
-
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#/">Home</a></li>
-              <li><a ng-href="#/about">About</a></li>
-              <li><a ng-href="#/">Contact</a></li>
-            </ul>
           </div>
-        </div>
       </div>
-    </div>
-
-    <div class="container">
-    <div ng-view=""></div>
-    </div>
-
-    <div class="footer">
-      <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
-      </div>
-    </div>
 
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
-       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
-       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
-       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script>
+   
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -83,13 +101,31 @@
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
+    <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
     <!-- endbower -->
+      <script src="bower_components/xdLocalStorage/app/scripts/services/xd-utils.js"></script>
+      <script src="bower_components/xdLocalStorage/app/scripts/xdLocalStorage.js"></script>
+      <script src="bower_components/xdLocalStorage/app/scripts/ng-xdLocalStorage.js"></script>
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
+      <script src="scripts/config.js"></script>
+      <script src="scripts/auth.js"></script>
+      <script src="scripts/app.js"></script>
+      <script src="scripts/common.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
+      <script src="scripts/controllers/login.js"></script>
+      <script src="scripts/controllers/unauthorized.js"></script>
+      <script src="scripts/controllers/refresh.js"></script>
+      <script src="scripts/controllers/signup.js"></script>
+      <script src="scripts/controllers/tokensmanager.js"></script>
+
+      <script src="scripts/services/authservice.js"></script>
+      <script src="scripts/services/authinterceptorservice.js"></script>
+      <script src="scripts/services/tockensmanagerservice.js"></script>
         <!-- endbuild -->
 </body>
 </html>
