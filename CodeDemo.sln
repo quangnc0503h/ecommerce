@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.22823.1
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quang.Web", "Presentation\Quang.Web\Quang.Web.csproj", "{BDF8FE7B-DCC7-4970-9AB6-91B649E52FE3}"
 EndProject
@@ -42,6 +42,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quang.Commerce.Api", "Presentation\Quang.Commerce.Api\Quang.Commerce.Api.csproj", "{AAAA1225-7F4B-4446-8DEB-6249EAA5F211}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quang.Commerce.Admin", "Presentation\Quang.Commerce.Admin\Quang.Commerce.Admin.csproj", "{9604C69F-5E98-4899-A1A5-5526EDFA3F27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quang.eTour.Web", "Presentation\Quang.eTour.Web\Quang.eTour.Web.csproj", "{4A840B04-5971-4FF4-82A1-320861793C47}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -121,6 +123,10 @@ Global
 		{9604C69F-5E98-4899-A1A5-5526EDFA3F27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9604C69F-5E98-4899-A1A5-5526EDFA3F27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9604C69F-5E98-4899-A1A5-5526EDFA3F27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A840B04-5971-4FF4-82A1-320861793C47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A840B04-5971-4FF4-82A1-320861793C47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A840B04-5971-4FF4-82A1-320861793C47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A840B04-5971-4FF4-82A1-320861793C47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -144,5 +150,6 @@ Global
 		{CB802704-4E3A-4FCA-91B5-ED594DF45E33} = {03B490BF-1E6E-4CA4-A06A-0347C2B3AECD}
 		{AAAA1225-7F4B-4446-8DEB-6249EAA5F211} = {D8907202-B402-4B56-B8BD-74D1B72BA281}
 		{9604C69F-5E98-4899-A1A5-5526EDFA3F27} = {D8907202-B402-4B56-B8BD-74D1B72BA281}
+		{4A840B04-5971-4FF4-82A1-320861793C47} = {D8907202-B402-4B56-B8BD-74D1B72BA281}
 	EndGlobalSection
 EndGlobal

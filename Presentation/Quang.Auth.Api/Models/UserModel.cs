@@ -36,7 +36,7 @@ namespace Quang.Auth.Api.Models
 
         public string ConfirmPassword { get; set; }
 
-        public string PasswordHash { get; set; }
+        public bool HasPassword { get; set; }
 
         public IEnumerable<Group> UserGroups { get; set; }
 

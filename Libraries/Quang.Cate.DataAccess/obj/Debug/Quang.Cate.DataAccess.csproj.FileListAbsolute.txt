@@ -8,3 +8,19 @@ C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\obj\Debug\Quang.Cate.DataA
 C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\obj\Debug\Quang.Cate.DataAccess.dll
 C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\obj\Debug\Quang.Cate.DataAccess.pdb
 D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\obj\Debug\Quang.Cate.DataAccess.csprojResolveAssemblyReference.cache
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Quang.Cate.DataAccess.dll.config
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Dapper.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\MiniProfiler.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\MySql.Data.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Quang.Cate.Entities.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Serilog.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Serilog.FullNetFx.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Quang.Cate.Entities.pdb
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Dapper.pdb
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Dapper.xml
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\MiniProfiler.pdb
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\MiniProfiler.xml
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Serilog.pdb
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Serilog.xml
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Serilog.FullNetFx.pdb
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Serilog.FullNetFx.xml

@@ -51,8 +51,12 @@ namespace Quang.Auth.Api.Controllers
         {
             try
             {
-                var result = await UserBll.GetOneUser(input.Id);
-                return new UserModel { Id = result.Id, UserName = result.UserName, DisplayName = result.DisplayName, UserGroups = result.UserGroups, Email = result.Email, PhoneNumber = result.PhoneNumber };
+                var user = await UserManager.FindByIdAsync((int)input.Id);
+                var claims = await UserManager.GetClaimsAsync(user.Id);
+                var displayName = claims.FirstOrDefault(m => m.Type == "displayName");
+               
+                var groups = await UserBll.GetGroupsByUser(input.Id);
+                return new UserModel { Id = user.Id, UserName = user.UserName, DisplayName = displayName != null ? displayName.Value : string.Empty, UserGroups = groups, Email = user.Email, PhoneNumber = user.PhoneNumber, HasPassword = !string.IsNullOrEmpty(user.PasswordHash) };
             }
             catch (Exception ex)
             {
@@ -71,8 +75,12 @@ namespace Quang.Auth.Api.Controllers
             try
             {
                 var userId =  User.Identity.GetUserId<long>();
-                var result = await UserBll.GetOneUser(userId);
-                return new UserModel { Id = result.Id, UserName = result.UserName, DisplayName = result.DisplayName, UserGroups = result.UserGroups, Email = result.Email, PhoneNumber = result.PhoneNumber };
+                var user = await UserManager.FindByIdAsync((int)userId);
+                var claims = await UserManager.GetClaimsAsync(user.Id);
+                var displayName = claims.FirstOrDefault(m => m.Type == "displayName");
+
+                var groups = await UserBll.GetGroupsByUser(userId);
+                return new UserModel { Id = user.Id, UserName = user.UserName, DisplayName = displayName != null ? displayName.Value : string.Empty, UserGroups = groups, Email = user.Email, PhoneNumber = user.PhoneNumber, HasPassword = !string.IsNullOrEmpty(user.PasswordHash) };
             }
             catch (Exception ex)
             {

@@ -1,0 +1,6 @@
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.eTour.Web\bin\Quang.eTour.Web.dll.config
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.eTour.Web\bin\Quang.eTour.Web.dll
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.eTour.Web\bin\Quang.eTour.Web.pdb
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.eTour.Web\obj\Debug\Quang.eTour.Web.csprojResolveAssemblyReference.cache
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.eTour.Web\obj\Debug\Quang.eTour.Web.dll
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.eTour.Web\obj\Debug\Quang.eTour.Web.pdb
