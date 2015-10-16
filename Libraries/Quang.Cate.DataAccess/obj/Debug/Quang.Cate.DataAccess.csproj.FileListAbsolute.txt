@@ -24,3 +24,19 @@ D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\
 D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Serilog.xml
 D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Serilog.FullNetFx.pdb
 D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Serilog.FullNetFx.xml
+C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Quang.Cate.DataAccess.dll.config
+C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Dapper.dll
+C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\MiniProfiler.dll
+C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\MySql.Data.dll
+C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Quang.Cate.Entities.dll
+C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Serilog.dll
+C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Serilog.FullNetFx.dll
+C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Quang.Cate.Entities.pdb
+C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Dapper.pdb
+C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Dapper.xml
+C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\MiniProfiler.pdb
+C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\MiniProfiler.xml
+C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Serilog.pdb
+C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Serilog.xml
+C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Serilog.FullNetFx.pdb
+C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Serilog.FullNetFx.xml

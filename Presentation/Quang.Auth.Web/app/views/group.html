@@ -20,7 +20,7 @@
                             </select>
                             <input type="text" class="form-control" placeholder="Tìm kiếm..." ng-model="qsearch">
                         </div>
-                        <button type="submit" class="btn btn-default" ng-click="searchItems()">GO</button>
+                        <button type="submit" class="btn btn-default" ng-click="searchItems()"><i class="fa fa-eye"></i> GO</button>
                     </form>
                 </div>
             </div>
@@ -46,8 +46,7 @@
                     <td>{{item.Description}}</td>
                     <td class="text-center" show-if-authenticated="100"><a ng-href="/#group/users/{{item.Id}}">Có {{item.TotalMembers}} thành viên</a></td>
                     <td class="text-center">
-                        <!--<button type="button" class="btn btn-default" ng-click="openDialogGrantUser(item)" show-if-authenticated="140">Phân quyền</button>-->
-                        <button type="button" class="btn btn-default" ng-click="openDialogGrantUser(item)">Phân quyền</button>
+                        <button type="button" class="btn btn-default" ng-click="openDialogGrantUser(item)" show-if-authenticated="140">Phân quyền</button>                        
                         <button type="button" class="btn btn-default" ng-click="openDialogEditItem(item.Id)">Sửa</button>
                         <button type="button" class="btn btn-default" ng-click="removeItem(item.Id)" ng-disabled="isDisabledBtnDelete{{item.Id }}">Xóa</button>
                     </td>
