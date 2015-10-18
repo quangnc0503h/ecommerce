@@ -58,15 +58,15 @@ angular.module('quangauthwebApp').controller('DeviceCtrl', [
         $scope.removeItem = function (itemId) {
             if (confirm("Bạn có chắc muốn xóa thiết bị này?")){
                 $scope["isDisabledBtnDelete" + itemId] = true;
-                deviceService.removeDevice(itemId, function (success) {
+                deviceService.removeDevice(itemId, function(success) {
                     if (success) {
                         loadList();
-                        reloadMissingDevices();
+                        //reloadMissingDevices();
                     } else {
                         alert('Error: Pls try again!');
                     }
-                    $scope["isDisabledBtnDelete" + itemId] = false;                    
-                })
+                    $scope["isDisabledBtnDelete" + itemId] = false;
+                });
             }
                  
         }
@@ -84,7 +84,7 @@ angular.module('quangauthwebApp').controller('DeviceCtrl', [
                     deviceService.removeListDevice(checkedItems, function (success) {
                         if (success) {
                             loadList();
-                            reloadMissingDevices();
+                            //reloadMissingDevices();
                         } else {
                             alert("Error: Pls try again!");
                         }
@@ -93,7 +93,7 @@ angular.module('quangauthwebApp').controller('DeviceCtrl', [
                 }
             }
             else {
-                alert("Vui lòng chọn thiết bị để xóa")
+                alert("Vui lòng chọn thiết bị để xóa");
             }
             checkedItems.length > 0 ? confirm("Bạn có chắc muốn xóa các thiết bị đã chọn?") && ($scope.isDisabledBtnDeleteAll = true, deviceService.removeListDevice(b, function (b) { b ? (i(), reloadMissingDevices()) : alert("Error: Pls try again!"), a.isDisabledBtnDeleteAll = !1 })) : alert("Vui lòng chọn thiết bị để xóa")
         }
@@ -105,16 +105,16 @@ angular.module('quangauthwebApp').controller('DeviceCtrl', [
             });
             modalInstance.result.then(function (item) {
                 //b && b.DeviceKey;
-                deviceService.getDeviceByKey(item.DeviceKey, function (res) {
-                    res ? $scope.openDialogEditItem(res.Id) : $scope.openDialogCreateItem(item)
-                })
+                deviceService.getDeviceByKey(item.DeviceKey, function(res) {
+                    res ? $scope.openDialogEditItem(res.Id) : $scope.openDialogCreateItem(item);
+                });
             }, function () { });
         }
         $scope.openDialogCreateItem = function (item) {
             var modalInstance = $modal.open({
                 templateUrl: "modalCreateDeviceContent.html",
                 controller: "ModalCreateDeviceCtrl",
-                resolve: { device: function () { return item } }
+                resolve: { device: function () { return item; } }
             });
             modalInstance.result.then(function (success) {
                 if (success) {
@@ -128,7 +128,7 @@ angular.module('quangauthwebApp').controller('DeviceCtrl', [
             var modalInstance = $modal.open({
                 templateUrl: "modalEditDeviceContent.html",
                 controller: "ModalEditDeviceCtrl",
-                resolve: { itemId: function () { return id } }
+                resolve: { itemId: function () { return id; } }
             });
             modalInstance.result.then(function (success) {
                 if (success) {
@@ -162,7 +162,7 @@ angular.module('quangauthwebApp').controller('DeviceCtrl', [
             PageNumber: $scope.currentPage - 1,
             OrderBy: ""
         };
-        deviceService.listRequestDevice($filter, function (res) {
+        deviceService.listRequestDevice(filter, function (res) {
             $scope.items = res.items;
             $scope.totalItems = res.totalCount;
             loaded = true;
@@ -174,13 +174,13 @@ angular.module('quangauthwebApp').controller('DeviceCtrl', [
     $scope.openDatePickerFrom = function (event) {
         event.preventDefault();
         event.stopPropagation();
-        $scope.datePickerOpenedFrom = !$scope.datePickerOpenedFrom
+        $scope.datePickerOpenedFrom = !$scope.datePickerOpenedFrom;
     };
     $scope.datePickerOpenedTo = false;
     $scope.openDatePickerTo = function (event) {
         event.preventDefault();
         event.stopPropagation();
-        $scope.datePickerOpenedTo = !$scope.datePickerOpenedTo
+        $scope.datePickerOpenedTo = !$scope.datePickerOpenedTo;
     };
     $scope.searchItems = function () {
         $scope.currentPage = pageInfo.currentPage = 1;
@@ -188,7 +188,7 @@ angular.module('quangauthwebApp').controller('DeviceCtrl', [
         pageInfo.qdatefrom = $scope.qdatefrom;
         pageInfo.qdateto = $scope.qdateto;
         localDataService.set(pagekey, pageInfo);
-        loadList()
+        loadList();
     }
     $scope.pageChanged = function () {
         if (loaded) {
@@ -210,14 +210,14 @@ angular.module('quangauthwebApp').controller('DeviceCtrl', [
     $scope.removeItem = function (itemId) {
         if (confirm("Bạn có chắc muốn xóa yêu cầu này?")) {
             $scope["isDisabledBtnDelete" + itemId] = true;
-            deviceService.removeRequestDevice(itemId, function (success) {
+            deviceService.removeRequestDevice(itemId, function(success) {
                 if (success) {
                     loadList();
                 } else {
-                    alert("Error: Pls try again!")
+                    alert("Error: Pls try again!");
                 }
                 $scope["isDisabledBtnDelete" + itemId] = false;
-            })
+            });
         }
         
     }
@@ -247,13 +247,13 @@ angular.module('quangauthwebApp').controller('DeviceCtrl', [
         }        
     }
     $scope.applyItem = function (item) {
-        $modalInstance.close(item)
+        $modalInstance.close(item);
     };
     $scope.getTrustText = function (a) {
-        return a ? "Có" : "Không"
+        return a ? "Có" : "Không";
     };
     $scope.close = function () {
-        $modalInstance.dismiss("cancel")
+        $modalInstance.dismiss("cancel");
     }
 }]).controller("ModalCreateDeviceCtrl", ["$scope", "deviceService", "$modalInstance", "device", function ($scope, deviceService, $modalInstance, device) {
     $scope.item = { IsActived: 1 };
@@ -285,14 +285,14 @@ angular.module('quangauthwebApp').controller('DeviceCtrl', [
                 $scope.isDisabledBtnCreate = false;
             });
         }
-        a.addForm.$valid && (a.isDisabledBtnCreate = !0, b.createDevice(a.item, function (b) { b ? c.close(!0) : alert("Error: Pls try again!"), a.isDisabledBtnCreate = !1 }))
+        
     };
     $scope.cancel = function () {
-        $modalInstance.dismiss("cancel")
+        $modalInstance.dismiss("cancel");
     }
 }]).controller("ModalEditDeviceCtrl", ["$scope", "deviceService", "$modalInstance", "itemId", function ($scope, deviceService, $modalInstance, itemId) {
     $scope.item = {};
-    deviceService.getDevice(itemId, function (res) { $scope.item = res });
+    deviceService.getDevice(itemId, function (res) { $scope.item = res; });
     $scope.updateItem = function () {
         if ($scope.editForm.$valid) {
             $scope.isDisabledBtnUpdate = true;

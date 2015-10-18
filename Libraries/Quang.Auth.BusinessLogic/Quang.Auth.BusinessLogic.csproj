@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeviceBll.cs" />
     <Compile Include="GroupBll.cs" />
     <Compile Include="PermissionBll.cs" />
     <Compile Include="TermBll.cs" />

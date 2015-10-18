@@ -99,10 +99,12 @@ namespace Quang.Auth.Api.Controllers
             try
             {
                 var result = new NotificationResultModel();
-                var user = new ApplicationUser();
-                user.Email = input.Email;
-                user.UserName = input.UserName;
-                user.PhoneNumber = input.PhoneNumber;
+                var user = new ApplicationUser
+                           {
+                               Email = input.Email,
+                               UserName = input.UserName,
+                               PhoneNumber = input.PhoneNumber
+                           };
                 var res = await UserManager.CreateAsync(user);
                 result.Status = 1;
                 if (res.Succeeded)

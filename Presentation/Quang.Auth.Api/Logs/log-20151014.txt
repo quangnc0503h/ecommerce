@@ -40,3 +40,7 @@
 2015-10-14 22:45:39.970 +07:00 [Information] HTTP "GET" for "/api/Group/AllGroup"
 2015-10-14 22:45:40.163 +07:00 [Information] HTTP "OPTIONS" for "/api/User/CheckUserName"
 2015-10-14 22:45:40.314 +07:00 [Information] HTTP "POST" for "/api/User/CheckUserName"
+2015-10-14 22:47:22.275 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/AllGroup"
+2015-10-14 22:47:22.369 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/GetAll"
+2015-10-14 22:47:22.795 +07:00 [Information] HTTP "GET" for "/api/Group/AllGroup"
+2015-10-14 22:47:22.845 +07:00 [Information] HTTP "POST" for "/api/Group/GetAll"

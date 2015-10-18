@@ -40,8 +40,8 @@ namespace Quang.Common.Auth
         }
         public class DanhMuc
         {
-            public const string DoiTuongKH = "200";
-            public const string PhuongThucTT = "210";
+            public const string Language = "200";
+            public const string Country = "210";
             public const string LyDoKhoaCho = "220";
             public const string Tuyen = "230";
             public const string Ga = "240";
@@ -92,7 +92,7 @@ namespace Quang.Common.Auth
                         foreach (var subProperty in subProperties)
                         {
                             var roleKey = subProperty.GetRawConstantValue();
-                            if (roleKey != null)
+                            if ( roleKey != null)
                             {
                                 var name = typeof(ActionRole).Name + "." + item.Name + "." + subItem.Name + "." + subProperty.Name;
                                 _dictionaryItems.Add(roleKey.ToString(), new ActionRoleItem { Group = item.Name, RoleKey = roleKey.ToString(), RoleKeyLabel = name });
