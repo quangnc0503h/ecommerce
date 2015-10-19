@@ -314,7 +314,7 @@ module.exports = function (grunt) {
         //ngtemplates: {
         //  dist: {
         //    options: {
-        //      module: 'quangwebApp',
+        //      module: 'quangcatewebApp',
         //      htmlmin: '<%= htmlmin.dist.options %>',
         //      usemin: 'scripts/scripts.js'
         //    },

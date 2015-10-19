@@ -99,6 +99,41 @@ namespace Quang.Auth.Api.Controllers
                 return new NotificationResultModel();
             }
         }
+        [HttpPost]
+        [AppAuthorize(Roles = ActionRole.HeThong.Devices)]
+        [Route("DeleteDevice")]
+        public async Task<NotificationResultModel> DeleteDevice(DeleteInputModel input)
+        {
+            try
+            {
+                var model = new NotificationResultModel { };
+                return await Task.FromResult(model);
+            }
+            catch (Exception ex)
+            {
 
+                ErrorStore.LogExceptionWithoutContext(ex);
+                return new NotificationResultModel();
+            }
+
+        }
+        [HttpPost]
+        [AppAuthorize(Roles = ActionRole.HeThong.Devices)]
+        [Route("DeleteRequestDevice")]
+        public async Task<NotificationResultModel> DeleteRequestDevice(DeleteInputModel input)
+        {
+            try
+            {
+                var model = new NotificationResultModel { };
+                return await Task.FromResult(model);
+            }
+            catch (Exception ex)
+            {
+
+                ErrorStore.LogExceptionWithoutContext(ex);
+                return new NotificationResultModel();
+            }
+
+        }
     }
 }

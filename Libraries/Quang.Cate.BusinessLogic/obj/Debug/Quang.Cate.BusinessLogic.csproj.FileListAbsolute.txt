@@ -19,3 +19,14 @@ D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.BusinessLogic\bin\Deb
 D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.BusinessLogic\bin\Debug\Dapper.xml
 D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.BusinessLogic\bin\Debug\MiniProfiler.pdb
 D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.BusinessLogic\bin\Debug\MiniProfiler.xml
+C:\Projects\ecommerce\Libraries\Quang.Cate.BusinessLogic\bin\Debug\Quang.Cate.DataAccess.dll
+C:\Projects\ecommerce\Libraries\Quang.Cate.BusinessLogic\bin\Debug\Quang.Cate.Entities.dll
+C:\Projects\ecommerce\Libraries\Quang.Cate.BusinessLogic\bin\Debug\MiniProfiler.dll
+C:\Projects\ecommerce\Libraries\Quang.Cate.BusinessLogic\bin\Debug\MySql.Data.dll
+C:\Projects\ecommerce\Libraries\Quang.Cate.BusinessLogic\bin\Debug\Dapper.dll
+C:\Projects\ecommerce\Libraries\Quang.Cate.BusinessLogic\bin\Debug\Quang.Cate.DataAccess.pdb
+C:\Projects\ecommerce\Libraries\Quang.Cate.BusinessLogic\bin\Debug\Quang.Cate.Entities.pdb
+C:\Projects\ecommerce\Libraries\Quang.Cate.BusinessLogic\bin\Debug\MiniProfiler.pdb
+C:\Projects\ecommerce\Libraries\Quang.Cate.BusinessLogic\bin\Debug\MiniProfiler.xml
+C:\Projects\ecommerce\Libraries\Quang.Cate.BusinessLogic\bin\Debug\Dapper.pdb
+C:\Projects\ecommerce\Libraries\Quang.Cate.BusinessLogic\bin\Debug\Dapper.xml

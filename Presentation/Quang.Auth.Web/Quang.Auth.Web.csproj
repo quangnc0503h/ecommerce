@@ -70,7 +70,7 @@
     <Content Include="app\scripts\config.js" />
     <Content Include="app\scripts\controllers\associate.js" />
     <Content Include="app\scripts\controllers\changepass.js" />
-    <Content Include="app\scripts\controllers\divice.js" />
+    <Content Include="app\scripts\controllers\device.js" />
     <Content Include="app\scripts\controllers\group.js" />
     <Content Include="app\scripts\controllers\login.js" />
     <Content Include="app\scripts\controllers\permission.js" />
