@@ -424,7 +424,7 @@ module.exports = function (grunt) {
                         urlLogoutSso: 'http://localhost:9001/#/getout',
                         urlIframeSso: 'http://localhost:9001/cdlsi.html',
                         urlApiAuth: 'http://localhost:8085/',
-                        urlApiDanhMuc: 'http://localhost:19822/',
+                        urlApiCate: 'http://localhost:8086/',
                         urlWebAuth: 'http://localhost:9001/',
                         urlApiKeHoach: '',
                         urlApiBanVe: ''
@@ -444,7 +444,7 @@ module.exports = function (grunt) {
                         urlLogoutSso: '#{api.urlLogoutSso}',
                         urlIframeSso: 'http://localhost:9001/cdlsi.html',
                         urlApiAuth: 'http://dev2.danhmuc.vnticketonline.vn:10004/auth/',
-                        urlApiDanhMuc: 'http://dev2.danhmuc.vnticketonline.vn:10004/',
+                        urlApiCate: '#{api.urlApiCate}',
                         urlWebAuth: '#{api.urlWebAuth}',
                         urlApiKeHoach: '',
                         urlApiBanVe: ''

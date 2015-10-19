@@ -7,6 +7,7 @@ using System.Web.Http;
 
 namespace Quang.Cate.Api.Controllers
 {
+    [RoutePrefix("api/country")]
     public class CountryController : ApiController
     {
     }
