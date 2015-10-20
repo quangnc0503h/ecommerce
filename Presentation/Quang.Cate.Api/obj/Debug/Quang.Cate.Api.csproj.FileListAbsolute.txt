@@ -3,10 +3,7 @@ C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\Quang.Cate.Api.dll.config
 C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\Quang.Cate.Api.dll
 C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\Quang.Cate.Api.pdb
 C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\Antlr3.Runtime.dll
-C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\EntityFramework.dll
-C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\EntityFramework.SqlServer.dll
 C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\Microsoft.AspNet.Identity.Core.dll
-C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\Microsoft.AspNet.Identity.Owin.dll
 C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\Microsoft.Owin.dll
 C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\Microsoft.Owin.Host.SystemWeb.dll
@@ -50,11 +47,8 @@ C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\System.Web.WebPages.xml
 C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\System.Web.WebPages.Deployment.xml
 C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\System.Web.WebPages.Razor.xml
 C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\Antlr3.Runtime.pdb
-C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\EntityFramework.xml
-C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\EntityFramework.SqlServer.xml
 C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\Microsoft.AspNet.Identity.Core.xml
 C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\Microsoft.AspNet.Identity.Owin.xml
-C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\Microsoft.AspNet.Identity.EntityFramework.xml
 C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\Microsoft.Owin.xml
 C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\Microsoft.Owin.Host.SystemWeb.xml
 C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\Microsoft.Owin.Security.xml

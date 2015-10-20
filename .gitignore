@@ -5,3 +5,8 @@
 /Presentation/Quang.Auth.Web/bin
 /Presentation/Quang.Web/obj
 /Presentation/Quang.Web/bin
+/Presentation/Quang.Cate.Api/bin
+/Presentation/Quang.Cate.Web/bin
+/Presentation/Quang.Cate.Web/obj
+Presentation/Quang.Cate.Web/npm-debug.log
+*.dll
