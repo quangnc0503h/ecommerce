@@ -10,3 +10,8 @@
 /Presentation/Quang.Cate.Web/obj
 Presentation/Quang.Cate.Web/npm-debug.log
 *.dll
+*.dll
+*.dll
+Presentation/Quang.Cate.Api/obj/Debug/Quang.Cate.Api.csproj.FileListAbsolute.txt
+*.cache
+*.dll

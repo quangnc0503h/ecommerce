@@ -138,3 +138,16 @@ D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\StackExcha
 D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\StackExchange.Redis.xml
 D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\Jil.pdb
 D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\Jil.xml
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\Dapper.dll
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\Serilog.FullNetFx.dll
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\SerilogWeb.Classic.dll
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\StackExchange.Exceptional.dll
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\StackExchange.Exceptional.MySQL.dll
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\Dapper.pdb
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\Dapper.xml
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\Serilog.FullNetFx.pdb
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\Serilog.FullNetFx.xml
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\SerilogWeb.Classic.xml
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\StackExchange.Exceptional.pdb
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\StackExchange.Exceptional.xml
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\StackExchange.Exceptional.MySQL.pdb
