@@ -40,7 +40,7 @@ namespace Quang.Common.Auth
         }
         public class DanhMuc
         {
-            public const string Language = "200";
+            public const string Languages = "200";
             public const string Country = "210";
             public const string LyDoKhoaCho = "220";
             public const string Tuyen = "230";

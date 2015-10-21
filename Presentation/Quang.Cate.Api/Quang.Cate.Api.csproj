@@ -250,6 +250,18 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\Quang.Cate.BusinessLogic\Quang.Cate.BusinessLogic.csproj">
+      <Project>{bd8cce78-53f8-4ff6-9760-41455e4e0b93}</Project>
+      <Name>Quang.Cate.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\Quang.Cate.DataAccess\Quang.Cate.DataAccess.csproj">
+      <Project>{353c730d-dd28-4043-a80f-907497eff758}</Project>
+      <Name>Quang.Cate.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\Quang.Cate.Entities\Quang.Cate.Entities.csproj">
+      <Project>{1c680144-66ca-4f60-9c25-5684049632ac}</Project>
+      <Name>Quang.Cate.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Libraries\Quang.Common\Quang.Common.csproj">
       <Project>{44efc64f-1ec9-4075-a13b-5be544881ba0}</Project>
       <Name>Quang.Common</Name>

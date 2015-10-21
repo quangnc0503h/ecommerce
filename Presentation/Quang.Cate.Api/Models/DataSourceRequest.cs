@@ -13,4 +13,8 @@
             PageSize = 10;
         }
     }
+    public class GetOneInputModel
+    {
+        public long Id { get; set; }
+    }
 }
