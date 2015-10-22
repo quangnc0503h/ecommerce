@@ -6,6 +6,11 @@ using System.Web;
 
 namespace Quang.Cate.Api.Models
 {
+    public class NotificationResultModel
+    {
+        public int Status { get; set; }
+    }
+
     public class DataSourceResult
     {
         public object ExtraData { get; set; }

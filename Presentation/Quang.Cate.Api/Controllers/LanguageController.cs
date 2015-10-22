@@ -67,5 +67,40 @@ namespace Quang.Cate.Api.Controllers
                 return new LanguageModel();
             }
         }
+
+        [HttpPost]
+        //[AppAuthorize(Roles = ActionRole.DanhMuc.Languages)]
+        [Route("CreateDevice")]
+        public async Task<NotificationResultModel> CreateLanguage(LanguageModel input)
+        {
+            try
+            {
+                var model = new NotificationResultModel { Status = 1};
+                return await Task.FromResult(model);
+            }
+            catch (Exception ex)
+            {
+
+                ErrorStore.LogExceptionWithoutContext(ex);
+                return new NotificationResultModel();
+            }
+        }
+        [HttpPost]
+        //[AppAuthorize(Roles = ActionRole.DanhMuc.Languages)]
+        [Route("UpdateLanguage")]
+        public async Task<NotificationResultModel> UpdateLanguage(LanguageModel input)
+        {
+            try
+            {
+                var model = new NotificationResultModel {Status = 1};
+                return await Task.FromResult(model);
+            }
+            catch (Exception ex)
+            {
+
+                ErrorStore.LogExceptionWithoutContext(ex);
+                return new NotificationResultModel();
+            }
+        }
     }
 }

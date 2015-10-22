@@ -37,10 +37,10 @@
                       <ul class="nav navbar-nav">
                           <li menu-active-url="$"><a ng-href="#/">Trang chủ</a></li>
                           <!--<li show-if-authenticated="true" menu-active-url="user"><a ng-href="#/user">Quản lý người sử dụng</a></li>-->
-                          <li show-if-authenticated="200|210|220|230|240|250|260|270|280" menu-active-url="(ga|tuyen|pttt|nhomcho|loaicho|mactau|toaxe|dtkh|ldkc)" class="dropdown" style="display: none">
-                              <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Quản lý danh mục <span class="caret"></span></a>
+                          <li show-if-authenticated="200|210|220|230|240|250|260|270|280" menu-active-url="(ga|tuyen|pttt|nhomcho|loaicho|mactau|toaxe|language|ldkc)" class="dropdown" style="display: none">
+                              <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hệ thống <span class="caret"></span></a>
                               <ul class="dropdown-menu" role="menu">
-                                  <li show-if-authenticated="200" style="display: none" menu-active-url="dtkh"><a ng-href="#/dtkh">Đối tượng khách hàng</a></li>
+                                  <li show-if-authenticated="200" style="display: none" menu-active-url="language"><a ng-href="#/language">Ngôn ngữ</a></li>
                                   <li show-if-authenticated="210" style="display: none" menu-active-url="pttt"><a ng-href="#/pttt">Phương thức thanh toán</a></li>
                                   <li show-if-authenticated="220" style="display: none" menu-active-url="ldkc"><a ng-href="#/ldkc">Lý do khóa chỗ</a></li>
                                   <li show-if-authenticated="230" style="display: none" menu-active-url="tuyen"><a ng-href="#/tuyen">Quản lý tuyến</a></li>
@@ -108,7 +108,7 @@
       <script src="scripts/app.js"></script>
       <script src="scripts/common.js"></script>
         <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/controllers/language.js"></script>
       <script src="scripts/controllers/login.js"></script>
       <script src="scripts/controllers/unauthorized.js"></script>
       <script src="scripts/controllers/refresh.js"></script>

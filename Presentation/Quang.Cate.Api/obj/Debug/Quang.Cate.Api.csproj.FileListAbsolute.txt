@@ -165,3 +165,13 @@ C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\StackExchange.Exceptional.
 C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\StackExchange.Exceptional.xml
 C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\StackExchange.Exceptional.MySQL.pdb
 C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\MySql.Data.dll
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\MySql.Data.dll
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\Quang.Cate.BusinessLogic.dll
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\Quang.Cate.DataAccess.dll
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\Quang.Cate.Entities.dll
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\MiniProfiler.dll
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\Quang.Cate.BusinessLogic.pdb
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\Quang.Cate.DataAccess.pdb
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\Quang.Cate.Entities.pdb
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\MiniProfiler.pdb
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\MiniProfiler.xml

@@ -65,6 +65,7 @@
     <Content Include="app\scripts\authComplete.js" />
     <Content Include="app\scripts\common.js" />
     <Content Include="app\scripts\config.js" />
+    <Content Include="app\scripts\controllers\language.js" />
     <Content Include="app\scripts\controllers\login.js" />
     <Content Include="app\scripts\controllers\refresh.js" />
     <Content Include="app\scripts\controllers\signup.js" />
@@ -74,6 +75,7 @@
     <Content Include="app\scripts\services\authservice.js" />
     <Content Include="app\scripts\services\tockensmanagerservice.js" />
     <Content Include="app\styles\autocomplete.css" />
+    <Content Include="app\views\language.html" />
     <Content Include="app\views\login.html" />
     <Content Include="app\views\logout.html" />
     <Content Include="bower.json" />

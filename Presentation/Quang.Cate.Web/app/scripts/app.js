@@ -72,6 +72,12 @@ app.config(function ($routeProvider, $authProvider) {
         templateUrl: "views/logout.html",
         resolve: $authProvider.routeResolve()
     });
+
+    $routeProvider.when("/language", {
+        controller: "LanguageCtrl",
+        templateUrl: "views/language.html",
+        resolve: $authProvider.routeResolve()
+    });
 });
 
 app.constant('ngAuthSettings', {
