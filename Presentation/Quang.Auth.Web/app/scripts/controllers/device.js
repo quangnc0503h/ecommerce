@@ -95,7 +95,7 @@ angular.module('quangauthwebApp').controller('DeviceCtrl', [
             else {
                 alert("Vui lòng chọn thiết bị để xóa");
             }
-            checkedItems.length > 0 ? confirm("Bạn có chắc muốn xóa các thiết bị đã chọn?") && ($scope.isDisabledBtnDeleteAll = true, deviceService.removeListDevice(b, function (b) { b ? (i(), reloadMissingDevices()) : alert("Error: Pls try again!"), a.isDisabledBtnDeleteAll = !1 })) : alert("Vui lòng chọn thiết bị để xóa")
+            
         }
         $scope.openDialogRequestWaiting = function () {
             var modalInstance = $modal.open({

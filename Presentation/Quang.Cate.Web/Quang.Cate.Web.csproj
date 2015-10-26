@@ -73,6 +73,7 @@
     <Content Include="app\scripts\controllers\unauthorized.js" />
     <Content Include="app\scripts\services\authInterceptorService.js" />
     <Content Include="app\scripts\services\authservice.js" />
+    <Content Include="app\scripts\services\languageservice.js" />
     <Content Include="app\scripts\services\tockensmanagerservice.js" />
     <Content Include="app\styles\autocomplete.css" />
     <Content Include="app\views\language.html" />
