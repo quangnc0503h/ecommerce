@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Country.cs" />
+    <Compile Include="District.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="LocalStringResource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

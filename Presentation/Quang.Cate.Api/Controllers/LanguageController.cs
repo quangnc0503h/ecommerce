@@ -9,6 +9,8 @@ using Quang.Cate.BusinessLogic;
 using Quang.Cate.Entities;
 using Quang.Common.Auth;
 using StackExchange.Exceptional;
+using System.Collections.Generic;
+//using System.Web.Mvc;
 
 namespace Quang.Cate.Api.Controllers
 {
@@ -16,7 +18,7 @@ namespace Quang.Cate.Api.Controllers
     public class LanguageController : ApiController
     {
         [HttpPost]
-       // [AppAuthorize(Roles = ActionRole.DanhMuc.Languages)]
+        //[AppAuthorize(Roles = ActionRole.DanhMuc.Languages)]
         [Route("GetAll")]
         public async Task<DataSourceResult> GetAll(DataSourceRequest command)
         {
@@ -144,13 +146,21 @@ namespace Quang.Cate.Api.Controllers
         {
             try
             {
-
+                List<SelectListItemModel> data = new List<SelectListItemModel>();
                 var cultures = System.Globalization.CultureInfo.GetCultures(
                     System.Globalization.CultureTypes.SpecificCultures)
                     .OrderBy(x => x.EnglishName);
+                foreach(var item in cultures)
+                {
+                    var model = new SelectListItemModel {
+                        Text = item.EnglishName,
+                        Value = item.IetfLanguageTag
+                    };
+                    data.Add(model);
+                }
                 var gridModel = new DataSourceResult
                 {
-                    Data = cultures,
+                    Data = data,
                     Total = cultures.Count()
                 };
                 return await Task.FromResult(gridModel);

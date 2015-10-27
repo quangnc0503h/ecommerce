@@ -6,6 +6,7 @@ angular.module('quangcatewebApp')
       if (localDataService.get(pagekey) !== null) {
           pageInfo = localDataService.get(pagekey);
       }
+      $scope.cultures = [];
       var loaded = false;
     $scope.items = {},
         $scope.qsearch = pageInfo.qsearch,
@@ -27,6 +28,11 @@ angular.module('quangcatewebApp')
         });
         loaded = false;
     }
+      // Load list parent
+    languageService.listAllCultures(function (items) {
+        $scope.cultures = items;
+        console.log(items);
+    });
     loadList();
 
     $scope.searchItems = function () {
@@ -95,4 +101,56 @@ angular.module('quangcatewebApp')
         }
         
     }
-}]);
+    $scope.openDialogCreateItem = function (item) {
+        var modalInstance = $modal.open({
+            templateUrl: "modalCreateLanguageContent.html",
+            controller: "ModalCreateLanguageCtrl",
+            resolve: {
+                cultures: function () {
+                    return $scope.cultures;
+                }
+            }
+        });
+        modalInstance.result.then(function (success) {
+            if (success) {
+                loadList();
+            }
+        }, function () {
+            //$log.info('Modal dismissed at: ' + new Date());
+        });
+    }
+    $scope.openDialogEditItem = function (id) {
+        var modalInstance = $modal.open({
+            templateUrl: "modalEditLanguageContent.html",
+            controller: "ModalEditLanguageCtrl",
+            resolve: { itemId: function () { return id; } }
+        });
+        modalInstance.result.then(function (success) {
+            if (success) {
+                loadList();
+            }
+        }, function () {
+            //$log.info('Modal dismissed at: ' + new Date());
+        });
+    }
+  }]).controller("ModalCreateLanguageCtrl", ["$scope", "languageService", "$modalInstance", 'cultures', function ($scope, languageService, $modalInstance, cultures) {
+      $scope.item = { Published: 1 };
+      $scope.cultures = cultures;
+      $scope.createItem = function () {
+          if ($scope.addForm.$valid) {
+              $scope.isDisabledBtnCreate = true;
+              languageService.createDevice($scope.item, function (success) {
+                  if (success) {
+                      $modalInstance.close(true);
+                  } else {
+                      alert("Error: Pls try again!");
+                  }
+                  $scope.isDisabledBtnCreate = false;
+              });
+          }
+
+      };
+      $scope.cancel = function () {
+          $modalInstance.dismiss("cancel");
+      }
+  }]);

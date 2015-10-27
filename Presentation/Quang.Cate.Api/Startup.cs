@@ -12,7 +12,7 @@ namespace Quang.Cate.Api
     {
         public void Configuration(IAppBuilder app)
         {
-            //app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll); //need on top, very importance            
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll); //need on top, very importance            
             ConfigureAuth(app);
         }
     }

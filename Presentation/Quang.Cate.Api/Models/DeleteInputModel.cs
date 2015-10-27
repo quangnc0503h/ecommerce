@@ -9,4 +9,10 @@ namespace Quang.Cate.Api.Models
     {
         public List<long> Ids { get; set; }
     }
+
+    public class SelectListItemModel
+    {
+        public string Value { get; set; }
+        public string Text { get; set; }
+    }
 }

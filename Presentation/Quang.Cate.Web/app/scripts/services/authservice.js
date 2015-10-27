@@ -60,6 +60,7 @@ angular.module('quangcatewebApp')
                           _authentication.roles = response.roles.split(",");
                           _token = response.access_token;
                           $rootScope.isAuthLoaded = true;
+                          
                           deferred.resolve(response);
                       } else {
                           alert('Ops, could not store your data.');
@@ -116,6 +117,7 @@ angular.module('quangcatewebApp')
               _authentication.useRefreshTokens = authData.useRefreshTokens;
               _authentication.roles = authData.roles;
               _token = token;
+              //console.log(authData.roles);
           }
       };
 

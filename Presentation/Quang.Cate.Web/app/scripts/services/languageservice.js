@@ -4,6 +4,7 @@ angular.module('quangcatewebApp').service('languageService', ['$resource', 'ENV'
 
         query: { method: "POST", url: ENV.urlApiCate + "api/Language/GetAll" },
         queryResources: { method: "POST", url: ENV.urlApiCate + "api/Language/GetAllResources" },
+        queryCultures: { method: "GET", url: ENV.urlApiCate + "api/Language/GetCultures" },
         read: { method: "POST", url: ENV.urlApiCate + "api/Language/GetOneLanguage" },
         readByKey: { method: "POST", url: ENV.urlApiCate + "api/Language/GetOneDeviceByKey" },
         create: { method: "POST", url: ENV.urlApiCate + "api/Language/CreateLanguage" },
@@ -13,6 +14,13 @@ angular.module('quangcatewebApp').service('languageService', ['$resource', 'ENV'
         isExistDevice: { method: "POST", url: ENV.urlApiCate + "api/Language/IsExistDevice" }
     });
     var serviceFactory = {};
+    serviceFactory.listAllCultures = function (callback) {
+        rs.queryCultures().$promise.then(function (res) {
+            if (callback) {
+                callback(res.Data);
+            }
+        });
+    }
     serviceFactory.listLanguage = function (filter, callback) {
         filter = filter ? filter : {};
         rs.query(filter).$promise.then(function (res) {
