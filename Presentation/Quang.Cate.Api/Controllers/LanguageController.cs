@@ -25,7 +25,7 @@ namespace Quang.Cate.Api.Controllers
             try
             {
                 
-                IEnumerable languages = await LanguageBll.GetPaging(command.PageSize, command.Page, "", command.Keyword);
+                IEnumerable languages = await LanguageBll.GetPaging(command.PageSize, command.PageNumber, "", command.Keyword);
                 var gridModel = new DataSourceResult
                                 {
                                     Data = languages,
@@ -56,7 +56,8 @@ namespace Quang.Cate.Api.Controllers
                                 Name = item.Name,
                                 DisplayOrder = item.DisplayOrder,
                                 LanguageCulture = item.LanguageCulture,
-                                Published = item.Published,UniqueSeoCode = item.UniqueSeoCode
+                                Published = item.Published,
+                                UniqueSeoCode = item.UniqueSeoCode
                             };
                 return await Task.FromResult(model);
             }
@@ -69,8 +70,8 @@ namespace Quang.Cate.Api.Controllers
         }
 
         [HttpPost]
-        [AppAuthorize(Roles = ActionRole.DanhMuc.Languages)]
-        [Route("CreateDevice")]
+       // [AppAuthorize(Roles = ActionRole.DanhMuc.Languages)]
+        [Route("CreateLanguage")]
         public async Task<NotificationResultModel> CreateLanguage(LanguageModel input)
         {
             try
@@ -84,7 +85,7 @@ namespace Quang.Cate.Api.Controllers
                                    Published = input.Published,
                                    UniqueSeoCode = input.UniqueSeoCode
                                };
-                model.Status = (int)(await LanguageBll.Insert(language));
+                model.Status = ((int)(await LanguageBll.Insert(language))) > 0? 0 : 1;
                 return await Task.FromResult(model);
             }
             catch (Exception ex)
@@ -95,7 +96,7 @@ namespace Quang.Cate.Api.Controllers
             }
         }
         [HttpPost]
-        [AppAuthorize(Roles = ActionRole.DanhMuc.Languages)]
+       // [AppAuthorize(Roles = ActionRole.DanhMuc.Languages)]
         [Route("UpdateLanguage")]
         public async Task<NotificationResultModel> UpdateLanguage(LanguageModel input)
         {
@@ -111,7 +112,7 @@ namespace Quang.Cate.Api.Controllers
                                    Published = input.Published,
                                    UniqueSeoCode = input.UniqueSeoCode
                                };
-                model.Status = (int) (await LanguageBll.Update(language));
+                model.Status = ((int) (await LanguageBll.Update(language))) > 0? 0 : 1;
                 return await Task.FromResult(model);
             }
             catch (Exception ex)
@@ -123,14 +124,14 @@ namespace Quang.Cate.Api.Controllers
         }
 
         [HttpPost]
-        [AppAuthorize(Roles = ActionRole.DanhMuc.Languages)]
+      //  [AppAuthorize(Roles = ActionRole.DanhMuc.Languages)]
         [Route("DeleteLanguage")]
         public async Task<NotificationResultModel> DeleteLanguage(DeleteInputModel input)
         {
             try
             {
                 var model = new NotificationResultModel { Status = 1};
-                model.Status = (int) (await LanguageBll.Delete(input.Ids));
+                model.Status = ((int) (await LanguageBll.Delete(input.Ids))) > 0? 0 : 1;
                 return await Task.FromResult(model);
             }
             catch (Exception ex)

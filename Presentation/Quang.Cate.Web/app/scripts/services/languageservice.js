@@ -43,8 +43,8 @@ angular.module('quangcatewebApp').service('languageService', ['$resource', 'ENV'
     serviceFactory.getLanguage = function (id, callback) {
         rs.read({ Id: id }).$promise.then(function (res) {
             if (callback) {
-                if (res.Divice) {
-                    callback(res.Divice);
+                if (res) {
+                    callback(res);
                 } else {
                     callback({});
                 }

@@ -17,7 +17,7 @@ namespace Quang.Cate.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangCateConn))
             {
                 var param = "%" + Utils.EncodeForLike(keyword) + "%";
-                const string sql = "SELECT * FROM Language WHERE Name LIKE @param";
+                const string sql = "SELECT * FROM languages WHERE Name LIKE @param";
                 var data = await conn.QueryAsync<Language>(sql, new { param });
                 results = data.ToList();
             }
@@ -31,7 +31,7 @@ namespace Quang.Cate.DataAccess
 
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangCateConn))
             {
-                const string sql = "SELECT * FROM Language";
+                const string sql = "SELECT * FROM languages";
                 var data = await conn.QueryAsync<Language>(sql);
                 results = data.ToList();
             }
@@ -43,14 +43,17 @@ namespace Quang.Cate.DataAccess
         public static async Task<Language> GetLanguageById(long id)
         {
             Language results;
+            const string commandText = "SELECT * FROM languages WHERE Id=@id";
+            Dictionary<string, object> parameters = new Dictionary<string, object>() { { "@id", id } };
 
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangCateConn))
             {
-                const string sql = "SELECT * FROM Country WHERE Id=@id";
-                var data = await conn.QueryAsync<Language>(sql, new { id });
-                results = data.ToList().First();
+
+                var data = await conn.QueryAsync<Language>(commandText, parameters);
+                results = data.FirstOrDefault();
             }
 
+         
             return results;
         }
 
@@ -61,10 +64,10 @@ namespace Quang.Cate.DataAccess
 
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangCateConn))
             {
-                const string sql = @"INSERT INTO Country(Name,ShortName,Published,DisplayOrder, Description) values(@Name,@ShortName,@Published,@DisplayOrder,@Description); 
+                const string sql = @"INSERT INTO languages(Name,LanguageCulture,Published,DisplayOrder, UniqueSeoCode) values(@Name,@LanguageCulture,@Published,@DisplayOrder,@UniqueSeoCode); 
                                SELECT CONVERT(LAST_INSERT_ID() , UNSIGNED INTEGER) AS id;";
-                var id = await conn.QueryAsync<ulong>(sql, item);
-                results = (long)id.Single();
+                results = await conn.ExecuteAsync(sql, item);
+                 
             }
 
             return results;
@@ -77,11 +80,11 @@ namespace Quang.Cate.DataAccess
 
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangCateConn))
             {
-                string sql = @"update  Country set Name=@Name,
-                                                ShortName=@ShortName,                                               
+                string sql = @"update  languages set Name=@Name,
+                                                LanguageCulture=@LanguageCulture,
+                                                UniqueSeoCode = @UniqueSeoCode ,                                               
                                                 Published=@Published,
-                                                DisplayOrder=@DisplayOrder,
-                                                Description = @Description 
+                                                DisplayOrder=@DisplayOrder
                                 where Id=@Id";
                 results = await conn.ExecuteAsync(sql, item);
 
@@ -97,7 +100,7 @@ namespace Quang.Cate.DataAccess
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangCateConn))
             {
                 var param = "%" + Utils.EncodeForLike(keyword) + "%";
-                const string sql = "select count(id) from Language where Name LIKE @param";
+                const string sql = "select count(id) from languages where Name LIKE @param";
                 var data = await conn.QueryAsync<long>(sql, new { param });
                 results = data.FirstOrDefault();
             }
@@ -105,19 +108,21 @@ namespace Quang.Cate.DataAccess
             return results;
         }
 
-        public static async Task<IEnumerable<Language>> GetAll(int pageSize, int pageNumber, string orderBy, string keyword)
+        public static async Task<IEnumerable<Language>> GetPaging(int pageSize, int pageNumber, string orderBy, string keyword)
         {
             IEnumerable<Language> results;
-
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangCateConn))
             {
-                var param = "%" + Utils.EncodeForLike(keyword) + "%";
-                orderBy = string.IsNullOrEmpty(orderBy) ? "id" : orderBy;
+                parameters.Add("@param", "%" + Utils.EncodeForLike(keyword) + "%");
+                parameters.Add("@rowNumber", pageSize * pageNumber);
+                parameters.Add("@pageSize", pageSize);
+               // orderBy = string.IsNullOrEmpty(orderBy) ? "id" : orderBy;
                 var rowNumber = pageSize * pageNumber;
-                const string sql = @"SELECT * FROM Language WHERE Name LIKE @param 
-                                                      ORDER BY @OrderBy 
-                                                      LIMIT @RowNumber,@PageSize ";
-                var data = await conn.QueryAsync<Language>(sql, new { param, orderBy, rowNumber, pageSize });
+                const string sql = @"SELECT * FROM languages WHERE Name LIKE @param 
+                                                      ORDER BY DisplayOrder 
+                                                      LIMIT @rowNumber,@pageSize ";
+                var data = await conn.QueryAsync<Language>(sql, parameters);
                 results = data.ToList();
             }
 
@@ -130,7 +135,7 @@ namespace Quang.Cate.DataAccess
 
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangCateConn))
             {
-                const string sql = @"delete from Language WHERE Id in @ids";
+                const string sql = @"delete from languages WHERE Id in @ids";
                 results = await conn.ExecuteAsync(sql, new { ids = ids.ToArray() });
             }
 
@@ -143,7 +148,7 @@ namespace Quang.Cate.DataAccess
 
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangCateConn))
             {
-                const string sql = "select count(*) from Language";
+                const string sql = "select count(*) from languages";
                 var data = await conn.QueryAsync<long>(sql);
                 results = data.FirstOrDefault();
             }

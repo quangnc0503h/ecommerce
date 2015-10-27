@@ -44,8 +44,8 @@
                     <td class="text-center">{{item.Name}}</td>
                     <td class="text-center">{{item.LanguageCulture}}</td>
                     <td>View string resources</td>
-                    <td>{{item.DisplayOrder}}</td>
-                    <td>{{item.Published}} </td>
+                    <td class="text-center">{{item.DisplayOrder}}</td>
+                    <td class="text-center"><i class="fa fa-chevron-circle-down" ng-value="1" ng-show="item.Published==1"></i><i class="fa fa-chevron-circle-up" ng-value="1" ng-show="item.Published==0"></i>  </td>
                     <td class="text-center">
                         <button type="button" class="btn btn-default" ng-click="openDialogEditItem(item.Id)">Sửa</button>
                         <button type="button" class="btn btn-default" ng-click="removeItem(item.Id)" ng-disabled="isDisabledBtnDelete{{item.Id}}">Xóa</button>
@@ -125,4 +125,54 @@
         </div>
     </form>
 </script> 
+<!-- End modal create -->
+
+<!-- Begin modal edit -->
+<script type="text/ng-template" id="modalEditLanguageContent.html">
+    <form name="editForm" id="editForm" novalidate valid-submit="updateItem()">
+        <div class="modal-header">
+            <h3 class="modal-title">Chỉnh sửa ngôn ngữ</h3>
+        </div>
+        <div class="modal-body">
+            <div class="well-lg">
+                <div class="form-group" show-errors>
+                    <label class="control-label" for="languageName">Name:</label>
+                    <input type="text" class="form-control" id="languageName" name="languageName" ng-model="item.Name" required />
+                    <p class="help-block" ng-show="addForm.languageName.$error.required">Tên ngôn ngữ không được bỏ trống</p>
+                </div>
+                <div class="form-group" show-errors>
+                    <label class="control-label" for="culture">Language culture:</label>
+                    <select class="form-control" id="culture" name="culture" ng-model="item.LanguageCulture" ng-options="i.Value as i.Text for i in cultures" required></select>
+                    <p class="help-block" ng-show="addForm.culture.$error.required">Language culture chưa được chọn</p>
+                </div>
+                <div class="form-group" show-errors>
+                    <label class="control-label" for="uniqueSeoCode">Unique SEO code:</label>
+                    <input type="text" class="form-control" id="deviceDescription" name="uniqueSeoCode" ng-model="item.UniqueSeoCode" />
+                    <p class="help-block" ng-show="addForm.uniqueSeoCode.$error.required">Diễn giải không được bỏ trống</p>
+                </div>
+                <div class="form-group" show-errors>
+                    <label class="control-label" for="">Published:</label>
+                    <div>
+                        <input type="radio" name="isPublished" ng-model="item.Published" ng-value="1" ng-required="!item.Published" /> Có hoạt động
+                        <input type="radio" name="isPublished" ng-model="item.Published" ng-value="0" ng-required="!item.Published" /> Không hoạt động
+                        <p class="help-block" ng-show="addForm.isActived.$error.required">Vui lòng chọn trạng thái</p>
+                    </div>
+                </div>
+                <div class="form-group" show-errors>
+                    <label class="control-label" for="displayOrder">Số thứ tự:</label>
+                    <input type="text" class="form-control" id="displayOrder" name="displayOrder" ng-model="item.DisplayOrder" ng-pattern="/^[\d]*$/" required />
+                    <p class="help-block" ng-show="addForm.displayOrder.$error.required">Số thứ tự không được bỏ trống</p>
+                    <p class="help-block" ng-show="addForm.displayOrder.$error.pattern">Số thứ tự chỉ cho phép ký tự số</p>
+                </div>
+
+
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" type="submit">Cập nhật</button>
+            <button class="btn btn-default" type="button" ng-click="cancel()">Đóng</button>
+        </div>
+    </form>
+</script>
 <!-- End modal create -->

@@ -25,13 +25,14 @@ angular.module('quangcatewebApp')
             $scope.totalItems = res.totalCount,
             loaded = true,
             $scope.currentPage = pageInfo.currentPage;
+            console.log(res.items);
         });
         loaded = false;
     }
       // Load list parent
     languageService.listAllCultures(function (items) {
         $scope.cultures = items;
-        console.log(items);
+       // console.log(items);
     });
     loadList();
 
@@ -123,7 +124,11 @@ angular.module('quangcatewebApp')
         var modalInstance = $modal.open({
             templateUrl: "modalEditLanguageContent.html",
             controller: "ModalEditLanguageCtrl",
-            resolve: { itemId: function () { return id; } }
+            resolve: {  cultures: function () {
+                return $scope.cultures;
+            },
+             itemId: function () { return id; }
+            }
         });
         modalInstance.result.then(function (success) {
             if (success) {
@@ -139,7 +144,7 @@ angular.module('quangcatewebApp')
       $scope.createItem = function () {
           if ($scope.addForm.$valid) {
               $scope.isDisabledBtnCreate = true;
-              languageService.createDevice($scope.item, function (success) {
+              languageService.createLanguage($scope.item, function (success) {
                   if (success) {
                       $modalInstance.close(true);
                   } else {
@@ -153,4 +158,29 @@ angular.module('quangcatewebApp')
       $scope.cancel = function () {
           $modalInstance.dismiss("cancel");
       }
+  }]).controller('ModalEditLanguageCtrl', ['$scope', 'languageService', '$modalInstance', 'cultures', 'itemId', function ($scope, languageService, $modalInstance, cultures, itemId) {
+
+      $scope.item = {};
+      $scope.cultures = cultures;
+
+      languageService.getLanguage(itemId, function (item) {
+         // console.log(item);
+          $scope.item = item;
+      });
+
+      $scope.updateItem = function () {
+          if ($scope.editForm.$valid) {
+              languageService.saveLanguage($scope.item, function (success) {
+                  if (success) {
+                      $modalInstance.close(true);
+                  } else {
+                      alert('Error: Pls try again!');
+                  }
+              });
+          }
+      };
+
+      $scope.cancel = function () {
+          $modalInstance.dismiss('cancel');
+      };
   }]);

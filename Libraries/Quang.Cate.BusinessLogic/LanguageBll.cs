@@ -67,7 +67,7 @@ namespace Quang.Cate.BusinessLogic
         /// <returns></returns>
         public async static Task<IEnumerable<Language>> GetPaging(int pageSize, int pageNumber, string orderby,  string keyword)
         {
-            return await LanguageDal.GetAll(pageSize, pageNumber, orderby,  keyword);
+            return await LanguageDal.GetPaging(pageSize, pageNumber, orderby,  keyword);
         }
         public async static Task<Language> GetOneLanguage(long languageId)
         {

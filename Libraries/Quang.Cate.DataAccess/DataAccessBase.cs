@@ -14,7 +14,7 @@ namespace Quang.Cate.DataAccess
 {
     public class DataAccessBase
     {
-        public static string QuangCateConn = ConfigurationManager.ConnectionStrings["QuangCate"].ConnectionString;
+        public static string QuangCateConn = ConfigurationManager.ConnectionStrings["Categories"].ConnectionString;
 
         /// <summary>
         /// Gets an open READ UNCOMMITTED connection using the specified connection string, optionally timing out on the initial connect

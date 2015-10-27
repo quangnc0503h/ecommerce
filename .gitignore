@@ -15,3 +15,6 @@ Presentation/Quang.Cate.Web/npm-debug.log
 Presentation/Quang.Cate.Api/obj/Debug/Quang.Cate.Api.csproj.FileListAbsolute.txt
 *.cache
 *.dll
+/Libraries/Quang.Cate.Entities/obj
+/Libraries/Quang.Cate.Entities/bin
+/Libraries/Quang.Common/obj
