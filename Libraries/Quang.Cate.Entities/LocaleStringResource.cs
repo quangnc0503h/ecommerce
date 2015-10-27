@@ -1,6 +1,6 @@
 ﻿namespace Quang.Cate.Entities
 {
-    public class LocalStringResource
+    public class LocaleStringResource
     {
         /// <summary>
         /// 

@@ -111,7 +111,7 @@ namespace Quang.Cate.DataAccess
         public static async Task<IEnumerable<Language>> GetPaging(int pageSize, int pageNumber, string orderBy, string keyword)
         {
             IEnumerable<Language> results;
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            var parameters = new Dictionary<string, object>();
             using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangCateConn))
             {
                 parameters.Add("@param", "%" + Utils.EncodeForLike(keyword) + "%");
