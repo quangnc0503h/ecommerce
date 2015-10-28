@@ -1,0 +1,224 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'yo' ]
+2 info using npm@2.11.3
+3 info using node@v0.12.7
+4 verbose install initial load of C:\Users\BizSystems\AppData\Roaming\npm\package.json
+5 verbose readDependencies loading dependencies from C:\Users\BizSystems\AppData\Roaming\npm\package.json
+6 silly cache add args [ 'yo', null ]
+7 verbose cache add spec yo
+8 silly cache add parsed spec { raw: 'yo',
+8 silly cache add   scope: null,
+8 silly cache add   name: 'yo',
+8 silly cache add   rawSpec: '',
+8 silly cache add   spec: '*',
+8 silly cache add   type: 'range' }
+9 silly addNamed yo@*
+10 verbose addNamed "*" is a valid semver range for yo
+11 silly addNameRange { name: 'yo', range: '*', hasData: false }
+12 silly mapToRegistry name yo
+13 silly mapToRegistry using default registry
+14 silly mapToRegistry registry https://registry.npmjs.org/
+15 silly mapToRegistry uri https://registry.npmjs.org/yo
+16 verbose addNameRange registry:https://registry.npmjs.org/yo not in flight; fetching
+17 verbose request uri https://registry.npmjs.org/yo
+18 verbose request no auth needed
+19 info attempt registry request try #1 at 10:48:50 PM
+20 verbose request id 10c7a0933f98cd07
+21 verbose etag "7T076A6MI52N7VBIGT7ZHB2GG"
+22 http request GET https://registry.npmjs.org/yo
+23 http 200 https://registry.npmjs.org/yo
+24 silly get cb [ 200,
+24 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+24 silly get     etag: '"EERHPQWCVAZ2LN4K78ZMQRSLH"',
+24 silly get     'content-type': 'application/json',
+24 silly get     'cache-control': 'max-age=60',
+24 silly get     'content-length': '36844',
+24 silly get     'accept-ranges': 'bytes',
+24 silly get     date: 'Wed, 28 Oct 2015 15:48:53 GMT',
+24 silly get     via: '1.1 varnish',
+24 silly get     age: '28',
+24 silly get     connection: 'keep-alive',
+24 silly get     'x-served-by': 'cache-hkg6820-HKG',
+24 silly get     'x-cache': 'HIT',
+24 silly get     'x-cache-hits': '1',
+24 silly get     'x-timer': 'S1446047333.678083,VS0,VE0',
+24 silly get     vary: 'Accept' } ]
+25 verbose get saving yo to C:\Users\BizSystems\AppData\Roaming\npm-cache\registry.npmjs.org\yo\.cache.json
+26 silly addNameRange number 2 { name: 'yo', range: '*', hasData: true }
+27 silly addNameRange versions [ 'yo',
+27 silly addNameRange   [ '1.1.0',
+27 silly addNameRange     '1.1.1',
+27 silly addNameRange     '1.1.2',
+27 silly addNameRange     '1.2.0',
+27 silly addNameRange     '1.2.1',
+27 silly addNameRange     '1.3.0',
+27 silly addNameRange     '1.3.2',
+27 silly addNameRange     '1.3.3',
+27 silly addNameRange     '1.4.1',
+27 silly addNameRange     '1.4.2',
+27 silly addNameRange     '1.4.4',
+27 silly addNameRange     '1.4.5',
+27 silly addNameRange     '1.4.6',
+27 silly addNameRange     '1.4.7',
+27 silly addNameRange     '1.4.8' ] ]
+28 silly addNamed yo@1.4.8
+29 verbose addNamed "1.4.8" is a plain semver version for yo
+30 silly mapToRegistry name yo
+31 silly mapToRegistry using default registry
+32 silly mapToRegistry registry https://registry.npmjs.org/
+33 silly mapToRegistry uri https://registry.npmjs.org/yo
+34 verbose addRemoteTarball https://registry.npmjs.org/yo/-/yo-1.4.8.tgz not in flight; adding
+35 verbose addRemoteTarball [ 'https://registry.npmjs.org/yo/-/yo-1.4.8.tgz',
+35 verbose addRemoteTarball   'f045654e1afd29d09021bd78f9f2c063599ffa1c' ]
+36 info retry fetch attempt 1 at 10:48:51 PM
+37 info attempt registry request try #1 at 10:48:51 PM
+38 http fetch GET https://registry.npmjs.org/yo/-/yo-1.4.8.tgz
+39 http fetch 200 https://registry.npmjs.org/yo/-/yo-1.4.8.tgz
+40 silly fetchAndShaCheck shasum f045654e1afd29d09021bd78f9f2c063599ffa1c
+41 verbose addTmpTarball C:\Users\BIZSYS~1\AppData\Local\Temp\npm-6360-7358e97c\registry.npmjs.org\yo\-\yo-1.4.8.tgz not in flight; adding
+42 verbose addTmpTarball already have metadata; skipping unpack for yo@1.4.8
+43 silly cache afterAdd yo@1.4.8
+44 verbose afterAdd C:\Users\BizSystems\AppData\Roaming\npm-cache\yo\1.4.8\package\package.json not in flight; writing
+45 verbose afterAdd C:\Users\BizSystems\AppData\Roaming\npm-cache\yo\1.4.8\package\package.json written
+46 silly install resolved [ { name: 'yo',
+46 silly install resolved     version: '1.4.8',
+46 silly install resolved     description: 'CLI tool for running Yeoman generators',
+46 silly install resolved     license: 'BSD-2-Clause',
+46 silly install resolved     bin: { yo: 'lib/cli.js' },
+46 silly install resolved     author: { name: 'Yeoman' },
+46 silly install resolved     repository: { type: 'git', url: 'git+https://github.com/yeoman/yo.git' },
+46 silly install resolved     engines: { node: '>=0.12.0' },
+46 silly install resolved     scripts:
+46 silly install resolved      { test: 'jshint . && mocha test/**/*.js',
+46 silly install resolved        postinstall: 'yodoctor',
+46 silly install resolved        postupdate: 'yodoctor',
+46 silly install resolved        prepublish: 'nsp audit-package' },
+46 silly install resolved     files: [ 'lib' ],
+46 silly install resolved     keywords:
+46 silly install resolved      [ 'cli-app',
+46 silly install resolved        'cli',
+46 silly install resolved        'bin',
+46 silly install resolved        'front-end',
+46 silly install resolved        'development',
+46 silly install resolved        'dev',
+46 silly install resolved        'build',
+46 silly install resolved        'web',
+46 silly install resolved        'tool',
+46 silly install resolved        'scaffold',
+46 silly install resolved        'stack',
+46 silly install resolved        'yeoman',
+46 silly install resolved        'generator',
+46 silly install resolved        'generate',
+46 silly install resolved        'app',
+46 silly install resolved        'boilerplate' ],
+46 silly install resolved     dependencies:
+46 silly install resolved      { 'array-uniq': '^1.0.2',
+46 silly install resolved        async: '^1.0.0',
+46 silly install resolved        chalk: '^1.0.0',
+46 silly install resolved        configstore: '^1.0.0',
+46 silly install resolved        'cross-spawn': '^0.4.0',
+46 silly install resolved        figures: '^1.3.5',
+46 silly install resolved        findup: '^0.1.5',
+46 silly install resolved        fullname: '^1.0.0',
+46 silly install resolved        got: '^4.0.0',
+46 silly install resolved        'humanize-string': '^1.0.0',
+46 silly install resolved        inquirer: '^0.9.0',
+46 silly install resolved        insight: '^0.6.0',
+46 silly install resolved        lodash: '^3.2.0',
+46 silly install resolved        meow: '^3.0.0',
+46 silly install resolved        'npm-keyword': '^1.1.1',
+46 silly install resolved        opn: '^3.0.2',
+46 silly install resolved        'package-json': '^1.1.0',
+46 silly install resolved        repeating: '^1.1.2',
+46 silly install resolved        'root-check': '^1.0.0',
+46 silly install resolved        'sort-on': '^1.0.0',
+46 silly install resolved        'string-length': '^1.0.0',
+46 silly install resolved        titleize: '^1.0.0',
+46 silly install resolved        'update-notifier': '^0.5.0',
+46 silly install resolved        'user-home': '^2.0.0',
+46 silly install resolved        'yeoman-character': '^1.0.0',
+46 silly install resolved        'yeoman-doctor': '^1.0.0',
+46 silly install resolved        'yeoman-environment': '^1.2.7',
+46 silly install resolved        yosay: '^1.0.0' },
+46 silly install resolved     devDependencies:
+46 silly install resolved      { jshint: '^2.5.11',
+46 silly install resolved        mocha: '^2.1.0',
+46 silly install resolved        mockery: '^1.4.0',
+46 silly install resolved        nock: '^2.0.1',
+46 silly install resolved        nsp: '*',
+46 silly install resolved        proxyquire: '^1.0.1',
+46 silly install resolved        'registry-url': '^3.0.0',
+46 silly install resolved        sinon: '^1.12.1' },
+46 silly install resolved     preferGlobal: true,
+46 silly install resolved     gitHead: '97b1ad6d23dca678a27a31c6a4a606cba28ed2fb',
+46 silly install resolved     bugs: { url: 'https://github.com/yeoman/yo/issues' },
+46 silly install resolved     homepage: 'https://github.com/yeoman/yo#readme',
+46 silly install resolved     _id: 'yo@1.4.8',
+46 silly install resolved     _shasum: 'f045654e1afd29d09021bd78f9f2c063599ffa1c',
+46 silly install resolved     _from: 'yo@*',
+46 silly install resolved     _npmVersion: '2.12.1',
+46 silly install resolved     _nodeVersion: '0.12.7',
+46 silly install resolved     _npmUser: { name: 'sboudrias', email: 'admin@simonboudrias.com' },
+46 silly install resolved     dist:
+46 silly install resolved      { shasum: 'f045654e1afd29d09021bd78f9f2c063599ffa1c',
+46 silly install resolved        tarball: 'http://registry.npmjs.org/yo/-/yo-1.4.8.tgz' },
+46 silly install resolved     maintainers:
+46 silly install resolved      [ [Object],
+46 silly install resolved        [Object],
+46 silly install resolved        [Object],
+46 silly install resolved        [Object],
+46 silly install resolved        [Object],
+46 silly install resolved        [Object],
+46 silly install resolved        [Object] ],
+46 silly install resolved     directories: {},
+46 silly install resolved     _resolved: 'https://registry.npmjs.org/yo/-/yo-1.4.8.tgz' } ]
+47 info install yo@1.4.8 into C:\Users\BizSystems\AppData\Roaming\npm
+48 info installOne yo@1.4.8
+49 verbose installOne of yo to C:\Users\BizSystems\AppData\Roaming\npm not in flight; installing
+50 verbose lock using C:\Users\BizSystems\AppData\Roaming\npm-cache\_locks\yo-75f9bee797ed2620.lock for C:\Users\BizSystems\AppData\Roaming\npm\node_modules\yo
+51 silly install write writing yo 1.4.8 to C:\Users\BizSystems\AppData\Roaming\npm\node_modules\yo
+52 verbose unbuild node_modules\yo
+53 info preuninstall yo@1.4.7
+54 info uninstall yo@1.4.7
+55 verbose unbuild rmStuff yo@1.4.7 from C:\Users\BizSystems\AppData\Roaming\npm\node_modules
+56 silly gentlyRm C:\Users\BizSystems\AppData\Roaming\npm\yo.cmd is being gently removed
+57 silly gentlyRm verifying C:\Users\BizSystems\AppData\Roaming\npm is an npm working directory
+58 silly gentlyRm containing path C:\Users\BizSystems\AppData\Roaming\npm is under npm's control, in C:\Users\BizSystems\AppData\Roaming\npm
+59 silly gentlyRm deletion target C:\Users\BizSystems\AppData\Roaming\npm\yo.cmd is under C:\Users\BizSystems\AppData\Roaming\npm
+60 verbose gentlyRm vacuuming from C:\Users\BizSystems\AppData\Roaming\npm\yo.cmd up to C:\Users\BizSystems\AppData\Roaming\npm
+61 silly vacuum-fs removing C:\Users\BizSystems\AppData\Roaming\npm\yo.cmd
+62 silly vacuum-fs finished vacuuming up to C:\Users\BizSystems\AppData\Roaming\npm
+63 silly gentlyRm C:\Users\BizSystems\AppData\Roaming\npm\yo is being gently removed
+64 silly gentlyRm verifying C:\Users\BizSystems\AppData\Roaming\npm is an npm working directory
+65 silly gentlyRm containing path C:\Users\BizSystems\AppData\Roaming\npm is under npm's control, in C:\Users\BizSystems\AppData\Roaming\npm
+66 silly gentlyRm deletion target C:\Users\BizSystems\AppData\Roaming\npm\yo is under C:\Users\BizSystems\AppData\Roaming\npm
+67 verbose gentlyRm vacuuming from C:\Users\BizSystems\AppData\Roaming\npm\yo up to C:\Users\BizSystems\AppData\Roaming\npm
+68 silly vacuum-fs removing C:\Users\BizSystems\AppData\Roaming\npm\yo
+69 silly vacuum-fs finished vacuuming up to C:\Users\BizSystems\AppData\Roaming\npm
+70 info postuninstall yo@1.4.7
+71 silly gentlyRm C:\Users\BizSystems\AppData\Roaming\npm\node_modules\yo is being purged from base C:\Users\BizSystems\AppData\Roaming\npm
+72 verbose gentlyRm don't care about contents; nuking C:\Users\BizSystems\AppData\Roaming\npm\node_modules\yo
+73 silly vacuum-fs purging C:\Users\BizSystems\AppData\Roaming\npm\node_modules\yo
+74 verbose stack Error: read ECONNRESET
+74 verbose stack     at exports._errnoException (util.js:746:11)
+74 verbose stack     at TCP.onread (net.js:559:26)
+75 verbose cwd D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.RaoVat.Web
+76 error Windows_NT 6.1.7601
+77 error argv "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "-g" "yo"
+78 error node v0.12.7
+79 error npm  v2.11.3
+80 error code ECONNRESET
+81 error errno ECONNRESET
+82 error syscall read
+83 error network read ECONNRESET
+83 error network This is most likely not a problem with npm itself
+83 error network and is related to network connectivity.
+83 error network In most cases you are behind a proxy or have bad network settings.
+83 error network
+83 error network If you are behind a proxy, please make sure that the
+83 error network 'proxy' config is set properly.  See: 'npm help config'
+84 verbose exit [ 1, true ]
