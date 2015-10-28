@@ -175,3 +175,15 @@ D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\Quang.Cate
 D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\Quang.Cate.Entities.pdb
 D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\MiniProfiler.pdb
 D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\MiniProfiler.xml
+C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\Microsoft.Owin.Cors.dll
+C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\Quang.Cate.BusinessLogic.dll
+C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\Quang.Cate.DataAccess.dll
+C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\Quang.Cate.Entities.dll
+C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\System.Web.Cors.dll
+C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\MiniProfiler.dll
+C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\Quang.Cate.BusinessLogic.pdb
+C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\Quang.Cate.DataAccess.pdb
+C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\Quang.Cate.Entities.pdb
+C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\Microsoft.Owin.Cors.xml
+C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\MiniProfiler.pdb
+C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\MiniProfiler.xml
