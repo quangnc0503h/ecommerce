@@ -90,3 +90,16 @@
 .w80 {width: 80% !important;}
 .w90 {width: 90% !important;}
 .w100 {width: 100% !important;}
+#navbar-header {
+        float: left;
+    display: inline;
+    margin-left: -23px;
+    width: 400px;
+    text-align: right;
+}
+.footer-container {
+        width: 100%;
+    margin: 0 auto;
+    color: black;
+    font-size: 13px;
+}
