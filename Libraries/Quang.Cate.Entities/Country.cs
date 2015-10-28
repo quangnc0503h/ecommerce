@@ -1,4 +1,6 @@
-﻿namespace Quang.Cate.Entities
+﻿using System;
+
+namespace Quang.Cate.Entities
 {
     public class Country
     {
@@ -13,5 +15,11 @@
         public int DisplayOrder { get; set; }
 
         public string Description { get; set; }
+
+        public bool Deleted { get; set; }
+
+        public DateTime CreatedOn { get; set; }
+
+        public string UserName { get; set; }
     }
 }

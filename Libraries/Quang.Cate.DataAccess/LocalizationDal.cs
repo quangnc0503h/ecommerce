@@ -67,7 +67,14 @@ namespace Quang.Cate.DataAccess
             }
             return results;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="pageNumber"></param>
+        /// <param name="languageId"></param>
+        /// <param name="resourceName"></param>
+        /// <returns></returns>
         public static async Task<IEnumerable<LocaleStringResource>> GetPaging(int pageSize, int pageNumber, 
             long languageId, string resourceName)
         {
@@ -110,6 +117,10 @@ namespace Quang.Cate.DataAccess
 
             return results;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public static async Task<int> CountAll()
         {
             long results;

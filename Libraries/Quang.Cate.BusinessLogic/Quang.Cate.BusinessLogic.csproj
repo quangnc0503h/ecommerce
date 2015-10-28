@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="CountryBll.cs" />
     <Compile Include="LanguageBll.cs" />
+    <Compile Include="LocalizationBll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
