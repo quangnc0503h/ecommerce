@@ -7,10 +7,10 @@ li {
     margin-left: 20px;
 }
 .menu_footer_new{
-    background-color: #0277bd; width: 100%; margin-top: 20px;min-width: 1010px;
+    background-color: #0277bd; width: 100%; margin-top: 0px;
 }
 .menu_footer_new ul{
-    width: 100%;min-width:1010px; margin: 0 auto; overflow: hidden;
+    width: 100%; margin: 0 auto; overflow: hidden;
 }
 .menu_footer_new ul li{
     color: #fff; padding: 10px 5px 10px 15px; float: left; margin: 0;
