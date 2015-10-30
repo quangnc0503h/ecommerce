@@ -20,7 +20,7 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <!-- Add your site or application content here -->
-    <div class="navbar navbar-default navbar-fixed-top" style="background:#01709e;border-width:0" role="navigation">
+    <div class="navbar navbar-default navbar-fixed-top navbar-custom" role="navigation">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
@@ -32,71 +32,71 @@
 
             </div>
 
-            <div class="collapse navbar-collapse">
+            <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-
-                    <li menu-active-url="$"><a style="color:#ffffff;text-decoration:none;" href="#/"> <span class="glyphicon glyphicon-edit"></span> Đăng tin</a> </li>
-                    <li><a style="color:#ffffff;text-decoration:none;" href="#"><span class="glyphicon glyphicon-user"></span> Đăng ký</a></li>
-                    <li><a style="color:#ffffff;text-decoration:none;" href="#"><span class="glyphicon glyphicon-log-in"></span> Đăng nhập</a></li>
-
+                    <li><a class="hm_link" href="/#"> <span class="glyphicon glyphicon-edit"></span> Đăng tin</a> </li>
+                    <li><a class="hm_link" href="#"><span class="glyphicon glyphicon-user"></span> Đăng ký</a></li>
+                    <li><a class="hm_link" href="#"><span class="glyphicon glyphicon-log-in"></span> Đăng nhập</a></li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="header" style="width:100%;padding-top: 59px;">
+    <div class="header header-custom" id="header">
         <div class="container">
-            <div style="margin: 0px auto;position: relative;">
-                <div style="height:85px;background: #fff;box-shadow: 0px 5px 5px -4px #ccc;*padding-top: 59px;position: relative;z-index: 99;">
-                    <div style="width: 18%; float: left; margin-top: 6px;position: relative;">
+            <div class="header-content">
+                <div class="container">
+                    <div class="header-middle">
+                        <div class="logo">
 
-                        <a href="http://chovoi.com/" title="Rao vặt - Trang chủ">
-                            <img width="186" height="66" src="http://rongbay.com/style/images/raovat_rongbay.png?v=2" border="0" alt="Rao vặt RongBay.com" />
-                        </a>
-                    </div>
-                    <div style="float:left;position:relative; width: 15%;">
-                        <div style="font-size: 16px;color: #555;margin-top: 33px; margin-left: 20px;padding-right: 20px;position: relative;cursor: pointer;" title="Nhấn vào đây để chọn khu vực">
-                            Hà Nội <span class="glyphicon glyphicon-menu-down"></span>
+                            <a href="http://chovoi.com/" title="Rao vặt - Trang chủ">
+                                <img width="186" height="66" src="http://rongbay.com/style/images/raovat_rongbay.png?v=2" border="0" alt="Rao vặt chovoi.com" />
+                            </a>
                         </div>
-                        <div style="position: absolute;width: 35%; z-index: 9999;display: none;">
-                        </div>
-                    </div>
-                    <form>
-                        <div style="float: left; height: 42px; margin-top: 22px;border: 1px solid #ebebeb; border-radius: 3px; position: relative;    width: 67%;">
-                            <div style="background: url('images/show_cat_s.png') no-repeat scroll 80px 21px rgba(0, 0, 0, 0); border-right: 1px solid #ebebeb; cursor: pointer; float: left; height: 42px; padding: 15px 16px 0 4px;    width: 10%;    z-index: 4;">
-                                <div style="color: #999;    z-index: 3;    overflow: hidden;    text-overflow: ellipsis;    white-space: nowrap;    font-size: 12px;    text-align: left;    padding-left: 5px;">
-                                    Tất cả
+                        <!--<div style="float:left;position:relative; width: 15%;">
+                            <div style="font-size: 16px;color: #555;margin-top: 33px; margin-left: 20px;padding-right: 20px;position: relative;cursor: pointer;" title="Nhấn vào đây để chọn khu vực">
+                                Hà Nội <span class="glyphicon glyphicon-menu-down"></span>
+                            </div>
+                            <div style="position: absolute;width: 35%; z-index: 9999;display: none;">
+                            </div>
+                        </div>-->
+                        <form>
+                            <div class="header-search">
+                                <div class="search-left">
+                                    <div class="search-label">
+                                        Tất cả
+                                    </div>
+                                </div>
+                                <div class="search-right">
+                                    <input type="text" onfocus="javascript:if(this.value=='Nhập từ khóa tìm kiếm'){this.value='';};" onblur="javascript:if(this.value==''){this.value='Nhập từ khóa tìm kiếm';};" value="Nhập từ khóa tìm kiếm" id="input_searchword" name="searchword" maxlength="100" autocomplete="off">
+                                </div>
+                                <div class="clear"></div>
+                                <ul id="list_cate" class="cate-search">
+                                    <li title="Mua bán BĐS" id="suggest_cate_15" onclick="assign_cate_search('Mua bán BĐS',15)">Mua bán BĐS</li>
+                                    <li title="Thuê nhà" id="suggest_cate_272" onclick="assign_cate_search('Thuê nhà',272)">Thuê nhà</li>
+                                    <li title="Xe máy/ đạp" id="suggest_cate_20" onclick="assign_cate_search('Xe máy/ đạp',20)">Xe máy/ đạp</li>
+                                </ul>
+                                <div class="btn-search">
+                                    <span class="glyphicon glyphicon-search"></span>
                                 </div>
                             </div>
-                            <div style="float: left;height: 33px;    background-color: #fff;    padding: 0 0 0 5px;    border-left: none;    width: 90%;">
-                                <input type="text" onfocus="javascript:if(this.value=='Nhập từ khóa tìm kiếm'){this.value='';};" onblur="javascript:if(this.value==''){this.value='Nhập từ khóa tìm kiếm';};" value="Nhập từ khóa tìm kiếm" id="input_searchword" name="searchword" maxlength="100"  autocomplete="off" style="border: none;    float: left;    width: 85%;    line-height: 20px;    margin-top: 12px; color: #999; font-size: 15px; -webkit-appearance: none;">
-                            </div>
-                            <div style="clear: both;"></div>
-                            <ul style="position: absolute; z-index: 9999; border: 1px solid #E7E7E7; background-color: #fff; padding: 5px 0; margin: 1px 0 0 -1px; display: none; width: 175px; border-top: none;">
-                                <li style="margin: 0 5px; padding: 3px 10px;    line-height: 22px;    cursor: pointer;    border-bottom: 1px solid #fff; height: 20px;    display: block;  font-size: 12px;" title="Mua bán BĐS" id="suggest_cate_15" onclick="assign_cate_search('Mua bán BĐS',15)">Mua bán BĐS</li>
-                            </ul>
-                            <div style="background-color: #2570a8; border-radius: 0 3px 3px 0;  color: #fff; cursor: pointer; float: right; font-size: 17px; height: 42px; line-height: 33px; padding: 5px 20px; position: absolute; right: 0;top: -1px;">
-                                Tìm kiếm
-                            </div>
-                        </div>
 
-                    </form>
+                        </form>
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>
-    
-    <div style="clear:both;"></div>
-    <div class="row" style="width:100%;background-color: #E5ECF4; background-repeat: repeat-x;position: relative;">
+
+    <div class="clear"></div>
+    <div id="content-inner">
         <div class="container">
             <div class="auth-initializing"></div>
-
-            <div ng-view="">		  </div>
+            <div ng-view=""></div>
         </div>
 
     </div>
-    <div style="clear: both;"></div>
-    <div id="footer" style="bottom:0;width: 100%;text-align:center;">
+    <div class="clear"></div>
+    <div id="footer">
         <div class="menu_footer_new">
             <div class="container">
                 <ul style="margin: 0 auto; overflow: hidden;">
@@ -113,7 +113,7 @@
         </div>
         <div>
             <div class="container">
-                dsdsd
+                &nbsp;
             </div>
         </div>
     </div>
