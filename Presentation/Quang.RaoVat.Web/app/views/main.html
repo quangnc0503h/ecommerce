@@ -79,13 +79,96 @@
                     <div style="clear: both;"></div>
                 </div>
                 <div style="clear: both;"></div>
-                <div style="width: 100%;float: left;margin-top: 7px;background: #fff;">
-                    <p style=" margin-left: 20px;margin-top: 10px;font-size: 16px;">
+                <div style="width: 100%;margin-top: 7px;background: #fff;">
+				<div style=" width:30%;height:500px;float:left; background: url('images/index_vn.png') no-repeat -2px -2px #fff;">
+				
+					<img src="images/transparent.gif" width="1" height="1" id="area_highlight" style="position: absolute;" alt="" class="">
+					<img src="images/transparent.gif" id="area_map" usemap="#map_map_map" style="position: absolute;width:30%;height:500px;" alt="">
+				</div>
+				<map id="map_map_map" name="map_map_map">
+					<area shape="poly" id="hoverregion_12" onclick="return startpage_set_default_ca(12, '.chotot.vn', true);" coords="124,87,113,82,122,75,133,84,216,115,239,131,223,166,194,161,181,138" href="http://www.chotot.vn/ha-noi/mua-ban/" alt="Hà Nội" title="Hà Nội">
+					<area shape="poly" id="hoverregion_13" onclick="return startpage_set_default_ca(13, '.chotot.vn', true);" coords="156,422,37,374,29,319,87,323,87,357" href="http://www.chotot.vn/tp-ho-chi-minh/mua-ban/" alt="Tp Hồ Chí Minh" title="Tp Hồ Chí Minh">
+					<area shape="poly" id="hoverregion_10" onclick="return startpage_set_default_ca(10, '.chotot.vn', true);" coords="75,24,82,40,91,46,103,64,114,66,134,78,141,74,156,75,171,63,150,45,143,35,154,25,144,18,134,20,129,15,122,18,103,2,89,12,89,20" href="http://www.chotot.vn/dong-bac-bo/mua-ban/" alt="Đông Bắc Bộ" title="Bắc Kạn,Bắc Giang,Cao Bằng,Hà Giang,Lạng Sơn,Thái Nguyên,Tuyên Quang,Quảng Ninh">
+					<area shape="poly" id="hoverregion_11" onclick="return startpage_set_default_ca(11, '.chotot.vn', true);" coords="23,59,36,58,19,74,37,95,60,96,71,85,87,94,96,91,89,74,98,56,86,44,77,35,69,20,60,29,47,21,45,28,37,23,31,36,13,25,3,35" href="http://www.chotot.vn/tay-bac-bo/mua-ban/" alt="Tây Bắc Bộ" title="Điện Biên,Lai Châu,Lào Cai,Sơn La,Yên Bái">
+					<area shape="poly" id="hoverregion_1" onclick="return startpage_set_default_ca(1, '.chotot.vn', true);" coords="114,101,130,98,130,90,114,86,115,77,121,75,130,83,135,77,112,67,103,66,97,61,89,76,96,94" href="http://www.chotot.vn/cac-tinh-lan-can-ha-noi/mua-ban/" alt="Các tỉnh lân cận Hà Nội" title="Bắc Ninh,Phú Thọ,Hà Nam,Hải Dương,Hòa Bình,Hưng Yên,Ninh Bình,Vĩnh Phúc">
+					<area shape="poly" id="hoverregion_4" onclick="return startpage_set_default_ca(4, '.chotot.vn', true);" coords="115,103,132,99,134,80,160,73,171,65,187,61,185,87,162,95,150,89,147,110,129,115" href="http://www.chotot.vn/hai-phong-nam-dinh-thai-binh/mua-ban/" alt="Hải Phòng Nam Định Thái Bình" title="Hải Phòng,Nam Định,Thái Bình">
+					<area shape="poly" id="hoverregion_8" onclick="return startpage_set_default_ca(8, '.chotot.vn', true);" coords="85,97,71,97,81,106,96,110,93,118,83,121,59,125,65,137,57,138,101,162,101,174,115,184,126,179,129,186,140,183,115,149,129,112,95,95,91,93" href="http://www.chotot.vn/thanh-nghe-tinh/mua-ban/" alt="Thanh Nghệ Tĩnh" title="Hà Tĩnh,Nghệ An,Thanh Hóa">
+					<area shape="poly" id="hoverregion_6" onclick="return startpage_set_default_ca(6, '.chotot.vn', true);" coords="115,184,121,199,140,209,149,234,155,232,168,250,180,245,185,248,195,239,149,200,142,184,131,186,124,179" href="http://www.chotot.vn/binh-tri-thua-thien-hue/mua-ban/" alt="Bình Trị Thừa Thiên Huế" title="Quảng Bình,Quảng Trị,Thừa Thiên Huế">
+					<area shape="poly" id="hoverregion_3" onclick="return startpage_set_default_ca(3, '.chotot.vn', true);" coords="254,256,256,236,290,233,295,262,278,279,254,259,225,289,211,291,178,267,164,258,165,251,174,244,195,239,210,257,224,274,225,288" href="http://www.chotot.vn/quang-nam-da-nang/mua-ban/" alt="Quảng Nam Đà Nẵng" title="Đà Nẵng,Quảng Nam">
+					<area shape="poly" id="hoverregion_9" onclick="return startpage_set_default_ca(9, '.chotot.vn', true);" coords="178,267,174,281,165,308,179,333,175,348,175,367,165,374,171,388,169,390,177,401,195,405,199,392,208,392,211,362,220,356,208,343,215,340,209,305,209,290,201,281,193,281" href="http://www.chotot.vn/tay-nguyen/mua-ban/" alt="Tây Nguyên" title="Đắk Lắk,Đắk Nông,Gia Lai,Kon Tum,Lâm Đồng">
+					<area shape="poly" id="hoverregion_7" onclick="return startpage_set_default_ca(7, '.chotot.vn', true);" coords="293,383,295,417,217,457,214,429,261,400,294,385,229,293,211,293,216,340,212,344,220,357,213,362,210,392,178,403,177,429,227,401,238,352,227,290" href="http://www.chotot.vn/nam-trung-bo/mua-ban/" alt="Nam Trung Bộ" title="Bình Thuận,Bình Định,Khánh Hòa,Ninh Thuận,Phú Yên,Quảng Ngãi">
+					<area shape="poly" id="hoverregion_2" onclick="return startpage_set_default_ca(2, '.chotot.vn', true);" coords="141,381,136,392,122,391,147,414,155,408,159,414,152,422,169,434,178,431,174,415,175,400,168,390,165,377,167,370,145,379" href="http://www.chotot.vn/dong-nam-bo/mua-ban/" alt="Đông Nam Bộ" title="Bình Dương,Bình Phước,Đồng Nai,Tây Ninh,Bà Rịa Vũng Tàu">
+					<area shape="poly" id="hoverregion_5" onclick="return startpage_set_default_ca(5, '.chotot.vn', true);" coords="135,415,89,420,51,433,75,450,96,446,82,462,83,497,129,478,155,495,165,431" href="http://www.chotot.vn/can-tho-tay-nam-bo/mua-ban/" alt="Cần Thơ - Tây Nam Bộ" title="An Giang,Bạc Liêu,Bến Tre,Cần Thơ,Cà Mau,Đồng Tháp,Hậu Giang,Kiên Giang,Long An,Sóc Trăng,Tiền Giang,Trà Vinh,Vĩnh Long">
+				</map>
+				<div style="float:left;width:30%;height:500px;text-align:right;background:#fff;">
+					<div style="font-size:13px;">
+						<span style="color:#000;font-style:italic;">Hãy chọn vùng để</span>
+						<br/>
+						<span style="color:#000;font-style:italic;">tìm món hời gần nhà...</span>
+					</div>
+					<div style="margin-right:25px;display:block;">
+						<ul>
+							<li style="clear: both; float: left;    line-height: 33px;    width: 100%;">
+								<a id="region_12" style="color: #369; font-weight: bold;text-decoration: none;" href="http://www.chotot.vn/ha-noi/mua-ban/" class="" onclick="return startpage_set_default_ca(12, '.chotot.vn', false);">Hà Nội</a>
+							</li>
+							<li style="clear: both; float: left;    line-height: 33px;    width: 100%;">
+								<a id="region_13" style="color: #369; font-weight: bold;text-decoration: none;" href="http://www.chotot.vn/tp-ho-chi-minh/mua-ban/" class="" onclick="return startpage_set_default_ca(13, '.chotot.vn', false);">Tp Hồ Chí Minh</a>
+							</li>
+							<li style="clear: both; float: left;    line-height: 33px;    width: 100%;">
+							<a id="region_10" style="color: #369; font-weight: bold;text-decoration: none;" href="http://www.chotot.vn/dong-bac-bo/mua-ban/" class="" onclick="return startpage_set_default_ca(10, '.chotot.vn', false);">Đông Bắc Bộ</a>
+							</li>
+							<li style="clear: both; float: left;    line-height: 33px;    width: 100%;">
+								<a id="region_11" style="color: #369; font-weight: bold;text-decoration: none;" href="http://www.chotot.vn/tay-bac-bo/mua-ban/" class="" onclick="return startpage_set_default_ca(11, '.chotot.vn', false);">Tây Bắc Bộ</a>
+							</li>
+							<li style="clear: both; float: left;    line-height: 33px;    width: 100%;">
+								<a id="region_1" style="color: #369; font-weight: bold;text-decoration: none;" href="http://www.chotot.vn/cac-tinh-lan-can-ha-noi/mua-ban/" class="" onclick="return startpage_set_default_ca(1, '.chotot.vn', false);">Các tỉnh lân cận Hà Nội</a>
+							</li>
+							<li style="clear: both; float: left;    line-height: 33px;    width: 100%;">
+								<a id="region_4" style="color: #369; font-weight: bold;text-decoration: none;" href="http://www.chotot.vn/hai-phong-nam-dinh-thai-binh/mua-ban/" class="" onclick="return startpage_set_default_ca(4, '.chotot.vn', false);">Hải Phòng Nam Định Thái Bình</a>
+							</li>
+							<li style="clear: both; float: left;    line-height: 33px;    width: 100%;">
+								<a id="region_8" style="color: #369; font-weight: bold;text-decoration: none;" href="http://www.chotot.vn/thanh-nghe-tinh/mua-ban/" class="" onclick="return startpage_set_default_ca(8, '.chotot.vn', false);">Thanh Nghệ Tĩnh</a>
+							</li>
+							<li style="clear: both; float: left;    line-height: 33px;    width: 100%;">
+								<a id="region_6" style="color: #369; font-weight: bold;text-decoration: none;" href="http://www.chotot.vn/binh-tri-thua-thien-hue/mua-ban/" class="" onclick="return startpage_set_default_ca(6, '.chotot.vn', false);">Bình Trị Thừa Thiên Huế</a>
+							</li>
+							<li style="clear: both; float: left;    line-height: 33px;    width: 100%;">
+								<a id="region_3" style="color: #369; font-weight: bold;text-decoration: none;" href="http://www.chotot.vn/quang-nam-da-nang/mua-ban/" class="" onclick="return startpage_set_default_ca(3, '.chotot.vn', false);">Quảng Nam Đà Nẵng</a>
+							</li>
+							<li style="clear: both; float: left;    line-height: 33px;    width: 100%;">
+								<a id="region_9" style="color: #369; font-weight: bold;text-decoration: none;" href="http://www.chotot.vn/tay-nguyen/mua-ban/" class="" onclick="return startpage_set_default_ca(9, '.chotot.vn', false);">Tây Nguyên</a>
+							</li>
+							<li style="clear: both; float: left;    line-height: 33px;    width: 100%;">
+								<a id="region_7" style="color: #369; font-weight: bold;text-decoration: none;" href="http://www.chotot.vn/nam-trung-bo/mua-ban/" class="" onclick="return startpage_set_default_ca(7, '.chotot.vn', false);">Nam Trung Bộ</a>
+							</li>
+							<li style="clear: both; float: left;    line-height: 33px;    width: 100%;">
+								<a id="region_2" style="color: #369; font-weight: bold;text-decoration: none;" href="http://www.chotot.vn/dong-nam-bo/mua-ban/" class="" onclick="return startpage_set_default_ca(2, '.chotot.vn', false);">Đông Nam Bộ</a>
+							</li>
+							<li style="clear: both; float: left;    line-height: 33px;    width: 100%;">
+								<a id="region_5" style="color: #369; font-weight: bold;text-decoration: none;" href="http://www.chotot.vn/can-tho-tay-nam-bo/mua-ban/" class="" onclick="return startpage_set_default_ca(5, '.chotot.vn', false);">Cần Thơ - Tây Nam Bộ</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div style="float:right; width:39%;height:500px;background:#fff;margin-left:2px;">
+				&nbsp;
+				</div>
+				<!--<div class="col-sm-5" style="background: #fff;">
+					  <p style=" margin-left: 20px;margin-top: 10px;font-size: 16px;">
                         Chợ kết nối giao thương của người Việt!
                     </p>
                     <div style="overflow: hidden;border-top: 2px solid #f1f1f1;margin-top: 10px;padding: 0 14px 5px;">
                         
                     </div>
+				</div>
+                  <div class="col-sm-7" style="float:right;margin-left: 10px;margin-top:0px;  overflow: hidden;background: #fff;">
+				    <p style=" margin-left: 20px;margin-top: 10px;font-size: 16px;">
+                        Chợ kết nối giao thương của người Việt!
+                    </p>
+                    <div style="overflow: hidden;border-top: 2px solid #f1f1f1;margin-top: 10px;padding: 0 14px 5px;">
+                        
+                    </div>
+				  </div>-->
                 </div>
                 <div style="width: 100%;float: left;margin-top: 7px;background: #fff;">
                     <h2 style=" margin-left: 20px;margin-top: 10px;font-size: 16px;">Mua bán rao vặt tại chovoi.com</h2>
