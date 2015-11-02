@@ -1,0 +1,270 @@
+﻿#contact_box .modal-dialog {
+    width: 100%;
+    max-width: 802px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.phoneScreen .modal-dialog {
+    margin-top: 0px;
+    height: 100%;
+}
+
+#contact_box .modal-header {
+    border: none;
+    padding: 20px 29px 10px;
+    position: relative;
+    border-bottom: 1px solid #DDD;
+    background: #FAFAFA;
+}
+
+    #contact_box .modal-header .close {
+        width: 17px;
+        height: 17px;
+        background: url(images/ico-close.gif) no-repeat;
+        position: absolute;
+        top: 14px;
+        right: 12px;
+        opacity: 1;
+    }
+
+#contact_box .modal-content {
+    overflow: hidden;
+}
+
+#contact_box .modal-title {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 17px;
+}
+
+#contact_box .modal-body {
+    padding: 10px 30px 20px !important;
+}
+
+#contact_box .modal-footer {
+    border: none;
+    margin: 0;
+    padding: 0 29px 20px;
+    text-align: left;
+}
+
+#contact_box label.title {
+    margin-bottom: 2px !important;
+    font-size: 12px;
+    padding-top: 5px !important;
+}
+
+#contact_box input.vietiso-lg {
+    border: 1px solid;
+    border-color: #848484 #c1c1c1 #e1e1e1;
+    height: 26px;
+    line-height: 26px;
+    outline: none;
+    padding: 2px 5px;
+    width: 100%;
+    color: #3a3a3a;
+    font-size: 14px;
+    outline: none;
+}
+
+.phoneScreen #contact_box input.vietiso-lg {
+    height: 26px !important;
+    line-height: 26px;
+    vertical-align: middle;
+}
+
+#contact_box input.slb {
+    height: 26px;
+    padding: 2px;
+    border: 1px solid;
+    border-color: #848484 #c1c1c1 #e1e1e1;
+    width: 100%;
+}
+
+.span60 {
+    width: 60%;
+}
+
+.span35 {
+    width: 35%;
+}
+
+.ml15 {
+    margin-left: 15px;
+}
+
+select {
+    width: 100%;
+    padding: 3px;
+    border: 1px solid;
+    border-color: #848484 #c1c1c1 #e1e1e1;
+    font-size: 14px;
+    outline: none;
+}
+
+.phoneScreen #contact_box select {
+    height: 36px !important;
+    line-height: 36px;
+    padding-top: 10px;
+    border-radius: 0;
+    -o-border-radius: 0;
+    -khtml-border-radius: 0;
+    -webkit-border-radius: 0;
+    -ms-border-radius: 0;
+}
+
+.wrap {
+    width: 100%;
+    display: inline-block;
+}
+
+.kd-button, .kd-button:visited {
+    background-image: -moz-linear-gradient(top,#f5f5f5,#f1f1f1);
+    background-image: -o-linear-gradient(top,#f5f5f5,#f1f1f1);
+    background-image: -webkit-linear-gradient(top,#f5f5f5,#f1f1f1);
+    background-image: linear-gradient(top,#f5f5f5,#f1f1f1);
+    border: 1px solid #dcdcdc;
+    border: 1px solid rgba(0,0,0,.1);
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    cursor: default;
+    color: #444 !important;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    height: 30px;
+    padding: 0 8px;
+    line-height: 28px;
+    min-width: 72px;
+    text-align: center;
+    -moz-transition: all .218s;
+    -o-transition: all .218s;
+    -webkit-transition: all .218s;
+    transition: all .218s;
+    cursor: pointer;
+}
+
+.kd-search, .kd-search:visited {
+    -moz-box-shadow: inset 0px 1px 0px 0px #99b85a;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #99b85a;
+    box-shadow: inset 0px 1px 0px 0px #99b85a;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #7fa631), color-stop(1, #699320));
+    background: -moz-linear-gradient(center top, #7fa631 5%, #699320 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#7fa631', endColorstr='#699320');
+    background-color: #7fa631;
+    border: 1px solid #60841e;
+    border: 1px solid rgba(0,0,0,.1);
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    cursor: default;
+    color: #FFF !important;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    height: 30px;
+    padding: 0 8px;
+    line-height: 28px;
+    min-width: 72px;
+    text-align: center;
+    -moz-transition: all .218s;
+    -o-transition: all .218s;
+    -webkit-transition: all .218s;
+    transition: all .218s;
+    cursor: pointer;
+}
+
+.kd-button-submit, .kd-button-submit:visited {
+    background-color: #f69036;
+    background-image: -moz-linear-gradient(top,#f69036,#df7920);
+    background-image: -o-linear-gradient(top,#f69036,#df7920);
+    background-image: -webkit-linear-gradient(top,#f69036,#df7920);
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#f69036),color-stop(1,#df7920));
+    background-image: linear-gradient(top,#f69036,#df7920);
+    border: 1px solid #ca6201;
+    color: #fff !important;
+    height: 30px;
+    line-height: 28px;
+    font-size: 11px;
+}
+
+.modal-dialog .input-label-error {
+    color: #d14836;
+}
+
+.modal-dialog .error-msg {
+    color: #d14836;
+    font-weight: 600;
+    display: none;
+    margin: 5px 0;
+}
+
+.modal-dialog .inline {
+    clear: none;
+    display: inline;
+    float: left;
+    margin: 0 20px 0 0;
+    overflow: visible;
+    min-width: 0;
+}
+
+    .modal-dialog .inline input {
+        margin: 0 5px 0 0;
+        vertical-align: -2px;
+    }
+
+    .modal-dialog .inline label {
+        margin: 0 15px 0 0;
+    }
+
+    .modal-dialog .inline input, .modal-dialog .inline label {
+        display: inline;
+        font-weight: 400;
+    }
+
+.modal-dialog .input-disabled label, .modal-dialog .input-disabled p, .modal-dialog .input-disabled {
+    color: #999 !important;
+}
+
+#modal-dialog-thanks {
+    width: 100%;
+    z-index: 1;
+    margin: auto;
+    background: #f0e9d0;
+    border-bottom: 1px solid #f0c36d;
+    position: relative;
+    display: none;
+}
+
+.modal-dialog-thanks-body .message {
+    margin: auto;
+    padding: 21px 0 17px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.modal-dialog-thanks-body span {
+    color: #000;
+    font-weight: 600;
+}
+
+.modal-dialog-thanks-body p {
+    color: #666;
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+}
+
+#modal-dialog-thanks-close-btn {
+    cursor: pointer;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+.errorMsg {
+    background: #FF9 !important;
+}

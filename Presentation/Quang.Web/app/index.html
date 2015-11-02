@@ -1,6 +1,6 @@
 ﻿<!doctype html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <title></title>
     <meta name="description" content="">
@@ -10,75 +10,617 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
     <!-- endbower -->
-      <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/responive.css">
+    <link rel="stylesheet" href="styles/contact.css">
+    <link rel="stylesheet" href="styles/animate.min.css">
+    <link rel="stylesheet" href="styles/style.min.css">
     <!-- endbuild -->
-  </head>
-  <body ng-app="quangwebApp">
-      <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+</head>
+<body ng-app="quangwebApp" class="homePage ">
+    <img src="images/max_slide.jpg" style="width:0; height:0; display:none" />
+    <div class="modal fade contact_box" id="contact_box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="frmSendContact" method="post">
+                    <div class="modal-header">
+                        <a class="close close_pop" href="javascript:void(0)" data-dismiss="modal" aria-hidden="true">&nbsp;</a>
+                        <h4 class="modal-title" id="myModalLabel">Liên hệ với bộ phận bán hàng <span class="color-orange">VIETISO</span></h4>
+                    </div>
+                    <div id="wizard-1" role="tabpanel">
+                        <div class="modal-body">
+                            <p class="error-msg">Vui lòng hoàn tất (các) mục được đánh dấu để tiếp tục.</p>
+                            <div class="wrap mt5">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="firstname" class="control-label title">Họ <span class="red">*</span></label>
+                                        <input name="firstname" value="" type="text" class="vietiso-lg required" placeholder="Nhập họ của bạn" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="lastname" class="control-label title">Tên <span class="red">*</span></label>
+                                        <input name="lastname" value="" type="text" class="vietiso-lg required" placeholder="Nhập tên của bạn" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="email" class="control-label title">Email <span class="red">*</span></label>
+                                        <input name="email" type="email" value="" class="vietiso-lg required" placeholder="Nhập email của bạn" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="phone_number" class="control-label title">Điện thoại <span class="red">*</span></label>
+                                        <input name="phone_number" value="" type="text" class="vietiso-lg required" placeholder="Nhập số điện thoại của bạn" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="company_name" class="control-label title">Công ty <span class="red">*</span></label>
+                                        <input name="company_name" value="" type="text" class="vietiso-lg required" placeholder="Nhập công ty của bạn" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="span60 fl">
+                                            <label for="industry" class="control-label title">Ngành <span class="red">*</span></label>
+                                            <select class="slb required" name="industry" title="industry">
+                                                <option value="">-- Lựa chọn --</option>
+                                                <option value="14">Dịch vụ kinh doanh</option>
+                                                <option value="15">Giáo dục</option>
+                                                <option value="16">Năng lượng, hóa chất và ngành phục vụ công cộng</option>
+                                                <option value="17">Nông nghiệp, lâm nghiệp, ngư nghiệp</option>
+                                                <option value="18">Dịch vụ tài chính</option>
+                                                <option value="19">Chính phủ</option>
+                                                <option value="20">Y tế và chăm sóc xã hội</option>
+                                                <option value="21">Công ty cổ phần</option>
+                                                <option value="22">Sản xuất</option>
+                                                <option value="23">Truyền thông và môi trường</option>
+                                                <option value="24">Khai thác mỏ và xây dựng</option>
+                                                <option value="25">Tổ chức phi lợi nhuận</option>
+                                                <option value="26">Bán buôn và bán lẻ</option>
+                                                <option value="27">Công nghệ</option>
+                                                <option value="28">Du lịch và vận tải</option>
+                                            </select>
+                                        </div>
+                                        <div class="span35 fr">
+                                            <label for="number_of_employee" class="control-label title">Nhân viên <span class="red">*</span></label>
+                                            <div class="chooice_employee">
+                                                <select class="slb required" name="number_of_employee" title="industry">
+                                                    <option value="">-- Lựa chọn --</option>
+                                                    <option value="29">1</option>
+                                                    <option value="30">2-9</option>
+                                                    <option value="31">10-19</option>
+                                                    <option value="32">20-49</option>
+                                                    <option value="33">50-99</option>
+                                                    <option value="34">100-199</option>
+                                                    <option value="35">200-749</option>
+                                                    <option value="36">750-999</option>
+                                                    <option value="37">1000-4999</option>
+                                                    <option value="38">5000+</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="position" class="control-label title">Chức danh <span class="red">*</span></label>
+                                        <select class="slb required" name="position">
+                                            <option value="">-- Lựa chọn --</option>
+                                            <option value="39">Giám đốc điều hành, chủ doanh nghiệp, chủ tịch</option>
+                                            <option value="40">Giám đốc kỹ thuật</option>
+                                            <option value="41">Giám đốc thông tin / Phó chủ tịch CNTT</option>
+                                            <option value="42">Giám đốc CNTT</option>
+                                            <option value="43">Trưởng phòng CNTT</option>
+                                            <option value="44">Quản trị viên hệ thống</option>
+                                            <option value="45">Tư vấn viên</option>
+                                            <option value="46">Trưởng phòng</option>
+                                            <option value="47">Người dùng cuối</option>
+                                            <option value="48">Người bán lại</option>
+                                            <option value="49">Khác</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="website" class="control-label title">Trang web <span class="red">*</span></label>
+                                        <input name="website" value="" type="text" class="vietiso-lg url required" placeholder="http://" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="country_id" class="control-label title">Quốc gia <span class="red">*</span></label>
+                                        <select name="country_id" class="slb required"><option value="">--  Quốc gia  --</option><option value="1">Vietnam</option><option value="2">Afghanistan</option><option value="3">Albania</option><option value="4">Algeria</option><option value="5">American Samoa</option><option value="6">Andorra</option><option value="7">Angola</option><option value="8">Anguilla</option><option value="9">Antarctica</option><option value="10">Antigua And Barbuda</option><option value="11">Argentina</option><option value="12">Armenia</option><option value="13">Aruba</option><option value="14">Australia</option><option value="15">Austria</option><option value="16">Azerbaijan</option><option value="17">Bahamas</option><option value="18">Bahrain</option><option value="19">Bangladesh</option><option value="20">Barbados</option><option value="21">Belarus</option><option value="22">Belgium</option><option value="23">Belize</option><option value="24">Benin</option><option value="25">Bermuda</option><option value="26">Bhutan</option><option value="27">Bolivia</option><option value="28">Bosnia And Herzegowina</option><option value="29">Botswana</option><option value="30">Bouvet Island</option><option value="31">Brazil</option><option value="32">British Indian Ocean Territory</option><option value="33">Brunei Darussalam</option><option value="34">Bulgaria</option><option value="35">Burkina Faso</option><option value="36">Burundi</option><option value="37">Bulgaria</option><option value="38">Burkina Faso</option><option value="40">Cambodia</option><option value="41">Cameroon</option><option value="42">Canada</option><option value="43">Cape Verde</option><option value="44">Cayman Islands</option><option value="45">Central African Republic</option><option value="46">Chad</option><option value="47">Chile</option><option value="48">China</option><option value="49">Christmas Island</option><option value="50">Cocos (Keeling) Islands</option><option value="51">Colombia</option><option value="52">Comoros</option><option value="53">Congo</option><option value="54">Cook Islands</option><option value="55">Costa Rica</option><option value="56">Cote D&#39;Ivoire</option><option value="57">Croatia</option><option value="58">Cuba</option><option value="59">Cyprus</option><option value="60">Czech Republic</option><option value="61">Denmark</option><option value="62">Djibouti</option><option value="63">Dominica</option><option value="64">Dominican Republic</option><option value="65">East Timor</option><option value="66">Ecuador</option><option value="67">Egypt</option><option value="68">El Salvador</option><option value="69">Equatorial Guinea</option><option value="70">Eritrea</option><option value="71">Estonia</option><option value="72">Ethiopia</option><option value="73">Falkland Islands</option><option value="74">Faroe Islands</option><option value="75">Fiji</option><option value="76">Finland</option><option value="77">France</option><option value="78">France, Metropolitan</option><option value="79">French Guiana</option><option value="80">French Polynesia</option><option value="81">French Southern Territories</option><option value="82">Gabon</option><option value="83">Gambia</option><option value="84">Georgia</option><option value="85">Germany</option><option value="86">Ghana</option><option value="87">Gibraltar</option><option value="88">Greece</option><option value="89">Greenland</option><option value="90">Grenada</option><option value="91">Guadeloupe</option><option value="92">Guam</option><option value="93">Guatemala</option><option value="94">Guinea</option><option value="95">Guinea-Bissau</option><option value="96">Guyana</option><option value="97">Haiti</option><option value="98">Heard And Mc Donald Islands</option><option value="99">Honduras</option><option value="100">Hong Kong</option><option value="101">Hungary</option><option value="102">Iceland</option><option value="103">India</option><option value="104">India</option><option value="105">Indonesia</option><option value="106">Iran</option><option value="107">Iraq</option><option value="108">Ireland</option><option value="109">Israel</option><option value="110">Italy</option><option value="111">Jamaica</option><option value="112">Japan</option><option value="113">Jordan</option><option value="114">Kazakhstan</option><option value="115">Kenya</option><option value="116">Kiribati</option><option value="117">North Korea (People&#39;s Republic Of Korea)</option><option value="118">South Korea (Republic Of Korea)</option><option value="119">Kuwait</option><option value="120">Kyrgyzstan</option><option value="121">Lao People&#39;s Republic</option><option value="122">Latvia</option><option value="123">Lebanon</option><option value="124">Lesotho</option><option value="125">Liberia</option><option value="126">Libyan Arab</option><option value="127">iechtenstein</option><option value="128">Lithuania</option><option value="129">Luxembourg</option><option value="130">Macau</option><option value="131">Macedonia</option><option value="132">Madagascar</option><option value="133">Malawi</option><option value="134">Malaysia</option><option value="135">Maldives</option><option value="136">Mali</option><option value="137">Malta</option><option value="138">Marshall Islands</option><option value="139">Martinique</option><option value="140">Mauritania</option><option value="141">Mauritius</option><option value="142">Mayotte</option><option value="143">Mexico</option><option value="144">Micronesia</option><option value="145">Moldova</option><option value="146">Monaco</option><option value="147">Mongolia</option><option value="148">Montserrat</option><option value="149">Morocco</option><option value="150">Mozambique</option><option value="151">Myanmar</option><option value="152">Namibia</option><option value="153">Nauru</option><option value="154">Nepal</option><option value="155">Netherlands</option><option value="156">Netherlands Antilles</option><option value="157">New Caledonia</option><option value="158">New Zealand</option><option value="159">Nicaragua</option><option value="160">Niger</option><option value="161">Nigeria</option><option value="162">Niue</option><option value="163">Norfolk Island</option><option value="164">Northern Mariana Islands</option><option value="165">Norway</option><option value="166">Oman</option><option value="167">Pakistan</option><option value="168">Palau</option><option value="169">Panama</option><option value="170">Papua New Guinea</option><option value="171">Paraguay</option><option value="172">Peru</option><option value="173">Philippines</option><option value="174">&gt;Pitcairn</option><option value="175">Poland</option><option value="176">Portugal</option><option value="177">Puerto Rico</option><option value="178">Qatar</option><option value="179">Reunion</option><option value="180">Romania</option><option value="181">Russian Federation</option><option value="182">Rwanda</option><option value="183">Saint Kitts And Nevis</option><option value="184">Saint Lucia</option><option value="185">Saint Vincent And The Grenadines</option><option value="186">Samoa</option><option value="187">San Marino</option><option value="188">Sao Tome And Principe</option><option value="189">Saudi Arabia</option><option value="190">Senegal</option><option value="191">Seychelles</option><option value="192">Sierra Leone</option><option value="193">Singapore</option><option value="194">Slovakia</option><option value="195">Slovenia</option><option value="196">Solomon Islands</option><option value="197">Somalia</option><option value="198">South Africa</option><option value="199">South Georgia/South Sandwich Islands</option><option value="200">Spain</option><option value="201">Sri Lanka</option><option value="202">St Helena</option><option value="203">St Pierre and Miquelon</option><option value="204">Sudan</option><option value="205">Suriname</option><option value="206">Svalbard And Jan Mayen Islands</option><option value="207">Swaziland</option><option value="208">Sweden</option><option value="209">Sweden</option><option value="210">Switzerland</option><option value="211">Syrian Arab Republic</option><option value="212">Taiwan</option><option value="213">Tajikistan</option><option value="214">Tanzania</option><option value="215">Thailand</option><option value="216">Togo</option><option value="217">Tokelau</option><option value="218">Tonga</option><option value="219">Trinidad And Tobago</option><option value="220">Tunisia</option><option value="221">Turkey</option><option value="222">Turkmenistan</option><option value="223">Turks And Caicos Islands</option><option value="224">Tuvalu</option><option value="225">Uganda</option><option value="226">Ukraine</option><option value="227">United Arab Emirates</option><option value="228">United Kingdom</option><option value="229">United States</option><option value="230">United States Minor Outlying Islands</option><option value="231">Uruguay</option><option value="232">Uzbekistan</option><option value="233">Vanuatu</option><option value="234">Vatican City</option><option value="235">Venezuela</option><option value="236">Virgin Islands</option><option value="237">Virgin Islands (U.S.)</option><option value="238">Wallis And Futuna Islands</option><option value="239">Western Sahara</option><option value="240">Yemen</option><option value="241">Zaire</option><option value="242">Zambia</option><option value="245">Zimbabwe</option><option value="246">Other</option></select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="address" class="control-label title">Điạ chỉ <span class="red">*</span></label>
+                                        <input name="address" value="" type="text" class="vietiso-lg required" placeholder="Nhập địa chỉ của bạn" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="services_id" class="control-label title">Yêu cầu dịch vụ <span class="red">*</span></label>
+                                        <select class="slb required" name="services_id"><option value="">-- Lựa chọn --</option><option value="10">Thiết kế website</option><option value="11">Phần mềm</option><option value="12">Tên miền</option><option value="13">Web Hosting</option></select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="budget_id" class="control-label title">Ngân sách cho dự án <span class="red">*</span></label>
+                                        <select class="slb required" name="budget_id"><option value="">-- Lựa chọn --</option><option value="54">20 triệu - 30 triệu</option><option value="55">30 triệu - 40 triệu</option><option value="56">40 triệu - 60 triệu</option><option value="57">60 triệu - 100 triệu</option><option value="58">Trên 100 triệu</option></select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="control-label title">Chọn gói dịch vụ</label>
+                                        <select name="service_pack_id" id="service_pack_id">
+                                            <option value="">-- Lựa chọn --</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="control-label title">Website Hosting</label>
+                                        <select name="check_hosting" id="check_hosting">
+                                            <option value="1">Đã có</option>
+                                            <option value="2">Cần đăng ký</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                </div>
+                                <div class="col-xs-9">
+                                    <input id="submitWizard1" current-tabs="1" next-tabs="2" type="button" class="kd-button kd-button-submit fr ml15" value="Tiếp tục" />
+                                    <a class="kd-button fr ml15 close_pop" data-dismiss="modal" aria-hidden="true" href="javascript:void(0)">Hủy</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="wizard-2" role="tabpanel" style="display:none">
+                        <div class="modal-body" style="display:inline-block">
+                            <p class="error-msg">Vui lòng hoàn tất (các) mục được đánh dấu để hoàn tất.</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="control-label title">Tên miền</label>
+                                    <select name="check_domain_id" id="check_domain_id">
+                                        <option value="1">Đã có tên miền</option>
+                                        <option value="2">Cần đăng ký tên miền</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6" id="domain" style="display:none">
+                                    <label for="domain" class="control-label title">Tên miền cần đăng ký</label>
+                                    <input name="domain" value="" type="text" class="vietiso-lg" placeholder="http://example.com.vn" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 textarea">
+                                    <label class="control-label title">Bạn có câu hỏi nào mà chúng tôi có thể trả lời không?</label>
+                                    <textarea style="width:100%; height:70px" class="optional" name="additional_information"></textarea>
+                                </div>
+                            </div>
+                            <div class="full">
+                                <p id="comm-label" class="mtm mbn">Bạn có muốn nhận thêm thông tin từ Vietiso hoặc các đối tác của Vietiso không?</p>
+                                <div class="inline">
+                                    <input class="comm-yes" id="comm-yes" name="HasOptedOutOfEmail" type="radio" value="TRUE" />
+                                    <label for="comm-yes">Có</label>
+                                    <input class="comm-no" id="comm-no" checked="checked" name="HasOptedOutOfEmail" type="radio" value="FALSE" />
+                                    <label for="comm-no">Không</label>
+                                </div>
+                            </div>
+                            <div class="clearfix mbm"></div>
+                            <div class="full preferences input-disabled">
+                                <p>Tùy chọn liên lạc</p>
+                                <ul class="inline" style="list-style:none">
+                                    <li>
+                                        <input class="default-checked optional" disabled="disabled" id="send-emails" name="Opt_In_News__c" type="checkbox" value="Yes" />
+                                        <label for="Opt_In_News__c" id="send-emails-label">Gửi cho tôi email định kỳ về tin tức, cập nhật sản phẩm và lời mời tham gia sự kiện</label>
+                                    </li>
+                                    <li>
+                                        <input class="default-checked optional" disabled="disabled" id="create-site" name="Locus_Opt_In__c" type="checkbox" value="Yes">
+                                        <label for="Locus_Opt_In__c" id="create-site-label">Tạo trang đã cá nhân hóa cho tôi để khám phá lợi ích của các sản phẩm và dịch vụ của Google</label>
+                                    </li>
+                                    <li>
+                                        <input class="default-checked optional" disabled="disabled" id="share-info" name="Opt_In_Partner__c" type="checkbox" value="Yes">
+                                        <label for="Opt_In_Partner__c" id="share-info-label">Chia sẻ thông tin của tôi với một đối tác của Google để giúp đánh giá các sản phẩm và dịch vụ của Google</label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="kd-button back-btn" current-tabs="2" prev-tabs="1" href="javascript:void(0)" style="float:left">Quay lại</a>
+                            <input id="submitFrmContact" type="button" class="kd-button kd-button-submit fr ml15" value="Gửi" />
+                            <a class="kd-button fr ml15 close_pop" data-dismiss="modal" aria-hidden="true" href="javascript:void(0)">Hủy</a>
+                            <input type="hidden" name="subContact" value="subContact" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="modal-dialog-thanks">
+        <div class="container modal-dialog-thanks-body" style="margin:0px">
+            <div class="message"><p><span>Cảm ơn bạn đã liên hệ với chúng tôi!</span> Chúng tôi sẽ sớm liên hệ lại.</p></div>
+        </div>
+        <img id="modal-dialog-thanks-close-btn" src="images/kd-x.png" alt="x">
+        <div class="clearfix"></div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (deviceType != 'phone') {
+                $('.modal').on('shown.bs.modal', function () {
+                    $(this).find('.modal-dialog').css({
+                        'margin-top': function () {
+                            var $h = $(window).height();
+                            var $h_e = $(this).outerHeight();
+                            return ($h - $h_e) / 2;
+                        }
+                    });
+                });
+            }
+            $(document).on('keyup', '.required', function (ev) {
+                var $_this = $(this);
+                if ($_this.val() != '') {
+                    $_this.removeClass('errorMsg');
+                } else {
+                    $_this.removeClass('errorMsg');
+                }
+            });
+            $('#submitWizard1').click(function () {
+                $('.required').each(function () {
+                    var $_this = $(this);
+                    var name = $_this.attr('name');
+                    if ($_this.val() == '') {
+                        $_this.addClass('errorMsg');
+                        $('label[for=' + name + ']').addClass('input-label-error');
+                    } else {
+                        $_this.removeClass('errorMsg');
+                        $('label[for=' + name + ']').removeClass('input-label-error');
+                    }
+                });
+                $('input[type=email]').each(function () {
+                    var $_this = $(this);
+                    var nameThis = $_this.attr('name');
+                    var valThis = $_this.val();
+                    if (valThis != '') {
+                        if (checkVaidEmail(valThis) == false) {
+                            $('label[for=' + nameThis + ']').addClass('input-label-error');
+                        } else {
+                            $('label[for=' + nameThis + ']').removeClass('input-label-error');
+                        }
+                    }
+                });
+                var website = $('input[name=website]').val();
+                if (website != '') {
+                    if (checkVaidUrl(website) == false) {
+                        $('label[for=website]').addClass('input-label-error');
+                    } else {
+                        $('label[for=website]').removeClass('input-label-error');
+                    }
+                }
+                /* Check Error */
+                var $total_error = $('label.input-label-error').size();
+                if ($total_error > 0) {
+                    $('.error-msg').show();
+                    return false;
+                } else {
+                    $('.error-msg').hide();
+                    var next_tabs = $(this).attr('next-tabs');
+                    var current_tabs = $(this).attr('current-tabs');
+                    $('#wizard-' + next_tabs).show();
+                    $('#wizard-' + current_tabs).hide();
+                    return true;
+                }
+            });
+            $('.back-btn').click(function () {
+                var current_tabs = $(this).attr('current-tabs');
+                var prev_tabs = $(this).attr('prev-tabs');
+                $('#wizard-' + prev_tabs).show();
+                $('#wizard-' + current_tabs).hide();
+                return true;
+            });
+            $('select[name=check_domain_id]').change(function () {
+                var $_this = $(this);
+                var $check_domain_id = $_this.val();
+                if ($check_domain_id == '2') {
+                    $('#domain').show();
+                    $('input[name=domain]').addClass('required');
+                } else {
+                    $('#domain').hide();
+                    $('input[name=domain]').removeClass('required');
+                }
+            });
+            $('select[name=services_id]').change(function () {
+                var $_this = $(this);
+                var $services_id = $_this.val();
+                setEmployee($services_id);
+                $.ajax({
+                    type: "POST",
+                    url: path_ajax_script + "/index.php?mod=ajax&act=ajLoadPackagesServices",
+                    data: { "services_id": $services_id, "slt": $.cookie('service_pack_id') },
+                    dataType: "html",
+                    success: function (html) {
+                        $('#service_pack_id').html(html);
+                    }
+                });
+                return false;
+            });
+            $('input[name=HasOptedOutOfEmail]').change(function () {
+                var $_this = $(this);
+                var val = $_this.val();
+                if (val == 'TRUE') {
+                    $('.preferences').removeClass('input-disabled');
+                    $('.default-checked').removeAttr("disabled");
+                } else {
+                    $('.preferences').addClass('input-disabled');
+                    $('.default-checked').attr("disabled", "disabled");
+                }
+            });
+            $('#submitFrmContact').click(function () {
+                var $_this = $(this);
+                $_this.val('Đang gửi...');
+                $("#frmSendContact").ajaxSubmit({
+                    type: "POST",
+                    url: path_ajax_script + "/index.php?mod=ajax&act=ajSubmitContact",
+                    dataType: "html",
+                    success: function (html) {
+                        if (html.indexOf('_SUCCESS') >= 0) {
+                            $_this.val('Gửi');
+                            $('#modal-dialog-thanks').show();
+                            $('#contact_box').remove();
+                            $('.modal-backdrop').remove();
+                            $('body').removeClass('modal-open');
+                        }
+                    }
+                });
+            });
+            $('#modal-dialog-thanks-close-btn').click(function () {
+                $('#modal-dialog-thanks').remove();
+            });
+        });
+        function setEmployee() {
+            var $services_id = $('select[name=services_id]').val();
+            if ($services_id == 11) {
+                $('.chooice_employee').html('<input readonly="readonly" name="number_of_employee" class="vietiso-lg" value="1" type="textbox" />');
+                $('select[name=service_pack_id]').live('change', function () {
+                    var $slot = $(this).find('option:selected').attr('_user');
+                    $('input[name=number_of_employee]').val($slot);
+                });
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: path_ajax_script + "/index.php?mod=home&act=ajaxHTMLEmployee",
+                    dataType: "html",
+                    success: function (html) {
+                        $('.chooice_employee').html(html);
+                    }
+                });
+            }
+        }
+    </script>
+
+
+    <!--[if lt IE 7]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-      <!-- Add your site or application content here -->
-      <div class="header">
-          <div class="navbar navbar-default" role="navigation">
-              <div class="container">
-                  <div class="navbar-header">
-                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-                          <span class="sr-only">Toggle navigation</span>
-                          <span class="icon-bar"></span>
-                          <span class="icon-bar"></span>
-                          <span class="icon-bar"></span>
-                      </button>
-                      <a class="navbar-brand" href="#/"><img alt="Đường sắt Việt Nam" src="images/yeoman.png" style="width: 30px; height: 30px;"></a>
-                  </div>
-                  <div class="collapse navbar-collapse" id="js-navbar-collapse">
-                      <ul class="nav navbar-nav">
-                          <li menu-active-url="$"><a ng-href="#/">Trang chủ</a></li>
-                          <!--<li show-if-authenticated="true" menu-active-url="user"><a ng-href="#/user">Quản lý người sử dụng</a></li>-->
-                          <li show-if-authenticated="200|210|220|230|240|250|260|270|280" menu-active-url="(ga|tuyen|pttt|nhomcho|loaicho|mactau|toaxe|dtkh|ldkc)" class="dropdown" style="display: none">
-                              <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Quản lý danh mục <span class="caret"></span></a>
-                              <ul class="dropdown-menu" role="menu">
-                                  <li show-if-authenticated="200" style="display: none" menu-active-url="dtkh"><a ng-href="#/dtkh">Đối tượng khách hàng</a></li>
-                                  <li show-if-authenticated="210" style="display: none" menu-active-url="pttt"><a ng-href="#/pttt">Phương thức thanh toán</a></li>
-                                  <li show-if-authenticated="220" style="display: none" menu-active-url="ldkc"><a ng-href="#/ldkc">Lý do khóa chỗ</a></li>
-                                  <li show-if-authenticated="230" style="display: none" menu-active-url="tuyen"><a ng-href="#/tuyen">Quản lý tuyến</a></li>
-                                  <li show-if-authenticated="240" style="display: none" menu-active-url="ga"><a ng-href="#/ga">Quản lý ga</a></li>
-                                  <li show-if-authenticated="250" style="display: none" menu-active-url="nhomcho"><a ng-href="#/nhomcho">Nhóm chỗ</a></li>
-                                  <li show-if-authenticated="260" style="display: none" menu-active-url="loaicho"><a ng-href="#/loaicho">Loại chỗ</a></li>
-                                  <li show-if-authenticated="270" style="display: none" menu-active-url="mactau"><a ng-href="#/mactau">Mác tàu</a></li>
-                                  <li show-if-authenticated="280" style="display: none" menu-active-url="toaxe"><a ng-href="#/toaxe">Toa xe</a></li>
-                              </ul>
-                          </li>
-                          <!--<li show-if-authenticated="true" menu-active-url="about"><a ng-href="#/about">About</a></li>-->
-                      </ul>
-                      <ul class="nav navbar-nav navbar-right">
-                          <li show-if-authenticated="true" menu-active-url="(changepass)" class="dropdown" style="display: none;">
-                              <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Xin chào <strong auth-data="displayName"></strong><span class="caret"></span></a>
-                              <ul class="dropdown-menu" role="menu">
-                                  <li><a href="http://localhost:9001/#/settings" target="_blank"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Cài đặt cá nhân</a></li>
-                                  <li><a href="http://localhost:9001/#/changepass" target="_blank"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Đổi mật khẩu</a></li>
-                                  <li><a ng-href="#/logout"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> <strong>Thoát</strong></a></li>
-                              </ul>
-                          </li>
-                      </ul>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="container">
-          <div class="auth-initializing"></div>
-          <div ng-view=""></div>
-      </div>
-      <div class="footer">
-          <div class="container">
+    <!-- Add your site or application content here -->
+    <div id="header" role="banner">
+        <div class="page_top_box">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-7">
+                        <ul class="SiteVietIsoHelp">
+                            <li><a rel="tel:04 6663 7879"><i class="fa fa-phone"></i> 04 6663 7879</a></li>
+                            <li><a href="mailto:info@vietiso.com"><i class="fa fa-envelope-o"></i> info@vietiso.com</a></li>
+                            <li><a href="/blog" title="VietIso Blog"><i class="fa fa-comment"></i> Blog</a></li>
+                            <li class="highlight"><a href="/tin-tuc/tuyen-dung.html" title="Tuyển dụng"><i class="fa fa-bullhorn"></i> Tuyển dụng</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="lang_box">
+                            <a href="http://en.vietiso.com" class="lang_Items en">English</a>
+                            <a href="/" class="lang_Items vn">VietNam</a>
+                        </div>
+                        <ul class="register_link">
+                            <li>
+                                <form action="http://www.google.com.vn" id="cse-search-box">
+                                    <div>
+                                        <input type="hidden" name="cx" value="012995892168709792761:myjg5xeiczq">
+                                        <input type="hidden" name="ie" value="UTF-8">
+                                        <input type="text" name="q" size="20" style="border: 1px solid rgb(126, 157, 185); padding: 2px 5px; height: 24px; margin-top: 5px;font-size: 11px; line-height: 13px; border-radius:2px; color:#000 !important;" placeholder="Bạn đang tìm gì?">
+                                        <input type="submit" name="sa" value="Search" style="display:none;">
+                                    </div>
+                                    <input name="siteurl" type="hidden" value="www.vietiso.com/">
+                                    <input name="ref" type="hidden" value="">
+                                    <input name="ss" type="hidden" value="">
+                                </form>
+                            </li>
+                            <li><a class="singup-click" href="javascript:void(0);" title="Đăng nhập"><i class="fa fa-user"></i> Đăng nhập</a></li>
+                            <li><a href="https://go.vietiso.com/register.php" title="Đăng ký tài khoản">Đăng ký</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="login-sub-box">
+                <div class="container">
+                    <div class="row" style="height:100%">
+                        <div class="col-md-6 mix">
+                            <h3 class="head">Sản Phẩm</h3>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4 class="hd">Tên miền:</h4>
+                                    <ul class="quick-link-column">
+                                        <li><a href="#" title=""><img src="http://www.vietiso.com/isocms/skin/images/icons/icon-arrow.png" width="21px" /> Đăng ký mới</a></li>
+                                        <li><a href="#" title=""><img src="http://www.vietiso.com/isocms/skin/images/icons/icon-arrow.png" width="21px" /> Chuyển về Vietios</a></li>
+                                        <li><a href="#" title=""><img src="http://www.vietiso.com/isocms/skin/images/icons/icon-arrow.png" width="21px" /> Báo giá</a></li>
+                                        <li><a href="#" title=""><img src="http://www.vietiso.com/isocms/skin/images/icons/icon-arrow.png" width="21px" /> DNS</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h4 class="hd">Bảo mật & SSL:</h4>
+                                    <ul class="quick-link-column">
+                                        <li><a href="#" title=""><img src="http://www.vietiso.com/isocms/skin/images/icons/icon-arrow.png" width="21px" /> SL Certificates - On Sale</a></li>
+                                        <li><a href="#" title=""><img src="http://www.vietiso.com/isocms/skin/images/icons/icon-arrow.png" width="21px" /> Code Signing Certificate</a></li>
+                                        <li><a href="#" title=""><img src="http://www.vietiso.com/isocms/skin/images/icons/icon-arrow.png" width="21px" /> SiteLock Website Security</a></li>
+                                        <li><a href="#" title=""><img src="http://www.vietiso.com/isocms/skin/images/icons/icon-arrow.png" width="21px" /> Premium DNS</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div style="padding:0px 20px">
+                                <h3 class="head mb10">Khách hàng mới</h3>
+                                <p style="line-height:20px; color:#333">Bạn chưa có tài khoản trên Vietiso? Đăng ký ngay hôm nay </p>
+                                <div class="clearfix mt10"></div>
+                                <a href="https://go.vietiso.com/register.php" class="btn-standard" title="Tạo Mới Tài Khoản">Tạo Mới Tài Khoản</a>
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="height:100%; border-left:1px solid #c4c4c4">
+                            <div style="padding:0px 20px">
+                                <h3 class="head mb10">Đăng nhập</h3>
+                                <form method="post" action="https://go.vietiso.com/dologin.php" class="form-login-quick">
+                                    <div class="line">
+                                        <input type="text" name="username" placeholder="Tên đăng nhập" class="input-lgtz" />
+                                    </div>
+                                    <div class="line" style="margin-bottom:0">
+                                        <input type="password" name="password" placeholder="Mật khẩu" class="input-lgtz" />
+                                    </div>
+                                    <div class="line" style="margin-bottom:0">
+                                        <a class="forget_link" href="https://go.vietiso.com/pwreset.php"><em>Quên mật khẩu?</em></a>
+                                    </div>
+                                    <div class="line">
+                                        <button type="submit" class="btn-standard singup_btn">Đăng Nhập</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="btn-toogle" id="toogle"></div>
+                <div id="system_menu" class="system_menu">
+                    <div class="wrap">
+                        <ul class="system_menu_item">
+                            <li><a href="/"><i class="icons ico-menu-home">&nbsp;</i>Trang chủ</a></li>
+                            <li><a href="/site-builder"><i class="icons ico-menu-design">&nbsp;</i>Thiết kế web</a></li>
+                            <li><a href="/phan-mem"><i class="icons ico-menu-software">&nbsp;</i>Phần mềm</a></li>
+                            <li><a href="http://www.vietiso.com/domain-search"><i class="icons ico-menu-domain">&nbsp;</i>Tên miền</a></li>
+                            <li><a href="/hosting"><i class="icons ico-menu-hosting">&nbsp;</i>Web hosting</a></li>
+                            <li><a href="/contact"><i class="icons ico-menu-contact">&nbsp;</i>Liên hệ</a></li>
+                            <li class="hightlight"><a href="/about" title="Giới thiệu"><i class="icons ico-menu-register">&nbsp;</i>Giới thiệu</a></li>
+                            <!--						<li><a href="javascript:void(0);" data-toggle="modal" data-target="#member_signin_box"><i class="icons ico-menu-login">&nbsp;</i>Đăng nhập</a></li>
 
-          </div>
-      </div>
-
-
+                            -->
+                        </ul>
+                        <div class="clearfix"></div>
+                        <div class="copyright-menu mt20">
+                            <img src="http://www.vietiso.com/isocms/skin/images/power.png">
+                            <p class="mt10 font12px"><strong>© Bản quyền 2015 VietISO</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="wrap">
+                    <a id="logo" class="fl transition" data-animation="fadeInLeft" data-animation-delay="0" href="http://www.vietiso.com" title="VIETISO.COM">
+                        <img id="TopLogoBig" src="http://www.vietiso.com/isocms/skin/images/logo.png" title="VIETISO.COM" />
+                        <img id="TopLogoSmall" src="http://www.vietiso.com/isocms/skin/images/tablet/LOGO.png" title="VIETISO.COM" />
+                    </a>
+                    <div class="header-r">
+                        <nav class="nav" id="nav" role="navigation">
+                            <ul class="mainmenu" id="mainmenu">
+                                <li class="has-sub-menu">
+                                    <a class="SegoeUIRegular" href="javascript:void();" rel="nofollow" title="Sản phẩm">Sản phẩm</a>
+                                    <div class="main-nav-hover-item">
+                                        <div class="container">
+                                            <div class="category">
+                                                <div class="col-md-20">
+                                                    <h3 class="head">Tên miền <img class="imgFx" align="absmiddle" width="26px" height="26px" src="http://www.vietiso.com/images/content/new.gif" /></h3>
+                                                    <ul class="sub-category">
+                                                        <li>
+                                                            <h4><a target="_self" href="https://go.vietiso.com/" title="Đăng ký mới">Đăng ký mới </a></h4>
+                                                        </li>
+                                                        <li><a target="_self" href="https://go.vietiso.com/cart.php?a=add&amp;domain=transfer" title="Transfer về VIETISO">Transfer về VIETISO </a></li>
+                                                        <li><a class="bold" target="_self" href="/domain-search" title="Báo giá">Báo giá </a></li>
+                                                        <li><a target="_self" href="https://go.vietiso.com/clientarea.php?managedns" title="Quản lý DNS">Quản lý DNS </a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-20">
+                                                    <h3 class="head">Lưu trữ </h3>
+                                                    <ul class="sub-category">
+                                                        <li><a target="_self" href="/hosting" title="Hosting website">Hosting website <img class="imgFx" align="absmiddle" width="26px" height="26px" src="http://www.vietiso.com/images/iconpro.png" /></a></li>
+                                                        <li><a class="bold" target="_self" href="/linux-vps" title="VPS - CloudLinux">VPS - CloudLinux </a></li>
+                                                        <li><a target="_self" href="/tin-tuc/giai-phap/su-dung-mail-google-voi-ten-mien-rieng.html" title="Dịch vụ mail Google Apps">Dịch vụ mail Google Apps <img class="imgFx" align="absmiddle" width="26px" height="26px" src="http://www.vietiso.com/images/iconpro.png" /></a></li>
+                                                        <li><a class="bold" target="_self" href="/emailhosting" title="Mail Server Private">Mail Server Private </a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-20">
+                                                    <h3 class="head">Bảo mật &amp; SSL </h3>
+                                                    <ul class="sub-category">
+                                                        <li>
+                                                            <h4><a target="_self" href="/" title="Servers">Servers </a></h4>
+                                                        </li>
+                                                        <li>
+                                                            <h4><a class="bold" target="_self" title="SSL &amp; Site Protection">SSL &amp; Site Protection </a></h4>
+                                                            <ul>
+                                                                <li><a href="/ssl/rapidssl" title="Rapid SSL">Rapid SSL <img class="imgFx" align="absmiddle" width="26px" height="26px" src="http://www.vietiso.com/images/iconpro.png" /></a></li>
+                                                                <li><a href="https://go.vietiso.com/cart.php?gid=12" title="Dedicated Servers">Dedicated Servers </a></li>
+                                                                <li><a href="/" title="Dedicated IP">Dedicated IP <img class="imgFx" align="absmiddle" width="26px" height="26px" src="http://www.vietiso.com/images/content/new.gif" /></a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-20">
+                                                    <h3 class="head">Phần mềm </h3>
+                                                    <ul class="sub-category">
+                                                        <li><a class="bold" target="_self" href="/phan-mem" title="TravelMaster">TravelMaster <img class="imgFx" align="absmiddle" width="26px" height="26px" src="http://www.vietiso.com/images/iconpro.png" /></a></li>
+                                                        <li><a target="_self" href="http://docs.vietiso.com/phan-mem" title="Hướng dẫn sử dụng">Hướng dẫn sử dụng </a></li>
+                                                        <li><a target="_self" href="/ho-tro/cau-hoi-thuong-gap" title="FAQs">FAQs </a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-20">
+                                                    <h3 class="head">Hỗ trợ </h3>
+                                                    <ul class="sub-category">
+                                                        <li><a target="_self" href="/phan-mem/ho-tro" title="Phầm mềm">Phầm mềm </a></li>
+                                                        <li><a target="_self" href="/ho-tro" title="Website">Website </a></li>
+                                                        <li><a target="_self" href="/" title="Thanh toán - Hoàn hủy">Thanh toán - Hoàn hủy </a></li>
+                                                        <li><a target="_self" href="/about" title="Về chúng tôi">Về chúng tôi </a></li>
+                                                        <li>
+                                                            <h4><a target="_self" href="/tin-tuc" title="Tin tức">Tin tức </a></h4>
+                                                            <ul>
+                                                                <li><a href="/tin-tuc/marketing.html" title="Marketing">Marketing </a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li><a class="bold" target="_blank" href="http://www.vietiso.com/affiliate" title="Liên kết Affiliate">Liên kết Affiliate </a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><a idx="2" class="SegoeUIRegular" href="#/site-builder" title="Thiết kế website ">Thiết kế website </a></li>
+                                <li><a idx="3" class="SegoeUIRegular" href="#/phan-mem" title="Phần mềm">Phần mềm</a></li>
+                                <li><a idx="5" class="SegoeUIRegular" href="#/hosting" title="VPS Cloud">VPS Cloud <img style="margin-top:-15px; max-width:20px" align="top" src="http://www.vietiso.com/images/iconpro.png" width="20px" /></a></li>
+                                <li><a idx="4" class="SegoeUIRegular" href="#/domain" title="Tên miền">Tên miền</a></li>
+                                <li><a class="SegoeUIRegular" href="/ssl" title="Bảo mật & SSL">Bảo mật & SSL</a></li>
+                                <li><a class="SegoeUIRegular" href="/ho-tro" title="Hỗ trợ">Hỗ trợ</a></li>
+                                <li><a class="SegoeUIRegular SiteVietIsoNewICO" href="/deals" title="Hot deals">Hot deals</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div id="container">
+        <div id="responsiveHome">
+            <div class="auth-initializing"></div>
+            <div ng-view=""></div>
+        </div>
+    </div>
    
+
+
+
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -97,27 +639,41 @@
     <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
     <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
     <!-- endbower -->
-      <script src="bower_components/xdLocalStorage/app/scripts/services/xd-utils.js"></script>
-      <script src="bower_components/xdLocalStorage/app/scripts/xdLocalStorage.js"></script>
-      <script src="bower_components/xdLocalStorage/app/scripts/ng-xdLocalStorage.js"></script>
+    <script src="bower_components/xdLocalStorage/app/scripts/services/xd-utils.js"></script>
+    <script src="bower_components/xdLocalStorage/app/scripts/xdLocalStorage.js"></script>
+    <script src="bower_components/xdLocalStorage/app/scripts/ng-xdLocalStorage.js"></script>
     <!-- endbuild -->
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/config.js"></script>
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/common.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/about.js"></script>
+    <script src="scripts/controllers/login.js"></script>
+    <script src="scripts/controllers/unauthorized.js"></script>
+    <script src="scripts/controllers/refresh.js"></script>
+    <script src="scripts/controllers/signup.js"></script>
+    <script src="scripts/controllers/tokensmanager.js"></script>
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-      <script src="scripts/config.js"></script>
-      <script src="scripts/auth.js"></script>
-      <script src="scripts/app.js"></script>
-      <script src="scripts/common.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
-      <script src="scripts/controllers/login.js"></script>
-      <script src="scripts/controllers/unauthorized.js"></script>
-      <script src="scripts/controllers/refresh.js"></script>
-      <script src="scripts/controllers/signup.js"></script>
-      <script src="scripts/controllers/tokensmanager.js"></script>
+    <script src="scripts/services/authservice.js"></script>
+    <script src="scripts/services/authinterceptorservice.js"></script>
+    <script src="scripts/services/tockensmanagerservice.js"></script>
+    <!-- endbuild -->
+    <script type="text/javascript" src="http://www.vietiso.com/isocms/skin/js/jquery-ui.min.js?v=1446477752"></script>
+    <script type="text/javascript" src="http://www.vietiso.com/isocms/skin/js/jquery-migrate-1.2.1.min.js?v=1446477752"></script>
+    <script type="text/javascript" src="http://www.vietiso.com/isocms/skin/js/flowtype.js?v=1446477752"></script>
+    <script type="text/javascript" src="http://www.vietiso.com/isocms/skin/js/underscore-min.js?v=1446477752"></script>
+    <script type="text/javascript" src="http://www.vietiso.com/isocms/skin/js/intention.js?v=1446477752"></script>
+    <script type="text/javascript" src="http://www.vietiso.com/isocms/skin/js/makepop.js?v=1446477752"></script>
+    <script type="text/javascript" src="http://www.vietiso.com/isocms/skin/js/vietiso.js?v=1446477752"></script>
+    <script type="text/javascript" src="http://www.vietiso.com/isocms/skin/js/script.min.js?v=1446477752"></script>
+    <script type="text/javascript" src="http://www.vietiso.com/isocms/skin/js/jquery.fullPage.js"></script>
+    <script type="text/javascript" src="http://www.vietiso.com/isocms/skin/js/jquery.inview.min.js"></script>
+    <script type="text/javascript" src="http://www.vietiso.com/isocms/skin/js/jquery.slimscroll.min.js"></script>
+    <script type="text/javascript" src="http://www.vietiso.com/isocms/skin/js/context.js?v=1446477752"></script>
+    <script type="text/javascript" src="http://www.vietiso.com/isocms/skin/js/vietiso.scrip.min.js?v=1446477752"></script>
+    <script type="text/javascript" src="http://www.vietiso.com/isocms/skin/js/docs.min.js?v=1446477752"></script>
 
-      <script src="scripts/services/authservice.js"></script>
-      <script src="scripts/services/authinterceptorservice.js"></script>
-      <script src="scripts/services/tockensmanagerservice.js"></script>
-        <!-- endbuild -->
 </body>
 </html>

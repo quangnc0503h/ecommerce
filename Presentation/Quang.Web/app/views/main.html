@@ -1,49 +1,705 @@
-﻿<!--<h2>{{"Hello"|translate:"XXX":"YYY"}}</h2>-->
-<!--<h3>{{text}}</h3>-->
-<div class="row" show-if-authenticated="false" style="display: none;">
-    <div class="col-md-2">
-        &nbsp;
-    </div>
-    <div class="col-md-4">
-        <h2>Login</h2>
-        <p class="text-primary">If you have Username and Password, you can use the button below to access the secured content using a token.</p>
-        <p><a class="btn btn-info" href="javascript:;" ng-click="login()" role="button">Login &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Sign Up</h2>
-        <p class="text-primary">Use the button below to create Username and Password to access the secured content using a token.</p>
-        <p><a class="btn btn-info" href="{{ENV.urlWebAuth}}#/signup" role="button">Sign Up &raquo;</a></p>
-    </div>
-    <div class="col-md-2">
-        &nbsp;
-    </div>
-</div>
-<div class="row" show-if-authenticated="true" style="display: none;">
-    <div class="panel panel-default" show-if-authenticated="200|210|220|230|240|250|260|270|280">
-        <div class="panel-heading">
-            <h3 class="panel-title">Các chức năng trong hệ thống</h3>
-        </div>
-        <div class="panel-body">
-            <div class="col-md-4">
-                <div class="list-group">
-                    <!--<a class="list-group-item active" href="javascript:v;">Quản lý danh mục</a>-->
-                    <a class="list-group-item" show-if-authenticated="200" ng-href="#/dtkh">Đối tượng khách hàng<span class="badge">{{summary.CountAllDoiTuongKH}}</span></a>
-                    <a class="list-group-item" show-if-authenticated="210" ng-href="#/pttt">Phương thức thanh toán<span class="badge">{{summary.CountAllPhuongThucTT}}</span></a>
-                    <a class="list-group-item" show-if-authenticated="220" ng-href="#/ldkc">Lý do khóa chỗ<span class="badge">{{summary.CountAllLyDoKhoaCho}}</span></a>
-                    <a class="list-group-item" show-if-authenticated="230" ng-href="#/tuyen">Quản lý tuyến<span class="badge">{{summary.CountAllTuyen}}</span></a>
-                    <a class="list-group-item" show-if-authenticated="240" ng-href="#/ga">Quản lý ga<span class="badge">{{summary.CountAllGa}}</span></a>
-                    <a class="list-group-item" show-if-authenticated="250" ng-href="#/nhomcho">Nhóm chỗ<span class="badge">{{summary.CountAllNhomCho}}</span></a>
-                    <a class="list-group-item" show-if-authenticated="260" ng-href="#/loaicho">Loại chỗ<span class="badge">{{summary.CountAllLoaiCho}}</span></a>
-                    <a class="list-group-item" show-if-authenticated="270" ng-href="#/mactau">Mác tàu<span class="badge">{{summary.CountAllMacTau}}</span></a>
-                    <a class="list-group-item" show-if-authenticated="280" ng-href="#/toaxe">Toa xe<span class="badge">{{summary.CountAllToaXe}}</span></a>
+﻿<script type="text/javascript">
+    $().ready(function () {
+        $('.transition').each(function () {
+            var $this = $(this);
+            var $delay = $this.data('animation-delay');
+            var $animation = $this.data('animation');
+            $this.one('inview', function (event, isInView, visiblePartX, visiblePartY) {
+                setTimeout(function () {
+                    $this.addClass($animation + " animated");
+                }, $delay);
+            });
+        });
+    });
+</script>
+<!-- Begin Session 1 -->
+<div class="section active" id="hero">
+    <div class="openerWrap">
+        <div class="container">
+            <div class="row">
+                <div id="welcome_box" class="text-center">
+                    <h1 class="transition" data-animation="fadeInDown" data-animation-delay="300" style="font-weight:normal;">Chào mừng bạn đến với VietISO!</h1>
+                    <div class="homeText mt10 SegoeUIRegular homeIntro transition" data-animation="fadeInDown" data-animation-delay="700" style="width:60%; margin:0px auto;">
+                        <p>Ch&uacute;ng t&ocirc;i đem đến những gi&aacute; trị sản phẩm website du lịch cao cấp v&agrave; ứng dụng giải ph&aacute;p đa truyền th&ocirc;ng tương t&aacute;c cho doanh nghiệp du lịch của bạn.</p>
+                    </div>
+                    <a class="scrollDown scrollDownButton transition" id="scrollDownToWebService" data-animation="fadeInDown" data-animation-delay="800" style="display:block;" onclick="$('#responsiveHome').fullpage.moveSectionDown(1);" href="javascript:void(0);"></a>
                 </div>
             </div>
-            <div class="col-md-4">
-                &nbsp;
+        </div>
+    </div>
+    <div class="bgTransitionWrap" id="bgTransitionWrap">
+        <div class="bgSlide bgSlide-1 current" idx="0"></div>
+        <div class="bgSlide bgSlide-2" idx="1" style="display:none"></div>
+        <div class="bgSlide bgSlide-3" idx="2" style="display:none"></div>
+    </div>
+</div>
+<!-- End Session 1 -->
+<!-- Begin Session 2 -->
+<div class="section" id="service_webs_home" style="margin-top:70px">
+    <div class="container">
+        <div class="row" style="margin-top:30px">
+            <div class="span80 text-center" style="margin-left:auto;margin-right:auto;">
+                <h3 class="SegoeUILight color_333 font50 transition" data-animation="fadeInUp" data-animation-delay="100"><a href="/site-builder" title="Thiết kế website">Thiết kế website</a></h3>
+                <div class="SegoeUILight line26 color_555 font20 transition" data-animation="fadeInUp" data-animation-delay="200">
+                    <p>Với nền tảng vững chắc trong lĩnh vực thiết kế website cho ng&agrave;nh du lịch. Ch&uacute;ng t&ocirc;i cam kết thiết kế l&ecirc;n những website tốt nhất cho doanh nghiệp du lịch của bạn</p>
+                </div>
             </div>
-            <div class="col-md-4">
-                &nbsp;
+        </div>
+        <div class="divide-star mt5 mb10"><span></span></div>
+        <div class="service_webs_lst">
+            <div class="row">
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-12 text-center transition" data-animation="fadeInLeft" data-animation-delay="0">
+                    <h2 class="title mb15"><a class="font-italic SegoeUILight font22" href="/thiet-ke-website-du-lich.html" title="Thiết kế  Website Du lịch">Website Du lịch</a></h2>
+                    <div class="photo">
+                        <a href="/thiet-ke-website-du-lich.html" title="Website Du lịch">
+                            <img src="/images/content/2014-06-26.02.39.49-thiet_ke_web_du_lich.jpg" width="264" height="257" alt="Thiết kế  Website Du lịch" title="Website Du lịch" />
+                        </a>
+                    </div>
+                    <a href="/thiet-ke-website-du-lich.html" title="Xem thêm" class="btn-viewmore">Xem thêm</a>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-12 text-center transition" data-animation="fadeInLeft" data-animation-delay="200">
+                    <h2 class="title mb15"><a class="font-italic SegoeUILight font22" href="/thiet-ke-website-su-kien.html" title="Thiết kế  Website Sự kiện">Website Sự kiện</a></h2>
+                    <div class="photo">
+                        <a href="/thiet-ke-website-su-kien.html" title="Website Sự kiện">
+                            <img src="/images/content/2014-06-26.02.44.59-thiet_ke_web_su_kien.jpg" width="264" height="257" alt="Thiết kế  Website Sự kiện" title="Website Sự kiện" />
+                        </a>
+                    </div>
+                    <a href="/thiet-ke-website-su-kien.html" title="Xem thêm" class="btn-viewmore">Xem thêm</a>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-12 text-center transition" data-animation="fadeInLeft" data-animation-delay="400">
+                    <h2 class="title mb15"><a class="font-italic SegoeUILight font22" href="/thiet-ke-website-nha-hang.html" title="Thiết kế  Website Nhà hàng">Website Nhà hàng</a></h2>
+                    <div class="photo">
+                        <a href="/thiet-ke-website-nha-hang.html" title="Website Nhà hàng">
+                            <img src="/images/content/2014-06-26.02.45.42-thiet_ke_web_nha_hang.jpg" width="264" height="257" alt="Thiết kế  Website Nhà hàng" title="Website Nhà hàng" />
+                        </a>
+                    </div>
+                    <a href="/thiet-ke-website-nha-hang.html" title="Xem thêm" class="btn-viewmore">Xem thêm</a>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-12 text-center transition" data-animation="fadeInLeft" data-animation-delay="600">
+                    <h2 class="title mb15"><a class="font-italic SegoeUILight font22" href="/thiet-ke-website-khach-san.html" title="Thiết kế  Website Khách sạn">Website Khách sạn</a></h2>
+                    <div class="photo">
+                        <a href="/thiet-ke-website-khach-san.html" title="Website Khách sạn">
+                            <img src="/images/content/2014-06-26.02.47.17-thiet_ke_web_khach_san.jpg" width="264" height="257" alt="Thiết kế  Website Khách sạn" title="Website Khách sạn" />
+                        </a>
+                    </div>
+                    <a href="/thiet-ke-website-khach-san.html" title="Xem thêm" class="btn-viewmore">Xem thêm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="javascript:void(0);" id="scrollDownToCRM" onclick="$('#responsiveHome').fullpage.moveSectionDown(1);" class="downArrow scrollDownButton"></a>
+</div>
+<!-- End Session 2 -->
+<!-- Begin Session 3 -->
+<div class="section" id="crm_home_box">
+    <div class="container" style="padding-top:125px;">
+        <div class="row">
+            <div class="span80 text-center mb20" style="margin-left:auto;margin-right:auto;">
+                <h3 class="homeHeading transition" data-animation="fadeInUp" data-animation-delay="0"><a class="color_w font50 SegoeUILight" href="/phan-mem" title="Phần mềm Travel CRM">Phần mềm Travel Master</a></h3>
+                <div class="homeText SegoeUILight transition" data-animation="fadeInUp" data-animation-delay="200">
+                    <p>Phần mềm quản trị du lịch Travel<strong>Master</strong> thuần Việt d&agrave;nh cho c&aacute;c c&ocirc;ng ty du lịch Việt Nam, được x&acirc;y dựng tr&ecirc;n nhu cầu thực tế - Văn h&oacute;a kinh doanh du lịch của doanh nghiệp du lịch Việt Nam</p>
+                </div>
+            </div>
+            <div class="content text-center transition" data-animation="fadeInUp" data-animation-delay="400">
+                <a href="/phan-mem">
+                    <img src="http://www.vietiso.com/isocms/skin/images/phan_mem_crm.png" id="crmImgBig" style="max-height:350px" alt="Phần mềm Travel CRM" />
+                    <img src="http://www.vietiso.com/isocms/skin/images/tablet/crm.png" width="90%" style="display:none;" id="crmImgSmall" alt="Phần mềm Travel CRM" />
+                </a>
+            </div>
+        </div>
+    </div>
+    <a href="javascript:void(0);" id="scrollDownToDomain" onclick="$('#responsiveHome').fullpage.moveSectionDown(1);" class="downArrow scrollDownButton"></a>
+</div>
+<!-- End Session 3 -->
+<!-- Begin Session 4 -->
+<div class="section" id="domain_home_box">
+    <div class="clearfix"></div>
+    <div class="SiteVietISoBreadcrumb">
+        <div class="container" style="padding:0 15px !important;">
+            <span class="first-child">Kiểm tra tên miền</span>
+            <ul class="SiteVietIsoSiteLink">
+                <li><a href="https://go.vietiso.com/domainchecker.php" title="Transfer về VietISO">Transfer về VietISO</a></li>
+                <li class="s">|</li>
+                <li><a href="/domain-search/tlds" title="Tên miền mới">Tên miền mới</a></li>
+                <li class="s">|</li>
+                <li><a href="https://go.vietiso.com/domainchecker.php" title="Bảo vệ tên miền">Bảo vệ tên miền</a></li>
+                <li class="s">|</li>
+                <li><a href="https://go.vietiso.com/domainchecker.php" title="Bảng giá">Bảng giá</a></li>
+                <li class="s">|</li>
+                <li><a href="https://go.vietiso.com/domainchecker.php" title=" Thanh toán"> Thanh toán</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="SiteVietIsoCheckDomainHome">
+        <div class="container" style="padding:0 15px !important">
+            <div class="row">
+                <div class="col-md-offset-1 col-md-10">
+                    <form class="form-inline SiteVietIsoCheckControlHome" method="post" action="http://go.vietiso.com/domainchecker.php">
+                        <div class="wrap">
+                            <input placeholder="Nhập tên miền bạn muốn..." type="text" class="form-control" />
+                            <button type="submit" class="btn">KIỂM TRA</button>
+                        </div>
+                        <!--<div class="clearfix mt10"></div>
+                        <p class="font13">* Đăng ký và nhận nhiều ưu đãi thiết thực mà chúng tôi đem đến cho bạn!</p>-->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="SiteVietIsoDomainPromotion">
+        <div class="container" style="padding:25px 15px 20px !important">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="SiteVietIsoDeal">
+                        <h2 class="header-domain ">Big Deal</h2>
+                        <div class="clearfix mt20"></div>
+                        <img align="middle" class="img-responsive" src="http://www.vietiso.com/isocms/skin/images/free.png" style="width:90% !important" />
+                        <p class="SegoeUILight">Bắt đầu chỉ bằng <strong class="color_x font-30">30k/ tháng</strong></p>
+                        <div class="clearfix"></div>
+                        <a class="fl mr20" href="/domain-search"><img src="http://www.vietiso.com/isocms/skin/images/btn-register.png" /></a>
+                        <span class="mt10" style=" display:inline-block; height:30px; line-height:30px;">* Duy nhất áp dụng cho năm đầu tiên</span>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <a class="CrmTravelMasterAds mt60" href="/phan-mem" title="VietIso Travel Master">
+                        <img src="http://www.vietiso.com/isocms/skin/images/VietIso_TravelMaster.png" class="img-responsive" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<a  href="javascript:void(0);" id="scrollDownToHosting" onclick="$('#responsiveHome').fullpage.moveSectionDown(1);" class="downArrow scrollDownButton"></a>-->
+</div>
+<!-- End Session 4 -->
+<!-- Begin Session 5 -->
+<div class="section" id="SiteVietISoHosting">
+    <div class="SiteVietISoHosting_Inner">
+        <div class="container">
+            <div class="row home-hero">
+                <div id="pricing-smaller-plans-table" class="pricing-view">
+                    <div class="col-sm-3 reduce-gutter transition reduce-gutter-homepage" data-animation="fadeInLeft" data-animation-delay="0">
+                        <div class="price-block">
+                            <div class="plan">768mbRam:SSD</div>
+                            <h3 class="hourly SegoeUILight">145.000</h3>
+                            <h6 class="monthly SegoeUILight">₫/tháng</h6>
+                            <ul class="details">
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-5 col-sm-3 col-lg-4 plan-value">
+                                            <strong>16</strong>
+                                        </div>
+                                        <div class="col-xs-7 col-sm-9 col-lg-8 plan-key">
+                                            GB SSD HDD
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-5 col-sm-3 col-lg-4 plan-value">
+                                            <strong>768</strong>
+                                        </div>
+                                        <div class="col-xs-7 col-sm-9 col-lg-8 plan-key">
+                                            MB RAM
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-5 col-sm-3 col-lg-4 plan-value">
+                                            <strong>1</strong>
+                                        </div>
+                                        <div class="col-xs-7 col-sm-9 col-lg-8 plan-key">
+                                            Core CPU
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-5 col-sm-3 col-lg-4 plan-value">
+                                            <strong>3</strong>
+                                        </div>
+                                        <div class="col-xs-7 col-sm-9 col-lg-8 plan-key">
+                                            TB Transfer
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-5 col-sm-3 col-lg-4 plan-value">
+                                            <strong>10</strong>
+                                        </div>
+                                        <div class="col-xs-7 col-sm-9 col-lg-8 plan-key">
+                                            GB Network
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                            <div class="action">
+                                <center>
+                                    <a class="btn-buy" href="https://go.vietiso.com/cart.php?a=add&amp;pid=66" rel="nofollow" title="Đăng ký">Đăng ký</a>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 reduce-gutter transition reduce-gutter-homepage" data-animation="fadeInLeft" data-animation-delay="200">
+                        <div class="price-block">
+                            <div class="plan">1gbRam:SSD</div>
+                            <h3 class="hourly SegoeUILight">225.000</h3>
+                            <h6 class="monthly SegoeUILight">₫/tháng</h6>
+                            <ul class="details">
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-5 col-sm-3 col-lg-4 plan-value">
+                                            <strong>30</strong>
+                                        </div>
+                                        <div class="col-xs-7 col-sm-9 col-lg-8 plan-key">
+                                            GB SSD HDD
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-5 col-sm-3 col-lg-4 plan-value">
+                                            <strong>1</strong>
+                                        </div>
+                                        <div class="col-xs-7 col-sm-9 col-lg-8 plan-key">
+                                            GB RAM
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-5 col-sm-3 col-lg-4 plan-value">
+                                            <strong>1</strong>
+                                        </div>
+                                        <div class="col-xs-7 col-sm-9 col-lg-8 plan-key">
+                                            Core CPU
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-5 col-sm-3 col-lg-4 plan-value">
+                                            <strong>3</strong>
+                                        </div>
+                                        <div class="col-xs-7 col-sm-9 col-lg-8 plan-key">
+                                            TB Transfer
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-5 col-sm-3 col-lg-4 plan-value">
+                                            <strong>10</strong>
+                                        </div>
+                                        <div class="col-xs-7 col-sm-9 col-lg-8 plan-key">
+                                            Gbps Network
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                            <div class="action">
+                                <center>
+                                    <a class="btn-buy" href="https://go.vietiso.com/cart.php?a=add&amp;pid=57" rel="nofollow" title="Đăng ký">Đăng ký</a>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 reduce-gutter transition reduce-gutter-homepage" data-animation="fadeInLeft" data-animation-delay="400">
+                        <div class="price-block">
+                            <div class="plan">2gbRam:SSD</div>
+                            <h3 class="hourly SegoeUILight">455.000</h3>
+                            <h6 class="monthly SegoeUILight">₫/tháng</h6>
+                            <ul class="details">
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-5 col-sm-3 col-lg-4 plan-value">
+                                            <strong>42</strong>
+                                        </div>
+                                        <div class="col-xs-7 col-sm-9 col-lg-8 plan-key">
+                                            GB SSD HDD
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-5 col-sm-3 col-lg-4 plan-value">
+                                            <strong>2</strong>
+                                        </div>
+                                        <div class="col-xs-7 col-sm-9 col-lg-8 plan-key">
+                                            GB RAM
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-5 col-sm-3 col-lg-4 plan-value">
+                                            <strong>2</strong>
+                                        </div>
+                                        <div class="col-xs-7 col-sm-9 col-lg-8 plan-key">
+                                            Core CPU
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-5 col-sm-3 col-lg-4 plan-value">
+                                            <strong>3</strong>
+                                        </div>
+                                        <div class="col-xs-7 col-sm-9 col-lg-8 plan-key">
+                                            TB Transfer
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-5 col-sm-3 col-lg-4 plan-value">
+                                            <strong>10</strong>
+                                        </div>
+                                        <div class="col-xs-7 col-sm-9 col-lg-8 plan-key">
+                                            Gbps Network
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                            <div class="action">
+                                <center>
+                                    <a class="btn-buy" href="https://go.vietiso.com/cart.php?a=add&amp;pid=58" rel="nofollow" title="Đăng ký">Đăng ký</a>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 reduce-gutter transition reduce-gutter-homepage" data-animation="fadeInLeft" data-animation-delay="600">
+                        <div class="price-block">
+                            <div class="plan">4gbRam:SSD</div>
+                            <h3 class="hourly SegoeUILight">920.000</h3>
+                            <h6 class="monthly SegoeUILight">₫/tháng</h6>
+                            <ul class="details">
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-5 col-sm-3 col-lg-4 plan-value">
+                                            <strong>60</strong>
+                                        </div>
+                                        <div class="col-xs-7 col-sm-9 col-lg-8 plan-key">
+                                            GB SSD HDD
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-5 col-sm-3 col-lg-4 plan-value">
+                                            <strong>4</strong>
+                                        </div>
+                                        <div class="col-xs-7 col-sm-9 col-lg-8 plan-key">
+                                            GB RAM
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-5 col-sm-3 col-lg-4 plan-value">
+                                            <strong>2</strong>
+                                        </div>
+                                        <div class="col-xs-7 col-sm-9 col-lg-8 plan-key">
+                                            Core CPU
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-5 col-sm-3 col-lg-4 plan-value">
+                                            <strong>4</strong>
+                                        </div>
+                                        <div class="col-xs-7 col-sm-9 col-lg-8 plan-key">
+                                            TB Transfer
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-5 col-sm-3 col-lg-4 plan-value">
+                                            <strong>10</strong>
+                                        </div>
+                                        <div class="col-xs-7 col-sm-9 col-lg-8 plan-key">
+                                            Gbps Network
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                            <div class="action">
+                                <center>
+                                    <a class="btn-buy" href="https://go.vietiso.com/cart.php?a=add&amp;pid=59" rel="nofollow" title="Đăng ký">Đăng ký</a>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-offset-5 col-md-2">
+                    <p class="text-center">
+                        <a id="show-larger-plans" class="btn-standard" href="/linux-vps" title="VPS - CloudLinux">Xem tất cả</a>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<!-- End Session 5 -->
+<!-- Begin Session 6 -->
+<div class="section" id="about_home_box">
+    <div class="container">
+        <div class="span80" style="margin-left:auto;margin-right:auto;">
+            <div class="row">
+                <h4 class="homeHeading transition" data-animation="fadeInUp" data-animation-delay="0"><a class="font50 SegoeUILight" href="/about" title="Về chúng tôi">Về chúng tôi</a></h4>
+                <hr class="about_box_hr" />
+                <div class="homeText mt10 SegoeUILight transition" data-animation="fadeInUp" data-animation-delay="200"><p>VietISO tự h&agrave;o cung cấp cho ng&agrave;nh du lịch những sản phẩm c&ocirc;ng nghệ ưu việt trong lĩnh vực <a title="du lịch" href="/thiet-ke-website-du-lich.html">du lịch</a>, <a title="kh&aacute;ch sạn" href="/thiet-ke-website-khach-san.html">kh&aacute;ch sạn</a>, tạo ra sự nhận diện thương hiệu v&agrave; khả năng kinh doanh vượt trội.</p></div>
+            </div>
+        </div>
+        <div id="target-5" class="row mt20">
+            <div class="col-md-6 mt20 text-center transition" data-animation="fadeInLeft" data-animation-delay="400">
+                <img src="http://www.vietiso.com/isocms/skin/images/img/ve_chung_toi.jpg" width="565px" height="536px" alt="Về chúng tôi" />
+            </div>
+            <div class="col-md-6">
+                <ul class="feature_list">
+                    <li class="transition" data-animation="fadeInUp" data-animation-delay="600">
+                        <div class="arrow icon-goal"></div>
+                        <h5 class="SegoeUILight">Mục tiêu</h5>
+                        <p class="font16 SegoeUILight">
+                            "Xây dựng và phát triển VietISO thành một công ty Công nghệ truyền thông hàng đầu Việt Nam, hoạt động rộng khắp trong lĩnh vực Phần mềm và Truyền Thông, có uy tín và có thị phần lớn trong giới công nghệ"
+                        </p>
+                    </li>
+                    <li class="transition" data-animation="fadeInUp" data-animation-delay="800">
+                        <div class="arrow icon-action"></div>
+                        <h5 class="SegoeUILight">Tôn chỉ hành động</h5>
+                        <p class="font16 SegoeUILight">"Đem lại giá trị sản phẩm cao cấp và ứng dụng giải pháp đa truyền thông tương tác cho các doanh nghiệp Việt Nam"</p>
+                    </li>
+                    <li class="last transition" data-animation="fadeInUp" data-animation-delay="1000">
+                        <div class="arrow icon-add"></div>
+                        <h5 class="SegoeUILight"><a href="/about">Xem thêm</a></h5>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Session 6 -->
+<div class="section">
+    <div id="footer" style="min-height:400px">
+        <div class="container">
+            <div class="row">
+                <div id="footer-m" class="wrap">
+                    <!-- Begin Footerlink -->
+                    <div class="col-md-3 widget col-f-2">
+                        <h2 class="headline mb10"><a class="upper" style="text-decoration:none;color:#FFF;" href="/site-builder" title="Thiết kế website">Thiết kế website</a></h2>
+                        <ul class="fixlist-horizontalz clw">
+                            <li><a target="_self" href="/thiet-ke-website-du-lich.html" title="Thiết kế website du lịch"><i class="fa fa-angle-right"></i> Thiết kế website du lịch</a></li>
+                            <li><a target="_self" href="/thiet-ke-website-khach-san.html" title="Thiết kế website khách sạn"><i class="fa fa-angle-right"></i> Thiết kế website khách sạn</a></li>
+                            <li><a target="_self" href="/thiet-ke-website-nha-hang.html" title="Thiết kế website nhà hàng"><i class="fa fa-angle-right"></i> Thiết kế website nhà hàng</a></li>
+                            <li><a target="_self" href="/info/logo-design-services" title="Nhận diện Thương hiệu"><i class="fa fa-angle-right"></i> Nhận diện Thương hiệu</a></li>
+                            <li><a target="_self" href="/tin-tuc/tu-van-thiet-ke-website/thiet-ke-website-ho-tro-seo-website-tich-hop-seo.html" title="Website hỗ trợ SEO - Google"><i class="fa fa-angle-right"></i> Website hỗ trợ SEO - Google</a></li>
+                            <li><a target="_self" href="/thiet-ke-website-su-kien.html" title="Thiết kế website sự kiện (Event)"><i class="fa fa-angle-right"></i> Thiết kế website sự kiện (Event)</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 widget col-f-2">
+                        <h2 class="headline mb10"><a class="upper" style="text-decoration:none;color:#FFF;" href="/" title="Server Lưu trữ">Server Lưu trữ</a></h2>
+                        <ul class="fixlist-horizontalz clw">
+                            <li><a target="_self" title="Thuê server riêng"><i class="fa fa-angle-right"></i> Thuê server riêng</a></li>
+                            <li><a target="_self" href="/linux-vps" title="Linux VPS"><i class="fa fa-angle-right"></i> Linux VPS</a></li>
+                            <li><a target="_self" href="/emailhosting" title="Lưu trữ Email"><i class="fa fa-angle-right"></i> Lưu trữ Email</a></li>
+                            <li><a target="_self" href="/linux-hosting" title="Linux Hosting"><i class="fa fa-angle-right"></i> Linux Hosting</a></li>
+                            <li><a target="_self" href="/tin-tuc/giai-phap/su-dung-mail-google-voi-ten-mien-rieng.html" title="Dịch vụ mail Google"><i class="fa fa-angle-right"></i> Dịch vụ mail Google</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 widget col-f-2">
+                        <h2 class="headline mb10"><a class="upper" style="text-decoration:none;color:#FFF;" href="http://seo.vietiso.com/" title="Tối ưu hóa Seo">Tối ưu hóa Seo</a></h2>
+                        <ul class="fixlist-horizontalz clw">
+                            <li><a target="_self" href="http://seo.vietiso.com/seo-news/yahoo-search-engine/seo-services.html" title="Tối ưu hóa với YSE"><i class="fa fa-angle-right"></i> Tối ưu hóa với YSE</a></li>
+                            <li><a target="_self" href="http://seo.vietiso.com/search-engine-optimization/optimization/seo-services.html" title="Tối ưu hóa website"><i class="fa fa-angle-right"></i> Tối ưu hóa website</a></li>
+                            <li><a target="_self" href="http://seo.vietiso.com/search-engine-optimization/cau-truc-website/seo-services.html" title="Cấu trúc website"><i class="fa fa-angle-right"></i> Cấu trúc website</a></li>
+                            <li><a target="_self" href="http://seo.vietiso.com/search-engine-optimization/link-building/seo-services.html" title="Xây dựng Link"><i class="fa fa-angle-right"></i> Xây dựng Link</a></li>
+                            <li><a target="_self" href="http://seo.vietiso.com/bang-gia-seo.html" title="Bảng giá SEO"><i class="fa fa-angle-right"></i> Bảng giá SEO</a></li>
+                            <li><a target="_self" href="http://seo.vietiso.com/seo-news/google-search-engine/seo-services.html" title="Thân thiện với search engine"><i class="fa fa-angle-right"></i> Thân thiện với search engine</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 widget col-f-2">
+                        <h2 class="headline mb10"><a class="upper" style="text-decoration:none;color:#FFF;" title="Tên miền (Domain)">Tên miền (Domain)</a></h2>
+                        <ul class="fixlist-horizontalz clw">
+                            <li><a target="_self" href="/domain-search" title="Bảng giá tên miền"><i class="fa fa-angle-right"></i> Bảng giá tên miền</a></li>
+                            <li><a target="_self" href="/info/cac-buoc-tien-hanh-dang-ky-ten-mien" title="Thủ tục đăng ký"><i class="fa fa-angle-right"></i> Thủ tục đăng ký</a></li>
+                            <li><a target="_self" href="/quytrinhdangky.doc" title="Quy trình đăng ký"><i class="fa fa-angle-right"></i> Quy trình đăng ký</a></li>
+                            <li><a target="_self" href="/info/vietnam-domain-name-registration-in-vietnamguider-protected-like" title="Hỏi đáp tên miền"><i class="fa fa-angle-right"></i> Hỏi đáp tên miền</a></li>
+                            <li><a target="_self" href="http://www.vietiso.com/thiet-ke-website-khach-san.html" title="Website khách sạn"><i class="fa fa-angle-right"></i> Website khách sạn</a></li>
+                            <li><a target="_blank" href="http://www.vietiso.com/thiet-ke-website-khach-san.html" title="Thiết kế website Hotel"><i class="fa fa-angle-right"></i> Thiết kế website Hotel</a></li>
+                        </ul>
+                    </div>
+                    <!-- End Footerlink -->
+                    <div style="clear:both"></div>
+                    <div class="col-md-3 widget col-f-2">
+                        <h2 class="headline mb10"><a style="text-decoration:none;color:#FFF;" href="/tin-tuc/thiet-ke-website-du-lich.html" title="Thiết kế website du lịch">Thiết kế website du lịch</a></h2>
+                        <ul class="fixlist-horizontalz">
+                            <li><a href="/tin-tuc/thiet-ke-website-du-lich/seo-du-lich-2012-qua-y-kien-cua-chuyen-gia-the-gioi.html" title="SEO du lịch 2012 qua ý kiến của chuyên gia thế giới"><i class="fa fa-angle-right"></i> SEO du lịch 2012 qua ý kiến của chuyên gia thế giới</a></li>
+                            <li><a href="/tin-tuc/thiet-ke-website-du-lich/su-khac-biet-cua-mot-web-du-lich-chuan.html" title="Sự khác biệt của một web du lịch chuẩn"><i class="fa fa-angle-right"></i> Sự khác biệt của một web du lịch chuẩn</a></li>
+                            <li><a href="/tin-tuc/thiet-ke-website-du-lich/cach-thuc-quang-ba-website-du-lich-hieu-qua.html" title="Cách thức quảng bá website du lịch hiệu quả"><i class="fa fa-angle-right"></i> Cách thức quảng bá website du lịch hiệu quả</a></li>
+                            <li><a href="/tin-tuc/thiet-ke-website-du-lich/ky-nang-seo-cho-website-du-lich.html" title="Kỹ năng SEO cho website du lịch"><i class="fa fa-angle-right"></i> Kỹ năng SEO cho website du lịch</a></li>
+                            <li><a href="/tin-tuc/thiet-ke-website-du-lich/vi-sao-chon-thiet-ke-website-du-lich-tai-vietiso.html" title="Vì sao chọn thiết kế website du lịch tại VIETISO?"><i class="fa fa-angle-right"></i> Vì sao chọn thiết kế website du lịch tại VIETISO?</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 widget col-f-2">
+                        <h2 class="headline mb10"><a style="text-decoration:none;color:#FFF;" href="/tin-tuc/quang-ba-website-seo.html" title="Quảng bá website - SEO">Quảng bá website - SEO</a></h2>
+                        <ul class="fixlist-horizontalz">
+                            <li><a href="/tin-tuc/quang-ba-website-seo/sub-domain-ten-mien-phu.html" title="Sub Domain - Tên miền phụ"><i class="fa fa-angle-right"></i> Sub Domain - Tên miền phụ</a></li>
+                            <li><a href="/tin-tuc/quang-ba-website-seo/mau-bao-cao-seo-ket-qua-.html" title="Mẫu báo cáo SEO (kết quả )"><i class="fa fa-angle-right"></i> Mẫu báo cáo SEO (kết quả )</a></li>
+                            <li><a href="/tin-tuc/quang-ba-website-seo/tong-hop-quy-trinh-seo-va-cac-cach-lam-seo-hieu-qua.html" title="Tổng hợp quy trình SEO và các cách làm SEO hiệu quả"><i class="fa fa-angle-right"></i> Tổng hợp quy trình SEO và các cách làm SEO hiệu quả</a></li>
+                            <li><a href="/tin-tuc/quang-ba-website-seo/thuat-toan-pigeon-chim-bo-cau-anh-huong-den-website-cua-ban.html" title="Thuật toán Pigeon &quot;chim bồ câu&quot; - ảnh hưởng đến website của bạn?"><i class="fa fa-angle-right"></i> Thuật toán Pigeon &quot;chim bồ câu&quot; - ảnh hưởng đến website của bạn?</a></li>
+                            <li><a href="/tin-tuc/quang-ba-website-seo/phuong-phap-tao-nguon-backlinks-hieu-qua.html" title="Phương pháp tạo nguồn backlinks hiệu quả"><i class="fa fa-angle-right"></i> Phương pháp tạo nguồn backlinks hiệu quả</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 widget col-f-2">
+                        <h2 class="headline mb10"><a style="text-decoration:none;color:#FFF;" href="/tin-tuc/thong-tin-cong-nghe.html" title="Thông tin công nghệ">Thông tin công nghệ</a></h2>
+                        <ul class="fixlist-horizontalz">
+                            <li><a href="/tin-tuc/thong-tin-cong-nghe/rdns-reverse-dns-la-gi.html" title="rDNS - Reverse DNS là gì?"><i class="fa fa-angle-right"></i> rDNS - Reverse DNS là gì?</a></li>
+                            <li><a href="/tin-tuc/thong-tin-cong-nghe/dich-vu-cloud-vps-cloud-server-hay-hosting-truyen-thong.html" title="Dịch vụ Cloud VPS – Cloud Server hay hosting truyền thống"><i class="fa fa-angle-right"></i> Dịch vụ Cloud VPS – Cloud Server hay hosting truyền thống</a></li>
+                            <li><a href="/tin-tuc/thong-tin-cong-nghe/ngay-231-moi-khac-phuc-xong-su-co-dut-cap-quang-internet.html" title="Ngày 23/1 mới khắc phục xong sự cố đứt cáp quang Internet"><i class="fa fa-angle-right"></i> Ngày 23/1 mới khắc phục xong sự cố đứt cáp quang Internet</a></li>
+                            <li><a href="/tin-tuc/thong-tin-cong-nghe/cap-quang-bien-aag-lai-bi-dut-ngay-nhung-ngay-dau-nam-2015.html" title="Cáp quang biển AAG lại bị đứt ngay những ngày đầu năm 2015"><i class="fa fa-angle-right"></i> Cáp quang biển AAG lại bị đứt ngay những ngày đầu năm 2015</a></li>
+                            <li><a href="/tin-tuc/thong-tin-cong-nghe/vi-sao-silicon-valley-vang-bong-phu-nu.html" title="Vì sao Silicon Valley vắng bóng phụ nữ?"><i class="fa fa-angle-right"></i> Vì sao Silicon Valley vắng bóng phụ nữ?</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 widget col-f-2">
+                        <h2 class="headline mb10"><a style="text-decoration:none;color:#FFF;" href="/tin-tuc/tu-van-thiet-ke-website.html" title="Tư vấn thiết kế website">Tư vấn thiết kế website</a></h2>
+                        <ul class="fixlist-horizontalz">
+                            <li><a href="/tin-tuc/tu-van-thiet-ke-website/vietiso-phat-trien-giai-phap-phuc-vu-cong-ty-du-lich-khach-san.html" title="VietISO: Phát triển giải pháp phục vụ Công ty Du lịch - Khách Sạn"><i class="fa fa-angle-right"></i> VietISO: Phát triển giải pháp phục vụ Công ty Du lịch - Khách Sạn</a></li>
+                            <li><a href="/tin-tuc/tu-van-thiet-ke-website/ban-can-hieu-rong-hon-ve-website.html" title="Bạn cần hiểu rộng hơn về website"><i class="fa fa-angle-right"></i> Bạn cần hiểu rộng hơn về website</a></li>
+                            <li><a href="/tin-tuc/tu-van-thiet-ke-website/tai-sao-lua-chon-thiet-ke-website-tai-vietiso.html" title="Tại sao lựa chọn thiết kế website tại VietISO"><i class="fa fa-angle-right"></i> Tại sao lựa chọn thiết kế website tại VietISO</a></li>
+                            <li><a href="/tin-tuc/tu-van-thiet-ke-website/10-dieu-luu-y-ve-website-thuong-mai-dien-tu.html" title="10 Điều lưu ý về Website thương mại điện tử?"><i class="fa fa-angle-right"></i> 10 Điều lưu ý về Website thương mại điện tử?</a></li>
+                            <li><a href="/tin-tuc/tu-van-thiet-ke-website/chi-dinh-phien-ban-trang-chuan-cua-ban.html" title="Chỉ định phiên bản trang chuẩn của bạn"><i class="fa fa-angle-right"></i> Chỉ định phiên bản trang chuẩn của bạn</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10">
+                    <span class="copyright_text">&copy; Bản quyền 2006 - 2015</span>
+                    <nav class="menu_bottom">
+                        <ul>
+                            <li><a href="/" title="VietISO">VietISO</a></li>
+                            <li>|</li>
+                            <li><a href="/about" title="Về chúng tôi">Về chúng tôi</a></li>
+                            <li>|</li>
+                            <li><a href="/ho-tro" title="Hỗ trợ">Hỗ trợ</a></li>
+                            <li>|</li>
+                            <li><a href="/ho-tro/chinh-sach-bao-mat" title="Chính sách">Chính sách</a></li>
+                            <li>|</li>
+                            <li><a href="/ho-tro/dieu-khoan-dich-vu" title="Điều khoản">Điều khoản</a></li>
+                            <li>|</li>
+                            <li><a href="/tin-tuc/tuyen-dung.html" title="Tuyển dụng">Tuyển dụng</a></li>
+                            <li>|</li>
+                            <li><a href="/contact" title="Liên hệ">Liên hệ</a></li>
+                        </ul>
+                    </nav>
+                    <div class="clearfix"></div>
+                    <p class="mt10 sponselink font11">
+                        <a href="http://seo.vietiso.com/bang-gia-seo.html" title="Bảng giá SEO">Bảng giá SEO</a> - <a href="/site-builder" title="Thiết kế web">Thiết kế web</a> - <a href="/domain-search" title="Tra cứu tên miền">Tra cứu tên miền</a> - <a href="http://seo.vietiso.com/seo-news/google-search-engine/seo-services.html" title="Google Search Engine">Google Search Engine</a> - <a href="/info/logo-design-services" title="Thương hiệu">Thương hiệu</a> - <a href="/web-function" title="Web chức năng">Web chức năng</a> - <a href="/web-templates-free" title="Web templates">Web templates</a> - <a href="/tin-tuc/tin-noi-bo-tai-lieu/hop-dong-dich-vu-seo-cua-vietiso.html" title="Hợp đồng dịch vụ SEO của Vietiso">Hợp đồng</a> - <a class="check_pr" href="/pagerank" title="Công cụ Kiểm tra Pagerank">Kiểm tra Pagerank</a>
+                    </p>
+                </div>
+                <div class="col-md-2" id="logoBottomHolder">
+                    <img fr src="http://www.vietiso.com/isocms/skin/images/power.png" width="132" height="43" id="logoBottom" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+	<script type="text/javascript">
+    $(document).ready(function () {
+        boI();
+        /**/
+        var $windowWidth = $(window).width();
+        var $windowHeight = $(window).height();
+        var $headerHeight = $('#header').outerHeight();
+        var $copyrightHeight = $('#copyright').outerHeight();
+        if ($windowWidth > 480) {
+            if ($windowHeight > 677) {
+                $("#scrollDownToAbout").css("top", "-51px");
+            }
+            $('#bgTransitionWrap').css("height", ($windowHeight - $headerHeight) + 'px');
+            $(window).resize(function () {
+                var $windowHeight = $(window).height();
+                var $headerHeight = $('#header').outerHeight();
+                var $copyrightHeight = $('#copyright').outerHeight();
+                $("#footer").css("height", ($windowHeight - ($copyrightHeight + $headerHeight)) + "px");
+            });
+            $('#responsiveHome').fullpage({
+                resize: true,
+                scrollingSpeed: 600,
+                navigation: false,
+                onLeave: function (index, nextIndex, direction) {
+                    var $header = $('#header');
+                    var $container = $('#container');
+                    var $headerHeight = $header.outerHeight();
+                    if (nextIndex == 1) {
+                        setTimeout(function () {
+                            $header.removeClass('headerFx');
+                            $('.SiteVietIsoHotBanner').stop(false, true).slideDown();
+                        }, 480);
+                    } else {
+                        setTimeout(function () {
+                            $header.addClass('headerFx');
+                            $('.SiteVietIsoHotBanner').stop(false, true).slideUp();
+                            $('#modal-dialog-thanks').stop(false, true).hide();
+                        }, 480);
+                    }
+                    setTimeout(function () {
+                        $(".scrollDownButton").hide();
+                        $(".scrollDownButton:eq(" + (nextIndex - 1) + ")").show();
+                        $("#mainmenu li").removeClass("selected");
+                        $("#header_" + nextIndex).addClass("selected");
+                    }, 480);
+                },
+                afterLoad: function (anchorLink, index) {
+                }
+            });
+            $("#mainmenu li a").live("click", function () {
+                var idx = $(this).attr("idx");
+                if (idx != undefined) {
+                    $('.main-nav-hover-item').slideUp();
+                    $('#mainmenu a.current').removeClass('current');
+                    $('#responsiveHome').fullpage.moveTo(idx);
+                    $(this).addClass('current');
+                    return false;
+                }
+            });
+        } else {
+            $("#scrollDownToWebService").live("click", function () {
+                $('html, body').animate({ scrollTop: $("#service_webs_home").offset().top }, 1000);
+                return false;
+            });
+        }
+    });
+    function boI() {
+        setInterval(function () {
+            var $numSlide = $('.bgSlide').size();
+            if ($numSlide > 1) {
+                var $current = parseInt($("div[class^='bgSlide'].current").attr('idx'));
+                $current = $current + 1;
+                if ($current == $numSlide) {
+                    $('.bgSlide:visible').removeClass('current').fadeOut(2000);
+                    $('.bgSlide:eq(0)').addClass('current').fadeIn(2000);
+                    $current = 0;
+                } else {
+                    $('.bgSlide:visible').removeClass('current').fadeOut(2000);
+                    $('.bgSlide:eq(' + $current + ')').addClass('current').fadeIn(2000);
+                }
+            }
+        }, 6000);
+    }
+</script>

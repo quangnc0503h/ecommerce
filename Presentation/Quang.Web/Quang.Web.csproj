@@ -73,6 +73,10 @@
     <Content Include="app\scripts\services\authInterceptorService.js" />
     <Content Include="app\scripts\services\authservice.js" />
     <Content Include="app\scripts\services\tockensmanagerservice.js" />
+    <Content Include="app\styles\animate.min.css" />
+    <Content Include="app\styles\contact.css" />
+    <Content Include="app\styles\responive.css" />
+    <Content Include="app\styles\style.min.css" />
     <Content Include="app\views\login.html" />
     <Content Include="app\views\logout.html" />
     <Content Include="bower.json" />
