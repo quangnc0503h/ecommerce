@@ -10,6 +10,8 @@ namespace Quang.Auth.Entities
     {
         public long Id { get; set; }
 
+        public long ClientId { get; set; }
+
         public long RequestDeviceId { get; set; }
 
         public bool IsActived { get; set; }

@@ -1,4 +1,6 @@
-﻿using Quang.Auth.Entities;
+﻿using System.Text.RegularExpressions;
+using Dapper;
+using Quang.Auth.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,179 +11,148 @@ namespace Quang.Auth.DataAccess
 {
     public static class DeviceDal
     {
-        public static int Delete(int deviceId)
+        public static async Task<long> Delete(int deviceId)
         {
-            return this._database.Execute("Delete from Devices where Id = @id", new Dictionary<string, object>()
-      {
-        {
-          "@id",
-          (object) deviceId
-        }
-      });
+            const string commandText = "Delete from Devices where Id = @id";
+            var parameters = new DynamicParameters();
+            parameters.Add("id", deviceId);
+            long results;
+            using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
+            {
+
+                var data = await conn.QueryAsync<long>(commandText, parameters);
+                results = data.FirstOrDefault();
+            }
+            return results;
         }
 
-        public int Delete(IEnumerable<int> Ids)
+        public static async Task<long> Delete(IEnumerable<int> Ids)
         {
-            string commandText = "Delete from Devices where Id in (" + string.Join<int>(",", (IEnumerable<int>)Enumerable.ToArray<int>(Ids)) + ")";
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            int num = this._database.Execute(commandText, parameters);
-            this._database.Execute(commandText, new Dictionary<string, object>());
-            return num;
+            string commandText = "Delete from Devices where Id in (" + string.Join(",", Ids.ToArray()) + ")";
+            var parameters = new DynamicParameters();
+            long results;
+            using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
+            {
+
+                var data = await conn.QueryAsync<long>(commandText, parameters);
+                results = data.FirstOrDefault();
+            }
+            return results;
         }
 
-        public int Insert(Device device)
+        public static async Task<long> Insert(Device device)
         {
-            string commandText = "Insert into Devices (Id, ClientId, RequestDeviceId, IsActived, DeviceKey, DeviceSecret, SerialNumber, IMEI, Manufacturer, Model, Platform, PlatformVersion, DeviceName, DeviceDescription) " + "values (@id, @clientId, @requestDeviceId, @isActived, @deviceKey, @deviceSecret, @serialNumber, @iMEI, @manufacturer, @model, @platform, @platformVersion, @deviceName, @deviceDescription)";
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            const string commandText = @" Insert into Devices (Id, ClientId, RequestDeviceId, IsActived, DeviceKey, DeviceSecret, SerialNumber, IMEI, Manufacturer, Model, Platform, PlatformVersion, DeviceName, DeviceDescription) 
+                                         values (@id, @clientId, @requestDeviceId, @isActived, @deviceKey, @deviceSecret, @serialNumber, @iMEI, @manufacturer, @model, @platform, @platformVersion, @deviceName, @deviceDescription)";
+            var parameters = new DynamicParameters();
             if (device.Id > 0)
-                parameters.Add("@id", (object)device.Id);
+                parameters.Add("id", device.Id);
             else
-                parameters.Add("@id", (object)null);
-            parameters.Add("@clientId", (object)device.ClientId);
-            parameters.Add("@requestDeviceId", (object)device.RequestDeviceId);
-            parameters.Add("@isActived", (object)(bool)(device.IsActived ? 1 : 0));
-            parameters.Add("@deviceKey", (object)device.DeviceKey);
-            parameters.Add("@deviceSecret", (object)device.DeviceSecret);
-            parameters.Add("@serialNumber", (object)device.SerialNumber);
-            parameters.Add("@iMEI", (object)device.IMEI);
-            parameters.Add("@manufacturer", (object)device.Manufacturer);
-            parameters.Add("@model", (object)device.Model);
-            parameters.Add("@platform", (object)device.Platform);
-            parameters.Add("@platformVersion", (object)device.PlatformVersion);
-            parameters.Add("@deviceName", (object)device.DeviceName);
-            parameters.Add("@deviceDescription", (object)device.DeviceDescription);
-            return this._database.Execute(commandText, parameters);
-        }
-
-        public int Update(Device device)
-        {
-            return this._database.Execute("Update Devices Set " + "ClientId = @clientId, " + "IsActived = @isActived, " + "DeviceKey = @deviceKey, " + "DeviceSecret = @deviceSecret, " + "SerialNumber = @serialNumber, " + "IMEI = @iMEI, " + "Manufacturer = @manufacturer, " + "Model = @model, " + "Platform = @platform, " + "PlatformVersion = @platformVersion, " + "DeviceName = @deviceName, " + "DeviceDescription = @deviceDescription " + "where Id = @id", new Dictionary<string, object>()
-      {
-        {
-          "@id",
-          (object) device.Id
-        },
-        {
-          "@clientId",
-          (object) device.ClientId
-        },
-        {
-          "@isActived",
-          (object) (bool) (device.IsActived ? 1 : 0)
-        },
-        {
-          "@deviceKey",
-          (object) device.DeviceKey
-        },
-        {
-          "@deviceSecret",
-          (object) device.DeviceSecret
-        },
-        {
-          "@serialNumber",
-          (object) device.SerialNumber
-        },
-        {
-          "@iMEI",
-          (object) device.IMEI
-        },
-        {
-          "@manufacturer",
-          (object) device.Manufacturer
-        },
-        {
-          "@model",
-          (object) device.Model
-        },
-        {
-          "@platform",
-          (object) device.Platform
-        },
-        {
-          "@platformVersion",
-          (object) device.PlatformVersion
-        },
-        {
-          "@deviceName",
-          (object) device.DeviceName
-        },
-        {
-          "@deviceDescription",
-          (object) device.DeviceDescription
-        }
-      });
-        }
-
-        public IEnumerable<Device> GetAllDevices()
-        {
-            IList<Device> list = (IList<Device>)new List<Device>();
-            foreach (Dictionary<string, string> dictionary in this._database.Query("Select * from Devices order by Id"))
+                parameters.Add("id",0);
+            parameters.Add("clientId", device.ClientId);
+            parameters.Add("requestDeviceId", device.RequestDeviceId);
+            parameters.Add("isActived", device.IsActived ? 1 : 0);
+            parameters.Add("deviceKey", device.DeviceKey);
+            parameters.Add("deviceSecret", device.DeviceSecret);
+            parameters.Add("serialNumber", device.SerialNumber);
+            parameters.Add("iMEI", device.IMEI);
+            parameters.Add("manufacturer", device.Manufacturer);
+            parameters.Add("model", device.Model);
+            parameters.Add("platform", device.Platform);
+            parameters.Add("platformVersion", device.PlatformVersion);
+            parameters.Add("deviceName", device.DeviceName);
+            parameters.Add("deviceDescription", device.DeviceDescription);
+            long results;
+            using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
-                Device device = new Device();
-                device.Id = int.Parse(dictionary["Id"]);
-                device.ClientId = dictionary["ClientId"];
-                device.IsActived = bool.Parse(dictionary["IsActived"]);
-                device.DeviceKey = dictionary["DeviceKey"];
-                device.DeviceSecret = dictionary["DeviceSecret"];
-                device.DeviceName = dictionary["DeviceName"];
-                device.DeviceDescription = dictionary["DeviceDescription"];
-                device.SerialNumber = dictionary["SerialNumber"];
-                device.IMEI = dictionary["IMEI"];
-                device.Manufacturer = dictionary["Manufacturer"];
-                device.Model = dictionary["Model"];
-                device.Platform = dictionary["Platform"];
-                device.PlatformVersion = dictionary["PlatformVersion"];
-                device.RequestDeviceId = new int?();
-                if (!string.IsNullOrEmpty(dictionary["RequestDeviceId"]))
-                    device.RequestDeviceId = new int?(int.Parse(dictionary["RequestDeviceId"]));
-                list.Add(device);
+
+                var data = await conn.QueryAsync<long>(commandText, parameters);
+                results = data.FirstOrDefault();
             }
-            return (IEnumerable<Device>)list;
+            return results;
         }
 
-        public Device GetOneDevice(int deviceId)
+        public static async Task<long> Update(Device device)
         {
-            Device device = (Device)null;
-            List<Dictionary<string, string>> list = this._database.Query("Select * from Devices where Id = @id", new Dictionary<string, object>()
-      {
-        {
-          "@id",
-          (object) deviceId
-        }
-      });
-            if (list != null && list.Count == 1)
+            var parameters = new DynamicParameters();
+            const string commandText = "Update Devices Set " + "ClientId = @clientId, " + "IsActived = @isActived, " +
+                                       "DeviceKey = @deviceKey, " + "DeviceSecret = @deviceSecret, " +
+                                       "SerialNumber = @serialNumber, " + "IMEI = @iMEI, " + "Manufacturer = @manufacturer, " +
+                                       "Model = @model, " + "Platform = @platform, " + "PlatformVersion = @platformVersion, " +
+                                       "DeviceName = @deviceName, " + "DeviceDescription = @deviceDescription " +
+                                       "where Id = @id";
+            parameters.Add("id", device.Id);
+            parameters.Add("clientId", device.ClientId);
+            parameters.Add("@isActived", (device.IsActived ? 1 : 0));
+            parameters.Add("deviceKey", device.DeviceKey);
+            parameters.Add("deviceSecret", device.DeviceSecret);
+            parameters.Add("serialNumber", device.SerialNumber);
+            parameters.Add("iMEI", device.IMEI);
+            parameters.Add("manufacturer", device.Manufacturer);
+            parameters.Add("model", device.Model);
+            parameters.Add("platform", device.Platform);
+            parameters.Add("platformVersion", device.PlatformVersion);
+            parameters.Add("@deviceName", device.DeviceName);
+            parameters.Add("deviceDescription", device.DeviceDescription);
+            long results;
+            using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
-                Dictionary<string, string> dictionary = list[0];
-                device = new Device();
-                device.Id = int.Parse(dictionary["Id"]);
-                device.ClientId = dictionary["ClientId"];
-                device.IsActived = bool.Parse(dictionary["IsActived"]);
-                device.DeviceKey = dictionary["DeviceKey"];
-                device.DeviceSecret = dictionary["DeviceSecret"];
-                device.DeviceName = dictionary["DeviceName"];
-                device.DeviceDescription = dictionary["DeviceDescription"];
-                device.SerialNumber = dictionary["SerialNumber"];
-                device.IMEI = dictionary["IMEI"];
-                device.Manufacturer = dictionary["Manufacturer"];
-                device.Model = dictionary["Model"];
-                device.Platform = dictionary["Platform"];
-                device.PlatformVersion = dictionary["PlatformVersion"];
-                device.RequestDeviceId = new int?();
-                if (!string.IsNullOrEmpty(dictionary["RequestDeviceId"]))
-                    device.RequestDeviceId = new int?(int.Parse(dictionary["RequestDeviceId"]));
+
+                var data = await conn.QueryAsync<long>(commandText, parameters);
+                results = data.FirstOrDefault();
             }
+            return results;
+
+
+
+        }
+
+        public static async Task<IEnumerable<Device>> GetAllDevices()
+        {
+
+            List<Device> devices;
+            var parameters = new DynamicParameters();
+            const string commandText = "Select * from Devices order by Id";
+            using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
+            {
+
+                var data = await conn.QueryAsync<Device>(commandText, parameters);
+                devices = data.ToList();
+            }
+
+            return (IEnumerable<Device>)devices;
+
+        }
+
+        public static async Task<Device> GetOneDevice(long deviceId)
+        {
+            Device device;
+            const string commandText = "Select * from Devices where Id = @id";
+            var parameters = new DynamicParameters();
+            parameters.Add("@id", deviceId);
+            using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
+            {
+                var data = await conn.QueryAsync<Device>(commandText, parameters);
+                device = data.First();
+            }
+
             return device;
         }
-
-        public int GetTotal(string clientId, string keyword)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="clientId"></param>
+        /// <param name="keyword"></param>
+        /// <returns></returns>
+        public static async Task<long> GetTotal(string clientId, string keyword)
         {
             string commandText = "select count(*) from Devices where (DeviceName LIKE @param OR DeviceKey LIKE @param OR RequestDeviceId=@rid)";
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("@param", (object)("%" + Utils.EncodeForLike(keyword) + "%"));
+            var parameters = new DynamicParameters();
+            parameters.Add("@param", "%" + Utils.EncodeForLike(keyword) + "%");
             if (!string.IsNullOrEmpty(clientId))
             {
                 commandText += " AND ClientId=@clientId";
-                parameters.Add("@clientId", (object)clientId);
+                parameters.Add("@clientId", clientId);
             }
             int num = 0;
             if (!string.IsNullOrEmpty(keyword))
@@ -190,19 +161,35 @@ namespace Quang.Auth.DataAccess
                 if (match.Success)
                     num = int.Parse(match.Groups[1].Value);
             }
-            parameters.Add("@rid", (object)num);
-            return int.Parse(this._database.QueryValue(commandText, parameters).ToString());
-        }
+            parameters.Add("@rid", num);
+            long results;
 
-        public static IEnumerable<Device> GetPaging(int pageSize, int pageNumber, string clientId, string keyword)
+            using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
+            {
+
+                var id = await conn.QueryAsync<long>(commandText, parameters);
+                results = id.Single();
+            }
+
+            return results;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="pageNumber"></param>
+        /// <param name="clientId"></param>
+        /// <param name="keyword"></param>
+        /// <returns></returns>
+        public static async Task<IEnumerable<Device>> GetPaging(int pageSize, int pageNumber, string clientId, string keyword)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            string str = "select * from Devices where (DeviceName LIKE @param OR DeviceKey LIKE @param OR RequestDeviceId=@rid)";
-            parameters.Add("@param", (object)("%" + Utils.EncodeForLike(keyword) + "%"));
+            var parameters = new DynamicParameters();
+            string commandText = "select * from Devices where (DeviceName LIKE @param OR DeviceKey LIKE @param OR RequestDeviceId=@rid)";
+            parameters.Add("param", "%" + Utils.EncodeForLike(keyword) + "%");
             if (!string.IsNullOrEmpty(clientId))
             {
-                str += " AND ClientId=@clientId";
-                parameters.Add("@clientId", (object)clientId);
+                commandText += " AND ClientId=@clientId";
+                parameters.Add("clientId", clientId);
             }
             int num = 0;
             if (!string.IsNullOrEmpty(keyword))
@@ -211,142 +198,86 @@ namespace Quang.Auth.DataAccess
                 if (match.Success)
                     num = int.Parse(match.Groups[1].Value);
             }
-            parameters.Add("@rid", (object)num);
-            string commandText = str + " order by Id limit @rowNumber, @pageSize";
-            parameters.Add("@rowNumber", (object)(pageSize * pageNumber));
-            parameters.Add("@pageSize", (object)pageSize);
-            List<Device> list = new List<Device>();
-            foreach (Dictionary<string, string> dictionary in this._database.Query(commandText, parameters))
+            parameters.Add("rid", num);
+            commandText = commandText + " order by Id limit @rowNumber, @pageSize";
+            parameters.Add("@rowNumber", pageSize * pageNumber);
+            parameters.Add("@pageSize", pageSize);
+            List<Device> devices;
+            using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
             {
-                Device device = new Device();
-                device.Id = int.Parse(dictionary["Id"]);
-                device.ClientId = dictionary["ClientId"];
-                device.IsActived = bool.Parse(dictionary["IsActived"]);
-                device.DeviceKey = dictionary["DeviceKey"];
-                device.DeviceSecret = dictionary["DeviceSecret"];
-                device.DeviceName = dictionary["DeviceName"];
-                device.DeviceDescription = dictionary["DeviceDescription"];
-                device.SerialNumber = dictionary["SerialNumber"];
-                device.IMEI = dictionary["IMEI"];
-                device.Manufacturer = dictionary["Manufacturer"];
-                device.Model = dictionary["Model"];
-                device.Platform = dictionary["Platform"];
-                device.PlatformVersion = dictionary["PlatformVersion"];
-                device.RequestDeviceId = new int?();
-                if (!string.IsNullOrEmpty(dictionary["RequestDeviceId"]))
-                    device.RequestDeviceId = new int?(int.Parse(dictionary["RequestDeviceId"]));
-                list.Add(device);
+
+                var data = await conn.QueryAsync<Device>(commandText, parameters);
+                devices = data.ToList();
             }
-            return (IEnumerable<Device>)list;
+
+            return (IEnumerable<Device>)devices;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="clientId"></param>
+        /// <param name="deviceKey"></param>
+        /// <param name="deviceSecret"></param>
+        /// <returns></returns>
+        public static async Task<Device> GetDevice(string clientId, string deviceKey, string deviceSecret)
+        {
+            const string commandText = @"select * from Devices where ClientId=@clientId and DeviceKey = @deviceKey and DeviceSecret = @deviceSecret and IsActived = @isActived";
+            var parameters = new DynamicParameters();
+            List<Device> devices;
+            using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
+            {
+                parameters.Add("clientId", clientId);
+                parameters.Add("deviceKey", deviceKey);
+                parameters.Add("deviceSecret", deviceSecret);
+                parameters.Add("isActived", true);
+                var data = await conn.QueryAsync<Device>(commandText, parameters);
+                devices = data.ToList();
+
+            }
+
+            return devices.FirstOrDefault();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="clientId"></param>
+        /// <param name="deviceKey"></param>
+        /// <returns></returns>
+        public static async Task<Device> GetDevice(string clientId, string deviceKey)
+        {
+            const string commandText = @"select * from Devices where ClientId=@clientId and  DeviceKey = @deviceKey";
+            var parameters = new DynamicParameters();
+            List<Device> devices;
+            using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
+            {
+                parameters.Add("clientId", clientId);
+                parameters.Add("deviceKey", deviceKey);
+                var data = await conn.QueryAsync<Device>(commandText, parameters);
+                devices = data.ToList();
+
+            }
+
+            return devices.FirstOrDefault();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<IEnumerable<Client>> GetAllClients()
+        {
+            const string commandText = "SELECT * FROM Clients ";
+            var parameters = new Dictionary<string, object>() { };
+            List<Client> clients;
+            using (var conn = await DataAccessBase.GetOpenAsync(DataAccessBase.QuangAuthConn))
+            {
+                var data = await conn.QueryAsync<Client>(commandText, parameters);
+                clients = data.ToList();
+            }
+
+            return clients;
         }
 
-        public static Device GetDevice(string clientId, string deviceKey, string deviceSecret)
-        {
-            List<Dictionary<string, string>> list = this._database.Query("select * from Devices where ClientId=@clientId and DeviceKey = @deviceKey and DeviceSecret = @deviceSecret and IsActived = @isActived", new Dictionary<string, object>()
-      {
-        {
-          "@clientId",
-          (object) clientId
-        },
-        {
-          "@deviceKey",
-          (object) deviceKey
-        },
-        {
-          "@deviceSecret",
-          (object) deviceSecret
-        },
-        {
-          "@isActived",
-          (object) true
-        }
-      });
-            Device device = (Device)null;
-            if (list != null && list.Count == 1)
-            {
-                Dictionary<string, string> dictionary = list[0];
-                device = new Device();
-                device.Id = int.Parse(dictionary["Id"]);
-                device.ClientId = dictionary["ClientId"];
-                device.IsActived = bool.Parse(dictionary["IsActived"]);
-                device.DeviceKey = dictionary["DeviceKey"];
-                device.DeviceSecret = dictionary["DeviceSecret"];
-                device.DeviceName = dictionary["DeviceName"];
-                device.DeviceDescription = dictionary["DeviceDescription"];
-                device.SerialNumber = dictionary["SerialNumber"];
-                device.IMEI = dictionary["IMEI"];
-                device.Manufacturer = dictionary["Manufacturer"];
-                device.Model = dictionary["Model"];
-                device.Platform = dictionary["Platform"];
-                device.PlatformVersion = dictionary["PlatformVersion"];
-                device.RequestDeviceId = new int?();
-                if (!string.IsNullOrEmpty(dictionary["RequestDeviceId"]))
-                    device.RequestDeviceId = new int?(int.Parse(dictionary["RequestDeviceId"]));
-            }
-            return device;
-        }
-
-        public static Device GetDevice(string clientId, string deviceKey)
-        {
-            List<Dictionary<string, string>> list = this._database.Query("select * from Devices where ClientId=@clientId and  DeviceKey = @deviceKey", new Dictionary<string, object>()
-      {
-        {
-          "@clientId",
-          (object) clientId
-        },
-        {
-          "@deviceKey",
-          (object) deviceKey
-        }
-      });
-            Device device = (Device)null;
-            if (list != null && list.Count == 1)
-            {
-                Dictionary<string, string> dictionary = list[0];
-                device = new Device();
-                device.Id = int.Parse(dictionary["Id"]);
-                device.ClientId = dictionary["ClientId"];
-                device.IsActived = bool.Parse(dictionary["IsActived"]);
-                device.DeviceKey = dictionary["DeviceKey"];
-                device.DeviceSecret = dictionary["DeviceSecret"];
-                device.DeviceName = dictionary["DeviceName"];
-                device.DeviceDescription = dictionary["DeviceDescription"];
-                device.SerialNumber = dictionary["SerialNumber"];
-                device.IMEI = dictionary["IMEI"];
-                device.Manufacturer = dictionary["Manufacturer"];
-                device.Model = dictionary["Model"];
-                device.Platform = dictionary["Platform"];
-                device.PlatformVersion = dictionary["PlatformVersion"];
-                device.RequestDeviceId = new int?();
-                if (!string.IsNullOrEmpty(dictionary["RequestDeviceId"]))
-                    device.RequestDeviceId = new int?(int.Parse(dictionary["RequestDeviceId"]));
-            }
-            return device;
-        }
-
-        public static IEnumerable<Client> GetAllClients()
-        {
-            IList<Client> list1 = (IList<Client>)new List<Client>();
-            List<Dictionary<string, string>> list2 = this._database.Query("Select * from Clients");
-            if (list2 != null)
-            {
-                foreach (Dictionary<string, string> dictionary in list2)
-                {
-                    Client client = new Client();
-                    client.Id = dictionary["Id"];
-                    client.Secret = dictionary["Secret"];
-                    client.Name = dictionary["Name"];
-                    if (int.Parse(dictionary["ApplicationType"]) == 1)
-                        client.ApplicationType = ApplicationTypes.NativeConfidential;
-                    else if (int.Parse(dictionary["ApplicationType"]) == 0)
-                        client.ApplicationType = ApplicationTypes.JavaScript;
-                    client.Active = int.Parse(dictionary["Active"]) == 1;
-                    client.RefreshTokenLifeTime = int.Parse(dictionary["RefreshTokenLifeTime"]);
-                    client.AllowedOrigin = dictionary["AllowedOrigin"];
-                    list1.Add(client);
-                }
-            }
-            return (IEnumerable<Client>)list1;
-        }
+       
+       
     }
 }

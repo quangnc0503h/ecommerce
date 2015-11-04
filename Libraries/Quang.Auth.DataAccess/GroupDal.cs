@@ -17,8 +17,7 @@ namespace Quang.Auth.DataAccess
         public async static Task<long> Delete(long groupId)
         {
             string commandText = "Delete from Groups where Id = @id";
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("@id", groupId);
+            var parameters = new Dictionary<string, object> {{"@id", groupId}};
 
             long results;
 
@@ -59,14 +58,7 @@ namespace Quang.Auth.DataAccess
             {
                 parameters.Add("@id", null);
             }
-            if (group.ParentId > 0)
-            {
-                parameters.Add("@parentId", group.ParentId);
-            }
-            else
-            {
-                parameters.Add("@parentId", null);
-            }
+            parameters.Add("@parentId", @group.ParentId > 0 ? @group.ParentId : null);
             parameters.Add("@name", group.Name);
             parameters.Add("@description", group.Description);
 
@@ -85,7 +77,7 @@ namespace Quang.Auth.DataAccess
         public async static Task<long> Update(Group group)
         {
             string commandText = "Update Groups set ParentId = @parentId, Name = @name, Description = @description  where Id = @id";
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            var parameters = new Dictionary<string, object>();
             if (group.ParentId > 0)
             {
                 parameters.Add("@parentId", group.ParentId.Value);
