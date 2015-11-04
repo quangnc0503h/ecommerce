@@ -17,9 +17,13 @@
     <link rel="stylesheet" href="styles/responive.css">
     <link rel="stylesheet" href="styles/contact.css">
     <link rel="stylesheet" href="styles/animate.min.css">
-    <link rel="stylesheet" href="styles/style.min.css">
+    <link rel="stylesheet" href="styles/style.css">
     <!-- endbuild -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link href='http://fonts.googleapis.com/css?family=Raleway:200' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Noto+Serif:400,700&subset=latin,vietnamese' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&subset=latin,vietnamese' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Roboto:500,300,700,400' rel='stylesheet' type='text/css'>
 </head>
 <body ng-app="quangwebApp" class="homePage ">
     <img src="images/max_slide.jpg" style="width:0; height:0; display:none" />
@@ -242,160 +246,35 @@
         <div class="clearfix"></div>
     </div>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            if (deviceType != 'phone') {
-                $('.modal').on('shown.bs.modal', function () {
-                    $(this).find('.modal-dialog').css({
-                        'margin-top': function () {
-                            var $h = $(window).height();
-                            var $h_e = $(this).outerHeight();
-                            return ($h - $h_e) / 2;
-                        }
-                    });
-                });
-            }
-            $(document).on('keyup', '.required', function (ev) {
-                var $_this = $(this);
-                if ($_this.val() != '') {
-                    $_this.removeClass('errorMsg');
-                } else {
-                    $_this.removeClass('errorMsg');
-                }
-            });
-            $('#submitWizard1').click(function () {
-                $('.required').each(function () {
-                    var $_this = $(this);
-                    var name = $_this.attr('name');
-                    if ($_this.val() == '') {
-                        $_this.addClass('errorMsg');
-                        $('label[for=' + name + ']').addClass('input-label-error');
-                    } else {
-                        $_this.removeClass('errorMsg');
-                        $('label[for=' + name + ']').removeClass('input-label-error');
-                    }
-                });
-                $('input[type=email]').each(function () {
-                    var $_this = $(this);
-                    var nameThis = $_this.attr('name');
-                    var valThis = $_this.val();
-                    if (valThis != '') {
-                        if (checkVaidEmail(valThis) == false) {
-                            $('label[for=' + nameThis + ']').addClass('input-label-error');
-                        } else {
-                            $('label[for=' + nameThis + ']').removeClass('input-label-error');
-                        }
-                    }
-                });
-                var website = $('input[name=website]').val();
-                if (website != '') {
-                    if (checkVaidUrl(website) == false) {
-                        $('label[for=website]').addClass('input-label-error');
-                    } else {
-                        $('label[for=website]').removeClass('input-label-error');
-                    }
-                }
-                /* Check Error */
-                var $total_error = $('label.input-label-error').size();
-                if ($total_error > 0) {
-                    $('.error-msg').show();
-                    return false;
-                } else {
-                    $('.error-msg').hide();
-                    var next_tabs = $(this).attr('next-tabs');
-                    var current_tabs = $(this).attr('current-tabs');
-                    $('#wizard-' + next_tabs).show();
-                    $('#wizard-' + current_tabs).hide();
-                    return true;
-                }
-            });
-            $('.back-btn').click(function () {
-                var current_tabs = $(this).attr('current-tabs');
-                var prev_tabs = $(this).attr('prev-tabs');
-                $('#wizard-' + prev_tabs).show();
-                $('#wizard-' + current_tabs).hide();
-                return true;
-            });
-            $('select[name=check_domain_id]').change(function () {
-                var $_this = $(this);
-                var $check_domain_id = $_this.val();
-                if ($check_domain_id == '2') {
-                    $('#domain').show();
-                    $('input[name=domain]').addClass('required');
-                } else {
-                    $('#domain').hide();
-                    $('input[name=domain]').removeClass('required');
-                }
-            });
-            $('select[name=services_id]').change(function () {
-                var $_this = $(this);
-                var $services_id = $_this.val();
-                setEmployee($services_id);
-                $.ajax({
-                    type: "POST",
-                    url: path_ajax_script + "/index.php?mod=ajax&act=ajLoadPackagesServices",
-                    data: { "services_id": $services_id, "slt": $.cookie('service_pack_id') },
-                    dataType: "html",
-                    success: function (html) {
-                        $('#service_pack_id').html(html);
-                    }
-                });
-                return false;
-            });
-            $('input[name=HasOptedOutOfEmail]').change(function () {
-                var $_this = $(this);
-                var val = $_this.val();
-                if (val == 'TRUE') {
-                    $('.preferences').removeClass('input-disabled');
-                    $('.default-checked').removeAttr("disabled");
-                } else {
-                    $('.preferences').addClass('input-disabled');
-                    $('.default-checked').attr("disabled", "disabled");
-                }
-            });
-            $('#submitFrmContact').click(function () {
-                var $_this = $(this);
-                $_this.val('Đang gửi...');
-                $("#frmSendContact").ajaxSubmit({
-                    type: "POST",
-                    url: path_ajax_script + "/index.php?mod=ajax&act=ajSubmitContact",
-                    dataType: "html",
-                    success: function (html) {
-                        if (html.indexOf('_SUCCESS') >= 0) {
-                            $_this.val('Gửi');
-                            $('#modal-dialog-thanks').show();
-                            $('#contact_box').remove();
-                            $('.modal-backdrop').remove();
-                            $('body').removeClass('modal-open');
-                        }
-                    }
-                });
-            });
-            $('#modal-dialog-thanks-close-btn').click(function () {
-                $('#modal-dialog-thanks').remove();
-            });
-        });
-        function setEmployee() {
-            var $services_id = $('select[name=services_id]').val();
-            if ($services_id == 11) {
-                $('.chooice_employee').html('<input readonly="readonly" name="number_of_employee" class="vietiso-lg" value="1" type="textbox" />');
-                $('select[name=service_pack_id]').live('change', function () {
-                    var $slot = $(this).find('option:selected').attr('_user');
-                    $('input[name=number_of_employee]').val($slot);
-                });
-            } else {
-                $.ajax({
-                    type: "POST",
-                    url: path_ajax_script + "/index.php?mod=home&act=ajaxHTMLEmployee",
-                    dataType: "html",
-                    success: function (html) {
-                        $('.chooice_employee').html(html);
-                    }
-                });
-            }
-        }
-    </script>
-
+    
+<script type="text/javascript">
+			var path_ajax_script="http://www.vietiso.com";
+			var _LANG_ID="en";
+			var URL_IMAGES="http://www.vietiso.com/isocms/skin/images";
+			var URL_CSS="http://www.vietiso.com/isocms/skin/css";
+			var URL_JS="http://www.vietiso.com/isocms/skin/js";
+			var deviceType = "computer";
+			var mod = "home";
+			var act = "default";
+			var _loggedin = '';
+			var return_url  = '/';
+			var appId = '695936000500803';
+			var chUrl = '/js/channel.html';
+			var _login_facebook = '1';
+			var REQUEST_URI = '';
+			var OAUTHURL    =   'https://accounts.google.com/o/oauth2/auth?';
+			var VALIDURL    =   'https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=';
+			var SCOPE       =   'https://www.googleapis.com/auth/userinfo.email';
+			var CLIENTID    =   '631756266773-58iop0aphsfbi1rhi08pdmcini7kajrm.apps.googleusercontent.com';
+			var REDIRECT    =   'http://www.vietiso.com/oauth2callback';
+			var TYPE        =   'token';
+			var _url        =   OAUTHURL + 'scope=' + SCOPE + '&client_id=' + CLIENTID + '&redirect_uri=' + REDIRECT + '&response_type=' + TYPE;
+			var acToken;
+			var tokenType;
+			var expiresIn;
+			var user;
+			var loggedIn    =   false;
+		</script>
 
     <!--[if lt IE 7]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -671,8 +550,7 @@
     <script type="text/javascript" src="http://www.vietiso.com/isocms/skin/js/jquery.fullPage.js"></script>
     <script type="text/javascript" src="http://www.vietiso.com/isocms/skin/js/jquery.inview.min.js"></script>
     <script type="text/javascript" src="http://www.vietiso.com/isocms/skin/js/jquery.slimscroll.min.js"></script>
-    <script type="text/javascript" src="http://www.vietiso.com/isocms/skin/js/context.js?v=1446477752"></script>
-    <script type="text/javascript" src="http://www.vietiso.com/isocms/skin/js/vietiso.scrip.min.js?v=1446477752"></script>
+    <script type="text/javascript" src="http://www.vietiso.com/isocms/skin/js/context.js?v=1446477752"></script>    
     <script type="text/javascript" src="http://www.vietiso.com/isocms/skin/js/docs.min.js?v=1446477752"></script>
 
 </body>

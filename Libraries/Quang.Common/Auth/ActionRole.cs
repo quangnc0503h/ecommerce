@@ -68,40 +68,57 @@ namespace Quang.Common.Auth
         private static IDictionary<string, ActionRoleItem> _dictionaryItems;
         public static IDictionary<string, ActionRoleItem> ToListDictionary()
         {
-            if (_dictionaryItems == null)
+            if (ActionRole._dictionaryItems == null)
             {
-                _dictionaryItems = new Dictionary<string, ActionRoleItem>();
-                var assemblyTypes = typeof(ActionRole).Assembly.GetTypes();
-                var items = assemblyTypes.Where(type => type.DeclaringType == typeof(ActionRole));
-                foreach (var item in items)
+                ActionRole._dictionaryItems = (IDictionary<string, ActionRoleItem>)new Dictionary<string, ActionRoleItem>();
+                Type[] types = typeof(ActionRole).Assembly.GetTypes();
+                foreach (Type type1 in Enumerable.Where<Type>((IEnumerable<Type>)types, (Func<Type, bool>)(type => type.DeclaringType == typeof(ActionRole))))
                 {
-                    var properties = item.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy).Where(m => m.IsLiteral && !m.IsInitOnly).OrderBy(m => m.GetRawConstantValue());
-                    foreach (var property in properties)
+                    Type item = type1;
+                    foreach (FieldInfo fieldInfo in (IEnumerable<FieldInfo>)Enumerable.OrderBy<FieldInfo, object>(Enumerable.Where<FieldInfo>((IEnumerable<FieldInfo>)item.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.FlattenHierarchy), (Func<FieldInfo, bool>)(m =>
                     {
-                        var roleKey = property.GetRawConstantValue();
-                        if (roleKey != null)
+                        if (m.IsLiteral)
+                            return !m.IsInitOnly;
+                        return false;
+                    })), (Func<FieldInfo, object>)(m => m.GetRawConstantValue())))
+                    {
+                        object rawConstantValue = fieldInfo.GetRawConstantValue();
+                        if (rawConstantValue != null)
                         {
-                            var name = typeof(ActionRole).Name + "." + item.Name + "." + property.Name;
-                            _dictionaryItems.Add(roleKey.ToString(), new ActionRoleItem { Group = item.Name, RoleKey = roleKey.ToString(), RoleKeyLabel = name });
+                            string str = typeof(ActionRole).Name + "." + item.Name + "." + fieldInfo.Name;
+                            ActionRole._dictionaryItems.Add(rawConstantValue.ToString(), new ActionRoleItem()
+                            {
+                                Group = item.Name,
+                                RoleKey = rawConstantValue.ToString(),
+                                RoleKeyLabel = str
+                            });
                         }
                     }
-                    var subItems = assemblyTypes.Where(type => type.DeclaringType == item);
-                    foreach (var subItem in subItems)
+                    foreach (Type type2 in Enumerable.Where<Type>((IEnumerable<Type>)types, (Func<Type, bool>)(type => type.DeclaringType == item)))
                     {
-                        var subProperties = subItem.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy).Where(m => m.IsLiteral && !m.IsInitOnly).OrderBy(m => m.GetRawConstantValue());
-                        foreach (var subProperty in subProperties)
+                        foreach (FieldInfo fieldInfo in (IEnumerable<FieldInfo>)Enumerable.OrderBy<FieldInfo, object>(Enumerable.Where<FieldInfo>((IEnumerable<FieldInfo>)type2.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.FlattenHierarchy), (Func<FieldInfo, bool>)(m =>
                         {
-                            var roleKey = subProperty.GetRawConstantValue();
-                            if ( roleKey != null)
+                            if (m.IsLiteral)
+                                return !m.IsInitOnly;
+                            return false;
+                        })), (Func<FieldInfo, object>)(m => m.GetRawConstantValue())))
+                        {
+                            object rawConstantValue = fieldInfo.GetRawConstantValue();
+                            if (rawConstantValue != null)
                             {
-                                var name = typeof(ActionRole).Name + "." + item.Name + "." + subItem.Name + "." + subProperty.Name;
-                                _dictionaryItems.Add(roleKey.ToString(), new ActionRoleItem { Group = item.Name, RoleKey = roleKey.ToString(), RoleKeyLabel = name });
+                                string str = typeof(ActionRole).Name + "." + item.Name + "." + type2.Name + "." + fieldInfo.Name;
+                                ActionRole._dictionaryItems.Add(rawConstantValue.ToString(), new ActionRoleItem()
+                                {
+                                    Group = item.Name,
+                                    RoleKey = rawConstantValue.ToString(),
+                                    RoleKeyLabel = str
+                                });
                             }
                         }
                     }
                 }
             }
-            return _dictionaryItems;
+            return ActionRole._dictionaryItems;
         }
     }
 

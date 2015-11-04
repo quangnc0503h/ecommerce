@@ -56,3 +56,7 @@ D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\bin\Debug\Jil.xml
 D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\obj\Debug\Quang.Common.csprojResolveAssemblyReference.cache
 D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\obj\Debug\Quang.Common.dll
 D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Common\obj\Debug\Quang.Common.pdb
+C:\Projects\ecommerce\Libraries\Quang.Common\bin\Debug\Microsoft.Owin.Security.dll
+C:\Projects\ecommerce\Libraries\Quang.Common\bin\Debug\Microsoft.Owin.Security.OAuth.dll
+C:\Projects\ecommerce\Libraries\Quang.Common\bin\Debug\Microsoft.Owin.Security.xml
+C:\Projects\ecommerce\Libraries\Quang.Common\bin\Debug\Microsoft.Owin.Security.OAuth.xml

@@ -20,3 +20,9 @@ Presentation/Quang.Cate.Api/obj/Debug/Quang.Cate.Api.csproj.FileListAbsolute.txt
 /Libraries/Quang.Common/obj
 /Libraries/Quang.Cate.BusinessLogic/bin
 /Libraries/Quang.Cate.BusinessLogic/obj
+Presentation/Quang.Cate.Api/bin/Quang.Common.pdb
+*.pdb
+Presentation/Quang.Cate.Api/bin/Quang.Common.dll
+Presentation/Quang.Cate.Api/bin/Quang.Cate.Api.pdb
+*.dll
+Presentation/Quang.Auth.Web/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache

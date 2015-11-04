@@ -1,6 +1,6 @@
 ﻿using Microsoft.Owin.Security.OAuth;
 using Owin;
-using Quang.Cate.Api.Providers;
+using Quang.Common.Auth.Provider;
 
 namespace Quang.Cate.Api
 {
@@ -15,7 +15,7 @@ namespace Quang.Cate.Api
         {
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions
             {
-                Provider = new ApplicationOAuthProvider()
+                Provider = new ClientOAuthBearerAuthenticationProvider()
             });
         }
     }

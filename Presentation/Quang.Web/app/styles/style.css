@@ -1,7 +1,4 @@
-﻿* {
-    margin: 0;
-    padding: 0;
-}
+﻿
 
 .wrap {
     width: 100%;
@@ -2223,7 +2220,8 @@ a.color_gg:hover {
 
     .phoneScreen .data-box li {
         margin: 0 0 10px 0;
-        padding: 0 height:16px;
+        padding: 0;
+		height:16px;
     }
 
         .phoneScreen .data-box li:nth-child(1) a {
@@ -6985,7 +6983,7 @@ th.group-name {
 
 .SiteVietIsoHeaderPricing > strong {
     font-family: 'Roboto', sans-serif;
-    fo;
+    
 }
 
 .SiteVietIsoCrmPricingElem > .SiteVietIsoBodyPricing {

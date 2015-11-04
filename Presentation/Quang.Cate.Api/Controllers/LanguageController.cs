@@ -15,6 +15,7 @@ using System.Collections.Generic;
 namespace Quang.Cate.Api.Controllers
 {
     [RoutePrefix("api/language")]
+    [AppAuthorize(Roles = ActionRole.DanhMuc.Languages)]
     public class LanguageController : ApiController
     {
         [HttpPost]

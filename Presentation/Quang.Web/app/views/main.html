@@ -1,4 +1,157 @@
 ﻿<script type="text/javascript">
+        $(document).ready(function () {
+            if (deviceType != 'phone') {
+                $('.modal').on('shown.bs.modal', function () {
+                    $(this).find('.modal-dialog').css({
+                        'margin-top': function () {
+                            var $h = $(window).height();
+                            var $h_e = $(this).outerHeight();
+                            return ($h - $h_e) / 2;
+                        }
+                    });
+                });
+            }
+            $(document).on('keyup', '.required', function (ev) {
+                var $_this = $(this);
+                if ($_this.val() != '') {
+                    $_this.removeClass('errorMsg');
+                } else {
+                    $_this.removeClass('errorMsg');
+                }
+            });
+            $('#submitWizard1').click(function () {
+                $('.required').each(function () {
+                    var $_this = $(this);
+                    var name = $_this.attr('name');
+                    if ($_this.val() == '') {
+                        $_this.addClass('errorMsg');
+                        $('label[for=' + name + ']').addClass('input-label-error');
+                    } else {
+                        $_this.removeClass('errorMsg');
+                        $('label[for=' + name + ']').removeClass('input-label-error');
+                    }
+                });
+                $('input[type=email]').each(function () {
+                    var $_this = $(this);
+                    var nameThis = $_this.attr('name');
+                    var valThis = $_this.val();
+                    if (valThis != '') {
+                        if (checkVaidEmail(valThis) == false) {
+                            $('label[for=' + nameThis + ']').addClass('input-label-error');
+                        } else {
+                            $('label[for=' + nameThis + ']').removeClass('input-label-error');
+                        }
+                    }
+                });
+                var website = $('input[name=website]').val();
+                if (website != '') {
+                    if (checkVaidUrl(website) == false) {
+                        $('label[for=website]').addClass('input-label-error');
+                    } else {
+                        $('label[for=website]').removeClass('input-label-error');
+                    }
+                }
+                /* Check Error */
+                var $total_error = $('label.input-label-error').size();
+                if ($total_error > 0) {
+                    $('.error-msg').show();
+                    return false;
+                } else {
+                    $('.error-msg').hide();
+                    var next_tabs = $(this).attr('next-tabs');
+                    var current_tabs = $(this).attr('current-tabs');
+                    $('#wizard-' + next_tabs).show();
+                    $('#wizard-' + current_tabs).hide();
+                    return true;
+                }
+            });
+            $('.back-btn').click(function () {
+                var current_tabs = $(this).attr('current-tabs');
+                var prev_tabs = $(this).attr('prev-tabs');
+                $('#wizard-' + prev_tabs).show();
+                $('#wizard-' + current_tabs).hide();
+                return true;
+            });
+            $('select[name=check_domain_id]').change(function () {
+                var $_this = $(this);
+                var $check_domain_id = $_this.val();
+                if ($check_domain_id == '2') {
+                    $('#domain').show();
+                    $('input[name=domain]').addClass('required');
+                } else {
+                    $('#domain').hide();
+                    $('input[name=domain]').removeClass('required');
+                }
+            });
+            $('select[name=services_id]').change(function () {
+                var $_this = $(this);
+                var $services_id = $_this.val();
+                setEmployee($services_id);
+                $.ajax({
+                    type: "POST",
+                    url: path_ajax_script + "/index.php?mod=ajax&act=ajLoadPackagesServices",
+                    data: { "services_id": $services_id, "slt": $.cookie('service_pack_id') },
+                    dataType: "html",
+                    success: function (html) {
+                        $('#service_pack_id').html(html);
+                    }
+                });
+                return false;
+            });
+            $('input[name=HasOptedOutOfEmail]').change(function () {
+                var $_this = $(this);
+                var val = $_this.val();
+                if (val == 'TRUE') {
+                    $('.preferences').removeClass('input-disabled');
+                    $('.default-checked').removeAttr("disabled");
+                } else {
+                    $('.preferences').addClass('input-disabled');
+                    $('.default-checked').attr("disabled", "disabled");
+                }
+            });
+            $('#submitFrmContact').click(function () {
+                var $_this = $(this);
+                $_this.val('Đang gửi...');
+                $("#frmSendContact").ajaxSubmit({
+                    type: "POST",
+                    url: path_ajax_script + "/index.php?mod=ajax&act=ajSubmitContact",
+                    dataType: "html",
+                    success: function (html) {
+                        if (html.indexOf('_SUCCESS') >= 0) {
+                            $_this.val('Gửi');
+                            $('#modal-dialog-thanks').show();
+                            $('#contact_box').remove();
+                            $('.modal-backdrop').remove();
+                            $('body').removeClass('modal-open');
+                        }
+                    }
+                });
+            });
+            $('#modal-dialog-thanks-close-btn').click(function () {
+                $('#modal-dialog-thanks').remove();
+            });
+        });
+        function setEmployee() {
+            var $services_id = $('select[name=services_id]').val();
+            if ($services_id == 11) {
+                $('.chooice_employee').html('<input readonly="readonly" name="number_of_employee" class="vietiso-lg" value="1" type="textbox" />');
+                $('select[name=service_pack_id]').live('change', function () {
+                    var $slot = $(this).find('option:selected').attr('_user');
+                    $('input[name=number_of_employee]').val($slot);
+                });
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: path_ajax_script + "/index.php?mod=home&act=ajaxHTMLEmployee",
+                    dataType: "html",
+                    success: function (html) {
+                        $('.chooice_employee').html(html);
+                    }
+                });
+            }
+        }
+    </script>
+<script type="text/javascript">
     $().ready(function () {
         $('.transition').each(function () {
             var $this = $(this);
