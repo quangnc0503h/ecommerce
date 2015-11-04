@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Client.cs" />
     <Compile Include="Device.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="Permission.cs" />

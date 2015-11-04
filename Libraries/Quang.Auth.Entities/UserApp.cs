@@ -31,4 +31,9 @@ namespace Quang.Auth.Entities
         None = 0,
         ClientApi = 1
     }
+    public enum ApplicationTypes
+    {
+        JavaScript,
+        NativeConfidential,
+    }
 }
