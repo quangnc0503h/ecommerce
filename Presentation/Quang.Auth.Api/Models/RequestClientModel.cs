@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace Quang.Auth.Entities
+namespace Quang.Auth.Api.Models
 {
-    public class RequestDevices
+    public class RequestClientModel
     {
-        public long Id { get; set; }
-
-        public bool IsApproved { get; set; }
+        public string ClientId { get; set; }
 
         public string DeviceKey { get; set; }
 
@@ -25,9 +22,5 @@ namespace Quang.Auth.Entities
         public string Platform { get; set; }
 
         public string PlatformVersion { get; set; }
-
-        public DateTime Created { get; set; }
-
-        public DateTime Updated { get; set; }
     }
 }

@@ -7,43 +7,43 @@ namespace Quang.Auth.Api.Models
 {
     public class FilterDeviceModel
     {
-        
+        public string ClientId { get; set; }
 
         public string Keyword { get; set; }
 
         public int PageSize { get; set; }
 
         public int PageNumber { get; set; }
-
-        public string OrderBy { get; set; }
 
     }
     public class FilterRequestDeviceModel
     {
+        public string ClientId { get; set; }
+
+        public string Keyword { get; set; }
+
         public DateTime? DateFrom { get; set; }
 
         public DateTime? DateTo { get; set; }
 
-        public string Keyword { get; set; }
-
         public int PageSize { get; set; }
 
         public int PageNumber { get; set; }
-
-        public string OrderBy { get; set; }
 
     }
     public class DeviceModel
     {
         public long Id { get; set; }
+
+        public string ClientId { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public long RequestDeviceId { get; set; }
+        public long? RequestDeviceId { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public short IsActived { get; set; }
+        public bool IsActived { get; set; }
         /// <summary>
         /// 
         /// </summary>

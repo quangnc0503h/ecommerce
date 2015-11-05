@@ -10,9 +10,19 @@ namespace Quang.Auth.Entities
     {
         public long Id { get; set; }
 
-        public long ClientId { get; set; }
+        public string ClientId { get; set; }
 
-        public long RequestDeviceId { get; set; }
+        public long? RequestDeviceId { get; set; }
+
+        public string RequestDeviceName
+        {
+            get
+            {
+                if (this.RequestDeviceId.HasValue)
+                    return string.Format("R{0}", (object)this.RequestDeviceId.Value.ToString("D4"));
+                return (string)null;
+            }
+        }
 
         public bool IsActived { get; set; }
 

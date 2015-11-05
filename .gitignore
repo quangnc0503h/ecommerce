@@ -26,3 +26,10 @@ Presentation/Quang.Cate.Api/bin/Quang.Common.dll
 Presentation/Quang.Cate.Api/bin/Quang.Cate.Api.pdb
 *.dll
 Presentation/Quang.Auth.Web/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+Libraries/Quang.Cate.BusinessLogic/bin/Debug/Quang.Cate.BusinessLogic.pdb
+*.dll
+Libraries/Quang.Cate.BusinessLogic/bin/Debug/Quang.Cate.DataAccess.pdb
+*.xml
+*.dll
+Libraries/Quang.Cate.BusinessLogic/bin/Debug/Quang.Cate.DataAccess.pdb
+Libraries/Quang.Cate.BusinessLogic/obj/Debug/Quang.Cate.BusinessLogic.csproj.FileListAbsolute.txt
