@@ -8,3 +8,6 @@ D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Commerce.DataAccess\bin\De
 D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Commerce.DataAccess\obj\Debug\Quang.Commerce.DataAccess.csprojResolveAssemblyReference.cache
 D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Commerce.DataAccess\obj\Debug\Quang.Commerce.DataAccess.dll
 D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Commerce.DataAccess\obj\Debug\Quang.Commerce.DataAccess.pdb
+C:\Projects\ecommerce\Libraries\Quang.Commerce.DataAccess\bin\Debug\Microsoft.Owin.dll
+C:\Projects\ecommerce\Libraries\Quang.Commerce.DataAccess\bin\Debug\Owin.dll
+C:\Projects\ecommerce\Libraries\Quang.Commerce.DataAccess\bin\Debug\Microsoft.Owin.xml

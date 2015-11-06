@@ -8,11 +8,11 @@ namespace Quang.Auth.Entities
 {
     public class Device
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public string ClientId { get; set; }
 
-        public long? RequestDeviceId { get; set; }
+        public int? RequestDeviceId { get; set; }
 
         public string RequestDeviceName
         {

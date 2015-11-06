@@ -8,22 +8,23 @@ namespace Quang.Auth.Api.Results
 {
     public class ChallengeResult : IHttpActionResult
     {
+        public string LoginProvider { get; set; }
+
+        public HttpRequestMessage Request { get; set; }
+
         public ChallengeResult(string loginProvider, ApiController controller)
         {
-            LoginProvider = loginProvider;
-            Request = controller.Request;
+            this.LoginProvider = loginProvider;
+            this.Request = controller.Request;
         }
-
-        public string LoginProvider { get; set; }
-        public HttpRequestMessage Request { get; set; }
 
         public Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
         {
-            Request.GetOwinContext().Authentication.Challenge(LoginProvider);
-
-            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
-            response.RequestMessage = Request;
-            return Task.FromResult(response);
+            OwinHttpRequestMessageExtensions.GetOwinContext(this.Request).Authentication.Challenge(this.LoginProvider);
+            return Task.FromResult<HttpResponseMessage>(new HttpResponseMessage(HttpStatusCode.Unauthorized)
+            {
+                RequestMessage = this.Request
+            });
         }
     }
 }

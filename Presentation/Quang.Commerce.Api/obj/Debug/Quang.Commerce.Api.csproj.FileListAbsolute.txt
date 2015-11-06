@@ -51,3 +51,6 @@ D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Commerce.Api\bin\System
 D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Commerce.Api\obj\Debug\Quang.Commerce.Api.csprojResolveAssemblyReference.cache
 D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Commerce.Api\obj\Debug\Quang.Commerce.Api.dll
 D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Commerce.Api\obj\Debug\Quang.Commerce.Api.pdb
+C:\Projects\ecommerce\Presentation\Quang.Commerce.Api\bin\Microsoft.Owin.dll
+C:\Projects\ecommerce\Presentation\Quang.Commerce.Api\bin\Owin.dll
+C:\Projects\ecommerce\Presentation\Quang.Commerce.Api\bin\Microsoft.Owin.xml

@@ -1,5 +1,5 @@
 ﻿using Quang.Auth.Api.Models;
-using Quang.Auth.BusinessLogic;
+
 using StackExchange.Exceptional;
 using System;
 using System.Collections.Generic;
@@ -13,310 +13,186 @@ using Microsoft.AspNet.Identity;
 using Quang.Auth.Entities;
 using Quang.Common.Auth;
 using System.Security.Claims;
+using Quang.Auth.Api.Dto;
+using System.Web;
+using Quang.Auth.Api.BusinessLogic;
 
 namespace Quang.Auth.Api.Controllers
 {
-    //[AppAuthorize(Roles =ActionRole.HeThong.Users)]
     [RoutePrefix("api/User")]
-    public class UserController : BaseApiController
+    public class UserController : ApiController
     {
-       
-        [HttpPost]
-        [AppAuthorize(Roles = ActionRole.HeThong.Users)]
-        [Route("GetAll")]
-        public async Task<DataSourceResultModel> GetAll(FilterUserModel filter)
-        {
-            try
-            {
-                var model = new DataSourceResultModel
-                {
-                    Total = await UserBll.GetTotal(filter.GroupId,filter.Keyword),
-                    Data = await UserBll.GetPaging(filter.PageSize, filter.PageNumber, filter.GroupId, filter.Keyword)
-                };
-                return model;
-            }
-            catch (Exception ex)
-            {
+        private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManager;
+        private IUserBll _userBll;
+        private ITermBll _termBll;
+        private IGroupBll _groupBll;
+        private IPermissionBll _permissionBll;
+        private ILoginHistoryBll _loginHistoryBll;
 
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return new DataSourceResultModel();
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return this._userManager ?? OwinContextExtensions.GetUserManager<ApplicationUserManager>(OwinHttpRequestMessageExtensions.GetOwinContext(this.Request));
             }
-            
+            private set
+            {
+                this._userManager = value;
+            }
         }
 
-        [HttpPost]
-        [AppAuthorize(Roles = ActionRole.HeThong.Users)]
-        [Route("GetOneUser")]
-        public async Task<UserModel> GetOneUser(GetOneInputModel input)
+        public ApplicationRoleManager RoleManager
         {
-            try
+            get
             {
-                var user = await UserManager.FindByIdAsync((int)input.Id);
-                var claims = await UserManager.GetClaimsAsync(user.Id);
-                var displayName = claims.FirstOrDefault(m => m.Type == "displayName");
-               
-                var groups = await UserBll.GetGroupsByUser(input.Id);
-                return new UserModel { Id = user.Id, UserName = user.UserName, DisplayName = displayName != null ? displayName.Value : string.Empty, UserGroups = groups, Email = user.Email, PhoneNumber = user.PhoneNumber, HasPassword = !string.IsNullOrEmpty(user.PasswordHash) };
+                return this._roleManager ?? OwinContextExtensions.GetUserManager<ApplicationRoleManager>(OwinHttpRequestMessageExtensions.GetOwinContext(this.Request));
             }
-            catch (Exception ex)
+            private set
             {
+                this._roleManager = value;
+            }
+        }
 
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return new UserModel();
-            }
-            
+        public UserController()
+        {
+        }
+
+        public UserController(IUserBll userBll, ITermBll termBll, IGroupBll groupBll, IPermissionBll permissionBll, ILoginHistoryBll loginHistoryBll)
+        {
+            this._userBll = userBll;
+            this._groupBll = groupBll;
+            this._permissionBll = permissionBll;
+            this._termBll = termBll;
+            this._loginHistoryBll = loginHistoryBll;
+        }
+
+        [Route("GetAll")]
+        [HttpPost]
+        [AppAuthorize(Roles = "100")]
+        public async Task<DanhSachUserOutput> GetAll(FilterUserInput filter)
+        {
+            return await this._userBll.GetAll(filter);
+        }
+
+        [Route("GetOneUser")]
+        [AppAuthorize(Roles = "100")]
+        [HttpPost]
+        public async Task<GetOneUserOutput> GetOneUser(GetOneUserInput input)
+        {
+            return await this._userBll.GetOneUser(input.Id, true);
         }
 
         [HttpPost]
         [Authorize]
         [Route("GetCurrentUser")]
-        public async Task<UserModel> GetCurrentUser()
+        public async Task<GetOneUserOutput> GetCurrentUser()
         {
-            try
-            {
-                var userId =  User.Identity.GetUserId<long>();
-                var user = await UserManager.FindByIdAsync((int)userId);
-                var claims = await UserManager.GetClaimsAsync(user.Id);
-                var displayName = claims.FirstOrDefault(m => m.Type == "displayName");
-
-                var groups = await UserBll.GetGroupsByUser(userId);
-                return new UserModel { Id = user.Id, UserName = user.UserName, DisplayName = displayName != null ? displayName.Value : string.Empty, UserGroups = groups, Email = user.Email, PhoneNumber = user.PhoneNumber, HasPassword = !string.IsNullOrEmpty(user.PasswordHash) };
-            }
-            catch (Exception ex)
-            {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return new UserModel();
-            }
-                        
+            int userId = IdentityExtensions.GetUserId<int>(this.User.Identity);
+            GetOneUserOutput user = await this._userBll.GetOneUser(userId.ToString());
+            return user;
         }
 
-        [HttpPost]
-        [AppAuthorize(Roles = ActionRole.HeThong.Users)]
         [Route("CreateUser")]
-        public async Task<NotificationResultModel> CreateUser(UserModel input)
+        [AppAuthorize(Roles = "100")]
+        [HttpPost]
+        public async Task<CreateUserOutput> CreateUser(CreateUserInput input)
         {
-            try
+            CreateUserOutput result = await this._userBll.CreateUser(input);
+            if (result.Status == 0)
             {
-                var result = new NotificationResultModel();
-                var user = new ApplicationUser
-                           {
-                               Email = input.Email,
-                               UserName = input.UserName,
-                               PhoneNumber = input.PhoneNumber
-                           };
-                var res = await UserManager.CreateAsync(user);
-                result.Status = 1;
-                if (res.Succeeded)
-                {
-                    input.Id = user.Id;
-                    if (!string.IsNullOrEmpty(input.Password))
-                    {
-                        res = await UserManager.AddPasswordAsync(user.Id, input.Password);
-                        if (res.Succeeded)
-                        {
-                            // Update display name
-                            res = await UserManager.AddClaimAsync(user.Id, new Claim("displayName", input.DisplayName));
-
-                            // Update groups
-                            if (input.UserGroups != null)
-                            {
-                                foreach (var group in input.UserGroups)
-                                {
-                                   await UserBll.AddUserToGroup(group.Id, user.Id);
-                                }
-                            }
-                            result.Status = 0;
-                        }
-                    }
-                    else
-                    {
-                        result.Status = 0;
-                    }
-                }
-                return result;
+                int num = await this._permissionBll.GenerateRolesForUser(input.Id);
             }
-            catch (Exception ex)
-            {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return new NotificationResultModel();
-            }
-        
+            return result;
         }
 
         [HttpPost]
-        [AppAuthorize(Roles = ActionRole.HeThong.Users)]
-        [Route("UpdateUser")]
-        public async Task<NotificationResultModel> UpdateUser(UserModel input)
+        [AppAuthorize(Roles = "100")]
+        [Route("CreateMobileUser")]
+        public async Task<CreateMobileUserOutput> CreateMobileUser(CreateMobileUserInput input)
         {
-            try
+            CreateMobileUserOutput result = await this._userBll.CreateMobileUser(input);
+            if (result.Status == 0)
             {
-                var result = new NotificationResultModel { Status = 1 };
-                
-                var user = await UserManager.FindByIdAsync((int)input.Id);
+                ApplicationUser user = await this.UserManager.FindByNameAsync(input.Mobile);
                 if (user != null)
                 {
-                    bool canUpdate = true;
-                    if (user.UserName != input.UserName)
-                    {
-                        var currentUser = await UserManager.FindByNameAsync(input.UserName);
-                        if (currentUser != null && currentUser.Id > 0 && currentUser.Id != user.Id)
-                        {
-                            canUpdate = false;
-                        }
-                    }
-                    if (canUpdate)
-                    {
-                        user.UserName = input.UserName;
-                        user.Email = input.Email;
-                        user.PhoneNumber = input.PhoneNumber;
-                        if (!string.IsNullOrEmpty(input.Password))
-                        {
-                            user.PasswordHash = UserManager.PasswordHasher.HashPassword(input.Password);
-                        }
-                        var res = await UserManager.UpdateAsync(user);
-                        if (res.Succeeded)
-                        {
-                            // Update display name
-                            var scopeClaims = new string[] { "displayName" };
-                            var claims = await UserManager.GetClaimsAsync(user.Id);
-                            foreach (var claim in claims.Where(m => scopeClaims.Contains(m.Type)))
-                            {
-                                res = await UserManager.RemoveClaimAsync(user.Id, claim);
-                            }
-                            res = await UserManager.AddClaimAsync(user.Id, new Claim("displayName", input.DisplayName));
-
-                            if (input.UpdateGroups)
-                            {
-                                // Update groups
-                                var currentGroups = (await UserBll.GetGroupsByUser(user.Id)).Select(m => m.Id).ToArray();
-                                if (input.UserGroups != null)
-                                {
-                                    foreach (var newGroup in input.UserGroups.Where(m => !currentGroups.Contains(m.Id)))
-                                    {
-                                      await   UserBll.AddUserToGroup(newGroup.Id, user.Id);
-                                    }
-                                    foreach (var oldGroup in currentGroups.Where(m => !input.UserGroups.Select(n => n.Id).Contains(m)))
-                                    {
-                                        await UserBll.RemoveUserFromGroup(oldGroup, user.Id);
-                                    }
-                                }
-                            }
-                            result.Status = 0;
-                        }
-                    }
+                    int num = await this._permissionBll.GenerateRolesForUser(user.Id);
                 }
-                if (result.Status == 0)
-                {
-                    //await _termBll.ReUpdateUserRole(input.Id);
-                    await PermissionBll.GenerateRolesForUser(input.Id);
-                }
-                return result;
-                
             }
-            catch (Exception ex)
+            return result;
+        }
+
+        [HttpPost]
+        [AppAuthorize(Roles = "100")]
+        [Route("SetMobilePassword")]
+        public async Task<SetMobilePasswordOutput> SetMobilePassword(SetMobilePasswordInput input)
+        {
+            SetMobilePasswordOutput result = await this._userBll.SetMobilePassword(input);
+            if (result.Status == 0)
+                await this.LogHistory(LoginType.ChangePassword, LoginStatus.Success, IdentityExtensions.GetUserName(this.User.Identity), input.Mobile, (string)null, (string)null);
+            else
+                await this.LogHistory(LoginType.ChangePassword, LoginStatus.BadRequest, IdentityExtensions.GetUserName(this.User.Identity), input.Mobile, (string)null, (string)null);
+            return result;
+        }
+
+        [HttpPost]
+        [AppAuthorize(Roles = "100")]
+        [Route("CreateListUsers")]
+        public async Task<int> CreateListUsers(List<CreateUserInput> inputs)
+        {
+            foreach (CreateUserInput input in inputs)
             {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return new NotificationResultModel();
+                ApplicationUser user = await this.UserManager.FindByNameAsync(input.UserName);
+                if (user == null)
+                {
+                    CreateUserOutput result = await this._userBll.CreateUser(input);
+                    if (result.Status == 0)
+                    {
+                        int num = await this._permissionBll.GenerateRolesForUser(input.Id);
+                    }
+                }
             }
-           
+            return 0;
+        }
+
+        [HttpPost]
+        [Route("UpdateUser")]
+        [AppAuthorize(Roles = "100")]
+        public async Task<UpdateUserOutput> UpdateUser(UpdateUserInput input)
+        {
+            UpdateUserOutput result = await this._userBll.UpdateUser(input, true);
+            if (result.Status == 0)
+            {
+                int num = await this._permissionBll.GenerateRolesForUser(input.Id);
+                if (!string.IsNullOrEmpty(input.Password))
+                    await this.LogHistory(LoginType.ChangePassword, LoginStatus.Success, IdentityExtensions.GetUserName(this.User.Identity), input.UserName, (string)null, (string)null);
+            }
+            else if (result.Status != 0 && !string.IsNullOrEmpty(input.Password))
+                await this.LogHistory(LoginType.ChangePassword, LoginStatus.InvalidOldPassword, IdentityExtensions.GetUserName(this.User.Identity), input.UserName, (string)null, (string)null);
+            return result;
         }
 
         [HttpPost]
         [Authorize]
         [Route("UpdateCurrentUser")]
-        public async Task<NotificationResultModel> UpdateCurrentUser(UserModel input)
+        public async Task<UpdateUserOutput> UpdateCurrentUser(UpdateUserInput input)
         {
-            try
-            {
-                var result = new NotificationResultModel { Status = 1 };
-                input.Id = User.Identity.GetUserId<int>();
-                input.UpdateGroups = false;
-                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId<int>());
-                if (user != null)
-                {
-                    bool canUpdate = true;
-                    if (user.UserName != input.UserName)
-                    {
-                        var currentUser = await UserManager.FindByNameAsync(input.UserName);
-                        if (currentUser != null && currentUser.Id > 0 && currentUser.Id != user.Id)
-                        {
-                            canUpdate = false;
-                        }
-                    }
-                    if (canUpdate)
-                    {
-                        user.UserName = input.UserName;
-                        user.Email = input.Email;
-                        user.PhoneNumber = input.PhoneNumber;
-                        if (!string.IsNullOrEmpty(input.Password))
-                        {
-                            user.PasswordHash = UserManager.PasswordHasher.HashPassword(input.Password);
-                        }
-                        var res = await UserManager.UpdateAsync(user);
-                        if (res.Succeeded)
-                        {
-                            // Update display name
-                            var scopeClaims = new string[] { "displayName" };
-                            var claims = await UserManager.GetClaimsAsync(user.Id);
-                            foreach (var claim in claims.Where(m => scopeClaims.Contains(m.Type)))
-                            {
-                                res = await UserManager.RemoveClaimAsync(user.Id, claim);
-                            }
-                            res = await UserManager.AddClaimAsync(user.Id, new Claim("displayName", input.DisplayName));
-
-                            if (input.UpdateGroups)
-                            {
-                                // Update groups
-                                var currentGroups = (await UserBll.GetGroupsByUser(user.Id)).Select(m => m.Id).ToArray();
-                                if (input.UserGroups != null)
-                                {
-                                    foreach (var newGroup in input.UserGroups.Where(m => !currentGroups.Contains(m.Id)))
-                                    {
-                                        await UserBll.AddUserToGroup(newGroup.Id, user.Id);
-                                    }
-                                    foreach (var oldGroup in currentGroups.Where(m => !input.UserGroups.Select(n => n.Id).Contains(m)))
-                                    {
-                                        await UserBll.RemoveUserFromGroup(oldGroup, user.Id);
-                                    }
-                                }
-                            }
-                            result.Status = 0;
-                        }
-                    }
-                }
-                return result;
-                
-            }
-            catch (Exception ex)
-            {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return new NotificationResultModel();
-            }
-           
+            input.Id = IdentityExtensions.GetUserId<int>(this.User.Identity);
+            input.Password = (string)null;
+            input.ConfirmPassword = (string)null;
+            input.UserGroups = (IEnumerable<Group>)null;
+            UpdateUserOutput result = await this._userBll.UpdateUser(input);
+            return result;
         }
-        [HttpPost]
-        [AppAuthorize(Roles = ActionRole.HeThong.Users)]
+
+        [AppAuthorize(Roles = "100")]
         [Route("DeleteUser")]
-        public async Task<NotificationResultModel> DeleteUser(DeleteInputModel input)
+        [HttpPost]
+        public async Task<DeleteUserOutput> DeleteUser(DeleteUserInput input)
         {
-            try
-            {
-                var result = new NotificationResultModel { Status = 1 };
-                result.Status = await UserBll.DeleteUser(input.Ids);
-
-                return result;
-            }
-            catch (Exception ex)
-            {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return new NotificationResultModel();
-            }
-         
+            DeleteUserOutput result = await this._userBll.DeleteUser(input);
+            return result;
         }
 
         [HttpPost]
@@ -324,17 +200,7 @@ namespace Quang.Auth.Api.Controllers
         [Route("CheckUserName")]
         public async Task<CheckUserExistOutput> CheckUserName(CheckUserExistInput input)
         {
-            try
-            {
-                return new CheckUserExistOutput { Check= await UserBll.CheckExistUserName(input.UserName, input.Id) };
-            }
-            catch (Exception ex)
-            {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return new CheckUserExistOutput();
-            }
-            
+            return await this._userBll.CheckExistUserName(input.UserName, input.Id);
         }
 
         [HttpPost]
@@ -342,88 +208,58 @@ namespace Quang.Auth.Api.Controllers
         [Route("CheckEmail")]
         public async Task<CheckUserExistOutput> CheckEmail(CheckUserExistInput input)
         {
-            try
-            {
-                return new CheckUserExistOutput { Check = await UserBll.CheckExistEmail(input.Email, input.Id) };
-                
-            }
-            catch (Exception ex)
-            {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return new CheckUserExistOutput();
-            }
-            
+            return await this._userBll.CheckExistEmail(input.Email, input.Id);
         }
+
+        [AppAuthorize(Roles = "150")]
         [HttpPost]
-        [AppAuthorize(Roles = ActionRole.HeThong.UserApp)]
         [Route("GetUserClientApp")]
-        public async Task<UserAppModel> GetUserClientApp(GetOneInputModel input)
+        public async Task<GetOneUserAppOutput> GetUserClientApp(GetByIdInput input)
         {
-            var result = new UserAppModel();
-            try
+            return new GetOneUserAppOutput()
             {
-                var entity = await UserBll.GetUserApp(input.Id, AppApiType.ClientApi);
-                result.Id = entity.Id;
-                result.IsActive = entity.IsActive;
-                result.UserId = entity.UserId;
-                result.AppIps = entity.AppIps;
-                result.AppHosts = entity.AppHosts;
-                result.ApiSecret = entity.ApiSecret;
-                result.ApiName = entity.ApiName;
-                result.ApiKey = entity.ApiKey;
-                return result;
-            }
-            catch (Exception ex)
-            {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return result;
-            }
-           
+                UserApp = await this._userBll.GetUserApp(input.Id, AppApiType.ClientApi)
+            };
         }
 
         [HttpPost]
-        [AppAuthorize(Roles = ActionRole.HeThong.UserApp)]
+        [AppAuthorize(Roles = "150")]
         [Route("UpdateUserClientApp")]
-        public async Task<NotificationResultModel> UpdateUserClientApp(UserAppModel input)
+        public async Task<ResultUpdateOutput> UpdateUserClientApp(UpdateUserAppInput input)
         {
-            var result = new NotificationResultModel { Status = 1 };
-            try
-            {
-                var entity = new UserApp();
-                entity.Id = input.Id;
-                entity.IsActive = input.IsActive;
-                entity.UserId = input.UserId;
-                entity.AppIps = input.AppIps;
-                entity.AppHosts = input.AppHosts;
-                entity.ApiSecret = input.ApiSecret;
-                entity.ApiName = input.ApiName;
-                entity.ApiKey = input.ApiKey;
-                entity.ApiType = AppApiType.ClientApi;
-                result.Status =(int) await UserBll.UpdateUserApp(entity); 
-
-                return result;
-            }
-            catch (Exception ex)
-            {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return new NotificationResultModel();
-            }
-            
+            ResultUpdateOutput result = await this._userBll.UpdateUserApp(input, AppApiType.ClientApi);
+            return result;
         }
 
-        [HttpPost]
-        [AppAuthorize(Roles = ActionRole.HeThong.UserApp)]
         [Route("GenerateUserAppApiKey")]
-        public async Task<GenerateUserAppApiKeyModel> GenerateUserAppApiKey()
+        [HttpPost]
+        [AppAuthorize(Roles = "150")]
+        public async Task<GenerateUserAppApiKeyOutput> GenerateUserAppApiKey()
         {
-            var result = new GenerateUserAppApiKeyModel();
-            result.ApiKey = ClientApiProvider.GenerateApiKey();
-            result.ApiSecret = ClientApiProvider.GenerateApiSecret();
+            return new GenerateUserAppApiKeyOutput()
+            {
+                ApiKey = ClientApiProvider.GenerateApiKey(),
+                ApiSecret = ClientApiProvider.GenerateApiSecret()
+            };
+        }
 
-            return await Task.FromResult<GenerateUserAppApiKeyModel>( result);
+        private async Task LogHistory(LoginType loginType, LoginStatus status, string ownerUsername, string username, string device, string apiKey)
+        {
+            string clientIp = SecurityUtils.GetClientIPAddress();
+            string clientUri = HttpContext.Current.Request.Url.AbsoluteUri;
+            int num = await this._loginHistoryBll.InsertLoginHistory(new InsertLoginHistoryInput()
+            {
+                Type = loginType.GetHashCode(),
+                UserName = username,
+                LoginTime = DateTime.Now,
+                LoginStatus = status.GetHashCode(),
+                AppId = string.IsNullOrEmpty(ownerUsername) ? (string)null : ownerUsername,
+                ClientUri = clientUri,
+                ClientIP = clientIp,
+                ClientUA = HttpContext.Current.Request.UserAgent,
+                ClientApiKey = apiKey,
+                ClientDevice = device
+            });
         }
     }
 }

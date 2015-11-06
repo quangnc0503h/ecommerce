@@ -1,5 +1,7 @@
-﻿using Quang.Auth.Api.Models;
-using Quang.Auth.BusinessLogic;
+﻿using Quang.Auth.Api.BusinessLogic;
+using Quang.Auth.Api.Dto;
+using Quang.Auth.Api.Models;
+
 using Quang.Auth.Entities;
 using Quang.Common.Auth;
 using StackExchange.Exceptional;
@@ -13,254 +15,169 @@ using System.Web.Http;
 
 namespace Quang.Auth.Api.Controllers
 {
-    //[Authorize]
     [RoutePrefix("api/Permission")]
-    public class PermissionController : BaseApiController
+    public class PermissionController : ApiController
     {
+        private IPermissionBll _permissionBll;
+        private ITermBll _termBll;
+
+        public PermissionController()
+        {
+        }
+
+        public PermissionController(IPermissionBll permissionBll, ITermBll termBll)
+        {
+            this._permissionBll = permissionBll;
+            this._termBll = termBll;
+        }
+
         [HttpPost]
-        //[Authorize (Roles = ActionRole.HeThong.Permissions)]
         [Route("GetAll")]
-        [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
-        public async Task<DataSourceResultModel> GetAll(FilterPermissionModel filter)
+        [AppAuthorize(Roles = "120")]
+        public async Task<DanhSachPermissionOutput> GetAll(FilterPermissionInput filter)
         {
-            try
-            {
-                var model = new DataSourceResultModel
-                {
-                    Total = await PermissionBll.GetTotal(filter.Keyword),
-                    Data = await PermissionBll.GetPaging(filter.PageSize, filter.PageNumber, filter.Keyword)
-                };
-                return model;
-            }
-            catch (Exception ex)
-            {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return new DataSourceResultModel();
-            }
-           
+            return await this._permissionBll.GetAll(filter);
         }
 
         [HttpPost]
-        [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
+        [AppAuthorize(Roles = "120")]
         [Route("GetOnePermission")]
-        public async Task<PermissionModel> GetOnePermission(GetOneInputModel input)
+        public async Task<GetOnePermissionOutput> GetOnePermission(GetByIdInput input)
         {
-            try
+            Permission result = await this._permissionBll.GetOnePermission(input.Id);
+            return new GetOnePermissionOutput()
             {
-                var result = await PermissionBll.GetOnePermission(input.Id);
-                return new PermissionModel { Id = result.Id, Name = result.Name, Description=result.Description };
-            }
-            catch (Exception ex)
-            {
+                Permission = result
+            };
+        }
 
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return new PermissionModel();
-            }
-            
+        [Route("CreatePermission")]
+        [HttpPost]
+        [AppAuthorize(Roles = "120")]
+        public async Task<ResultUpdateOutput> CreatePermission(CreatePermissionInput input)
+        {
+            ResultUpdateOutput result = new ResultUpdateOutput()
+            {
+                Status = 1
+            };
+            int test = await this._permissionBll.InsertPermission(input);
+            if (test > 0)
+                result.Status = 0;
+            return result;
         }
 
         [HttpPost]
-        [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
         [Route("UpdatePermission")]
-        public async Task<NotificationResultModel> UpdatePermission(PermissionModel input)
+        [AppAuthorize(Roles = "120")]
+        public async Task<ResultUpdateOutput> UpdatePermission(UpdatePermissionInput input)
         {
-            var result = new NotificationResultModel { Status = 1 };
-            try
+            ResultUpdateOutput result = new ResultUpdateOutput()
             {
-                var entity = new Permission
-                {
-                    Id = input.Id, Name = input.Name, Description = input.Description
-                };
-                var test = await PermissionBll.Update(entity);
-                if (test > 0)
-                {
-                    result.Status = 0;
-                }
-                return result;
-            }
-            catch (Exception ex)
-            {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return result;
-            }
-          
+                Status = 1
+            };
+            int test = await this._permissionBll.UpdatePermission(input);
+            if (test > 0)
+                result.Status = 0;
+            return result;
         }
 
         [HttpPost]
-        [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
+        [AppAuthorize(Roles = "120")]
         [Route("DeletePermission")]
-        public async Task<NotificationResultModel> DeletePermission(DeleteInputModel input)
+        public async Task<ResultUpdateOutput> DeletePermission(DeletePermissionInput input)
         {
-            
-            var result = new NotificationResultModel { Status = 1 };
-            try
+            ResultUpdateOutput result = new ResultUpdateOutput()
             {
-                var test = await PermissionBll.DeletePermission(input.Ids);
-                if (test > 0)
-                {
-                    result.Status = 0;
-                }
-                return result;
-            }
-            catch (Exception ex)
-            {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return result;
-            }
-            
+                Status = 1
+            };
+            int test = await this._permissionBll.DeletePermission((IEnumerable<int>)input.Ids);
+            if (test > 0)
+                result.Status = 0;
+            return result;
         }
+
         [HttpGet]
         [Route("ListAllPermission")]
-        public async Task<DataSourceResultModel> ListAllPermission()
+        public async Task<DanhSachPermissionOutput> ListAllPermission()
         {
-            try
+            IEnumerable<Permission> permissions = await this._permissionBll.GetAllPermissions();
+            DanhSachPermissionOutput result = new DanhSachPermissionOutput()
             {
-                var permissions = await PermissionBll.GetAllPermissions();
-                var result = new DataSourceResultModel { Data = permissions };
-                return result;
-            }
-            catch (Exception ex)
-            {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return new DataSourceResultModel();
-            }
-            
+                DanhSachPermissions = permissions
+            };
+            return result;
         }
+
         [HttpPost]
-        [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
+        [AppAuthorize(Roles = "120")]
         [Route("GetPermissionGrants")]
-        public async Task<GetPermissionGrantsOutputModel> GetPermissionGrants(GetOneInputModel input)
+        public async Task<GetPermissionGrantsOutput> GetPermissionGrants(GetByIdInput input)
         {
-            try
-            {
-                var grants = await PermissionBll.GetPermissionGrants(input.Id);
-                var result = new GetPermissionGrantsOutputModel();
-                result.AllowGrants = grants.Where(m => m.Type == 1).ToArray();
-                result.DenyGrants = grants.Where(m => m.Type == 0).ToArray();
-
-                return result;
-            }
-            catch (Exception ex)
-            {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return new GetPermissionGrantsOutputModel();
-            }
-           
+            GetPermissionGrantsOutput result = await this._permissionBll.GetPermissionGrants(input.Id);
+            return result;
         }
+
         [HttpPost]
-        [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
+        [AppAuthorize(Roles = "120")]
         [Route("UpdatePermissionGrants")]
-        public async Task<NotificationResultModel> UpdatePermissionGrants(PermissionGrantsModel input)
+        public async Task<ResultUpdateOutput> UpdatePermissionGrants(UpdatePermissionGrantsInput input)
         {
-            var result = new NotificationResultModel { Status = 1 };
-            try
+            ResultUpdateOutput result = new ResultUpdateOutput()
             {
-                var test = await PermissionBll.UpdatePermissionGrants(input.PermissionId, input.AllowGrants, input.DenyGrants);
-                if (test > 0)
-                {
-                    result.Status = 0;
-                }
-                return result;
-            }
-            catch (Exception ex)
-            {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return result;
-            }
-        
+                Status = 1
+            };
+            int test = await this._permissionBll.UpdatePermissionGrants(input);
+            if (test > 0)
+                result.Status = 0;
+            return result;
         }
 
-        [HttpPost]
-        [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
         [Route("GetUserPermissions")]
-        public async Task<DataSourceResultModel> GetUserPermissions(GetOneInputModel input)
+        [HttpPost]
+        [AppAuthorize(Roles = "140")]
+        public async Task<IEnumerable<PermissionItemGrant>> GetUserPermissions(GetByIdInput input)
         {
-            try
-            {
-                var result = new DataSourceResultModel { Data = await PermissionBll.GetUserPermissions(input.Id) };
-                return result;
-            }
-            catch (Exception ex)
-            {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return new DataSourceResultModel();
-            }
-          
+            IEnumerable<PermissionItemGrant> result = await this._permissionBll.GetUserPermissions(input.Id);
+            return result;
         }
 
+        [AppAuthorize(Roles = "140")]
         [HttpPost]
-        [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
         [Route("GetGroupPermissions")]
-        public async Task<DataSourceResultModel> GetGroupPermissions(GetOneInputModel input)
+        public async Task<IEnumerable<PermissionItemGrant>> GetGroupPermissions(GetByIdInput input)
         {
-         
-
-            try
-            {
-                var result = new DataSourceResultModel { Data = await PermissionBll.GetGroupPermissions(input.Id) };
-                return result;
-            }
-            catch (Exception ex)
-            {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return new DataSourceResultModel();
-            }
+            IEnumerable<PermissionItemGrant> result = await this._permissionBll.GetGroupPermissions(input.Id);
+            return result;
         }
 
-        [HttpPost]
-       [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
         [Route("UpdateUserPermissions")]
-        public async Task<NotificationResultModel> UpdateUserPermissions(UserPermissionModel input)
+        [HttpPost]
+        [AppAuthorize(Roles = "140")]
+        public async Task<ResultUpdateOutput> UpdateUserPermissions(UpdateUserPermissionInput input)
         {
-            var result = new NotificationResultModel { Status = 1 };
-            try
+            ResultUpdateOutput result = new ResultUpdateOutput()
             {
-                var status = await PermissionBll.UpdateUserPermissions(input.UserId, input.PermissionIds);
-                if (status > 0)
-                {
-                    result.Status = 0;
-                }
-                return result;
-            }
-            catch (Exception ex)
-            {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return result;
-            }
-            
+                Status = 1
+            };
+            int status = await this._permissionBll.UpdateUserPermissions(input);
+            if (status > 0)
+                result.Status = 0;
+            return result;
         }
 
         [HttpPost]
-        [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
+        [AppAuthorize(Roles = "140")]
         [Route("UpdateGroupPermissions")]
-        public async Task<NotificationResultModel> UpdateGroupPermissions(GroupPermissionModel input)
+        public async Task<ResultUpdateOutput> UpdateGroupPermissions(UpdateGroupPermissionInput input)
         {
-            var result = new NotificationResultModel { Status = 1 };
-            try
+            ResultUpdateOutput result = new ResultUpdateOutput()
             {
-                var status = await PermissionBll.UpdateGroupPermissions(input.GroupId, input.PermissionIds);
-                if (status > 0)
-                {
-                    result.Status = 0;
-                }
-                return result;
-            }
-            catch (Exception ex)
-            {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return result;
-            }
-          
+                Status = 1
+            };
+            int status = await this._permissionBll.UpdateGroupPermissions(input);
+            if (status > 0)
+                result.Status = 0;
+            return result;
         }
     }
 }

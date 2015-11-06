@@ -4,3 +4,12 @@ D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.eTour.Web\bin\Quang.eTo
 D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.eTour.Web\obj\Debug\Quang.eTour.Web.csprojResolveAssemblyReference.cache
 D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.eTour.Web\obj\Debug\Quang.eTour.Web.dll
 D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.eTour.Web\obj\Debug\Quang.eTour.Web.pdb
+C:\Projects\ecommerce\Presentation\Quang.eTour.Web\bin\Quang.eTour.Web.dll.config
+C:\Projects\ecommerce\Presentation\Quang.eTour.Web\bin\Quang.eTour.Web.dll
+C:\Projects\ecommerce\Presentation\Quang.eTour.Web\bin\Quang.eTour.Web.pdb
+C:\Projects\ecommerce\Presentation\Quang.eTour.Web\bin\Microsoft.Owin.dll
+C:\Projects\ecommerce\Presentation\Quang.eTour.Web\bin\Owin.dll
+C:\Projects\ecommerce\Presentation\Quang.eTour.Web\bin\Microsoft.Owin.xml
+C:\Projects\ecommerce\Presentation\Quang.eTour.Web\obj\Debug\Quang.eTour.Web.csprojResolveAssemblyReference.cache
+C:\Projects\ecommerce\Presentation\Quang.eTour.Web\obj\Debug\Quang.eTour.Web.dll
+C:\Projects\ecommerce\Presentation\Quang.eTour.Web\obj\Debug\Quang.eTour.Web.pdb

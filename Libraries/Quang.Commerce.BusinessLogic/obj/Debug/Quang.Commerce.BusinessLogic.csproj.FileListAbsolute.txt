@@ -8,3 +8,6 @@ D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Commerce.BusinessLogic\bin
 D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Commerce.BusinessLogic\obj\Debug\Quang.Commerce.BusinessLogic.csprojResolveAssemblyReference.cache
 D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Commerce.BusinessLogic\obj\Debug\Quang.Commerce.BusinessLogic.dll
 D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Commerce.BusinessLogic\obj\Debug\Quang.Commerce.BusinessLogic.pdb
+C:\Projects\ecommerce\Libraries\Quang.Commerce.BusinessLogic\bin\Debug\Microsoft.Owin.dll
+C:\Projects\ecommerce\Libraries\Quang.Commerce.BusinessLogic\bin\Debug\Owin.dll
+C:\Projects\ecommerce\Libraries\Quang.Commerce.BusinessLogic\bin\Debug\Microsoft.Owin.xml

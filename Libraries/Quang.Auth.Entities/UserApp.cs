@@ -7,9 +7,9 @@ namespace Quang.Auth.Entities
 {
     public class UserApp
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
-        public long UserId { get; set; }
+        public int UserId { get; set; }
 
         public bool IsActive { get; set; }
 

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Quang.Auth.Entities
 {
-    public class User 
+    public class User
     {
         public int Id { get; set; }
 

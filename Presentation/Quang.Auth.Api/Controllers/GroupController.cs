@@ -7,115 +7,116 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Quang.Auth.Entities;
-using Quang.Auth.BusinessLogic;
+
 using Quang.Common.Auth;
+using Quang.Auth.Api.Dto;
+using Quang.Auth.Api.BusinessLogic;
 
 namespace Quang.Auth.Api.Controllers
 {
     //[Authorize]
     [RoutePrefix("api/Group")]
-    public class GroupController : BaseApiController
+    public class GroupController : ApiController
     {
-        [HttpPost]
-        [AppAuthorize(Roles = ActionRole.HeThong.Groups)]
-        [Route("GetAll")]
-        public async Task<GetListGrouputputModel> GetAll(FilterGroupInputModel filter)
-        {
-            return await GetAllWithTree(filter);
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("AllGroup")]
-        public async Task<GetListGrouputputModel> AllGroup()
-        {
+        private IGroupBll _groupBll;
+        private IUserBll _userBll;
+        private ITermBll _termBll;
+        private IPermissionBll _permissionBll;
 
-            var groups = await GroupBll.GetListGroupOptions();
-            var result = new GetListGrouputputModel { Groups = groups };
-            return result;
+        public GroupController()
+        {
         }
+
+        public GroupController(IGroupBll groupBll, ITermBll termBll, IUserBll userBll, IPermissionBll permissionBll)
+        {
+            this._groupBll = groupBll;
+            this._userBll = userBll;
+            this._termBll = termBll;
+            this._permissionBll = permissionBll;
+        }
+
+        [AppAuthorize(Roles = "110")]
+        [Route("GetAll")]
         [HttpPost]
-        
+        public async Task<DanhSachGroupOutput> GetAll(FilterGroupInput filter)
+        {
+            return await this._groupBll.GetAllWithTree(filter);
+        }
+
+        [HttpPost]
+        [AppAuthorize(Roles = "110")]
         [Route("GetOneGroup")]
-        public async Task<GetOneGroupOutputModel> GetOneGroup(GetByIdInputModel input)
+        public async Task<GetOneGroupOutput> GetOneGroup(GetOneGroupInput input)
         {
-            var result = await GroupBll.GetOneGroup(input.Id);
-            return new GetOneGroupOutputModel { Group = result };
+            Group result = await this._groupBll.GetOneGroup(input.Id);
+            return new GetOneGroupOutput()
+            {
+                Group = result
+            };
         }
-        [HttpPost]        
+
+        [AppAuthorize(Roles = "110")]
         [Route("CreateGroup")]
-        public async Task<GroupOutputModel> CreateGroup(GroupInputModel input)
+        [HttpPost]
+        public async Task<CreateGroupOutput> CreateGroup(CreateGroupInput input)
         {
-            var result = new GroupOutputModel { Status = 1 };
-            var group = new Group {
-                Name = input.Name,
-                Description = input.Description,
-                ParentId = input.ParentId,
-                Id = input.Id
-            };
-            var test = await GroupBll.Insert(group);
-            if (test > 0)
+            CreateGroupOutput result = new CreateGroupOutput()
             {
+                Status = 1
+            };
+            int test = await this._groupBll.InsertGroup(input);
+            if (test > 0)
                 result.Status = 0;
-            }
             return result;
         }
+
         [HttpPost]
-        [AppAuthorize(Roles = ActionRole.HeThong.Groups)]
+        [AppAuthorize(Roles = "110")]
         [Route("UpdateGroup")]
-        public async Task<GroupOutputModel> UpdateGroup(GroupInputModel input)
+        public async Task<UpdateGroupOutput> UpdateGroup(UpdateGroupInput input)
         {
-            var result = new GroupOutputModel { Status = 1 };
-            var group = new Group
+            UpdateGroupOutput result = new UpdateGroupOutput()
             {
-                Name = input.Name,
-                Description = input.Description,
-                ParentId = input.ParentId,
-                Id = input.Id
+                Status = 1
             };
-            var test = await GroupBll.Update(group);
+            int test = await this._groupBll.UpdateGroup(input);
             if (test > 0)
-            {
                 result.Status = 0;
-            }
             return result;
         }
+
         [HttpPost]
-        [AppAuthorize(Roles = ActionRole.HeThong.Groups)]
+        [AppAuthorize(Roles = "110")]
         [Route("DeleteGroup")]
-        public async Task<GroupOutputModel> DeleteGroup(DeleteGroupInputModel input)
+        public async Task<DeleteGroupOutput> DeleteGroup(DeleteGroupInput input)
         {
-            var result = new GroupOutputModel { Status = 1 };
-            var users = await UserBll.GetUsersByGroup(input.Ids.ToArray());
-            var test = await GroupBll.Delete(input.Ids);
+            DeleteGroupOutput result = new DeleteGroupOutput()
+            {
+                Status = 1
+            };
+            IEnumerable<Quang.Auth.Entities.User> users = await this._userBll.GetUsersByGroup(input.Ids.ToArray());
+            int test = await this._groupBll.DeleteGroup((IEnumerable<int>)input.Ids);
             if (test > 0)
             {
-                foreach (var user in users)
+                foreach (Quang.Auth.Entities.User user in users)
                 {
-                    await PermissionBll.GenerateRolesForUser(user.Id);
+                    int num = await this._permissionBll.GenerateRolesForUser(user.Id);
                 }
                 result.Status = 0;
             }
             return result;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        private  async Task<GetListGrouputputModel> GetAllWithTree(FilterGroupInputModel input)
-        {
-            IList<Group> groups = await GroupBll.GetListGroupOptions(input.ParentId);
-            if (!string.IsNullOrEmpty(input.Keyword))
-            {
-                groups = groups.Where(m => !string.IsNullOrEmpty(m.Name) && m.Name.ToLower().Contains(input.Keyword.ToLower())).ToList();
-            }
-            var totalCount = groups.Count;
-            groups = groups.Skip(input.PageNumber * input.PageSize).Take(input.PageSize).ToList();
-            var result = new GetListGrouputputModel { Groups = groups, TotalCount = totalCount };
 
+        [HttpGet]
+        [AppAuthorize]
+        [Route("ListAllGroup")]
+        public async Task<DanhSachGroupOutput> ListAllGroup()
+        {
+            IList<Group> groups = await this._groupBll.GetListGroupOptions();
+            DanhSachGroupOutput result = new DanhSachGroupOutput()
+            {
+                DanhSachGroups = (IEnumerable<Group>)groups
+            };
             return result;
         }
     }

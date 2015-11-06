@@ -13,7 +13,7 @@ namespace Quang.Auth.Api.Providers
         public override Task Authenticated(FacebookAuthenticatedContext context)
         {
             context.Identity.AddClaim(new Claim("ExternalAccessToken", context.AccessToken));
-            return Task.FromResult<object>(null);
+            return (Task)Task.FromResult<object>((object)null);
         }
     }
 }

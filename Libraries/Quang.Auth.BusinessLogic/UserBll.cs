@@ -1,14 +1,28 @@
-﻿using Quang.Auth.DataAccess;
+﻿using AspNet.Identity.MySQL;
+using Microsoft.AspNet.Identity;
+using Quang.Auth.DataAccess;
 using Quang.Auth.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Quang.Auth.BusinessLogic
 {
     public static class UserBll
     {
+       
+        public static string GeneratePassword(int length)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            Random random = new Random();
+            while (0 < length--)
+                stringBuilder.Append("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"[random.Next("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".Length)]);
+            return stringBuilder.ToString();
+        }
+
         public async static Task<IEnumerable<User>> GetAllUsers()
         {
             return await UserDal.GetAllUsers();
@@ -52,104 +66,104 @@ namespace Quang.Auth.BusinessLogic
             }
             
 
-            var claims = await UserDal.GetClaimsAsync(user.Id);
-            var displayName = claims.FirstOrDefault(m => m.Type == "displayName");
-            if (displayName != null)
-            {
-                user.DisplayName = displayName.Value;
-            }
+            //var claims = await UserDal.GetClaimsAsync(user.Id);
+            //var displayName = claims.FirstOrDefault(m => m.Type == "displayName");
+            //if (displayName != null)
+            //{
+            //    user.DisplayName = displayName.Value;
+            //}
 
             return user;
         }
 
        
-        public async static Task<int> DeleteUser(List<long> Ids)
-        {
-            var result = 1;
-            if (Ids != null && Ids.Count() > 0)
-            {
-                bool success = false;
-                foreach (var id in Ids)
-                {
-                    var user = await UserDal.GetOneUser(id);
-                    if (user != null)
-                    {
-                        var res = await UserDal.Delete(user);
-                        if (res > 0)
-                        {
-                            // Remove all groups from user
-                            var groups = await UserDal.GetGroupsByUser(user.Id);
-                            foreach (var group in groups)
-                            {
-                                await UserBll.RemoveUserFromGroup(group.Id, user.Id);
-                            }
+        //public async static Task<int> DeleteUser(List<long> Ids)
+        //{
+        //    var result = 1;
+        //    if (Ids != null && Ids.Count() > 0)
+        //    {
+        //        bool success = false;
+        //        foreach (var id in Ids)
+        //        {
+        //            var user = await UserDal.GetOneUser(id);
+        //            if (user != null)
+        //            {
+        //                var res = await UserDal.Delete(user);
+        //                if (res > 0)
+        //                {
+        //                    // Remove all groups from user
+        //                    var groups = await UserDal.GetGroupsByUser(user.Id);
+        //                    foreach (var group in groups)
+        //                    {
+        //                        await UserBll.RemoveUserFromGroup(group.Id, user.Id);
+        //                    }
 
-                            // Remove all term from user
-                            var terms = await TermBll.GetTermsByUser(user.Id);
-                            foreach (var term in terms)
-                            {
-                                await TermBll.RemoveTermFromUser(user.Id, term.Key.Id);
-                            }
+        //                    // Remove all term from user
+        //                    var terms = await TermBll.GetTermsByUser(user.Id);
+        //                    foreach (var term in terms)
+        //                    {
+        //                        await TermBll.RemoveTermFromUser(user.Id, term.Key.Id);
+        //                    }
 
-                            // Remove all permission from group
-                            await PermissionBll.DeleteUserPermissions(user.Id);
+        //                    // Remove all permission from group
+        //                    await PermissionBll.DeleteUserPermissions(user.Id);
 
-                            // Set success result
-                            if (!success)
-                            {
-                                success = res ==0;
-                            }
-                        }
-                    }
-                }
-                if (success)
-                {
-                    result = 0;
-                }
-            }
-            return result;
-        }
-        public static async Task<int> CheckExistUserName(string userName, long id)
-        {
-            var result =   0 ;
-            var user = (await UserDal.GetUserByName(userName))[0];
-            if (user != null)
-            {
-                if (id > 0)
-                {
-                    if (user.Id != id)
-                    {
-                        result = 1;
-                    }
-                }
-                else
-                {
-                    result = 1;
-                }
-            }
-            return result;
-        }
+        //                    // Set success result
+        //                    if (!success)
+        //                    {
+        //                        success = res ==0;
+        //                    }
+        //                }
+        //            }
+        //        }
+        //        if (success)
+        //        {
+        //            result = 0;
+        //        }
+        //    }
+        //    return result;
+        //}
+        //public static async Task<int> CheckExistUserName(string userName, long id)
+        //{
+        //    var result =   0 ;
+        //    var user = (await UserDal.GetUserByName(userName))[0];
+        //    if (user != null)
+        //    {
+        //        if (id > 0)
+        //        {
+        //            if (user.Id != id)
+        //            {
+        //                result = 1;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            result = 1;
+        //        }
+        //    }
+        //    return result;
+        //}
 
-        public static async Task<int> CheckExistEmail(string email, long id)
-        {
-            var result =  0 ;
-            var user = (await UserDal.GetUserByEmail(email))[0];
-            if (user != null)
-            {
-                if (id > 0)
-                {
-                    if (user.Id != id)
-                    {
-                        result = 1;
-                    }
-                }
-                else
-                {
-                    result = 1;
-                }
-            }
-            return result;
-        }
+        //public static async Task<int> CheckExistEmail(string email, long id)
+        //{
+        //    var result =  0 ;
+        //    var user = (await UserDal.GetUserByEmail(email))[0];
+        //    if (user != null)
+        //    {
+        //        if (id > 0)
+        //        {
+        //            if (user.Id != id)
+        //            {
+        //                result = 1;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            result = 1;
+        //        }
+        //    }
+        //    return result;
+        //}
         /// <summary>
         /// 
         /// </summary>
@@ -171,15 +185,15 @@ namespace Quang.Auth.BusinessLogic
         public async static Task<IEnumerable<User>> GetPaging(int pageSize, int pageNumber, long? groupId, string keyword)
         {
             IEnumerable<User> users = await UserDal.GetPaging(pageSize, pageNumber, groupId, keyword);
-            foreach (var user in users)
-            {
-                var claims = (await UserDal.GetClaimsAsync(user.Id));
-                var displayName = claims.FirstOrDefault(m => m.Type == "displayName");
-                if (displayName != null)
-                {
-                    user.DisplayName = displayName.Value;
-                }
-            }
+            //foreach (var user in users)
+            //{
+            //    var claims = (await UserDal.GetClaimsAsync(user.Id));
+            //    var displayName = claims.FirstOrDefault(m => m.Type == "displayName");
+            //    if (displayName != null)
+            //    {
+            //        user.DisplayName = displayName.Value;
+            //    }
+            //}
             return users;
         }
         /// <summary>
@@ -271,28 +285,6 @@ namespace Quang.Auth.BusinessLogic
             }
             return (users);
         }
-        public async static Task<List<string>> GetRolesByUserId(long userId)
-        {
-            return await UserRolesDal.GetRolesByUserId(userId);
-        }
-
-        public async static Task<IList<Claim>> GetClaimsAsync(long userId)
-        {
-            return (await UserClaimsDal.GetByUserId(userId)).Claims.ToList();
-        }
-
-        public static async Task<User> FindUserAsync(string loginProvider, string providerKey)
-        {
-            return await UserDal.FindUserAsync(loginProvider, providerKey);
-        }
-        public static async Task<long> InsertUserLogIn(long userId, string loginProvider, string providerKey)
-        {
-            return await UserLoginDal.Insert(userId, loginProvider, providerKey);
-        }
-
-        public async static Task<long> InsertUserClaim(string claimValue, string claimType, long userId)
-        {
-            return await UserClaimsDal.Insert(claimValue, claimType, userId);
-        }
+       
     }
 }

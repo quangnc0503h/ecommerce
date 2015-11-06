@@ -7,7 +7,7 @@ namespace Quang.Auth.Entities
 {
     public class Term
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public string RoleKey { get; set; }
 

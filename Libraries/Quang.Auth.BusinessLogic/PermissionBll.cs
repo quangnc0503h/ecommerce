@@ -312,22 +312,22 @@ namespace Quang.Auth.BusinessLogic
                 }
             }
             var newRoles = allowTerms.Where(m => !denyTerms.Any(n => n.Id == m.Id)).Select(m => m.RoleKey).Distinct().ToArray();
-            var currentRoles = await UserRolesDal.GetRolesByUserId(userId);
-            var delRoles = currentRoles.Where(m => !newRoles.Contains(m)).ToArray();
-            var addRoles = newRoles.Where(m => !currentRoles.Contains(m)).ToArray();
+          //  var currentRoles = await UserRolesDal.GetRolesByUserId(userId);
+          //  var delRoles = currentRoles.Where(m => !newRoles.Contains(m)).ToArray();
+           // var addRoles = newRoles.Where(m => !currentRoles.Contains(m)).ToArray();
 
             // Delete
-            foreach(var delRole in delRoles)
-            {
-                var roleId = await RoleDal.GetRoleId(delRole);
-                await UserRolesDal.Delete(userId, roleId);
-            }            
-            // Add
-            foreach(var role in addRoles)
-            {
-                var roleId = await RoleDal.GetRoleId(role);
-                await UserRolesDal.Insert(userId, roleId);
-            }
+            //foreach(var delRole in delRoles)
+            //{
+            //    var roleId = await RoleDal.GetRoleId(delRole);
+            //    await UserRolesDal.Delete(userId, roleId);
+            //}            
+            //// Add
+            //foreach(var role in addRoles)
+            //{
+            //    var roleId = await RoleDal.GetRoleId(role);
+            //    await UserRolesDal.Insert(userId, roleId);
+            //}
                         // success
             result = 1;
 

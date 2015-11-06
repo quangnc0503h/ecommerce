@@ -221,8 +221,7 @@ namespace Quang.Auth.DataAccess
 
                     var isAccess = false;
                     if (!string.IsNullOrEmpty(row["IsAccess"]))
-                    {
-                        //isAccess = Int32.Parse(row["IsAccess"]) != 0 ? true : false;
+                    {                        
                         isAccess = bool.Parse(row["IsAccess"]);
                     }
 
@@ -458,10 +457,7 @@ namespace Quang.Auth.DataAccess
                 {
                     users.Add(row["UserName"]);
                 }
-            }
-            
-            
-
+            }                        
             return users;
         }
     }

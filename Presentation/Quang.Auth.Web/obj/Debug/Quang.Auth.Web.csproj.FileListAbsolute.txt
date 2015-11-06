@@ -10,3 +10,6 @@ D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Auth.Web\bin\Quang.Auth
 D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Auth.Web\obj\Debug\Quang.Auth.Web.csprojResolveAssemblyReference.cache
 D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Auth.Web\obj\Debug\Quang.Auth.Web.dll
 D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Auth.Web\obj\Debug\Quang.Auth.Web.pdb
+C:\Projects\ecommerce\Presentation\Quang.Auth.Web\bin\Microsoft.Owin.dll
+C:\Projects\ecommerce\Presentation\Quang.Auth.Web\bin\Owin.dll
+C:\Projects\ecommerce\Presentation\Quang.Auth.Web\bin\Microsoft.Owin.xml

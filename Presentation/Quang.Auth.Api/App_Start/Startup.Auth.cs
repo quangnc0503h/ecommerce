@@ -10,80 +10,59 @@ using System.Configuration;
 using System.Threading.Tasks;
 using Quang.Auth.Api.Providers;
 using Quang.Auth.Api.Models;
+using Microsoft.Owin.Security.Infrastructure;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace Quang.Auth.Api
 {
     public partial class Startup
     {
+        public static readonly TimeSpan AccessTokenExpireTimeSpan = TimeSpan.FromDays(1.0);
+
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
+
         public static FacebookAuthenticationOptions facebookAuthOptions { get; private set; }
+
         public static GoogleOAuth2AuthenticationOptions googleAuthOptions { get; private set; }
-        public static readonly TimeSpan AccessTokenExpireTimeSpan = TimeSpan.FromDays(14);
 
         public static string PublicClientId { get; private set; }
 
-        // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
-            // Must be the first to be set otherwise it won't work.
-            //app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-            // Configure the db context and user manager to use a single instance per request
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
-            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-            app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
-
-            // Enable the application to use a cookie to store information for the signed in user
-            // and to use a cookie to temporarily store information about a user logging in with a third party login provider
-            app.UseCookieAuthentication(new CookieAuthenticationOptions()
-            {
-                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                CookieHttpOnly = true,
-                CookieName = "Outpour.Api.Auth"
-            });
-            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
-
-            // Configure the application for OAuth based flow
-            //PublicClientId = "self";
-            PublicClientId = "ngAuthApp";
-            OAuthOptions = new OAuthAuthorizationServerOptions
+            AppBuilderExtensions.CreatePerOwinContext<ApplicationDbContext>(app, new Func<ApplicationDbContext>(ApplicationDbContext.Create));
+            AppBuilderExtensions.CreatePerOwinContext<ApplicationUserManager>(app, new Func<IdentityFactoryOptions<ApplicationUserManager>, IOwinContext, ApplicationUserManager>(ApplicationUserManager.Create));
+            AppBuilderExtensions.CreatePerOwinContext<ApplicationRoleManager>(app, new Func<IdentityFactoryOptions<ApplicationRoleManager>, IOwinContext, ApplicationRoleManager>(ApplicationRoleManager.Create));
+            CookieAuthenticationExtensions.UseCookieAuthentication(app, new CookieAuthenticationOptions());
+            AppBuilderExtensions.UseExternalSignInCookie(app, "ExternalCookie");
+            Startup.PublicClientId = "ngAuthApp";
+            Startup.OAuthOptions = new OAuthAuthorizationServerOptions()
             {
                 TokenEndpointPath = new PathString("/token"),
-                Provider = new ApplicationOAuthProvider(PublicClientId),
+                Provider = (IOAuthAuthorizationServerProvider)new ApplicationOAuthProvider(Startup.PublicClientId),
+                RefreshTokenProvider = (IAuthenticationTokenProvider)new SimpleRefreshTokenProvider(),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
-                AccessTokenExpireTimeSpan = AccessTokenExpireTimeSpan,
+                AccessTokenExpireTimeSpan = Startup.AccessTokenExpireTimeSpan,
                 AllowInsecureHttp = true
             };
-
-            // Enable the application to use bearer tokens to authenticate users
-            app.UseOAuthBearerTokens(OAuthOptions);
-
-            // Uncomment the following lines to enable logging in with third party login providers
-            //app.UseMicrosoftAccountAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
-
-            //app.UseTwitterAuthentication(
-            //    consumerKey: "",
-            //    consumerSecret: "");
-
-            //Configure Facebook External Login
-            facebookAuthOptions = new FacebookAuthenticationOptions()
+            AppBuilderExtensions.UseOAuthBearerTokens(app, Startup.OAuthOptions);
+            Startup.facebookAuthOptions = new FacebookAuthenticationOptions()
             {
                 AppId = ConfigurationManager.AppSettings["OAuth.Facebook.AppId"],
                 AppSecret = ConfigurationManager.AppSettings["OAuth.Facebook.AppSecret"],
-                Provider = new FacebookAuthProvider()
+                Provider = (IFacebookAuthenticationProvider)new FacebookAuthProvider()
             };
-            facebookAuthOptions.Scope.Add("email"); // Get external email
-            app.UseFacebookAuthentication(facebookAuthOptions);
-
-            googleAuthOptions = new GoogleOAuth2AuthenticationOptions()
+            Startup.facebookAuthOptions.Scope.Add("email");
+            FacebookAuthenticationExtensions.UseFacebookAuthentication(app, Startup.facebookAuthOptions);
+            Startup.googleAuthOptions = new GoogleOAuth2AuthenticationOptions()
             {
                 ClientId = ConfigurationManager.AppSettings["OAuth.Google.ClientId"],
                 ClientSecret = ConfigurationManager.AppSettings["OAuth.Google.ClientSecret"],
-                Provider = new GoogleAuthProvider()
+                Provider = (IGoogleOAuth2AuthenticationProvider)new GoogleAuthProvider()
             };
-            googleAuthOptions.Scope.Add("email"); // Get external email
-            app.UseGoogleAuthentication(googleAuthOptions);
+            Startup.googleAuthOptions.Scope.Add("email");
+            GoogleAuthenticationExtensions.UseGoogleAuthentication(app, Startup.googleAuthOptions);
         }
+
+
     }
 }

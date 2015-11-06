@@ -41,6 +41,21 @@ namespace Quang.Common.Auth
             return new KeyValuePair<string, IList<Claim>>(key1, list);
         }
 
+        public static void UpdateClientInfoCacheTime(ClaimsIdentity identity, TimeSpan newExpiresIn)
+        {
+            if (identity == null || identity.Claims == null)
+                return;
+            Claim claim = Enumerable.SingleOrDefault<Claim>(identity.Claims, (Func<Claim, bool>)(m => m.Type == "Dsvn:ClientId"));
+            if (claim == null || string.IsNullOrEmpty(claim.Value))
+                return;
+            string key = string.Format("AuthTokenClientId.{0}", (object)claim.Value);
+            AuthorizationClientInfo authorizationClientInfo = AppAuthorizeAttribute._redisCache.Get<AuthorizationClientInfo>(key);
+            if (authorizationClientInfo == null)
+                return;
+            AppAuthorizeAttribute._redisCache.Remove(key);
+            AppAuthorizeAttribute._redisCache.Add<AuthorizationClientInfo>(key, authorizationClientInfo, newExpiresIn);
+        }
+
         public static IEnumerable<Claim> GetDeviceInfoClaims(string deviceKey, string deviceName, IEnumerable<string> deviceGroupKeys)
         {
             string str = deviceGroupKeys != null ? string.Join(",", Enumerable.ToArray<string>(deviceGroupKeys)) : string.Empty;
@@ -155,10 +170,10 @@ namespace Quang.Common.Auth
             HttpError httpError2 = new HttpError(httpError1.Message);
             if (actionContext.ControllerContext.RequestContext.Principal.Identity.IsAuthenticated)
             {
-                ActionRoleItem actionRoleItem = ActionRole.ToListDictionary()[this.Roles];
+                IDictionary<string, ActionRoleItem> dictionary = ActionRole.ToListDictionary();
                 string str = this.Roles;
-                if (actionRoleItem != null)
-                    str = actionRoleItem.RoleKeyLabel;
+                if (dictionary.ContainsKey(this.Roles))
+                    str = dictionary[this.Roles].RoleKeyLabel;
                 httpError2.MessageDetail = string.Format("You must have permission in [{0}] to access this page.\n\nPls contact admin to support.", (object)str);
                 actionContext.Response.Content = (HttpContent)new ObjectContent<HttpError>(httpError2, objectContent.Formatter);
             }

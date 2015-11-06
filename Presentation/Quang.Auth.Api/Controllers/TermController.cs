@@ -1,5 +1,7 @@
-﻿using Quang.Auth.Api.Models;
-using Quang.Auth.BusinessLogic;
+﻿using Quang.Auth.Api.BusinessLogic;
+using Quang.Auth.Api.Dto;
+using Quang.Auth.Api.Models;
+
 using Quang.Auth.Entities;
 using Quang.Common.Auth;
 using StackExchange.Exceptional;
@@ -13,277 +15,167 @@ using System.Web.Http;
 
 namespace Quang.Auth.Api.Controllers
 {
-    //[Authorize]
     [RoutePrefix("api/Term")]
-    public class TermController : BaseApiController
+    public class TermController : ApiController
     {
-        [HttpPost]
-        [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
+        private ITermBll _termBll;
+
+        public TermController()
+        {
+        }
+
+        public TermController(ITermBll termBll)
+        {
+            this._termBll = termBll;
+        }
+
+        [AppAuthorize(Roles = "130")]
         [Route("GetAll")]
-        public async Task<DataSourceResultModel> GetAll(FilterInputModel filter)
+        [HttpPost]
+        public async Task<DanhSachTermOutput> GetAll(FilterTermInput filter)
         {
-            try
-            {
-                var listRoleKey = TermBll.GetListRoleDictionary();
-                var terms = (await TermBll.GetPaging(filter.PageSize, filter.PageNumber, filter.Keyword)).ToList();
-                foreach (var term in terms)
-                {
-                    var key = term.RoleKey;
-                    foreach (var roleKey in listRoleKey)
-                    {
-                        if (roleKey.Key == key)
-                        {
-                            term.RoleKeyLabel = roleKey.Value.RoleKeyLabel;
-                        }
-                    }
-                }
-                var model = new DataSourceResultModel
-                {
-                    Total = await TermBll.GetTotal(filter.Keyword),
-                    Data = terms
-                };
-                return model;
-            }
-            catch (Exception ex)
-            {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return new DataSourceResultModel();
-            }
-          //  return await _termBll.GetAll(filter);
+            return await this._termBll.GetAll(filter);
         }
 
-        [HttpPost]
-        [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
+        [AppAuthorize(Roles = "130")]
         [Route("GetGrantedUsersByTerm")]
-        public async Task<DataSourceResultModel> GetGrantedUsersByTerm(GetOneInputModel input)
+        [HttpPost]
+        public async Task<IEnumerable<Quang.Auth.Entities.User>> GetGrantedUsersByTerm(GetOneTermInput input)
         {
-            try
-            {
-                return new DataSourceResultModel { Data= await TermBll.GetGrantedUsersByTerm(input.Id) };
-            }
-            catch (Exception ex)
-            {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return new DataSourceResultModel();
-            }
-            
+            return await this._termBll.GetGrantedUsersByTerm(input.Id);
         }
 
-       
-
+        [AppAuthorize(Roles = "130")]
         [HttpGet]
-        [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
         [Route("GetMissingTerms")]
-        public async Task<DataSourceResultModel> GetMissingTerms()
+        public async Task<IEnumerable<ActionRoleItem>> GetMissingTerms()
         {
-            try
-            {
-                return new DataSourceResultModel { Data = await TermBll.GetMissingTerms() };
-            }
-            catch (Exception ex)
-            {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return new DataSourceResultModel();
-            }
-            
+            return await this._termBll.GetMissingTerms();
         }
+
         [HttpPost]
-        [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
+        [AppAuthorize(Roles = "130")]
         [Route("GetOneTerm")]
-        public async Task<TermModel> GetOneTerm(GetOneInputModel input)
+        public async Task<GetOneTermOutput> GetOneTerm(GetOneTermInput input)
         {
-            try
+            Term result = await this._termBll.GetOneTerm(input.Id);
+            return new GetOneTermOutput()
             {
-                var result = await TermBll.GetOneTerm(input.Id);
-                var model = new TermModel {
-                    Id = result.Id,
-                    Name = result.Name,
-                    Description = result.Description, RoleKey = result.RoleKey
-                };
-                return model;
-            }
-            catch(Exception ex)
-            {
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return new TermModel();
-            }
-           
+                Term = result
+            };
         }
+
+        [AppAuthorize(Roles = "130")]
         [HttpPost]
-        [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
         [Route("CreateTerm")]
-        public async Task<NotificationResultModel> CreateTerm(TermModel input)
+        public async Task<CreateTermOutput> CreateTerm(CreateTermInput input)
         {
-            var result = new NotificationResultModel { Status = 1 };
-            try
+            CreateTermOutput result = new CreateTermOutput()
             {
-                var entity = new Term
-                {
-                    Id  = input.Id, Description = input.Description, Name = input.Name, RoleKey = input.RoleKey
-                };
-                var test = await TermBll.Insert(entity);
-                if (test > 0)
-                {
-                    await TermBll.SynchTermsToRoles();
-                    result.Status = 0;
-                }
-                return result;
-            }
-            catch (Exception ex)
+                Status = 1
+            };
+            int test = await this._termBll.InsertTerm(input);
+            if (test > 0)
             {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return result;
-            }
-         
-        }
-
-        [HttpPost]
-        [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
-        [Route("UpdateTerm")]
-        public async Task<NotificationResultModel> UpdateTerm(TermModel input)
-        {
-            var result = new NotificationResultModel { Status = 1 };
-            try
-            {
-                var entity = new Term
-                {
-                    Id = input.Id,
-                    Description = input.Description,
-                    Name = input.Name,
-                    RoleKey = input.RoleKey
-                };
-                var test = await TermBll.Update(entity);
-                if (test > 0)
-                {
-                    await TermBll.SynchTermsToRoles();
-                    result.Status = 0;
-                }
-                return result;
-            }
-            catch (Exception ex)
-            {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return result;
-            }
-          
-        }
-        [HttpPost]
-        [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
-        [Route("DeleteTerm")]
-        public async Task<NotificationResultModel> DeleteTerm(DeleteInputModel input)
-        {
-            var result = new NotificationResultModel { Status = 1 };
-            try
-            {
-                var test = await TermBll.Delete(input.Ids);
-                if (test > 0)
-                {
-                    await TermBll.SynchTermsToRoles();
-                    result.Status = 0;
-                }
-                return result;
-            }
-            catch (Exception ex)
-            {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return result;
-            }
-
-           
-        }
-        [HttpGet]
-        [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
-        [Route("ListRoleOptions")]
-        public  Task<DataSourceResultModel> ListRoleOptions()
-        {
-            try
-            {
-                var result =  TermBll.GetListRoleOptions();
-
-                return Task.FromResult(new DataSourceResultModel { Data = result });
-            }
-            catch (Exception ex)
-            {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return Task.FromResult(new DataSourceResultModel());
-            }
-         
-        }
-
-        [HttpPost]
-        [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
-        [Route("GetGrantTermsUser")]
-        public async Task<DataSourceResultModel> GetGrantTermsUser(GetOneInputModel input)
-        {
-            try
-            {
-                var grantTermsUser = await TermBll.GetGrantTermsUser(input.Id);
-
-                return new DataSourceResultModel { Data = grantTermsUser };
-            }
-            catch (Exception ex)
-            {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return new DataSourceResultModel();
-            }
-     
-        }
-
-        [HttpPost]
-        [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
-        [Route("UpdateUserGrant")]
-        public async Task<NotificationResultModel> UpdateUserGrant(UserGrantModel input)
-        {
-            
-            var success = await TermBll.UpdateUserGrant(input.UserId,  input.UserGrants);
-            var result = new NotificationResultModel { Status = 1 };
-            if (success > 0)
-            {
-                //await _termBll.ReUpdateUserRole(input.UserId);
+                await this._termBll.SynchTermsToRoles();
                 result.Status = 0;
             }
             return result;
         }
+
+        [Route("UpdateTerm")]
         [HttpPost]
-       [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
-        [Route("GetGrantTermsGroup")]
-        public async Task<DataSourceResultModel> GetGrantTermsGroup(GetOneInputModel input)
+        [AppAuthorize(Roles = "130")]
+        public async Task<UpdateTermOutput> UpdateTerm(UpdateTermInput input)
         {
-            try
+            UpdateTermOutput result = new UpdateTermOutput()
             {
-                var grantTermsGroup = await TermBll.GetGrantTermsGroup(input.Id);
-
-                return new DataSourceResultModel { Data = grantTermsGroup };
-            }
-            catch (Exception ex)
+                Status = 1
+            };
+            int test = await this._termBll.UpdateTerm(input);
+            if (test > 0)
             {
-
-                ErrorStore.LogExceptionWithoutContext(ex);
-                return new DataSourceResultModel();
+                await this._termBll.SynchTermsToRoles();
+                result.Status = 0;
             }
-            
+            return result;
+        }
+
+        [Route("DeleteTerm")]
+        [HttpPost]
+        [AppAuthorize(Roles = "130")]
+        public async Task<DeleteTermOutput> DeleteTerm(DeleteTermInput input)
+        {
+            DeleteTermOutput result = new DeleteTermOutput()
+            {
+                Status = 1
+            };
+            int test = await this._termBll.DeleteTerm((IEnumerable<int>)input.Ids);
+            if (test > 0)
+            {
+                await this._termBll.SynchTermsToRoles();
+                result.Status = 0;
+            }
+            return result;
+        }
+
+        [Route("ListRoleOptions")]
+        [HttpGet]
+        [AppAuthorize(Roles = "130")]
+        public ListRoleOptionsOutput ListRoleOptions()
+        {
+            IEnumerable<ActionRoleItem> listRoleOptions = this._termBll.GetListRoleOptions();
+            return new ListRoleOptionsOutput()
+            {
+                Options = listRoleOptions
+            };
+        }
+
+        [Route("GetGrantTermsUser")]
+        [HttpPost]
+        [AppAuthorize(Roles = "140")]
+        public async Task<IEnumerable<GrantUserTerm>> GetGrantTermsUser(GetOneUserInput input)
+        {
+            IEnumerable<GrantUserTerm> grantTermsUser = await this._termBll.GetGrantTermsUser(input.Id);
+            return grantTermsUser;
+        }
+
+        [AppAuthorize(Roles = "140")]
+        [Route("UpdateUserGrant")]
+        [HttpPost]
+        public async Task<UpdateTermOutput> UpdateUserGrant(UpdateUserGrantInput input)
+        {
+            int success = await this._termBll.UpdateUserGrant(input);
+            UpdateTermOutput result = new UpdateTermOutput()
+            {
+                Status = 1
+            };
+            if (success > 0)
+                result.Status = 0;
+            return result;
         }
 
         [HttpPost]
-       [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
-        [Route("UpdateGroupGrant")]
-        public async Task<NotificationResultModel> UpdateGroupGrant(GroupGrantModel input)
+        [AppAuthorize(Roles = "140")]
+        [Route("GetGrantTermsGroup")]
+        public async Task<IEnumerable<GrantGroupTerm>> GetGrantTermsGroup(GetOneGroupInput input)
         {
-            var success = await TermBll.UpdateGroupGrant(input.GroupId, input.GroupGrants);
-            var result = new NotificationResultModel { Status = 1 };
-            if (success > 0)
+            IEnumerable<GrantGroupTerm> grantTermsGroup = await this._termBll.GetGrantTermsGroup(input.Id);
+            return grantTermsGroup;
+        }
+
+        [AppAuthorize(Roles = "140")]
+        [Route("UpdateGroupGrant")]
+        [HttpPost]
+        public async Task<UpdateTermOutput> UpdateGroupGrant(UpdateGroupGrantInput input)
+        {
+            int success = await this._termBll.UpdateGroupGrant(input);
+            UpdateTermOutput result = new UpdateTermOutput()
             {
-                //await _termBll.ReUpdateGroupRole(input.GroupId);
+                Status = 1
+            };
+            if (success > 0)
                 result.Status = 0;
-            }
             return result;
         }
     }

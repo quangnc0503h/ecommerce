@@ -104,6 +104,7 @@
     <Content Include="app\views\device.html" />
     <Content Include="app\views\group-grant.html" />
     <Content Include="app\views\group.html" />
+    <Content Include="app\views\login-history.html" />
     <Content Include="app\views\login.html" />
     <Content Include="app\views\logout.html" />
     <Content Include="app\views\permission-grant.html" />
