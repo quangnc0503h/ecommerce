@@ -251,6 +251,7 @@
     <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginHistoryController.cs" />
     <Compile Include="Controllers\PermissionController.cs" />
     <Compile Include="Controllers\TermController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -260,12 +261,17 @@
     </Compile>
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ClientModel.cs" />
     <Compile Include="Models\DataSourceResultModel.cs" />
     <Compile Include="Models\DeviceModel.cs" />
     <Compile Include="Models\FilterGroupInputModel.cs" />
     <Compile Include="Models\FilterInputModel.cs" />
+    <Compile Include="Models\FilterLoginHistoryModel.cs" />
     <Compile Include="Models\FilterPermissionModel.cs" />
+    <Compile Include="Models\GetOneDeviceByKeyModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LoginHistoryModel.cs" />
+    <Compile Include="Models\RequestClientModel.cs" />
     <Compile Include="Models\TermModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
