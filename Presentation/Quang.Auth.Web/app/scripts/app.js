@@ -20,7 +20,7 @@ var app = angular
         'ngTouch',
         'ui.bootstrap',
         'LocalStorageModule',
-        'xdLocalStorage',
+        'xdLocalStorage',"isteven-multi-select",
         'auth',
         'angular-loading-bar'
     ]);
@@ -146,6 +146,11 @@ app.config(function ($routeProvider, $authProvider) {
     $routeProvider.when("/device", {
         controller: "DeviceCtrl",
         templateUrl: "views/device.html",
+        resolve: $authProvider.routeResolve()
+    });
+    $routeProvider.when("/login-history", {
+        controller: "LoginHistoryCtrl",
+        templateUrl: "views/login-history.html",
         resolve: $authProvider.routeResolve()
     });
   });

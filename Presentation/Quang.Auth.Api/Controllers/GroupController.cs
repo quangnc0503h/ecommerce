@@ -35,7 +35,7 @@ namespace Quang.Auth.Api.Controllers
             this._permissionBll = permissionBll;
         }
 
-        [AppAuthorize(Roles = "110")]
+       // [AppAuthorize(Roles = ActionRole.HeThong.Groups)]
         [Route("GetAll")]
         [HttpPost]
         public async Task<DanhSachGroupOutput> GetAll(FilterGroupInput filter)
@@ -44,7 +44,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        [AppAuthorize(Roles = "110")]
+       // [AppAuthorize(Roles = ActionRole.HeThong.Groups)]
         [Route("GetOneGroup")]
         public async Task<GetOneGroupOutput> GetOneGroup(GetOneGroupInput input)
         {
@@ -55,7 +55,7 @@ namespace Quang.Auth.Api.Controllers
             };
         }
 
-        [AppAuthorize(Roles = "110")]
+        //[AppAuthorize(Roles = ActionRole.HeThong.Groups)]
         [Route("CreateGroup")]
         [HttpPost]
         public async Task<CreateGroupOutput> CreateGroup(CreateGroupInput input)
@@ -71,7 +71,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        [AppAuthorize(Roles = "110")]
+      //  [AppAuthorize(Roles = ActionRole.HeThong.Groups)]
         [Route("UpdateGroup")]
         public async Task<UpdateGroupOutput> UpdateGroup(UpdateGroupInput input)
         {
@@ -86,7 +86,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        [AppAuthorize(Roles = "110")]
+      //  [AppAuthorize(Roles = ActionRole.HeThong.Groups)]
         [Route("DeleteGroup")]
         public async Task<DeleteGroupOutput> DeleteGroup(DeleteGroupInput input)
         {
@@ -108,7 +108,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpGet]
-        [AppAuthorize]
+      //  [AppAuthorize]
         [Route("ListAllGroup")]
         public async Task<DanhSachGroupOutput> ListAllGroup()
         {

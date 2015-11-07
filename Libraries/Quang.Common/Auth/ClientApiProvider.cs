@@ -18,178 +18,180 @@ namespace Quang.Common.Auth
 {
     public class ClientApiProvider
     {
+        private static readonly ICacheClient _redisCache = new RedisCacheClient(RedisConnection.SecurityConn, (ISerializer)null, 0);
         private const string ClientTokenCacheKey = "GET_CLIENT_OAUTH_ACCESS_TOKEN_{0}_{1}";
-        private const UInt64 ClientRequestMaxAgeInSeconds = 5; // Max time of client token should live in 5 seconds
-
+        private const long ClientRequestMaxAgeInSeconds = 60L;
         public const string OAuthHeaderName = "Authorization";
         public const string OAuthHeaderScheme = "Bearer";
         public const string ClientHeaderAuthName = "Authorization";
-        public const string ClientHeaderAuthScheme = "cliamx";
+        public const string ClientHeaderAuthScheme = "Cliamx";
         public const string ClientTokenUserName = "dsvn-c1db31a7-27df-4e64-9cac-c1b238ea2b80";
         public const string ClientTokenPassword = "0IdM+3dxTteHMp1VT2Rl5Vb2Z3fK8Pkbm8O7VgV9SBE=";
-        
-        private static readonly ICacheClient _redisCache = new RedisCacheClient(RedisConnection.SecurityConn);
-
         private const string ClientTokenCacheTimeInMinutesAppSettingsKey = "AppClientTokenCacheTimeInMinutes";
-        public const UInt64 ClientTokenCacheTimeInMinutesDefault = 10;
-        public static UInt64 ClientTokenCacheTimeInMinutes
+        public const ulong ClientTokenCacheTimeInMinutesDefault = 10UL;
+
+        public static ulong ClientTokenCacheTimeInMinutes
         {
             get
             {
-                UInt64 value = ClientTokenCacheTimeInMinutesDefault;
-                if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings[ClientTokenCacheTimeInMinutesAppSettingsKey]))
-                {
-                    UInt64.TryParse(ConfigurationManager.AppSettings[ClientTokenCacheTimeInMinutesAppSettingsKey], out value);
-                }
-                return value;
+                ulong result = 10UL;
+                if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["AppClientTokenCacheTimeInMinutes"]))
+                    ulong.TryParse(ConfigurationManager.AppSettings["AppClientTokenCacheTimeInMinutes"], out result);
+                return result;
             }
         }
 
         public static async Task<string> GetAccessToken(AuthenticationHeaderValue authenticationHeaderValue, IOwinRequest request)
         {
-            if (authenticationHeaderValue.Scheme == ClientApiProvider.ClientHeaderAuthScheme && !string.IsNullOrEmpty(authenticationHeaderValue.Parameter))
+            string str = string.Empty;
+            if (authenticationHeaderValue.Scheme == "Cliamx" && !string.IsNullOrEmpty(authenticationHeaderValue.Parameter))
             {
-                var autherizationHeaderArray = GetAutherizationHeaderValues(authenticationHeaderValue.Parameter);
-                var apiKey = autherizationHeaderArray[0];
-                var cacheKeyClientToken = string.Format(ClientTokenCacheKey, apiKey, "token");
-                var cacheKeyClientSecret = string.Format(ClientTokenCacheKey, apiKey, "secret");
-                var accessClientToken = _redisCache.Get<string>(cacheKeyClientToken);
-                var accessClientSecret = _redisCache.Get<string>(cacheKeyClientSecret);
+                string[] autherizationHeaderArray = GetAutherizationHeaderValues(authenticationHeaderValue.Parameter);
+                string apiKey = autherizationHeaderArray[0];
+                string cacheKeyClientToken = string.Format("GET_CLIENT_OAUTH_ACCESS_TOKEN_{0}_{1}", (object)apiKey, (object)"token");
+                string cacheKeyClientSecret = string.Format("GET_CLIENT_OAUTH_ACCESS_TOKEN_{0}_{1}", (object)apiKey, (object)"secret");
+                string accessClientToken = _redisCache.Get<string>(cacheKeyClientToken);
+                string accessClientSecret = _redisCache.Get<string>(cacheKeyClientSecret);
                 if (!string.IsNullOrEmpty(accessClientToken) && !string.IsNullOrEmpty(accessClientSecret))
                 {
-                    string incomingBase64Signature = autherizationHeaderArray[1];
-                    string nonce = autherizationHeaderArray[2];
-                    string requestTimeStamp = autherizationHeaderArray[3];
-                    string requestUri = HttpUtility.UrlEncode(request.Uri.AbsoluteUri.ToLower());
-                    string requestMethod = HttpUtility.UrlEncode(request.Method);
-
-                    var isValid = await ClientApiProvider.isValidRequest(requestUri, requestMethod, apiKey, accessClientSecret, incomingBase64Signature, nonce, requestTimeStamp);
-                    if (isValid)
+                    Log.Logger.Information("get access token from redis cache: " + accessClientSecret + accessClientToken);
+                    if (ClientApiProvider.isValidRequest(request.Uri.AbsoluteUri.ToLower(), request.Method.ToLower(), apiKey, accessClientSecret, autherizationHeaderArray[1], autherizationHeaderArray[2], autherizationHeaderArray[3]))
                     {
-                        return accessClientToken;
+                        Log.Logger.Information("Valid token");
+                        str = accessClientToken;
+                        
                     }
+                    else
+                        Log.Logger.Information("Invalid token");
                 }
                 else
                 {
-                    var accessTokenResult = await GetAccessTokenFromAuthServer(authenticationHeaderValue, request).ConfigureAwait(false) ;
+                    Log.Logger.Information("get access token from auth server");
+                    Tuple<string, string> accessTokenResult = await ClientApiProvider.GetAccessTokenFromAuthServer(authenticationHeaderValue, request).ConfigureAwait(false);
                     if (accessTokenResult != null)
                     {
-                        if (ClientTokenCacheTimeInMinutes > 0)
+                        Log.Logger.Information("get access token from auth server success");
+                        if (ClientApiProvider.ClientTokenCacheTimeInMinutes > 0UL)
                         {
-                            await _redisCache.AddAsync(cacheKeyClientToken, accessTokenResult.Item1, TimeSpan.FromMinutes(ClientTokenCacheTimeInMinutes));
-                            await _redisCache.AddAsync(cacheKeyClientSecret, accessTokenResult.Item2, TimeSpan.FromMinutes(ClientTokenCacheTimeInMinutes));
+                            int num1 = await ClientApiProvider._redisCache.AddAsync<string>(cacheKeyClientToken, accessTokenResult.Item1, TimeSpan.FromMinutes((double)ClientApiProvider.ClientTokenCacheTimeInMinutes)) ? 1 : 0;
+                            int num2 = await ClientApiProvider._redisCache.AddAsync<string>(cacheKeyClientSecret, accessTokenResult.Item2, TimeSpan.FromMinutes((double)ClientApiProvider.ClientTokenCacheTimeInMinutes)) ? 1 : 0;
                         }
-                        return accessTokenResult.Item1;
+                        str = accessTokenResult.Item1;
+            
                     }
-
+                    else
+                        Log.Logger.Information("get access token from auth server failure");
                 }
             }
-            return null;
+            
+            
+            return str;
         }
 
         private static async Task<Tuple<string, string>> GetAccessTokenFromAuthServer(AuthenticationHeaderValue authenticationHeaderValue, IOwinRequest request)
         {
             string oauthTokenUrl = WebConfigurationManager.AppSettings["OAuth.TokenUrl"];
-            Tuple<string, string> accessTokenResult = null;
-
-            using (HttpClient client = HttpClientFactory.Create())
+            Tuple<string, string> accessTokenResult = (Tuple<string, string>)null;
+            try
             {
-                string username = HttpUtility.UrlEncode(ClientTokenUserName);
-                string password = HttpUtility.UrlEncode(ClientTokenPassword);
-                string authenticationValue = HttpUtility.UrlEncode(authenticationHeaderValue.ToString());
-                string requestUri = HttpUtility.UrlEncode(request.Uri.AbsoluteUri.ToLower());
-                string requestUriEncoded = HttpUtility.UrlEncode(Convert.ToBase64String(Encoding.UTF8.GetBytes(requestUri)));
-                string requestMethod = HttpUtility.UrlEncode(request.Method);
-                string clientHostName = HttpContext.Current.Request.UserHostName;
-                string clientHostAddress = HttpContext.Current.Request.UserHostAddress;
-
-                var dataUrl = string.Format("grant_type=password&username={0}&password={1}&cauthorization={2}&curi={3}&cmethod={4}&chostname={5}&chostaddress={6}", username, password, authenticationValue, requestUriEncoded, requestMethod, clientHostName, clientHostAddress);
-                HttpResponseMessage response = await client.PostAsync(oauthTokenUrl, new StringContent(dataUrl, Encoding.UTF8)).ConfigureAwait(false);
-
-                if (response.IsSuccessStatusCode)
+                using (HttpClient httpClient = HttpClientFactory.Create())
                 {
-                    var responseString = await response.Content.ReadAsStringAsync();
-                    var responseObj = JObject.Parse(responseString);
-                    if (responseObj["access_token"] != null && responseObj["client_api_secret"] != null)
+                    string username = HttpUtility.UrlEncode("dsvn-c1db31a7-27df-4e64-9cac-c1b238ea2b80");
+                    string password = HttpUtility.UrlEncode("0IdM+3dxTteHMp1VT2Rl5Vb2Z3fK8Pkbm8O7VgV9SBE=");
+                    string authenticationValue = HttpUtility.UrlEncode(authenticationHeaderValue.ToString());
+                    string requestUriEncoded = HttpUtility.UrlEncode(Convert.ToBase64String(Encoding.UTF8.GetBytes(request.Uri.AbsoluteUri.ToLower())));
+                    string clientHostName = SecurityUtils.GetClientHostName();
+                    string clientHostAddress = SecurityUtils.GetClientIPAddress();
+                    string dataUrl = string.Format("grant_type=password&username={0}&password={1}&cauthorization={2}&curi={3}&cmethod={4}&chostname={5}&chostaddress={6}", (object)username, (object)password, (object)authenticationValue, (object)requestUriEncoded, (object)request.Method.ToLower(), (object)clientHostName, (object)clientHostAddress);
+                    Log.Logger.Information("get access token from auth server - data url: " + dataUrl);
+                    HttpResponseMessage response = await httpClient.PostAsync(oauthTokenUrl, (HttpContent)new StringContent(dataUrl, Encoding.UTF8)).ConfigureAwait(false);
+                    if (response.IsSuccessStatusCode)
                     {
-                        string accessToken = responseObj["access_token"].ToString();
-                        string client_api_secret = responseObj["client_api_secret"].ToString();
-                        accessTokenResult = new Tuple<string, string>(accessToken, client_api_secret);
+                        Log.Logger.Debug("Duong1: Reuqest token success");
+                        string responseString = await response.Content.ReadAsStringAsync();
+                        JObject responseObj = JObject.Parse(responseString);
+                        if (responseObj["access_token"] != null)
+                        {
+                            if (responseObj["client_api_secret"] != null)
+                            {
+                                if (responseObj["userClientId"] != null)
+                                    accessTokenResult = new Tuple<string, string>(responseObj["access_token"].ToString(), responseObj["client_api_secret"].ToString());
+                            }
+                        }
                     }
-
+                    else
+                        Log.Logger.Debug("Duong1: Reuqest token err");
                 }
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Error(ex.ToString());
+                accessTokenResult = (Tuple<string, string>)null;
             }
             return accessTokenResult;
         }
 
-        public static async Task<bool> isValidRequest(string clientRequestUri, string clientRequestMethod, string apiKey, string apiSecret, string incomingBase64Signature, string nonce, string requestTimeStamp)
+        public static bool isValidRequest(string clientRequestUri, string clientRequestMethod, string apiKey, string apiSecret, string incomingSignatureHash, string nonce, string requestTimeStamp)
         {
-            bool isValid = false;
-            bool isReplayRequest = checkReplayRequest(nonce, requestTimeStamp);
-            if (isReplayRequest)
+            bool flag = false;
+            Log.Logger.Debug("isValidRequest-start-checkReplayRequest[nonce={0},requestTimeStamp={1}]", new object[2]
             {
+        (object) nonce,
+        (object) requestTimeStamp
+            });
+            if (ClientApiProvider.checkReplayRequest(nonce, requestTimeStamp))
+            {
+                Log.Logger.Debug("isValidRequest: replay request");
                 return false;
             }
-
-            string data = String.Format("{0}{1}{2}{3}{4}", apiKey, clientRequestMethod.ToLower(), clientRequestUri, requestTimeStamp, nonce);
-
-            var apiSecretBytes = Convert.FromBase64String(apiSecret);
-
-            byte[] signature = Encoding.UTF8.GetBytes(data);
-
-            using (HMACSHA256 hmac = new HMACSHA256(apiSecretBytes))
+            string str1 = string.Format("{0}{1}{2}{3}{4}", (object)apiKey, (object)clientRequestMethod.ToLower(), (object)clientRequestUri.ToLower(), (object)nonce, (object)requestTimeStamp);
+            Log.Logger.Debug("isValidRequest-info-clientRequestMethod:" + clientRequestMethod.ToLower());
+            Log.Logger.Debug("isValidRequest-info-clientRequestUri:" + clientRequestUri.ToLower());
+            Log.Logger.Debug("isValidRequest-info-apiKey:" + apiKey);
+            Log.Logger.Debug("isValidRequest-info-nonce:" + nonce);
+            Log.Logger.Debug("isValidRequest-info-timeStamp:" + requestTimeStamp);
+            Log.Logger.Debug("isValidRequest-info-value:" + str1);
+            string str2 = SecurityUtils.MD5Hash(apiSecret + str1).ToLower();
+            if (str2.ToLower() == incomingSignatureHash.ToLower())
             {
-                byte[] signatureBytes = hmac.ComputeHash(signature);
-                string signatureString = Convert.ToBase64String(signatureBytes);
-                isValid = (incomingBase64Signature.Equals(signatureString, StringComparison.Ordinal));
-                if (!isValid)
-                {
-                    Log.Logger.Information(string.Format("Invalid client request: [{0}][{1}][{2}]", apiKey, clientRequestMethod, clientRequestUri));
-                    Log.Logger.Information("incoming-signature:" + incomingBase64Signature);
-                    Log.Logger.Information("current--signature:" + signatureString);
-                }
+                flag = true;
+                Log.Logger.Debug("isValidRequest: okay");
             }
-            return await Task.FromResult(isValid);
+            else
+            {
+                Log.Logger.Debug(string.Format("Invalid client request: [{0}][{1}][{2}]", (object)apiKey, (object)HttpUtility.UrlDecode(clientRequestMethod), (object)HttpUtility.UrlDecode(clientRequestUri)));
+                Log.Logger.Debug("isValidRequest-incoming-signature-hash:" + incomingSignatureHash);
+                Log.Logger.Debug("isValidRequest-current--signature-hash:" + str2);
+            }
+            return flag;
         }
 
         public static string[] GetAutherizationHeaderValues(string rawAuthzHeader)
         {
-            string clientAuthorization = Encoding.UTF8.GetString(Convert.FromBase64String(rawAuthzHeader));
-            var credArray = clientAuthorization.Split(':');
-
-            if (credArray.Length == 4)
-            {
-                return credArray;
-            }
-            else
-            {
-                return null;
-            }
-
+            string[] strArray = Encoding.UTF8.GetString(Convert.FromBase64String(rawAuthzHeader)).Split(':');
+            if (strArray.Length == 4)
+                return strArray;
+            return (string[])null;
         }
 
         private static bool checkReplayRequest(string nonce, string requestTimeStamp)
         {
-            string cacheKey = string.Format("{0}_{1}", MethodInfo.GetCurrentMethod().ToString(), nonce);
-            string oldRequestTimeStamp = _redisCache.Get<string>(cacheKey);
-            if (!string.IsNullOrEmpty(oldRequestTimeStamp))
+            string key = string.Format("Client_access_nonce_{0}", (object)nonce);
+            if (!string.IsNullOrEmpty(ClientApiProvider._redisCache.Get<string>(key)))
             {
+                Log.Logger.Debug("checkReplayRequest-nonce: replay - " + nonce);
                 return true;
             }
-
-            DateTime epochStart = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Utc);
-            TimeSpan currentTs = DateTime.UtcNow - epochStart;
-
-            var serverTotalSeconds = Convert.ToUInt64(currentTs.TotalSeconds);
-            var requestTotalSeconds = Convert.ToUInt64(requestTimeStamp);
-
-            if ((serverTotalSeconds - requestTotalSeconds) > ClientRequestMaxAgeInSeconds)
-            {
+            long num1 = Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds);
+            long num2 = Convert.ToInt64(requestTimeStamp);
+            Log.Logger.Debug("checkReplayRequest-nonce: " + nonce);
+            Log.Logger.Debug("checkReplayRequest-requestTimeStamp: " + requestTimeStamp);
+            Log.Logger.Debug("checkReplayRequest-requestTotalSeconds: " + (object)num2);
+            Log.Logger.Debug("checkReplayRequest-serverTotalSeconds: " + (object)num1);
+            Log.Logger.Debug("checkReplayRequest-value: " + (object)(num1 - num2));
+            if (Math.Abs(num1 - num2) > 60L)
                 return true;
-            }
-
-            _redisCache.Add(nonce, requestTimeStamp, DateTimeOffset.UtcNow.AddSeconds(ClientRequestMaxAgeInSeconds));
-
+            ClientApiProvider._redisCache.Add<string>(key, requestTimeStamp, DateTimeOffset.UtcNow.AddSeconds(60.0));
             return false;
         }
 
@@ -200,13 +202,11 @@ namespace Quang.Common.Auth
 
         public static string GenerateApiSecret()
         {
-            using (var cryptoProvider = new RNGCryptoServiceProvider())
+            using (RNGCryptoServiceProvider cryptoServiceProvider = new RNGCryptoServiceProvider())
             {
-                byte[] secretKeyByteArray = new byte[64];
-
-                cryptoProvider.GetBytes(secretKeyByteArray);
-
-                return Convert.ToBase64String(secretKeyByteArray);
+                byte[] numArray = new byte[64];
+                cryptoServiceProvider.GetBytes(numArray);
+                return Convert.ToBase64String(numArray);
             }
         }
     }

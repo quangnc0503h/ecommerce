@@ -10,14 +10,15 @@ angular.module('quangauthwebApp').service('deviceService', ['$resource', 'ENV', 
         save: { method: "POST", url: ENV.urlApiAuth + "api/Device/UpdateDevice" },
         remove: { method: "POST", url: ENV.urlApiAuth + "api/Device/DeleteDevice" },
         removeRequest: { method: "POST", url: ENV.urlApiAuth + "api/Device/DeleteRequestDevice" },
-        isExistDevice: { method: "POST", url: ENV.urlApiAuth + "api/Device/IsExistDevice" }
+        isExistDevice: { method: "POST", url: ENV.urlApiAuth + "api/Device/IsExistDevice" },
+        listAllClients: { method: "GET", url: ENV.urlApiAuth + "api/Device/GetAllClients", isArray: true }
     });
     var serviceFactory = {};
     serviceFactory.listDevice = function(filter, callback) {
         filter = filter ? filter : {};
         rs.query(filter).$promise.then(function(res) {
             if (callback) {
-                callback({ items: res.Data, totalCount: res.TotalCount });
+                callback({ items: res.DanhSachDevices, totalCount: res.TotalCount });
             }
         });
     }
@@ -25,7 +26,7 @@ angular.module('quangauthwebApp').service('deviceService', ['$resource', 'ENV', 
         filter = filter ? filter : {};
         rs.queryRequest(filter).$promise.then(function (res) {
             if (callback) {
-                callback({ items: res.Data, totalCount: res.TotalCount });
+                callback({ items: res.DanhSachRequestDevices, totalCount: res.TotalCount });
             }
 
             
@@ -105,6 +106,15 @@ angular.module('quangauthwebApp').service('deviceService', ['$resource', 'ENV', 
                 callback(res.Check); // Return 0 on success
             }
         });
+    }
+    serviceFactory.listAllClients = function (callback) {
+        rs.listAllClients().$promise.then(function (res) {
+            if (callback)
+                callback(res);
+            else
+                callback({});
+            
+        })
     }
     return serviceFactory;
 }]);

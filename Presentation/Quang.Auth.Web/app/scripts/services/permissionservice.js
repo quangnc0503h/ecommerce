@@ -27,7 +27,7 @@ angular.module('quangauthwebApp')
       serviceFactory.listAllOptions = function (callback) {
           rs.listAll().$promise.then(function (res) {
               if (callback) {
-                  callback(res.Data);
+                  callback(res.DanhSachPermissions);
               }
           });
       }
@@ -36,7 +36,7 @@ angular.module('quangauthwebApp')
           filter = filter ? filter : {};
           rs.query(filter).$promise.then(function (res) {
               if (callback) {
-                  callback({ items: res.Data, totalCount: res.Total });
+                  callback({ items: res.DanhSachPermissions, totalCount: res.Total });
               }
           });
       }

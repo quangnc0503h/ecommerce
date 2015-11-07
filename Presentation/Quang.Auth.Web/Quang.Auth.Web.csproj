@@ -81,6 +81,7 @@
     <Content Include="app\scripts\controllers\device.js" />
     <Content Include="app\scripts\controllers\group.js" />
     <Content Include="app\scripts\controllers\login.js" />
+    <Content Include="app\scripts\controllers\loginhistory.js" />
     <Content Include="app\scripts\controllers\permission.js" />
     <Content Include="app\scripts\controllers\refresh.js" />
     <Content Include="app\scripts\controllers\settings.js" />
@@ -94,6 +95,7 @@
     <Content Include="app\scripts\services\authservice.js" />
     <Content Include="app\scripts\services\deviceservice.js" />
     <Content Include="app\scripts\services\groupService.js" />
+    <Content Include="app\scripts\services\loginHistoryService.js" />
     <Content Include="app\scripts\services\permissionservice.js" />
     <Content Include="app\scripts\services\termservice.js" />
     <Content Include="app\scripts\services\tokensmanagerservice.js" />

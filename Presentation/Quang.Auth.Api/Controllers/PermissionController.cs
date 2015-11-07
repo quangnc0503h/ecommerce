@@ -33,14 +33,14 @@ namespace Quang.Auth.Api.Controllers
 
         [HttpPost]
         [Route("GetAll")]
-        [AppAuthorize(Roles = "120")]
+       // [AppAuthorize(Roles = "120")]
         public async Task<DanhSachPermissionOutput> GetAll(FilterPermissionInput filter)
         {
             return await this._permissionBll.GetAll(filter);
         }
 
         [HttpPost]
-        [AppAuthorize(Roles = "120")]
+        //[AppAuthorize(Roles = "120")]
         [Route("GetOnePermission")]
         public async Task<GetOnePermissionOutput> GetOnePermission(GetByIdInput input)
         {
@@ -53,7 +53,7 @@ namespace Quang.Auth.Api.Controllers
 
         [Route("CreatePermission")]
         [HttpPost]
-        [AppAuthorize(Roles = "120")]
+       // [AppAuthorize(Roles = "120")]
         public async Task<ResultUpdateOutput> CreatePermission(CreatePermissionInput input)
         {
             ResultUpdateOutput result = new ResultUpdateOutput()
@@ -68,7 +68,7 @@ namespace Quang.Auth.Api.Controllers
 
         [HttpPost]
         [Route("UpdatePermission")]
-        [AppAuthorize(Roles = "120")]
+      //  [AppAuthorize(Roles = "120")]
         public async Task<ResultUpdateOutput> UpdatePermission(UpdatePermissionInput input)
         {
             ResultUpdateOutput result = new ResultUpdateOutput()
@@ -82,7 +82,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        [AppAuthorize(Roles = "120")]
+       // [AppAuthorize(Roles = "120")]
         [Route("DeletePermission")]
         public async Task<ResultUpdateOutput> DeletePermission(DeletePermissionInput input)
         {
@@ -109,7 +109,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        [AppAuthorize(Roles = "120")]
+        //[AppAuthorize(Roles = "120")]
         [Route("GetPermissionGrants")]
         public async Task<GetPermissionGrantsOutput> GetPermissionGrants(GetByIdInput input)
         {
@@ -118,7 +118,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        [AppAuthorize(Roles = "120")]
+       // [AppAuthorize(Roles = "120")]
         [Route("UpdatePermissionGrants")]
         public async Task<ResultUpdateOutput> UpdatePermissionGrants(UpdatePermissionGrantsInput input)
         {
@@ -134,14 +134,14 @@ namespace Quang.Auth.Api.Controllers
 
         [Route("GetUserPermissions")]
         [HttpPost]
-        [AppAuthorize(Roles = "140")]
+       // [AppAuthorize(Roles = "140")]
         public async Task<IEnumerable<PermissionItemGrant>> GetUserPermissions(GetByIdInput input)
         {
             IEnumerable<PermissionItemGrant> result = await this._permissionBll.GetUserPermissions(input.Id);
             return result;
         }
 
-        [AppAuthorize(Roles = "140")]
+      //  [AppAuthorize(Roles = "140")]
         [HttpPost]
         [Route("GetGroupPermissions")]
         public async Task<IEnumerable<PermissionItemGrant>> GetGroupPermissions(GetByIdInput input)
@@ -152,7 +152,7 @@ namespace Quang.Auth.Api.Controllers
 
         [Route("UpdateUserPermissions")]
         [HttpPost]
-        [AppAuthorize(Roles = "140")]
+      //  [AppAuthorize(Roles = "140")]
         public async Task<ResultUpdateOutput> UpdateUserPermissions(UpdateUserPermissionInput input)
         {
             ResultUpdateOutput result = new ResultUpdateOutput()
@@ -166,7 +166,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        [AppAuthorize(Roles = "140")]
+       // [AppAuthorize(Roles = "140")]
         [Route("UpdateGroupPermissions")]
         public async Task<ResultUpdateOutput> UpdateGroupPermissions(UpdateGroupPermissionInput input)
         {

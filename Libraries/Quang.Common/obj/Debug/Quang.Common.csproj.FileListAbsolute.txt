@@ -60,3 +60,6 @@ C:\Projects\ecommerce\Libraries\Quang.Common\bin\Debug\Microsoft.Owin.Security.d
 C:\Projects\ecommerce\Libraries\Quang.Common\bin\Debug\Microsoft.Owin.Security.OAuth.dll
 C:\Projects\ecommerce\Libraries\Quang.Common\bin\Debug\Microsoft.Owin.Security.xml
 C:\Projects\ecommerce\Libraries\Quang.Common\bin\Debug\Microsoft.Owin.Security.OAuth.xml
+C:\Projects\ecommerce\Libraries\Quang.Common\bin\Debug\Sigil.dll
+C:\Projects\ecommerce\Libraries\Quang.Common\bin\Debug\Sigil.pdb
+C:\Projects\ecommerce\Libraries\Quang.Common\bin\Debug\Sigil.xml

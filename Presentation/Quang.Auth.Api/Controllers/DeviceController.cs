@@ -32,7 +32,7 @@ namespace Quang.Auth.Api.Controllers
 
         [HttpGet]
         [Route("GetAllClients")]
-        [AppAuthorize(Roles = "160")]
+      //  [AppAuthorize(Roles = ActionRole.HeThong.Devices)]
         public async Task<IEnumerable<Client>> GetAllClients()
         {
             return await this._deviceBll.GetAllClients();
@@ -40,14 +40,14 @@ namespace Quang.Auth.Api.Controllers
 
         [HttpPost]
         [Route("GetAll")]
-        [AppAuthorize(Roles = "160")]
+     //   [AppAuthorize(Roles = ActionRole.HeThong.Devices)]
         public async Task<DanhSachDeviceOutput> GetAll(FilterDeviceInput filter)
         {
             return await this._deviceBll.GetAll(filter);
         }
 
         [HttpPost]
-        [AppAuthorize(Roles = "160")]
+       // [AppAuthorize(Roles = ActionRole.HeThong.Devices)]
         [Route("GetAllRequest")]
         public async Task<DanhSachRequestDeviceOutput> GetAllRequest(FilterRequestDeviceInput filter)
         {
@@ -55,7 +55,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        [AppAuthorize(Roles = "160")]
+       // [AppAuthorize(Roles = ActionRole.HeThong.Devices)]
         [Route("GetOneDevice")]
         public async Task<GetOneDeviceOutput> GetOneDevice(GetByIdInput input)
         {
@@ -66,7 +66,7 @@ namespace Quang.Auth.Api.Controllers
             };
         }
 
-        [AppAuthorize(Roles = "160")]
+     //   [AppAuthorize(Roles = ActionRole.HeThong.Devices)]
         [HttpPost]
         [Route("GetOneDeviceByKey")]
         public async Task<GetOneDeviceOutput> GetOneDeviceByKey(GetOneDeviceByKeyInput input)
@@ -80,7 +80,7 @@ namespace Quang.Auth.Api.Controllers
             };
         }
 
-        [AppAuthorize(Roles = "160")]
+       // [AppAuthorize(Roles = ActionRole.HeThong.Devices)]
         [HttpPost]
         [Route("CreateDevice")]
         public async Task<ResultUpdateOutput> CreateDevice(CreateDeviceInput input)
@@ -98,7 +98,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [Route("UpdateDevice")]
-        [AppAuthorize(Roles = "160")]
+     //   [AppAuthorize(Roles = ActionRole.HeThong.Devices)]
         [HttpPost]
         public async Task<ResultUpdateOutput> UpdateDevice(UpdateDeviceInput input)
         {
@@ -116,7 +116,7 @@ namespace Quang.Auth.Api.Controllers
 
         [Route("DeleteDevice")]
         [HttpPost]
-        [AppAuthorize(Roles = "160")]
+     //   [AppAuthorize(Roles = ActionRole.HeThong.Devices)]
         public async Task<ResultUpdateOutput> DeleteDevice(DeleteDeviceInput input)
         {
             ResultUpdateOutput result = new ResultUpdateOutput()
@@ -129,7 +129,7 @@ namespace Quang.Auth.Api.Controllers
             return result;
         }
 
-        [AppAuthorize(Roles = "160")]
+     //   [AppAuthorize(Roles = ActionRole.HeThong.Devices)]
         [Route("DeleteRequestDevice")]
         [HttpPost]
         public async Task<ResultUpdateOutput> DeleteRequestDevice(DeleteDeviceInput input)
@@ -180,7 +180,7 @@ namespace Quang.Auth.Api.Controllers
 
         [HttpPost]
         [Route("IsExistDevice")]
-        [Authorize]
+        //[Authorize]
         public async Task<IsExistDeviceIOutput> IsExistDevice(IsExistDeviceInput input)
         {
             if (string.IsNullOrEmpty(input.ClientId))

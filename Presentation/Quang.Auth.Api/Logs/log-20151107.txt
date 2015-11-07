@@ -1,0 +1,1156 @@
+﻿2015-11-07 08:23:11.192 +07:00 [Information] HTTP "GET" for "/"
+2015-11-07 08:23:12.144 +07:00 [Information] HTTP "GET" for "/__browserLink/requestData/95fb05e2adac436b884382b1eb03aa35?version=2"
+2015-11-07 08:33:52.237 +07:00 [Information] HTTP "POST" for "/token"
+2015-11-07 08:34:03.931 +07:00 [Error] Error caught in global handler: "The key 'Access-Control-Allow-Origin' is already present in the dictionary."
+System.ArgumentException: The key 'Access-Control-Allow-Origin' is already present in the dictionary.
+   at Microsoft.Owin.Host.SystemWeb.CallHeaders.AspNetResponseHeaders.Add(String key, String[] value)
+   at Microsoft.Owin.HeaderDictionary.Add(String key, String[] value)
+   at Quang.Auth.Api.Providers.ApplicationOAuthProvider.<GrantResourceOwnerCredentials>d__6.MoveNext() in C:\Projects\ecommerce\Presentation\Quang.Auth.Api\Providers\ApplicationOAuthProvider.cs:line 98
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeTokenEndpointResourceOwnerPasswordCredentialsGrantAsync>d__3f.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeTokenEndpointAsync>d__22.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeAsync>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Cors.CorsMiddleware.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContextStage.<RunApp>d__5.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContext.<DoFinalWork>d__2.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.StageAsyncResult.End(IAsyncResult ar)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContext.EndFinalWork(IAsyncResult ar)
+   at System.Web.HttpApplication.AsyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+2015-11-07 08:36:43.272 +07:00 [Information] HTTP "POST" for "/token"
+2015-11-07 08:36:43.308 +07:00 [Error] Error caught in global handler: "The key 'Access-Control-Allow-Origin' is already present in the dictionary."
+System.ArgumentException: The key 'Access-Control-Allow-Origin' is already present in the dictionary.
+   at Microsoft.Owin.Host.SystemWeb.CallHeaders.AspNetResponseHeaders.Add(String key, String[] value)
+   at Microsoft.Owin.HeaderDictionary.Add(String key, String[] value)
+   at Quang.Auth.Api.Providers.ApplicationOAuthProvider.<GrantResourceOwnerCredentials>d__6.MoveNext() in C:\Projects\ecommerce\Presentation\Quang.Auth.Api\Providers\ApplicationOAuthProvider.cs:line 98
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeTokenEndpointResourceOwnerPasswordCredentialsGrantAsync>d__3f.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeTokenEndpointAsync>d__22.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeAsync>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Cors.CorsMiddleware.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContextStage.<RunApp>d__5.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContext.<DoFinalWork>d__2.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.StageAsyncResult.End(IAsyncResult ar)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContext.EndFinalWork(IAsyncResult ar)
+   at System.Web.HttpApplication.AsyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+2015-11-07 08:42:29.449 +07:00 [Information] HTTP "POST" for "/token"
+2015-11-07 08:42:29.508 +07:00 [Error] Error caught in global handler: "The key 'Access-Control-Allow-Origin' is already present in the dictionary."
+System.ArgumentException: The key 'Access-Control-Allow-Origin' is already present in the dictionary.
+   at Microsoft.Owin.Host.SystemWeb.CallHeaders.AspNetResponseHeaders.Add(String key, String[] value)
+   at Microsoft.Owin.HeaderDictionary.Add(String key, String[] value)
+   at Quang.Auth.Api.Providers.ApplicationOAuthProvider.<GrantResourceOwnerCredentials>d__6.MoveNext() in C:\Projects\ecommerce\Presentation\Quang.Auth.Api\Providers\ApplicationOAuthProvider.cs:line 98
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeTokenEndpointResourceOwnerPasswordCredentialsGrantAsync>d__3f.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeTokenEndpointAsync>d__22.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeAsync>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Cors.CorsMiddleware.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContextStage.<RunApp>d__5.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContext.<DoFinalWork>d__2.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.StageAsyncResult.End(IAsyncResult ar)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContext.EndFinalWork(IAsyncResult ar)
+   at System.Web.HttpApplication.AsyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+2015-11-07 08:47:54.787 +07:00 [Information] HTTP "GET" for "/"
+2015-11-07 08:47:55.237 +07:00 [Information] HTTP "GET" for "/__browserLink/requestData/8e645c9e709d4707bb4e161b84da0134?version=2"
+2015-11-07 08:49:07.399 +07:00 [Information] HTTP "POST" for "/token"
+2015-11-07 08:49:07.653 +07:00 [Error] Error caught in global handler: "The key 'Access-Control-Allow-Origin' is already present in the dictionary."
+System.ArgumentException: The key 'Access-Control-Allow-Origin' is already present in the dictionary.
+   at Microsoft.Owin.Host.SystemWeb.CallHeaders.AspNetResponseHeaders.Add(String key, String[] value)
+   at Microsoft.Owin.HeaderDictionary.Add(String key, String[] value)
+   at Quang.Auth.Api.Providers.ApplicationOAuthProvider.<GrantResourceOwnerCredentials>d__6.MoveNext() in C:\Projects\ecommerce\Presentation\Quang.Auth.Api\Providers\ApplicationOAuthProvider.cs:line 99
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeTokenEndpointResourceOwnerPasswordCredentialsGrantAsync>d__3f.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeTokenEndpointAsync>d__22.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeAsync>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Cors.CorsMiddleware.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContextStage.<RunApp>d__5.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContext.<DoFinalWork>d__2.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.StageAsyncResult.End(IAsyncResult ar)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContext.EndFinalWork(IAsyncResult ar)
+   at System.Web.HttpApplication.AsyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+2015-11-07 10:17:01.470 +07:00 [Information] HTTP "GET" for "/"
+2015-11-07 10:17:02.235 +07:00 [Information] HTTP "GET" for "/__browserLink/requestData/929abdb6319144e7a44a29a222bc5953?version=2"
+2015-11-07 10:20:49.539 +07:00 [Information] HTTP "POST" for "/token"
+2015-11-07 10:20:49.732 +07:00 [Error] Error caught in global handler: "The key 'Access-Control-Allow-Origin' is already present in the dictionary."
+System.ArgumentException: The key 'Access-Control-Allow-Origin' is already present in the dictionary.
+   at Microsoft.Owin.Host.SystemWeb.CallHeaders.AspNetResponseHeaders.Add(String key, String[] value)
+   at Microsoft.Owin.HeaderDictionary.Add(String key, String[] value)
+   at Quang.Auth.Api.Providers.ApplicationOAuthProvider.<GrantResourceOwnerCredentials>d__6.MoveNext() in C:\Projects\ecommerce\Presentation\Quang.Auth.Api\Providers\ApplicationOAuthProvider.cs:line 106
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeTokenEndpointResourceOwnerPasswordCredentialsGrantAsync>d__3f.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeTokenEndpointAsync>d__22.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeAsync>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Cors.CorsMiddleware.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContextStage.<RunApp>d__5.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContext.<DoFinalWork>d__2.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.StageAsyncResult.End(IAsyncResult ar)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContext.EndFinalWork(IAsyncResult ar)
+   at System.Web.HttpApplication.AsyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+2015-11-07 10:27:18.570 +07:00 [Information] HTTP "GET" for "/"
+2015-11-07 10:27:19.082 +07:00 [Information] HTTP "GET" for "/__browserLink/requestData/ef322a2fe9424462aeb530a6e92e2068?version=2"
+2015-11-07 10:31:15.260 +07:00 [Information] HTTP "POST" for "/token"
+2015-11-07 10:31:15.415 +07:00 [Error] Error caught in global handler: "Could not load file or assembly 'Sigil, Version=4.5.0.0, Culture=neutral, PublicKeyToken=2d06c3494341c8ab' or one of its dependencies. The system cannot find the file specified."
+System.IO.FileNotFoundException: Could not load file or assembly 'Sigil, Version=4.5.0.0, Culture=neutral, PublicKeyToken=2d06c3494341c8ab' or one of its dependencies. The system cannot find the file specified.
+File name: 'Sigil, Version=4.5.0.0, Culture=neutral, PublicKeyToken=2d06c3494341c8ab' ---> System.IO.FileNotFoundException: Could not load file or assembly 'Sigil, Version=4.4.0.0, Culture=neutral, PublicKeyToken=2d06c3494341c8ab' or one of its dependencies. The system cannot find the file specified.
+File name: 'Sigil, Version=4.4.0.0, Culture=neutral, PublicKeyToken=2d06c3494341c8ab'
+
+=== Pre-bind state information ===
+LOG: DisplayName = Sigil, Version=4.4.0.0, Culture=neutral, PublicKeyToken=2d06c3494341c8ab
+ (Fully-specified)
+LOG: Appbase = file:///C:/Projects/ecommerce/Presentation/Quang.Auth.Api/
+LOG: Initial PrivatePath = C:\Projects\ecommerce\Presentation\Quang.Auth.Api\bin
+Calling assembly : Jil, Version=2.9.0.0, Culture=neutral, PublicKeyToken=null.
+===
+LOG: This bind starts in default load context.
+LOG: Using application configuration file: C:\Projects\ecommerce\Presentation\Quang.Auth.Api\web.config
+LOG: Using host configuration file: C:\Users\admin\Documents\IISExpress\config\aspnet.config
+LOG: Using machine configuration file from C:\Windows\Microsoft.NET\Framework\v4.0.30319\config\machine.config.
+LOG: Redirect found in application configuration file: 4.4.0.0 redirected to 4.5.0.0.
+LOG: Post-policy reference: Sigil, Version=4.5.0.0, Culture=neutral, PublicKeyToken=2d06c3494341c8ab
+LOG: Attempting download of new URL file:///C:/Users/admin/AppData/Local/Temp/Temporary ASP.NET Files/root/fc44f252/37ed103c/Sigil.DLL.
+LOG: Attempting download of new URL file:///C:/Users/admin/AppData/Local/Temp/Temporary ASP.NET Files/root/fc44f252/37ed103c/Sigil/Sigil.DLL.
+LOG: Attempting download of new URL file:///C:/Projects/ecommerce/Presentation/Quang.Auth.Api/bin/Sigil.DLL.
+LOG: Attempting download of new URL file:///C:/Projects/ecommerce/Presentation/Quang.Auth.Api/bin/Sigil/Sigil.DLL.
+LOG: Attempting download of new URL file:///C:/Users/admin/AppData/Local/Temp/Temporary ASP.NET Files/root/fc44f252/37ed103c/Sigil.EXE.
+LOG: Attempting download of new URL file:///C:/Users/admin/AppData/Local/Temp/Temporary ASP.NET Files/root/fc44f252/37ed103c/Sigil/Sigil.EXE.
+LOG: Attempting download of new URL file:///C:/Projects/ecommerce/Presentation/Quang.Auth.Api/bin/Sigil.EXE.
+LOG: Attempting download of new URL file:///C:/Projects/ecommerce/Presentation/Quang.Auth.Api/bin/Sigil/Sigil.EXE.
+
+   at Jil.SerializeDynamic.DynamicSerializer.GetSemiStaticSerializerFor(Type type, Options opts)
+   at Jil.SerializeDynamic.DynamicSerializer.SerializeSemiStatically(TextWriter stream, Object val, Options opts, Int32 depth) in c:\Users\kevin_000\Dropbox\jil\Jil\SerializeDynamic\DynamicSerializer.cs:line 222
+   at Jil.SerializeDynamic.DynamicSerializer.Serialize(TextWriter stream, Object obj, Options opts, Int32 depth) in c:\Users\kevin_000\Dropbox\jil\Jil\SerializeDynamic\DynamicSerializer.cs:line 786
+   at Jil.JSON.SerializeDynamic(Object data, TextWriter output, Options options) in c:\Users\kevin_000\Dropbox\jil\Jil\JSON.cs:line 64
+   at Jil.JSON.SerializeDynamic(Object data, Options options) in c:\Users\kevin_000\Dropbox\jil\Jil\JSON.cs:line 84
+   at Jil.JSON.Serialize[T](T data, Options options) in c:\Users\kevin_000\Dropbox\jil\Jil\JSON.cs:line 148
+   at Quang.RedisCache.JilSerializer.Serialize(Object item) in C:\Projects\ecommerce\Libraries\Quang.RedisCache\JilSerializer.cs:line 24
+   at Quang.RedisCache.RedisCacheClient.Add[T](String key, T value, TimeSpan expiresIn) in C:\Projects\ecommerce\Libraries\Quang.RedisCache\RedisCacheClient.cs:line 351
+   at Quang.Common.Auth.AppAuthorizeAttribute.GenerateClientInfo(String userName, TimeSpan expiresIn) in C:\Projects\ecommerce\Libraries\Quang.Common\Auth\AppAuthorizeAttribute.cs:line 40
+   at Quang.Auth.Api.Providers.ApplicationOAuthProvider.<GrantResourceOwnerCredentials>d__6.MoveNext() in C:\Projects\ecommerce\Presentation\Quang.Auth.Api\Providers\ApplicationOAuthProvider.cs:line 225
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeTokenEndpointResourceOwnerPasswordCredentialsGrantAsync>d__3f.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeTokenEndpointAsync>d__22.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeAsync>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Cors.CorsMiddleware.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContextStage.<RunApp>d__5.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContext.<DoFinalWork>d__2.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.StageAsyncResult.End(IAsyncResult ar)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContext.EndFinalWork(IAsyncResult ar)
+   at System.Web.HttpApplication.AsyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+
+2015-11-07 10:32:33.401 +07:00 [Information] HTTP "POST" for "/token"
+2015-11-07 10:32:33.447 +07:00 [Error] Error caught in global handler: "Could not load file or assembly 'Sigil, Version=4.5.0.0, Culture=neutral, PublicKeyToken=2d06c3494341c8ab' or one of its dependencies. The system cannot find the file specified."
+System.IO.FileNotFoundException: Could not load file or assembly 'Sigil, Version=4.5.0.0, Culture=neutral, PublicKeyToken=2d06c3494341c8ab' or one of its dependencies. The system cannot find the file specified.
+File name: 'Sigil, Version=4.5.0.0, Culture=neutral, PublicKeyToken=2d06c3494341c8ab' ---> System.IO.FileNotFoundException: Could not load file or assembly 'Sigil, Version=4.4.0.0, Culture=neutral, PublicKeyToken=2d06c3494341c8ab' or one of its dependencies. The system cannot find the file specified.
+File name: 'Sigil, Version=4.4.0.0, Culture=neutral, PublicKeyToken=2d06c3494341c8ab'
+
+=== Pre-bind state information ===
+LOG: DisplayName = Sigil, Version=4.4.0.0, Culture=neutral, PublicKeyToken=2d06c3494341c8ab
+ (Fully-specified)
+LOG: Appbase = file:///C:/Projects/ecommerce/Presentation/Quang.Auth.Api/
+LOG: Initial PrivatePath = C:\Projects\ecommerce\Presentation\Quang.Auth.Api\bin
+Calling assembly : Jil, Version=2.9.0.0, Culture=neutral, PublicKeyToken=null.
+===
+LOG: This bind starts in default load context.
+LOG: Using application configuration file: C:\Projects\ecommerce\Presentation\Quang.Auth.Api\web.config
+LOG: Using host configuration file: C:\Users\admin\Documents\IISExpress\config\aspnet.config
+LOG: Using machine configuration file from C:\Windows\Microsoft.NET\Framework\v4.0.30319\config\machine.config.
+LOG: Redirect found in application configuration file: 4.4.0.0 redirected to 4.5.0.0.
+LOG: Post-policy reference: Sigil, Version=4.5.0.0, Culture=neutral, PublicKeyToken=2d06c3494341c8ab
+LOG: The same bind was seen before, and was failed with hr = 0x80070002.
+
+   at Jil.SerializeDynamic.DynamicSerializer.GetSemiStaticSerializerFor(Type type, Options opts)
+   at Jil.SerializeDynamic.DynamicSerializer.SerializeSemiStatically(TextWriter stream, Object val, Options opts, Int32 depth) in c:\Users\kevin_000\Dropbox\jil\Jil\SerializeDynamic\DynamicSerializer.cs:line 222
+   at Jil.SerializeDynamic.DynamicSerializer.Serialize(TextWriter stream, Object obj, Options opts, Int32 depth) in c:\Users\kevin_000\Dropbox\jil\Jil\SerializeDynamic\DynamicSerializer.cs:line 786
+   at Jil.JSON.SerializeDynamic(Object data, TextWriter output, Options options) in c:\Users\kevin_000\Dropbox\jil\Jil\JSON.cs:line 64
+   at Jil.JSON.SerializeDynamic(Object data, Options options) in c:\Users\kevin_000\Dropbox\jil\Jil\JSON.cs:line 84
+   at Jil.JSON.Serialize[T](T data, Options options) in c:\Users\kevin_000\Dropbox\jil\Jil\JSON.cs:line 148
+   at Quang.RedisCache.JilSerializer.Serialize(Object item) in C:\Projects\ecommerce\Libraries\Quang.RedisCache\JilSerializer.cs:line 24
+   at Quang.RedisCache.RedisCacheClient.Add[T](String key, T value, TimeSpan expiresIn) in C:\Projects\ecommerce\Libraries\Quang.RedisCache\RedisCacheClient.cs:line 351
+   at Quang.Common.Auth.AppAuthorizeAttribute.GenerateClientInfo(String userName, TimeSpan expiresIn) in C:\Projects\ecommerce\Libraries\Quang.Common\Auth\AppAuthorizeAttribute.cs:line 40
+   at Quang.Auth.Api.Providers.ApplicationOAuthProvider.<GrantResourceOwnerCredentials>d__6.MoveNext() in C:\Projects\ecommerce\Presentation\Quang.Auth.Api\Providers\ApplicationOAuthProvider.cs:line 225
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeTokenEndpointResourceOwnerPasswordCredentialsGrantAsync>d__3f.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeTokenEndpointAsync>d__22.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeAsync>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Cors.CorsMiddleware.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContextStage.<RunApp>d__5.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContext.<DoFinalWork>d__2.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.StageAsyncResult.End(IAsyncResult ar)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContext.EndFinalWork(IAsyncResult ar)
+   at System.Web.HttpApplication.AsyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+
+2015-11-07 10:37:27.554 +07:00 [Information] HTTP "GET" for "/"
+2015-11-07 10:37:28.532 +07:00 [Information] HTTP "GET" for "/__browserLink/requestData/15233d547a9b4fd4aa918bf065370fa9?version=2"
+2015-11-07 10:39:39.998 +07:00 [Information] HTTP "POST" for "/token"
+2015-11-07 10:39:40.168 +07:00 [Error] Error caught in global handler: "No connection is available to service this operation: SETEX AuthTokenClientId.5eb932a0B5e24401874379_3e40FCF_886"
+StackExchange.Redis.RedisConnectionException: No connection is available to service this operation: SETEX AuthTokenClientId.5eb932a0B5e24401874379_3e40FCF_886
+   at StackExchange.Redis.ConnectionMultiplexer.ExecuteSyncImpl[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\TeamCity\buildAgent\work\3ae0647004edff78\StackExchange.Redis\StackExchange\Redis\ConnectionMultiplexer.cs:line 1927
+   at StackExchange.Redis.RedisBase.ExecuteSync[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\TeamCity\buildAgent\work\3ae0647004edff78\StackExchange.Redis\StackExchange\Redis\RedisBase.cs:line 80
+   at StackExchange.Redis.RedisDatabase.StringSet(RedisKey key, RedisValue value, Nullable`1 expiry, When when, CommandFlags flags) in c:\TeamCity\buildAgent\work\3ae0647004edff78\StackExchange.Redis\StackExchange\Redis\RedisDatabase.cs:line 1549
+   at Quang.RedisCache.RedisCacheClient.Add[T](String key, T value, TimeSpan expiresIn) in C:\Projects\ecommerce\Libraries\Quang.RedisCache\RedisCacheClient.cs:line 353
+   at Quang.Common.Auth.AppAuthorizeAttribute.GenerateClientInfo(String userName, TimeSpan expiresIn) in C:\Projects\ecommerce\Libraries\Quang.Common\Auth\AppAuthorizeAttribute.cs:line 40
+   at Quang.Auth.Api.Providers.ApplicationOAuthProvider.<GrantResourceOwnerCredentials>d__6.MoveNext() in C:\Projects\ecommerce\Presentation\Quang.Auth.Api\Providers\ApplicationOAuthProvider.cs:line 225
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeTokenEndpointResourceOwnerPasswordCredentialsGrantAsync>d__3f.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeTokenEndpointAsync>d__22.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeAsync>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Cors.CorsMiddleware.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContextStage.<RunApp>d__5.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContext.<DoFinalWork>d__2.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.StageAsyncResult.End(IAsyncResult ar)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContext.EndFinalWork(IAsyncResult ar)
+   at System.Web.HttpApplication.AsyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+2015-11-07 10:48:41.201 +07:00 [Information] HTTP "GET" for "/"
+2015-11-07 10:48:42.144 +07:00 [Information] HTTP "GET" for "/__browserLink/requestData/8f4e607a08cc4479ab8f6bdc4e756583?version=2"
+2015-11-07 10:49:59.983 +07:00 [Information] HTTP "POST" for "/token"
+2015-11-07 10:50:00.141 +07:00 [Error] Error caught in global handler: "No connection is available to service this operation: SETEX AuthTokenClientId.B10b4e_44273C4082b_0117685Da8d64Eb"
+StackExchange.Redis.RedisConnectionException: No connection is available to service this operation: SETEX AuthTokenClientId.B10b4e_44273C4082b_0117685Da8d64Eb
+   at StackExchange.Redis.ConnectionMultiplexer.ExecuteSyncImpl[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\TeamCity\buildAgent\work\3ae0647004edff78\StackExchange.Redis\StackExchange\Redis\ConnectionMultiplexer.cs:line 1927
+   at StackExchange.Redis.RedisBase.ExecuteSync[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\TeamCity\buildAgent\work\3ae0647004edff78\StackExchange.Redis\StackExchange\Redis\RedisBase.cs:line 80
+   at StackExchange.Redis.RedisDatabase.StringSet(RedisKey key, RedisValue value, Nullable`1 expiry, When when, CommandFlags flags) in c:\TeamCity\buildAgent\work\3ae0647004edff78\StackExchange.Redis\StackExchange\Redis\RedisDatabase.cs:line 1549
+   at Quang.RedisCache.RedisCacheClient.Add[T](String key, T value, TimeSpan expiresIn) in C:\Projects\ecommerce\Libraries\Quang.RedisCache\RedisCacheClient.cs:line 353
+   at Quang.Common.Auth.AppAuthorizeAttribute.GenerateClientInfo(String userName, TimeSpan expiresIn) in C:\Projects\ecommerce\Libraries\Quang.Common\Auth\AppAuthorizeAttribute.cs:line 40
+   at Quang.Auth.Api.Providers.ApplicationOAuthProvider.<GrantResourceOwnerCredentials>d__6.MoveNext() in C:\Projects\ecommerce\Presentation\Quang.Auth.Api\Providers\ApplicationOAuthProvider.cs:line 225
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeTokenEndpointResourceOwnerPasswordCredentialsGrantAsync>d__3f.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeTokenEndpointAsync>d__22.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeAsync>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Cors.CorsMiddleware.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContextStage.<RunApp>d__5.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContext.<DoFinalWork>d__2.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.StageAsyncResult.End(IAsyncResult ar)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContext.EndFinalWork(IAsyncResult ar)
+   at System.Web.HttpApplication.AsyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+2015-11-07 10:53:17.321 +07:00 [Information] HTTP "GET" for "/"
+2015-11-07 10:53:17.702 +07:00 [Information] HTTP "GET" for "/__browserLink/requestData/467a1116fdb64f89bdbe368acbb10846?version=2"
+2015-11-07 10:56:33.709 +07:00 [Information] HTTP "POST" for "/token"
+2015-11-07 10:56:33.872 +07:00 [Error] Error caught in global handler: "No connection is available to service this operation: SETEX AuthTokenClientId.824_7BDaeE24242cDb1cCcb2A10_a2A19c"
+StackExchange.Redis.RedisConnectionException: No connection is available to service this operation: SETEX AuthTokenClientId.824_7BDaeE24242cDb1cCcb2A10_a2A19c
+   at StackExchange.Redis.ConnectionMultiplexer.ExecuteSyncImpl[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\TeamCity\buildAgent\work\3ae0647004edff78\StackExchange.Redis\StackExchange\Redis\ConnectionMultiplexer.cs:line 1927
+   at StackExchange.Redis.RedisBase.ExecuteSync[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\TeamCity\buildAgent\work\3ae0647004edff78\StackExchange.Redis\StackExchange\Redis\RedisBase.cs:line 80
+   at StackExchange.Redis.RedisDatabase.StringSet(RedisKey key, RedisValue value, Nullable`1 expiry, When when, CommandFlags flags) in c:\TeamCity\buildAgent\work\3ae0647004edff78\StackExchange.Redis\StackExchange\Redis\RedisDatabase.cs:line 1549
+   at Quang.RedisCache.RedisCacheClient.Add[T](String key, T value, TimeSpan expiresIn) in C:\Projects\ecommerce\Libraries\Quang.RedisCache\RedisCacheClient.cs:line 353
+   at Quang.Common.Auth.AppAuthorizeAttribute.GenerateClientInfo(String userName, TimeSpan expiresIn) in C:\Projects\ecommerce\Libraries\Quang.Common\Auth\AppAuthorizeAttribute.cs:line 40
+   at Quang.Auth.Api.Providers.ApplicationOAuthProvider.<GrantResourceOwnerCredentials>d__6.MoveNext() in C:\Projects\ecommerce\Presentation\Quang.Auth.Api\Providers\ApplicationOAuthProvider.cs:line 225
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeTokenEndpointResourceOwnerPasswordCredentialsGrantAsync>d__3f.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeTokenEndpointAsync>d__22.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeAsync>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Cors.CorsMiddleware.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContextStage.<RunApp>d__5.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContext.<DoFinalWork>d__2.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.StageAsyncResult.End(IAsyncResult ar)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContext.EndFinalWork(IAsyncResult ar)
+   at System.Web.HttpApplication.AsyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+2015-11-07 11:03:52.607 +07:00 [Information] HTTP "GET" for "/"
+2015-11-07 11:03:52.993 +07:00 [Information] HTTP "GET" for "/__browserLink/requestData/65b19359776149f28ce31883d609f505?version=2"
+2015-11-07 11:04:57.027 +07:00 [Information] HTTP "POST" for "/token"
+2015-11-07 11:06:29.255 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 11:16:30.687 +07:00 [Information] HTTP "GET" for "/"
+2015-11-07 11:16:31.073 +07:00 [Information] HTTP "GET" for "/__browserLink/requestData/7ec80b5834e74e078cb836fc3afc5d9a?version=2"
+2015-11-07 11:16:53.937 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 11:17:03.391 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 11:17:03.601 +07:00 [Error] Error caught in global handler: "No connection is available to service this operation: GET AuthTokenClientId.wHkNjzGvtXtpeGo-qxAaS8m5QTvvScE6LZ"
+StackExchange.Redis.RedisConnectionException: No connection is available to service this operation: GET AuthTokenClientId.wHkNjzGvtXtpeGo-qxAaS8m5QTvvScE6LZ
+   at StackExchange.Redis.ConnectionMultiplexer.ExecuteSyncImpl[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\TeamCity\buildAgent\work\3ae0647004edff78\StackExchange.Redis\StackExchange\Redis\ConnectionMultiplexer.cs:line 1927
+   at StackExchange.Redis.RedisBase.ExecuteSync[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\TeamCity\buildAgent\work\3ae0647004edff78\StackExchange.Redis\StackExchange\Redis\RedisBase.cs:line 80
+   at StackExchange.Redis.RedisDatabase.StringGet(RedisKey key, CommandFlags flags) in c:\TeamCity\buildAgent\work\3ae0647004edff78\StackExchange.Redis\StackExchange\Redis\RedisDatabase.cs:line 1431
+   at Quang.RedisCache.RedisCacheClient.Get[T](String key) in C:\Projects\ecommerce\Libraries\Quang.RedisCache\RedisCacheClient.cs:line 103
+   at Quang.Common.Auth.AppAuthorizeAttribute.ValidateOAuthAuthorizationHeader(String username, String headerValue, String& realAccessToken) in C:\Projects\ecommerce\Libraries\Quang.Common\Auth\AppAuthorizeAttribute.cs:line 76
+   at Quang.Auth.Api.Providers.ApplicationOAuthProvider.MatchEndpoint(OAuthMatchEndpointContext context) in C:\Projects\ecommerce\Presentation\Quang.Auth.Api\Providers\ApplicationOAuthProvider.cs:line 512
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeAsync>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Cors.CorsMiddleware.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContextStage.<RunApp>d__5.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContext.<DoFinalWork>d__2.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.StageAsyncResult.End(IAsyncResult ar)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContext.EndFinalWork(IAsyncResult ar)
+   at System.Web.HttpApplication.AsyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+2015-11-07 11:17:40.273 +07:00 [Information] HTTP "POST" for "/token"
+2015-11-07 11:17:49.482 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 12:37:01.965 +07:00 [Information] HTTP "GET" for "/"
+2015-11-07 12:37:02.330 +07:00 [Information] HTTP "GET" for "/__browserLink/requestData/92d3dc55329f4327ac33ebe413a5d40e?version=2"
+2015-11-07 12:37:40.762 +07:00 [Information] HTTP "POST" for "/token"
+2015-11-07 12:37:47.619 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 12:38:00.546 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 12:38:00.696 +07:00 [Error] Error caught in global handler: "No connection is available to service this operation: GET AuthTokenClientId.dH0luLXIjX6FbYgXgI0EAd7PcwfMghvSQT"
+StackExchange.Redis.RedisConnectionException: No connection is available to service this operation: GET AuthTokenClientId.dH0luLXIjX6FbYgXgI0EAd7PcwfMghvSQT
+   at StackExchange.Redis.ConnectionMultiplexer.ExecuteSyncImpl[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\TeamCity\buildAgent\work\3ae0647004edff78\StackExchange.Redis\StackExchange\Redis\ConnectionMultiplexer.cs:line 1927
+   at StackExchange.Redis.RedisBase.ExecuteSync[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\TeamCity\buildAgent\work\3ae0647004edff78\StackExchange.Redis\StackExchange\Redis\RedisBase.cs:line 80
+   at StackExchange.Redis.RedisDatabase.StringGet(RedisKey key, CommandFlags flags) in c:\TeamCity\buildAgent\work\3ae0647004edff78\StackExchange.Redis\StackExchange\Redis\RedisDatabase.cs:line 1431
+   at Quang.RedisCache.RedisCacheClient.Get[T](String key) in C:\Projects\ecommerce\Libraries\Quang.RedisCache\RedisCacheClient.cs:line 103
+   at Quang.Common.Auth.AppAuthorizeAttribute.ValidateOAuthAuthorizationHeader(String username, String headerValue, String& realAccessToken) in C:\Projects\ecommerce\Libraries\Quang.Common\Auth\AppAuthorizeAttribute.cs:line 76
+   at Quang.Auth.Api.Providers.ApplicationOAuthProvider.MatchEndpoint(OAuthMatchEndpointContext context) in C:\Projects\ecommerce\Presentation\Quang.Auth.Api\Providers\ApplicationOAuthProvider.cs:line 512
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeAsync>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Cors.CorsMiddleware.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContextStage.<RunApp>d__5.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContext.<DoFinalWork>d__2.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.StageAsyncResult.End(IAsyncResult ar)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContext.EndFinalWork(IAsyncResult ar)
+   at System.Web.HttpApplication.AsyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+2015-11-07 12:38:05.747 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/AllGroup"
+2015-11-07 12:38:05.753 +07:00 [Information] HTTP "OPTIONS" for "/api/User/GetAll"
+2015-11-07 12:39:33.517 +07:00 [Information] HTTP "GET" for "/"
+2015-11-07 12:39:33.945 +07:00 [Information] HTTP "GET" for "/__browserLink/requestData/e1e26608998a40a18e7d6741312c2dfa?version=2"
+2015-11-07 12:40:35.839 +07:00 [Information] HTTP "OPTIONS" for "/api/User/GetAll"
+2015-11-07 12:40:35.839 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/AllGroup"
+2015-11-07 12:40:36.098 +07:00 [Information] HTTP "POST" for "/api/User/GetAll"
+2015-11-07 12:40:36.098 +07:00 [Information] HTTP "GET" for "/api/Group/AllGroup"
+2015-11-07 12:40:44.051 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 12:40:44.095 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 12:40:47.504 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 12:41:09.126 +07:00 [Information] HTTP "POST" for "/token"
+2015-11-07 12:41:17.138 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 12:41:17.178 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 12:41:22.217 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/AllGroup"
+2015-11-07 12:41:22.217 +07:00 [Information] HTTP "OPTIONS" for "/api/User/GetAll"
+2015-11-07 12:41:22.253 +07:00 [Information] HTTP "POST" for "/api/User/GetAll"
+2015-11-07 12:41:22.253 +07:00 [Information] HTTP "GET" for "/api/Group/AllGroup"
+2015-11-07 12:54:02.510 +07:00 [Information] HTTP "OPTIONS" for "/api/User/GetAll"
+2015-11-07 12:54:02.510 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/ListAllGroup"
+2015-11-07 12:54:03.589 +07:00 [Information] HTTP "GET" for "/api/Group/ListAllGroup"
+2015-11-07 12:54:03.589 +07:00 [Information] HTTP "POST" for "/api/User/GetAll"
+2015-11-07 13:01:02.616 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/ListAllGroup"
+2015-11-07 13:01:02.625 +07:00 [Information] HTTP "OPTIONS" for "/api/User/GetAll"
+2015-11-07 13:01:02.977 +07:00 [Information] HTTP "GET" for "/api/Group/ListAllGroup"
+2015-11-07 13:01:02.977 +07:00 [Information] HTTP "POST" for "/api/User/GetAll"
+2015-11-07 13:17:08.145 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/GetAll"
+2015-11-07 13:17:08.162 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/ListAllGroup"
+2015-11-07 13:17:08.801 +07:00 [Information] HTTP "GET" for "/api/Group/ListAllGroup"
+2015-11-07 13:17:08.847 +07:00 [Information] HTTP "POST" for "/api/Group/GetAll"
+2015-11-07 13:17:34.151 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/ListAllGroup"
+2015-11-07 13:17:34.152 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/GetAll"
+2015-11-07 13:17:34.255 +07:00 [Information] HTTP "GET" for "/api/Group/ListAllGroup"
+2015-11-07 13:17:34.281 +07:00 [Information] HTTP "POST" for "/api/Group/GetAll"
+2015-11-07 13:19:30.857 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/ListAllGroup"
+2015-11-07 13:19:30.857 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/GetAll"
+2015-11-07 13:19:30.954 +07:00 [Information] HTTP "POST" for "/api/Group/GetAll"
+2015-11-07 13:19:30.961 +07:00 [Information] HTTP "GET" for "/api/Group/ListAllGroup"
+2015-11-07 13:19:40.062 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/GetAll"
+2015-11-07 13:19:40.117 +07:00 [Information] HTTP "POST" for "/api/Group/GetAll"
+2015-11-07 13:19:44.099 +07:00 [Information] HTTP "POST" for "/api/Group/GetAll"
+2015-11-07 13:22:34.468 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/GetAll"
+2015-11-07 13:22:34.468 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/ListAllGroup"
+2015-11-07 13:22:34.567 +07:00 [Information] HTTP "GET" for "/api/Group/ListAllGroup"
+2015-11-07 13:22:34.570 +07:00 [Information] HTTP "POST" for "/api/Group/GetAll"
+2015-11-07 13:22:39.555 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetGroupPermissions"
+2015-11-07 13:22:39.604 +07:00 [Information] HTTP "POST" for "/api/Permission/GetGroupPermissions"
+2015-11-07 13:28:45.693 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/ListAllGroup"
+2015-11-07 13:28:45.699 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/GetAll"
+2015-11-07 13:28:46.152 +07:00 [Information] HTTP "GET" for "/api/Group/ListAllGroup"
+2015-11-07 13:28:46.152 +07:00 [Information] HTTP "POST" for "/api/Group/GetAll"
+2015-11-07 13:28:49.447 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetGroupPermissions"
+2015-11-07 13:28:49.500 +07:00 [Information] HTTP "POST" for "/api/Permission/GetGroupPermissions"
+2015-11-07 13:30:34.111 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/ListAllGroup"
+2015-11-07 13:30:34.111 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/GetAll"
+2015-11-07 13:30:34.208 +07:00 [Information] HTTP "GET" for "/api/Group/ListAllGroup"
+2015-11-07 13:30:34.232 +07:00 [Information] HTTP "POST" for "/api/Group/GetAll"
+2015-11-07 13:30:50.002 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/ListAllGroup"
+2015-11-07 13:30:50.003 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/GetAll"
+2015-11-07 13:30:50.104 +07:00 [Information] HTTP "GET" for "/api/Group/ListAllGroup"
+2015-11-07 13:30:50.107 +07:00 [Information] HTTP "POST" for "/api/Group/GetAll"
+2015-11-07 13:30:54.103 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetGroupPermissions"
+2015-11-07 13:30:54.121 +07:00 [Information] HTTP "POST" for "/api/Permission/GetGroupPermissions"
+2015-11-07 13:32:34.936 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/ListAllGroup"
+2015-11-07 13:32:34.936 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/GetAll"
+2015-11-07 13:32:35.036 +07:00 [Information] HTTP "GET" for "/api/Group/ListAllGroup"
+2015-11-07 13:32:35.040 +07:00 [Information] HTTP "POST" for "/api/Group/GetAll"
+2015-11-07 13:33:29.094 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetGroupPermissions"
+2015-11-07 13:33:29.115 +07:00 [Information] HTTP "POST" for "/api/Permission/GetGroupPermissions"
+2015-11-07 13:34:21.303 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/ListAllGroup"
+2015-11-07 13:34:21.303 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/GetAll"
+2015-11-07 13:34:21.406 +07:00 [Information] HTTP "GET" for "/api/Group/ListAllGroup"
+2015-11-07 13:34:21.413 +07:00 [Information] HTTP "POST" for "/api/Group/GetAll"
+2015-11-07 13:34:23.437 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetGroupPermissions"
+2015-11-07 13:34:23.457 +07:00 [Information] HTTP "POST" for "/api/Permission/GetGroupPermissions"
+2015-11-07 13:36:16.407 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetAll"
+2015-11-07 13:36:16.718 +07:00 [Information] HTTP "POST" for "/api/Permission/GetAll"
+2015-11-07 13:37:14.693 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetAll"
+2015-11-07 13:37:15.343 +07:00 [Information] HTTP "POST" for "/api/Permission/GetAll"
+2015-11-07 13:37:27.150 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetAll"
+2015-11-07 13:37:27.286 +07:00 [Information] HTTP "POST" for "/api/Permission/GetAll"
+2015-11-07 13:37:30.255 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/ListAllGroup"
+2015-11-07 13:37:30.256 +07:00 [Information] HTTP "OPTIONS" for "/api/User/GetAll"
+2015-11-07 13:37:30.307 +07:00 [Information] HTTP "POST" for "/api/User/GetAll"
+2015-11-07 13:37:30.347 +07:00 [Information] HTTP "GET" for "/api/Group/ListAllGroup"
+2015-11-07 13:37:33.403 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/GetAll"
+2015-11-07 13:37:33.450 +07:00 [Information] HTTP "GET" for "/api/Group/ListAllGroup"
+2015-11-07 13:37:33.516 +07:00 [Information] HTTP "POST" for "/api/Group/GetAll"
+2015-11-07 13:37:36.931 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetGroupPermissions"
+2015-11-07 13:37:37.035 +07:00 [Information] HTTP "POST" for "/api/Permission/GetGroupPermissions"
+2015-11-07 13:39:37.427 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/ListAllGroup"
+2015-11-07 13:39:37.428 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/GetAll"
+2015-11-07 13:39:37.529 +07:00 [Information] HTTP "GET" for "/api/Group/ListAllGroup"
+2015-11-07 13:39:37.533 +07:00 [Information] HTTP "POST" for "/api/Group/GetAll"
+2015-11-07 13:39:41.522 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetGroupPermissions"
+2015-11-07 13:39:41.617 +07:00 [Information] HTTP "POST" for "/api/Permission/GetGroupPermissions"
+2015-11-07 13:40:31.060 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/ListAllGroup"
+2015-11-07 13:40:31.061 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/GetAll"
+2015-11-07 13:40:31.165 +07:00 [Information] HTTP "GET" for "/api/Group/ListAllGroup"
+2015-11-07 13:40:31.170 +07:00 [Information] HTTP "POST" for "/api/Group/GetAll"
+2015-11-07 13:40:37.912 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/ListAllGroup"
+2015-11-07 13:40:37.912 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/GetAll"
+2015-11-07 13:40:38.022 +07:00 [Information] HTTP "POST" for "/api/Group/GetAll"
+2015-11-07 13:40:38.026 +07:00 [Information] HTTP "GET" for "/api/Group/ListAllGroup"
+2015-11-07 13:40:41.642 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetGroupPermissions"
+2015-11-07 13:40:41.740 +07:00 [Information] HTTP "POST" for "/api/Permission/GetGroupPermissions"
+2015-11-07 13:40:47.383 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetGroupPermissions"
+2015-11-07 13:40:47.478 +07:00 [Information] HTTP "POST" for "/api/Permission/GetGroupPermissions"
+2015-11-07 13:40:52.974 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetGroupPermissions"
+2015-11-07 13:40:53.063 +07:00 [Information] HTTP "POST" for "/api/Permission/GetGroupPermissions"
+2015-11-07 13:40:59.675 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/GetAll"
+2015-11-07 13:40:59.733 +07:00 [Information] HTTP "POST" for "/api/Group/GetAll"
+2015-11-07 13:41:02.254 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetGroupPermissions"
+2015-11-07 13:41:02.344 +07:00 [Information] HTTP "POST" for "/api/Permission/GetGroupPermissions"
+2015-11-07 13:41:08.566 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetAll"
+2015-11-07 13:41:08.672 +07:00 [Information] HTTP "POST" for "/api/Permission/GetAll"
+2015-11-07 13:43:25.303 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/ListAllGroup"
+2015-11-07 13:43:25.303 +07:00 [Information] HTTP "OPTIONS" for "/api/User/GetAll"
+2015-11-07 13:43:25.338 +07:00 [Information] HTTP "POST" for "/api/User/GetAll"
+2015-11-07 13:43:25.381 +07:00 [Information] HTTP "GET" for "/api/Group/ListAllGroup"
+2015-11-07 13:43:29.495 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetAll"
+2015-11-07 13:43:29.598 +07:00 [Information] HTTP "POST" for "/api/Permission/GetAll"
+2015-11-07 13:44:54.816 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetAll"
+2015-11-07 13:44:54.939 +07:00 [Information] HTTP "POST" for "/api/Permission/GetAll"
+2015-11-07 13:45:36.381 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetOnePermission"
+2015-11-07 13:45:36.382 +07:00 [Information] HTTP "OPTIONS" for "/api/Term/ListRoleOptions"
+2015-11-07 13:45:36.382 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetPermissionGrants"
+2015-11-07 13:45:36.419 +07:00 [Information] HTTP "GET" for "/api/Term/ListRoleOptions"
+2015-11-07 13:45:36.447 +07:00 [Information] HTTP "POST" for "/api/Permission/GetOnePermission"
+2015-11-07 13:45:36.454 +07:00 [Information] HTTP "POST" for "/api/Permission/GetPermissionGrants"
+2015-11-07 13:45:42.667 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetAll"
+2015-11-07 13:45:42.770 +07:00 [Information] HTTP "POST" for "/api/Permission/GetAll"
+2015-11-07 13:45:44.617 +07:00 [Information] HTTP "OPTIONS" for "/api/Term/ListRoleOptions"
+2015-11-07 13:45:44.617 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetOnePermission"
+2015-11-07 13:45:44.617 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetPermissionGrants"
+2015-11-07 13:45:44.631 +07:00 [Information] HTTP "GET" for "/api/Term/ListRoleOptions"
+2015-11-07 13:45:44.671 +07:00 [Information] HTTP "POST" for "/api/Permission/GetPermissionGrants"
+2015-11-07 13:45:44.671 +07:00 [Information] HTTP "POST" for "/api/Permission/GetOnePermission"
+2015-11-07 13:45:48.017 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetAll"
+2015-11-07 13:45:48.118 +07:00 [Information] HTTP "POST" for "/api/Permission/GetAll"
+2015-11-07 13:46:59.926 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetOnePermission"
+2015-11-07 13:46:59.927 +07:00 [Information] HTTP "OPTIONS" for "/api/Term/ListRoleOptions"
+2015-11-07 13:46:59.927 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetPermissionGrants"
+2015-11-07 13:46:59.943 +07:00 [Information] HTTP "GET" for "/api/Term/ListRoleOptions"
+2015-11-07 13:46:59.981 +07:00 [Information] HTTP "POST" for "/api/Permission/GetPermissionGrants"
+2015-11-07 13:46:59.981 +07:00 [Information] HTTP "POST" for "/api/Permission/GetOnePermission"
+2015-11-07 13:53:40.757 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetPermissionGrants"
+2015-11-07 13:53:40.758 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetOnePermission"
+2015-11-07 13:53:40.758 +07:00 [Information] HTTP "OPTIONS" for "/api/Term/ListRoleOptions"
+2015-11-07 13:53:40.770 +07:00 [Information] HTTP "GET" for "/api/Term/ListRoleOptions"
+2015-11-07 13:53:40.839 +07:00 [Information] HTTP "POST" for "/api/Permission/GetOnePermission"
+2015-11-07 13:53:43.829 +07:00 [Information] HTTP "POST" for "/api/Permission/GetPermissionGrants"
+2015-11-07 13:54:13.289 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetOnePermission"
+2015-11-07 13:54:13.289 +07:00 [Information] HTTP "OPTIONS" for "/api/Term/ListRoleOptions"
+2015-11-07 13:54:13.289 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetPermissionGrants"
+2015-11-07 13:54:13.305 +07:00 [Information] HTTP "GET" for "/api/Term/ListRoleOptions"
+2015-11-07 13:54:13.340 +07:00 [Information] HTTP "POST" for "/api/Permission/GetOnePermission"
+2015-11-07 13:54:13.340 +07:00 [Information] HTTP "POST" for "/api/Permission/GetPermissionGrants"
+2015-11-07 13:54:19.385 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetOnePermission"
+2015-11-07 13:54:19.385 +07:00 [Information] HTTP "OPTIONS" for "/api/Term/ListRoleOptions"
+2015-11-07 13:54:19.385 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetPermissionGrants"
+2015-11-07 13:54:19.398 +07:00 [Information] HTTP "GET" for "/api/Term/ListRoleOptions"
+2015-11-07 13:54:19.435 +07:00 [Information] HTTP "POST" for "/api/Permission/GetOnePermission"
+2015-11-07 13:54:19.435 +07:00 [Information] HTTP "POST" for "/api/Permission/GetPermissionGrants"
+2015-11-07 13:55:13.878 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetPermissionGrants"
+2015-11-07 13:55:13.878 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetOnePermission"
+2015-11-07 13:55:13.879 +07:00 [Information] HTTP "OPTIONS" for "/api/Term/ListRoleOptions"
+2015-11-07 13:55:13.894 +07:00 [Information] HTTP "GET" for "/api/Term/ListRoleOptions"
+2015-11-07 13:55:13.935 +07:00 [Information] HTTP "POST" for "/api/Permission/GetOnePermission"
+2015-11-07 13:55:14.232 +07:00 [Information] HTTP "POST" for "/api/Permission/GetPermissionGrants"
+2015-11-07 13:59:12.754 +07:00 [Information] HTTP "OPTIONS" for "/api/Term/ListRoleOptions"
+2015-11-07 13:59:12.755 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetOnePermission"
+2015-11-07 13:59:12.755 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetPermissionGrants"
+2015-11-07 13:59:12.769 +07:00 [Information] HTTP "GET" for "/api/Term/ListRoleOptions"
+2015-11-07 13:59:12.835 +07:00 [Information] HTTP "POST" for "/api/Permission/GetOnePermission"
+2015-11-07 13:59:12.835 +07:00 [Information] HTTP "POST" for "/api/Permission/GetPermissionGrants"
+2015-11-07 13:59:50.543 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 13:59:50.605 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 13:59:54.792 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:01:27.673 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:01:28.330 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:03:02.100 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:03:02.242 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:03:59.674 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:03:59.811 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:05:18.905 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:05:19.037 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:05:44.051 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:05:44.176 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:11:32.333 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:11:32.485 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:12:10.782 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:12:10.902 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:13:20.046 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:13:20.177 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:15:32.416 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:15:32.549 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:15:39.053 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:15:39.181 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:18:17.606 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:18:17.736 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:20:20.103 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:20:20.237 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:21:32.341 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:21:32.477 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:27:22.117 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:27:22.281 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:28:16.494 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:28:16.625 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:28:32.928 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:28:33.061 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:29:53.962 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:29:54.093 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:30:59.974 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:31:00.177 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:31:07.012 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:31:07.141 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:34:23.180 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:34:23.314 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:35:13.668 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:35:13.797 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:35:37.492 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:35:37.630 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:37:53.886 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:37:54.026 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:41:48.962 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:41:49.096 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:42:14.165 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:42:14.306 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:42:33.469 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:42:33.592 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:43:12.626 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:43:12.758 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:43:28.021 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:43:28.151 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:43:52.095 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:43:52.234 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:45:11.609 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:45:11.744 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:46:18.210 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:46:18.348 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:47:19.663 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:47:19.794 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:47:37.165 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:47:37.294 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:50:54.731 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:50:54.863 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:52:35.765 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:52:35.892 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 14:53:05.664 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 14:53:05.793 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 15:03:53.601 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 15:03:53.774 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 15:04:25.970 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 15:04:26.085 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 15:04:58.808 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 15:04:58.935 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 15:05:40.077 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 15:05:40.203 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 15:08:02.061 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 15:08:02.192 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 15:08:41.962 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 15:08:42.086 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 15:09:21.869 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 15:09:21.999 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 15:14:54.964 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 15:14:55.145 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 15:16:52.841 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 15:16:52.973 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 15:17:29.668 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 15:17:29.798 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 15:18:15.883 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 15:18:16.010 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 15:20:06.725 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 15:20:06.859 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 15:24:28.793 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 15:24:28.931 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 15:25:42.982 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 15:25:43.112 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 15:31:59.958 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 15:32:00.126 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 15:36:06.276 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 15:36:06.416 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 15:38:22.329 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 15:38:22.461 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 15:38:31.376 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 15:38:31.507 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 15:39:32.545 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 15:39:32.672 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 15:41:10.951 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 15:41:11.079 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 15:43:08.738 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 15:43:08.871 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 15:47:34.216 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 15:47:34.373 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 15:47:51.305 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 15:47:51.433 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 15:50:31.439 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 15:50:31.570 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 15:55:15.491 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 15:55:16.148 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 15:55:33.736 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 15:55:33.885 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 15:57:03.956 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-07 15:57:04.088 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-07 16:06:51.119 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAllClients"
+2015-11-07 16:06:51.247 +07:00 [Information] HTTP "GET" for "/api/Device/GetAllClients"
+2015-11-07 16:08:01.953 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAllClients"
+2015-11-07 16:08:01.966 +07:00 [Information] HTTP "OPTIONS" for "/api/LoginHistory/GetAll"
+2015-11-07 16:08:02.118 +07:00 [Information] HTTP "GET" for "/api/Device/GetAllClients"
+2015-11-07 16:08:02.245 +07:00 [Information] HTTP "POST" for "/api/LoginHistory/GetAll"
+2015-11-07 16:09:40.571 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAllClients"
+2015-11-07 16:09:40.572 +07:00 [Information] HTTP "OPTIONS" for "/api/LoginHistory/GetAll"
+2015-11-07 16:09:40.787 +07:00 [Information] HTTP "POST" for "/api/LoginHistory/GetAll"
+2015-11-07 16:09:41.040 +07:00 [Information] HTTP "GET" for "/api/Device/GetAllClients"
+2015-11-07 16:09:54.340 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAllClients"
+2015-11-07 16:09:54.341 +07:00 [Information] HTTP "OPTIONS" for "/api/LoginHistory/GetAll"
+2015-11-07 16:09:54.501 +07:00 [Information] HTTP "GET" for "/api/Device/GetAllClients"
+2015-11-07 16:09:54.604 +07:00 [Information] HTTP "POST" for "/api/LoginHistory/GetAll"
+2015-11-07 16:10:45.424 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAllClients"
+2015-11-07 16:10:45.425 +07:00 [Information] HTTP "OPTIONS" for "/api/LoginHistory/GetAll"
+2015-11-07 16:10:45.646 +07:00 [Information] HTTP "GET" for "/api/Device/GetAllClients"
+2015-11-07 16:10:45.687 +07:00 [Information] HTTP "POST" for "/api/LoginHistory/GetAll"
+2015-11-07 16:11:57.130 +07:00 [Information] HTTP "OPTIONS" for "/api/LoginHistory/GetAll"
+2015-11-07 16:11:57.131 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAllClients"
+2015-11-07 16:11:57.362 +07:00 [Information] HTTP "GET" for "/api/Device/GetAllClients"
+2015-11-07 16:11:57.407 +07:00 [Information] HTTP "POST" for "/api/LoginHistory/GetAll"
+2015-11-07 16:12:10.659 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAllClients"
+2015-11-07 16:12:10.659 +07:00 [Information] HTTP "OPTIONS" for "/api/LoginHistory/GetAll"
+2015-11-07 16:12:10.885 +07:00 [Information] HTTP "GET" for "/api/Device/GetAllClients"
+2015-11-07 16:12:10.930 +07:00 [Information] HTTP "POST" for "/api/LoginHistory/GetAll"
+2015-11-07 16:12:23.102 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAllClients"
+2015-11-07 16:12:23.102 +07:00 [Information] HTTP "OPTIONS" for "/api/LoginHistory/GetAll"
+2015-11-07 16:12:23.328 +07:00 [Information] HTTP "GET" for "/api/Device/GetAllClients"
+2015-11-07 16:12:23.374 +07:00 [Information] HTTP "POST" for "/api/LoginHistory/GetAll"
+2015-11-07 16:19:42.697 +07:00 [Information] HTTP "OPTIONS" for "/api/LoginHistory/GetAll"
+2015-11-07 16:19:42.697 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAllClients"
+2015-11-07 16:19:42.958 +07:00 [Information] HTTP "GET" for "/api/Device/GetAllClients"
+2015-11-07 16:19:45.998 +07:00 [Information] HTTP "POST" for "/api/LoginHistory/GetAll"
+2015-11-07 16:20:16.001 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAllClients"
+2015-11-07 16:20:16.002 +07:00 [Information] HTTP "OPTIONS" for "/api/LoginHistory/GetAll"
+2015-11-07 16:20:16.248 +07:00 [Information] HTTP "GET" for "/api/Device/GetAllClients"
+2015-11-07 16:20:16.289 +07:00 [Information] HTTP "POST" for "/api/LoginHistory/GetAll"
+2015-11-07 16:20:27.842 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAllClients"
+2015-11-07 16:20:27.843 +07:00 [Information] HTTP "OPTIONS" for "/api/LoginHistory/GetAll"
+2015-11-07 16:20:28.072 +07:00 [Information] HTTP "GET" for "/api/Device/GetAllClients"
+2015-11-07 16:20:28.114 +07:00 [Information] HTTP "POST" for "/api/LoginHistory/GetAll"

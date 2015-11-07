@@ -29,15 +29,16 @@ namespace Quang.Common.Auth
 
         public static KeyValuePair<string, IList<Claim>> GenerateClientInfo(string userName, TimeSpan expiresIn)
         {
-            string key1 = AppAuthorizeAttribute.GenerateClientId();
+            string key1 = GenerateClientId();
             string clientCode = SecurityUtils.MD5Hash(string.Format("dsvn_v2_2015_{0}_{1}", (object)"0.0.0.0", (object)HttpContext.Current.Request.UserAgent));
-            Log.Debug("ua:" + clientCode + ":" + HttpContext.Current.Request.UserAgent);
+            //Log.Debug("ua:" + clientCode + ":" + HttpContext.Current.Request.UserAgent);
             AuthorizationClientInfo authorizationClientInfo = new AuthorizationClientInfo(userName, clientCode);
             IList<Claim> list = (IList<Claim>)new List<Claim>();
             list.Add(new Claim("Dsvn:ClientId", key1));
             list.Add(new Claim("Dsvn:ClientCode", clientCode));
             string key2 = string.Format("AuthTokenClientId.{0}", (object)key1);
-            AppAuthorizeAttribute._redisCache.Add<AuthorizationClientInfo>(key2, authorizationClientInfo, expiresIn);
+            
+            _redisCache.Add(key2, authorizationClientInfo, expiresIn);
             return new KeyValuePair<string, IList<Claim>>(key1, list);
         }
 
@@ -52,8 +53,8 @@ namespace Quang.Common.Auth
             AuthorizationClientInfo authorizationClientInfo = AppAuthorizeAttribute._redisCache.Get<AuthorizationClientInfo>(key);
             if (authorizationClientInfo == null)
                 return;
-            AppAuthorizeAttribute._redisCache.Remove(key);
-            AppAuthorizeAttribute._redisCache.Add<AuthorizationClientInfo>(key, authorizationClientInfo, newExpiresIn);
+            _redisCache.Remove(key);
+            _redisCache.Add(key, authorizationClientInfo, newExpiresIn);
         }
 
         public static IEnumerable<Claim> GetDeviceInfoClaims(string deviceKey, string deviceName, IEnumerable<string> deviceGroupKeys)
@@ -171,16 +172,16 @@ namespace Quang.Common.Auth
             if (actionContext.ControllerContext.RequestContext.Principal.Identity.IsAuthenticated)
             {
                 IDictionary<string, ActionRoleItem> dictionary = ActionRole.ToListDictionary();
-                string str = this.Roles;
-                if (dictionary.ContainsKey(this.Roles))
+                string str = Roles;
+                if (dictionary.ContainsKey(Roles))
                     str = dictionary[this.Roles].RoleKeyLabel;
                 httpError2.MessageDetail = string.Format("You must have permission in [{0}] to access this page.\n\nPls contact admin to support.", (object)str);
-                actionContext.Response.Content = (HttpContent)new ObjectContent<HttpError>(httpError2, objectContent.Formatter);
+                actionContext.Response.Content = new ObjectContent<HttpError>(httpError2, objectContent.Formatter);
             }
             else
             {
                 httpError2.MessageDetail = "You need login to access this page.";
-                actionContext.Response.Content = (HttpContent)new ObjectContent<HttpError>(httpError2, objectContent.Formatter);
+                actionContext.Response.Content = new ObjectContent<HttpError>(httpError2, objectContent.Formatter);
             }
         }
     }

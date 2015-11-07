@@ -3,13 +3,13 @@ angular.module('quangauthwebApp').service('groupService', ['$resource', 'ENV', f
       
     var rs = $resource('', {}, {
 
-        query: { method: 'POST', url: ENV.urlApiAuth + 'api/Group/GetAll' },
+        query: { method: "POST", url: ENV.urlApiAuth + "api/Group/GetAll" },
         read: { method: 'POST', url: ENV.urlApiAuth + 'api/Group/GetOneGroup' },
         create: { method: 'POST', url: ENV.urlApiAuth + 'api/Group/CreateGroup' },
         save: { method: 'POST', url: ENV.urlApiAuth + 'api/Group/UpdateGroup' },
         remove: { method: 'POST', url: ENV.urlApiAuth + 'api/Group/DeleteGroup' },
-        listAll: { method: 'GET', url: ENV.urlApiAuth + 'api/Group/AllGroup' },
-        getGroupPermissions: { method: 'POST', url: ENV.urlApiAuth + 'api/Permission/GetGroupPermissions' },
+        listAll: { method: 'GET', url: ENV.urlApiAuth + 'api/Group/ListAllGroup' },
+        getGroupPermissions: { method: 'POST', url: ENV.urlApiAuth + 'api/Permission/GetGroupPermissions', isArray: true },
         updateGroupPermissions: { method: 'POST', url: ENV.urlApiAuth + 'api/Permission/UpdateGroupPermissions' },
     });
 
@@ -18,7 +18,7 @@ angular.module('quangauthwebApp').service('groupService', ['$resource', 'ENV', f
     serviceFactory.listAllOptions = function (callback) {
         rs.listAll().$promise.then(function (res) {
             if (callback) {
-                callback(res.Groups);
+                callback(res.DanhSachGroups);
             }
         });
     }
@@ -27,7 +27,7 @@ angular.module('quangauthwebApp').service('groupService', ['$resource', 'ENV', f
         filter = filter ? filter : {};
         rs.query(filter).$promise.then(function (res) {
             if (callback) {
-                callback({ items: res.Groups, totalCount: res.TotalCount });
+                callback({ items: res.DanhSachGroups, totalCount: res.TotalCount });
             }
         });
     }
@@ -79,7 +79,7 @@ angular.module('quangauthwebApp').service('groupService', ['$resource', 'ENV', f
     serviceFactory.getGroupPermissions = function (groupId, callback) {
         rs.getGroupPermissions({ Id: groupId }).$promise.then(function (res) {
             if (callback) {
-                callback(res.Data);
+                callback(res);
             }
         });
     }

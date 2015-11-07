@@ -30,3 +30,6 @@ C:\Projects\ecommerce\Libraries\Quang.Cate.BusinessLogic\bin\Debug\MiniProfiler.
 C:\Projects\ecommerce\Libraries\Quang.Cate.BusinessLogic\bin\Debug\MiniProfiler.xml
 C:\Projects\ecommerce\Libraries\Quang.Cate.BusinessLogic\bin\Debug\Dapper.pdb
 C:\Projects\ecommerce\Libraries\Quang.Cate.BusinessLogic\bin\Debug\Dapper.xml
+C:\Projects\ecommerce\Libraries\Quang.Cate.BusinessLogic\bin\Debug\Microsoft.Owin.dll
+C:\Projects\ecommerce\Libraries\Quang.Cate.BusinessLogic\bin\Debug\Owin.dll
+C:\Projects\ecommerce\Libraries\Quang.Cate.BusinessLogic\bin\Debug\Microsoft.Owin.xml

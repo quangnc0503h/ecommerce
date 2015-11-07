@@ -65,61 +65,67 @@ namespace Quang.Common.Auth
             public const string BCDoanhThuBanHang = "802";
             public const string BCDoanhThuThucHien = "803";
         }
+        private static readonly object _syncLock = new object();
         private static IDictionary<string, ActionRoleItem> _dictionaryItems;
+
         public static IDictionary<string, ActionRoleItem> ToListDictionary()
         {
-            if (ActionRole._dictionaryItems == null)
+            lock (_syncLock)
             {
-                ActionRole._dictionaryItems = (IDictionary<string, ActionRoleItem>)new Dictionary<string, ActionRoleItem>();
-                Type[] types = typeof(ActionRole).Assembly.GetTypes();
-                foreach (Type type1 in Enumerable.Where<Type>((IEnumerable<Type>)types, (Func<Type, bool>)(type => type.DeclaringType == typeof(ActionRole))))
+                if (_dictionaryItems == null)
                 {
-                    Type item = type1;
-                    foreach (FieldInfo fieldInfo in (IEnumerable<FieldInfo>)Enumerable.OrderBy<FieldInfo, object>(Enumerable.Where<FieldInfo>((IEnumerable<FieldInfo>)item.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.FlattenHierarchy), (Func<FieldInfo, bool>)(m =>
+                    _dictionaryItems = new Dictionary<string, ActionRoleItem>();
+                    Type[] local_0 = typeof(ActionRole).Assembly.GetTypes();
+                    foreach (Type item_3 in Enumerable.Where(local_0, type => type.DeclaringType == typeof(ActionRole)))
                     {
-                        if (m.IsLiteral)
-                            return !m.IsInitOnly;
-                        return false;
-                    })), (Func<FieldInfo, object>)(m => m.GetRawConstantValue())))
-                    {
-                        object rawConstantValue = fieldInfo.GetRawConstantValue();
-                        if (rawConstantValue != null)
-                        {
-                            string str = typeof(ActionRole).Name + "." + item.Name + "." + fieldInfo.Name;
-                            ActionRole._dictionaryItems.Add(rawConstantValue.ToString(), new ActionRoleItem()
-                            {
-                                Group = item.Name,
-                                RoleKey = rawConstantValue.ToString(),
-                                RoleKeyLabel = str
-                            });
-                        }
-                    }
-                    foreach (Type type2 in Enumerable.Where<Type>((IEnumerable<Type>)types, (Func<Type, bool>)(type => type.DeclaringType == item)))
-                    {
-                        foreach (FieldInfo fieldInfo in (IEnumerable<FieldInfo>)Enumerable.OrderBy<FieldInfo, object>(Enumerable.Where<FieldInfo>((IEnumerable<FieldInfo>)type2.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.FlattenHierarchy), (Func<FieldInfo, bool>)(m =>
+                        Type item = item_3;
+                        foreach (FieldInfo item_0 in (IEnumerable<FieldInfo>)Enumerable.OrderBy<FieldInfo, object>(Enumerable.Where<FieldInfo>((IEnumerable<FieldInfo>)item.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.FlattenHierarchy), (Func<FieldInfo, bool>)(m =>
                         {
                             if (m.IsLiteral)
                                 return !m.IsInitOnly;
                             return false;
-                        })), (Func<FieldInfo, object>)(m => m.GetRawConstantValue())))
+                        })), m => m.GetRawConstantValue()))
                         {
-                            object rawConstantValue = fieldInfo.GetRawConstantValue();
-                            if (rawConstantValue != null)
+                            object local_4 = item_0.GetRawConstantValue();
+                            if (local_4 != null)
                             {
-                                string str = typeof(ActionRole).Name + "." + item.Name + "." + type2.Name + "." + fieldInfo.Name;
-                                ActionRole._dictionaryItems.Add(rawConstantValue.ToString(), new ActionRoleItem()
+                                string local_5 = typeof(ActionRole).Name + "." + item.Name + "." + item_0.Name;
+                                _dictionaryItems.Add(local_4.ToString(), new ActionRoleItem()
                                 {
                                     Group = item.Name,
-                                    RoleKey = rawConstantValue.ToString(),
-                                    RoleKeyLabel = str
+                                    RoleKey = local_4.ToString(),
+                                    RoleKeyLabel = local_5
                                 });
+                            }
+                        }
+                        foreach (Type item_2 in Enumerable.Where<Type>((IEnumerable<Type>)local_0, (Func<Type, bool>)(type => type.DeclaringType == item)))
+                        {
+                            foreach (FieldInfo item_1 in (IEnumerable<FieldInfo>)Enumerable.OrderBy<FieldInfo, object>(Enumerable.Where<FieldInfo>((IEnumerable<FieldInfo>)item_2.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.FlattenHierarchy), (Func<FieldInfo, bool>)(m =>
+                            {
+                                if (m.IsLiteral)
+                                    return !m.IsInitOnly;
+                                return false;
+                            })), (Func<FieldInfo, object>)(m => m.GetRawConstantValue())))
+                            {
+                                object local_11 = item_1.GetRawConstantValue();
+                                if (local_11 != null)
+                                {
+                                    string local_12 = typeof(ActionRole).Name + "." + item.Name + "." + item_2.Name + "." + item_1.Name;
+                                    _dictionaryItems.Add(local_11.ToString(), new ActionRoleItem()
+                                    {
+                                        Group = item.Name,
+                                        RoleKey = local_11.ToString(),
+                                        RoleKeyLabel = local_12
+                                    });
+                                }
                             }
                         }
                     }
                 }
             }
-            return ActionRole._dictionaryItems;
+            return _dictionaryItems;
         }
+
     }
 
     public class ActionRoleItem

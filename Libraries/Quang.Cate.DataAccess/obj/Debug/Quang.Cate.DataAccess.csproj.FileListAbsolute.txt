@@ -40,3 +40,6 @@ C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Serilog.pdb
 C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Serilog.xml
 C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Serilog.FullNetFx.pdb
 C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Serilog.FullNetFx.xml
+C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Microsoft.Owin.dll
+C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Owin.dll
+C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Microsoft.Owin.xml

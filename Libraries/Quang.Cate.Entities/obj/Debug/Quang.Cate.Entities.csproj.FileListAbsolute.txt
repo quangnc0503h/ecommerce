@@ -8,3 +8,6 @@ C:\Projects\ecommerce\Libraries\Quang.Cate.Entities\bin\Debug\Quang.Cate.Entitie
 C:\Projects\ecommerce\Libraries\Quang.Cate.Entities\obj\Debug\Quang.Cate.Entities.dll
 C:\Projects\ecommerce\Libraries\Quang.Cate.Entities\obj\Debug\Quang.Cate.Entities.pdb
 C:\Projects\ecommerce\Libraries\Quang.Cate.Entities\obj\Debug\Quang.Cate.Entities.csprojResolveAssemblyReference.cache
+C:\Projects\ecommerce\Libraries\Quang.Cate.Entities\bin\Debug\Microsoft.Owin.dll
+C:\Projects\ecommerce\Libraries\Quang.Cate.Entities\bin\Debug\Owin.dll
+C:\Projects\ecommerce\Libraries\Quang.Cate.Entities\bin\Debug\Microsoft.Owin.xml

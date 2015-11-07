@@ -31,7 +31,7 @@ namespace Quang.Auth.Api.Controllers
 
         [HttpPost]
         [Route("GetAll")]
-        [AppAuthorize(Roles = "160")]
+      //  [AppAuthorize(Roles = "160")]
         public async Task<DanhSachLoginHistoryOutput> GetAll(FilterLoginHistoryInput filter)
         {
             return await this._loginHistoryBll.GetAll(filter);
@@ -39,7 +39,7 @@ namespace Quang.Auth.Api.Controllers
 
         [HttpPost]
         [Route("GetOneLoginHistory")]
-        [AppAuthorize(Roles = "160")]
+       // [AppAuthorize(Roles = "160")]
         public async Task<GetOneLoginHistoryOutput> GetOneLoginHistory(GetByIdInput input)
         {
             LoginHistory result = await this._loginHistoryBll.GetOneLoginHistory(input.Id);
