@@ -11,23 +11,22 @@ angular.module('quangauthwebApp')
   .service('userService', ['$resource', 'ENV', function ($resource, ENV) {
       
       var rs = $resource('', {}, {
-
-          query: { method: 'POST', url: ENV.urlApiAuth + 'api/User/GetAll' },
-          read: { method: 'POST', url: ENV.urlApiAuth + 'api/User/GetOneUser' },
-          readCurrentUser: { method: 'POST', url: ENV.urlApiAuth + 'api/User/GetCurrentUser' },
-          create: { method: 'POST', url: ENV.urlApiAuth + 'api/User/CreateUser' },
-          save: { method: 'POST', url: ENV.urlApiAuth + 'api/User/UpdateUser' },
-          saveCurrentUser: { method: 'POST', url: ENV.urlApiAuth + 'api/User/UpdateCurrentUser' },
-          remove: { method: 'POST', url: ENV.urlApiAuth + 'api/User/DeleteUser' },
-          existUserName: { method: 'POST', url: ENV.urlApiAuth + 'api/User/CheckUserName' },
-          existEmail: { method: 'POST', url: ENV.urlApiAuth + 'api/User/CheckEmail' },
-          getUserClientApp: { method: 'POST', url: ENV.urlApiAuth + 'api/User/GetUserClientApp' },
-          updateUserApp: { method: 'POST', url: ENV.urlApiAuth + 'api/User/UpdateUserClientApp' },
-          generateApiKey: { method: 'POST', url: ENV.urlApiAuth + 'api/User/GenerateUserAppApiKey' },
-          changepass: { method: 'POST', url: ENV.urlApiAuth + 'api/Account/ChangePassword' },
-          setpassword: { method: 'POST', url: ENV.urlApiAuth + 'api/Account/SetPassword' },
-          getUserPermissions: { method: 'POST', url: ENV.urlApiAuth + 'api/Permission/GetUserPermissions'},
-          updateUserPermissions: { method: 'POST', url: ENV.urlApiAuth + 'api/Permission/UpdateUserPermissions' },
+          query: { method: "POST", url: ENV.urlApiAuth + "api/User/GetAll" },
+          read: { method: "POST", url: ENV.urlApiAuth + "api/User/GetOneUser" },
+          readCurrentUser: { method: "POST", url: ENV.urlApiAuth + "api/User/GetCurrentUser" },
+          create: { method: "POST", url: ENV.urlApiAuth + "api/User/CreateUser" },
+          save: { method: "POST", url: ENV.urlApiAuth + "api/User/UpdateUser" },
+          saveCurrentUser: { method: "POST", url: ENV.urlApiAuth + "api/User/UpdateCurrentUser" },
+          remove: { method: "POST", url: ENV.urlApiAuth + "api/User/DeleteUser" },
+          existUserName: { method: "POST", url: ENV.urlApiAuth + "api/User/CheckUserName" },
+          existEmail: { method: "POST", url: ENV.urlApiAuth + "api/User/CheckEmail" },
+          getUserClientApp: { method: "POST", url: ENV.urlApiAuth + "api/User/GetUserClientApp" },
+          updateUserApp: { method: "POST", url: ENV.urlApiAuth + "api/User/UpdateUserClientApp" },
+          generateApiKey: { method: "POST", url: ENV.urlApiAuth + "api/User/GenerateUserAppApiKey" },
+          changepass: { method: "POST", url: ENV.urlApiAuth + "api/Account/ChangePassword" },
+          setpassword: { method: "POST", url: ENV.urlApiAuth + "api/Account/SetPassword" },
+          getUserPermissions: { method: "POST", url: ENV.urlApiAuth + "api/Permission/GetUserPermissions", isArray: true },
+          updateUserPermissions: { method: "POST", url: ENV.urlApiAuth + "api/Permission/UpdateUserPermissions" }
       });
 
       var serviceFactory = {};
@@ -36,7 +35,7 @@ angular.module('quangauthwebApp')
           filter = filter ? filter : {};
           rs.query(filter).$promise.then(function (res) {
               if (callback) {
-                  callback({ items: res.Data, totalCount: res.Total });
+                  callback({ items: res.DanhSachUsers, totalCount: res.TotalCount });
               }
           });
       }
@@ -45,7 +44,7 @@ angular.module('quangauthwebApp')
           rs.read({ Id: id }).$promise.then(function (res) {
               if (callback) {
                   if (res) {
-                      callback(res);
+                      callback(res.User);
                   } else {
                       callback({});
                   }
@@ -57,7 +56,7 @@ angular.module('quangauthwebApp')
           rs.readCurrentUser().$promise.then(function (res) {
               if (callback) {
                   if (res) {
-                      callback(res);
+                      callback(res.User);
                   } else {
                       callback({});
                   }
@@ -125,7 +124,7 @@ angular.module('quangauthwebApp')
           rs.getUserClientApp({ Id: userId }).$promise.then(function (res) {
               if (callback) {
                  // console.log(res);
-                  callback(res);
+                  callback(res.UserApp);
               }
           });
       }

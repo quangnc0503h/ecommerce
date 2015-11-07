@@ -74,7 +74,7 @@ angular.module("quangauthwebApp").controller("LoginHistoryCtrl", ["$scope", "$mo
     };
     $scope.getAppName = function (b) {
         for (var c = 0; c < $scope.allApps.length; c++)
-            if (a.allApps[c].key == b)
+            if ($scope.allApps[c].key == b)
                 return $scope.allApps[c].value
     };
     var getMultiSelectValues = function (a) {

@@ -18,11 +18,11 @@ angular.module('quangauthwebApp')
           save: { method: 'POST', url: ENV.urlApiAuth + 'api/Term/UpdateTerm' },
           remove: { method: 'POST', url: ENV.urlApiAuth + 'api/Term/DeleteTerm' },
           listRole: { method: 'GET', url: ENV.urlApiAuth + 'api/Term/ListRoleOptions' },
-          getMissingTerms: { method: 'GET', url: ENV.urlApiAuth + 'api/Term/GetMissingTerms'},
-          getGrantUserTerms: { method: 'POST', url: ENV.urlApiAuth + 'api/Term/GetGrantTermsUser' },
+          getMissingTerms: { method: 'GET', url: ENV.urlApiAuth + 'api/Term/GetMissingTerms', isArray:true},
+          getGrantUserTerms: { method: 'POST', url: ENV.urlApiAuth + 'api/Term/GetGrantTermsUser', isArray:true },
           updateUserGrant: { method: 'POST', url: ENV.urlApiAuth + 'api/Term/UpdateUserGrant' },
-          getGrantGroupTerms: { method: 'POST', url: ENV.urlApiAuth + 'api/Term/GetGrantTermsGroup'},
-          getGrantedUsersByTerm: { method: 'POST', url: ENV.urlApiAuth + 'api/Term/GetGrantedUsersByTerm' },
+          getGrantGroupTerms: { method: 'POST', url: ENV.urlApiAuth + 'api/Term/getGrantGroupTerms',isArray:true },
+          getGrantedUsersByTerm: { method: 'POST', url: ENV.urlApiAuth + 'api/Term/GetGrantedUsersByTerm',isArray:true },
           updateGroupGrant: { method: 'POST', url: ENV.urlApiAuth + 'api/Term/UpdateGroupGrant' },
       });
 
@@ -31,7 +31,7 @@ angular.module('quangauthwebApp')
       serviceFactory.listRoleOptions = function (callback) {
           rs.listRole().$promise.then(function (res) {
               if (callback) {
-                  callback(res.Data);
+                  callback(res.Options);
               }
           });
       }
@@ -41,7 +41,7 @@ angular.module('quangauthwebApp')
           rs.query(filter).$promise.then(function (res) {
               if (callback) {
                  // console.log(res.Data);
-                  callback({ items: res.Data, totalCount: res.Total });
+                  callback({ items: res.DanhSachTerms, totalCount: res.TotalCount });
               }
           });
       }
@@ -49,7 +49,7 @@ angular.module('quangauthwebApp')
       serviceFactory.getGrantUserTerms = function (id, callback) {
           rs.getGrantUserTerms({ Id: id }).$promise.then(function (res) {
               if (callback) {
-                  callback(res.Data);
+                  callback(res);
               }
           });
       }
@@ -58,7 +58,7 @@ angular.module('quangauthwebApp')
           rs.getGrantedUsersByTerm({ Id: id }).$promise.then(function (users) {
               if (callback) {
                  // console.log(users);
-                  callback(users.Data);
+                  callback(users);
               }
           });
       }
@@ -66,7 +66,7 @@ angular.module('quangauthwebApp')
       serviceFactory.getGrantGroupTerms = function (id, callback) {
           rs.getGrantGroupTerms({ Id: id }).$promise.then(function (res) {
               if (callback) {
-                  callback(res.Data);
+                  callback(res);
               }
           });
       }
@@ -75,7 +75,7 @@ angular.module('quangauthwebApp')
           rs.read({ Id: id }).$promise.then(function (res) {
               if (callback) {
                   if (res) {
-                      callback(res);
+                      callback(res.Term);
                   } else {
                       callback({});
                   }
@@ -119,7 +119,7 @@ angular.module('quangauthwebApp')
           rs.getMissingTerms().$promise.then(function (res) {
               if (callback) {
                   //console.log(res);
-                  callback(res.Data); // Return 0 on success
+                  callback(res); // Return 0 on success
               }
           });
       }

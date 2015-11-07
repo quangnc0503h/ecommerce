@@ -69,14 +69,14 @@ namespace Quang.Auth.Api.Controllers
 
         [Route("GetAll")]
         [HttpPost]
-        [AppAuthorize(Roles = "100")]
+       // [AppAuthorize(Roles = "100")]
         public async Task<DanhSachUserOutput> GetAll(FilterUserInput filter)
         {
             return await this._userBll.GetAll(filter);
         }
 
         [Route("GetOneUser")]
-        [AppAuthorize(Roles = "100")]
+        //[AppAuthorize(Roles = "100")]
         [HttpPost]
         public async Task<GetOneUserOutput> GetOneUser(GetOneUserInput input)
         {
@@ -84,7 +84,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+       // [Authorize]
         [Route("GetCurrentUser")]
         public async Task<GetOneUserOutput> GetCurrentUser()
         {
@@ -94,7 +94,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [Route("CreateUser")]
-        [AppAuthorize(Roles = "100")]
+       // [AppAuthorize(Roles = "100")]
         [HttpPost]
         public async Task<CreateUserOutput> CreateUser(CreateUserInput input)
         {
@@ -107,7 +107,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        [AppAuthorize(Roles = "100")]
+       // [AppAuthorize(Roles = "100")]
         [Route("CreateMobileUser")]
         public async Task<CreateMobileUserOutput> CreateMobileUser(CreateMobileUserInput input)
         {
@@ -124,7 +124,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        [AppAuthorize(Roles = "100")]
+       // [AppAuthorize(Roles = "100")]
         [Route("SetMobilePassword")]
         public async Task<SetMobilePasswordOutput> SetMobilePassword(SetMobilePasswordInput input)
         {
@@ -137,7 +137,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        [AppAuthorize(Roles = "100")]
+       // [AppAuthorize(Roles = "100")]
         [Route("CreateListUsers")]
         public async Task<int> CreateListUsers(List<CreateUserInput> inputs)
         {
@@ -158,7 +158,7 @@ namespace Quang.Auth.Api.Controllers
 
         [HttpPost]
         [Route("UpdateUser")]
-        [AppAuthorize(Roles = "100")]
+        //[AppAuthorize(Roles = "100")]
         public async Task<UpdateUserOutput> UpdateUser(UpdateUserInput input)
         {
             UpdateUserOutput result = await this._userBll.UpdateUser(input, true);
@@ -174,7 +174,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+       // [Authorize]
         [Route("UpdateCurrentUser")]
         public async Task<UpdateUserOutput> UpdateCurrentUser(UpdateUserInput input)
         {
@@ -186,7 +186,7 @@ namespace Quang.Auth.Api.Controllers
             return result;
         }
 
-        [AppAuthorize(Roles = "100")]
+       // [AppAuthorize(Roles = "100")]
         [Route("DeleteUser")]
         [HttpPost]
         public async Task<DeleteUserOutput> DeleteUser(DeleteUserInput input)
@@ -196,7 +196,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         [Route("CheckUserName")]
         public async Task<CheckUserExistOutput> CheckUserName(CheckUserExistInput input)
         {
@@ -204,14 +204,14 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+       // [Authorize]
         [Route("CheckEmail")]
         public async Task<CheckUserExistOutput> CheckEmail(CheckUserExistInput input)
         {
             return await this._userBll.CheckExistEmail(input.Email, input.Id);
         }
 
-        [AppAuthorize(Roles = "150")]
+        //[AppAuthorize(Roles = "150")]
         [HttpPost]
         [Route("GetUserClientApp")]
         public async Task<GetOneUserAppOutput> GetUserClientApp(GetByIdInput input)
@@ -223,7 +223,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        [AppAuthorize(Roles = "150")]
+        //[AppAuthorize(Roles = "150")]
         [Route("UpdateUserClientApp")]
         public async Task<ResultUpdateOutput> UpdateUserClientApp(UpdateUserAppInput input)
         {
@@ -233,7 +233,7 @@ namespace Quang.Auth.Api.Controllers
 
         [Route("GenerateUserAppApiKey")]
         [HttpPost]
-        [AppAuthorize(Roles = "150")]
+        //[AppAuthorize(Roles = "150")]
         public async Task<GenerateUserAppApiKeyOutput> GenerateUserAppApiKey()
         {
             return new GenerateUserAppApiKeyOutput()
