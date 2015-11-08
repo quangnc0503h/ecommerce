@@ -14,64 +14,64 @@ namespace Quang.Auth.Api.BusinessLogic
 {
     public class DeviceBll : IDeviceBll
     {
-        private IDeviceTable _deviceTable;
-        private IRequestDeviceTable _requestDeviceTable;
+        private readonly IDeviceTable _deviceTable;
+        private readonly IRequestDeviceTable _requestDeviceTable;
 
         public MySQLDatabase Database { get; private set; }
         //public object Mapper { get; private set; }
 
         public DeviceBll()
         {
-            this.Database = (MySQLDatabase)OwinContextExtensions.Get<ApplicationDbContext>(HttpContextExtensions.GetOwinContext(HttpContext.Current.Request));
-            this._deviceTable = (IDeviceTable)new DeviceTable(this.Database);
-            this._requestDeviceTable = (IRequestDeviceTable)new RequestDeviceTable(this.Database);
+            Database = HttpContext.Current.Request.GetOwinContext().Get<ApplicationDbContext>();
+            _deviceTable = new DeviceTable(Database);
+            _requestDeviceTable = new RequestDeviceTable(Database);
         }
 
         public Task<Device> GetOneDevice(int deviceId)
         {
-            return Task.FromResult<Device>(this._deviceTable.GetOneDevice(deviceId));
+            return Task.FromResult(_deviceTable.GetOneDevice(deviceId));
         }
 
         public Task<Device> GetOneDeviceByKey(string clientId, string deviceKey)
         {
-            return Task.FromResult<Device>(this._deviceTable.GetDevice(clientId, deviceKey));
+            return Task.FromResult(_deviceTable.GetDevice(clientId, deviceKey));
         }
 
         public Task<DanhSachDeviceOutput> GetAll(FilterDeviceInput input)
         {
-            int total = this._deviceTable.GetTotal(input.ClientId, input.Keyword);
+            int total = _deviceTable.GetTotal(input.ClientId, input.Keyword);
             IEnumerable<Device> paging = this._deviceTable.GetPaging(input.PageSize, input.PageNumber, input.ClientId, input.Keyword);
-            return Task.FromResult<DanhSachDeviceOutput>(new DanhSachDeviceOutput()
+            return Task.FromResult(new DanhSachDeviceOutput()
             {
                 DanhSachDevices = paging,
-                TotalCount = (long)total
+                TotalCount = total
             });
         }
 
         public Task<DanhSachRequestDeviceOutput> GetAllRequest(FilterRequestDeviceInput input)
         {
             int total = this._requestDeviceTable.GetTotal(input.ClientId, input.Keyword, input.DateFrom, input.DateTo);
-            IEnumerable<RequestDevice> paging = this._requestDeviceTable.GetPaging(input.PageSize, input.PageNumber, input.ClientId, input.Keyword, input.DateFrom, input.DateTo);
-            return Task.FromResult<DanhSachRequestDeviceOutput>(new DanhSachRequestDeviceOutput()
+            IEnumerable<RequestDevice> paging = _requestDeviceTable.GetPaging(input.PageSize, input.PageNumber, input.ClientId, input.Keyword, input.DateFrom, input.DateTo);
+            return Task.FromResult(new DanhSachRequestDeviceOutput()
             {
                 DanhSachRequestDevices = paging,
-                TotalCount = (long)total
+                TotalCount = total
             });
         }
 
         public Task<IEnumerable<Device>> GetAllDevices()
         {
-            return Task.FromResult<IEnumerable<Device>>(this._deviceTable.GetAllDevices());
+            return Task.FromResult(_deviceTable.GetAllDevices());
         }
 
         public Task<int> DeleteDevice(int deviceId)
         {
-            return Task.FromResult<int>(this._deviceTable.Delete(deviceId));
+            return Task.FromResult(_deviceTable.Delete(deviceId));
         }
 
         public Task<int> DeleteDevice(IEnumerable<int> Ids)
         {
-            return Task.FromResult<int>(this._deviceTable.Delete(Ids));
+            return Task.FromResult(_deviceTable.Delete(Ids));
         }
 
         public Task<int> DeleteRequestDevice(int Id)

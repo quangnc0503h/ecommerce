@@ -1,9 +1,8 @@
 ﻿
-using Microsoft.AspNet.Identity;
+using System.Globalization;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using Microsoft.Practices.Unity;
 using Quang.Auth.Api.BusinessLogic;
@@ -15,11 +14,9 @@ using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Security.Cryptography;
-using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -29,28 +26,14 @@ namespace Quang.Auth.Api.Providers
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
         //private static readonly ICacheClient _redisCache = (ICacheClient)new RedisCacheClient(RedisConnection.SecurityConn, (ISerializer)null, 0);
-        private static Dictionary<string, string> _mobileProfileClaims = new Dictionary<string, string>()
+        private static readonly Dictionary<string, string> _mobileProfileClaims = new Dictionary<string, string>()
     {
-      {
-        "profile:cmnd",
-        "cmnd"
-      },
-      {
-        "profile:cty",
-        "congTy"
-      },
-      {
-        "profile:diachi",
-        "diaChi"
-      },
-      {
-        "profile:mst",
-        "maSoThue"
-      },
-      {
-        "profile:avartar",
-        "avatar"
-      }
+    
+    {"profile:cmnd","cmnd"},
+      {"profile:cty","congTy"},
+      {"profile:diachi","diaChi"},
+      {"profile:mst","maSoThue"},
+      {"profile:avartar","avatar"}
     };
         private const string CientMobileMuaVe = "MMuaVe";
         private readonly string _publicClientId;
@@ -59,13 +42,13 @@ namespace Quang.Auth.Api.Providers
         {
             if (publicClientId == null)
                 throw new ArgumentNullException("publicClientId");
-            this._publicClientId = publicClientId;
+            _publicClientId = publicClientId;
         }
 
         private async Task LogHistory(LoginType loginType, LoginStatus status, string clientId, string username, string deviceKey, string apiKey, string clientIp = null, string clientUri = null)
         {
-            UnityContainer unityContainer = UnityConfig.GetConfiguredContainer() as UnityContainer;
-            ILoginHistoryBll loginHistoryBll = UnityContainerExtensions.Resolve<ILoginHistoryBll>((IUnityContainer)unityContainer);
+            var unityContainer = UnityConfig.GetConfiguredContainer() as UnityContainer;
+            var loginHistoryBll = unityContainer.Resolve<ILoginHistoryBll>();
             if (string.IsNullOrEmpty(clientIp))
                 clientIp =SecurityUtils.GetClientIPAddress();
             if (string.IsNullOrEmpty(clientUri) && HttpContext.Current != null)
@@ -76,7 +59,7 @@ namespace Quang.Auth.Api.Providers
                 UserName = username,
                 LoginTime = DateTime.Now,
                 LoginStatus = status.GetHashCode(),
-                AppId = string.IsNullOrEmpty(clientId) ? (string)null : clientId,
+                AppId = string.IsNullOrEmpty(clientId) ? null : clientId,
                 ClientUri = clientUri,
                 ClientIP = clientIp,
                 ClientUA = HttpContext.Current.Request.UserAgent,
@@ -87,8 +70,8 @@ namespace Quang.Auth.Api.Providers
 
         private async Task<long> CountSuccessLoggedIn(string username)
         {
-            UnityContainer unityContainer = UnityConfig.GetConfiguredContainer() as UnityContainer;
-            ILoginHistoryBll loginHistoryBll = UnityContainerExtensions.Resolve<ILoginHistoryBll>((IUnityContainer)unityContainer);
+            var unityContainer = UnityConfig.GetConfiguredContainer() as UnityContainer;
+            var loginHistoryBll = unityContainer.Resolve<ILoginHistoryBll>();
             return await loginHistoryBll.CountSuccessLoggedIn(username);
         }
 
@@ -102,19 +85,18 @@ namespace Quang.Auth.Api.Providers
 				
 				if (!string.IsNullOrEmpty(origin)){
 					context.OwinContext.Response.Headers.Set("Access-Control-Allow-Origin", origin);
-				}else{
-                    string corsHeader = "Access-Control-Allow-Origin";
-                    if (!context.OwinContext.Response.Headers.ContainsKey(corsHeader))
+				}else
+				{
+				    const string corsHeader = "Access-Control-Allow-Origin";
+				    if (!context.OwinContext.Response.Headers.ContainsKey(corsHeader))
                     {
                         context.OwinContext.Response.Headers.Add(corsHeader, new[] { allowedOrigin });
                     }
-                    
 				}
-				
 			}
                 
             //context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new string[1]{ allowedOrigin});
-            ApplicationUserManager userManager = OwinContextExtensions.GetUserManager<ApplicationUserManager>(context.OwinContext);
+            var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
             IFormCollection form = await context.Request.ReadFormAsync();
             string clientAuthorization = form.Get("cauthorization");
             string clientRequestUri = form.Get("curi");
@@ -129,9 +111,9 @@ namespace Quang.Auth.Api.Providers
                 {
                 }
             }
-            ApplicationUser user = (ApplicationUser)null;
-            Device deviceInfo = (Device)null;
-            string clientApiSecret = (string)null;
+            ApplicationUser user = null;
+            Device deviceInfo = null;
+            string clientApiSecret = null;
             if (!string.IsNullOrEmpty(clientAuthorization) && !string.IsNullOrEmpty(clientRequestUri) && !string.IsNullOrEmpty(clientRquestMethod))
             {
                 string clientHostName = form.Get("chostname");
@@ -145,46 +127,46 @@ namespace Quang.Auth.Api.Providers
                     {
                         string apiKey = this.GetUserClientApiKey(authHeaderValue.Parameter);
                        // Log.Logger.Debug("DuongDQ3");
-                        Tuple<ApplicationUser, string> userFromClient = await this.GetUserByClientAuthorization(context.OwinContext, authHeaderValue.Parameter, clientRequestUri, clientRquestMethod, clientHostName, clientHostAddress);
+                        Tuple<ApplicationUser, string> userFromClient = await GetUserByClientAuthorization(context.OwinContext, authHeaderValue.Parameter, clientRequestUri, clientRquestMethod, clientHostName, clientHostAddress);
                         if (userFromClient != null)
                         {
                             user = userFromClient.Item1;
                             clientApiSecret = userFromClient.Item2;
                         //    Log.Logger.Debug("DuongDQ3: Get user from client ok");
-                            await this.LogHistory(LoginType.LoginApiKey, LoginStatus.Success, context.ClientId, (string)null, (string)null, apiKey, clientHostAddress, clientRequestUri);
+                            await LogHistory(LoginType.LoginApiKey, LoginStatus.Success, context.ClientId, null, null, apiKey, clientHostAddress, clientRequestUri);
                         }
                         else
                         {
                             //Log.Logger.Debug("DuongDQ3: Get user from client err");
-                            await this.LogHistory(LoginType.LoginApiKey, LoginStatus.InvalidApiInfo, context.ClientId, (string)null, (string)null, apiKey, clientHostAddress, clientRequestUri);
+                            await LogHistory(LoginType.LoginApiKey, LoginStatus.InvalidApiInfo, context.ClientId, null, null, apiKey, clientHostAddress, clientRequestUri);
                         }
                     }
                     else
-                        await this.LogHistory(LoginType.LoginApiKey, LoginStatus.InvalidApiHeaderFormat, context.ClientId, (string)null, (string)null, (string)null, clientHostAddress, clientRequestUri);
+                        await LogHistory(LoginType.LoginApiKey, LoginStatus.InvalidApiHeaderFormat, context.ClientId, null, null, null, clientHostAddress, clientRequestUri);
                 }
                 else
-                    await this.LogHistory(LoginType.LoginApiKey, LoginStatus.InvalidApiClientToken, context.ClientId, (string)null, (string)null, (string)null, clientHostAddress, clientRequestUri);
+                    await LogHistory(LoginType.LoginApiKey, LoginStatus.InvalidApiClientToken, context.ClientId, null, null, null, clientHostAddress, clientRequestUri);
             }
             else
             {
                 string deviceKey = form.Get("deviceKey");
                 if (!string.IsNullOrEmpty(deviceKey))
                 {
-                    UnityContainer unityContainer = UnityConfig.GetConfiguredContainer() as UnityContainer;
-                    IDeviceBll deviceBll = UnityContainerExtensions.Resolve<IDeviceBll>((IUnityContainer)unityContainer);
+                    var unityContainer = UnityConfig.GetConfiguredContainer() as UnityContainer;
+                    var deviceBll = unityContainer.Resolve<IDeviceBll>();
                     deviceInfo = await deviceBll.GetOneDeviceByKey(string.IsNullOrEmpty(context.ClientId) ? "MSoatVe" : context.ClientId, deviceKey);
                     if (deviceInfo != null && deviceInfo.IsActived)
                     {
                         user = await userManager.FindAsync(context.UserName, context.Password);
                         if (user != null)
-                            await this.LogHistory(LoginType.LoginDevice, LoginStatus.Success, context.ClientId, context.UserName, deviceKey, (string)null, (string)null, (string)null);
+                            await LogHistory(LoginType.LoginDevice, LoginStatus.Success, context.ClientId, context.UserName, deviceKey, null);
                         else
-                            await this.LogHistory(LoginType.LoginDevice, LoginStatus.InvalidUserNameOrPassword, context.ClientId, context.UserName, deviceKey, (string)null, (string)null, (string)null);
+                            await LogHistory(LoginType.LoginDevice, LoginStatus.InvalidUserNameOrPassword, context.ClientId, context.UserName, deviceKey, null);
                     }
                     else
                     {
                         context.SetError("invalid_grant", "The device infomation is incorrect.");
-                        await this.LogHistory(LoginType.LoginDevice, LoginStatus.InvalidDeviceKey, context.ClientId, context.UserName, deviceKey, (string)null, (string)null, (string)null);
+                        await LogHistory(LoginType.LoginDevice, LoginStatus.InvalidDeviceKey, context.ClientId, context.UserName, deviceKey, null);
                         
                     }
                 }
@@ -192,9 +174,9 @@ namespace Quang.Auth.Api.Providers
                 {
                     user = await userManager.FindAsync(context.UserName, context.Password);
                     if (user != null)
-                        await this.LogHistory(LoginType.LoginForm, LoginStatus.Success, context.ClientId, context.UserName, deviceKey, (string)null, (string)null, (string)null);
+                        await LogHistory(LoginType.LoginForm, LoginStatus.Success, context.ClientId, context.UserName, deviceKey, null);
                     else
-                        await this.LogHistory(LoginType.LoginForm, LoginStatus.InvalidUserNameOrPassword, context.ClientId, context.UserName, deviceKey, (string)null, (string)null, (string)null);
+                        await LogHistory(LoginType.LoginForm, LoginStatus.InvalidUserNameOrPassword, context.ClientId, context.UserName, deviceKey, null);
                 }
             }
             if (user == null)
@@ -205,20 +187,17 @@ namespace Quang.Auth.Api.Providers
             {
                 if (!string.IsNullOrEmpty(clientApiSecret))
                 {
-                    if (ClientApiProvider.ClientTokenCacheTimeInMinutes > 0UL)
-                        context.Options.AccessTokenExpireTimeSpan = TimeSpan.FromMinutes((double)(ClientApiProvider.ClientTokenCacheTimeInMinutes + 1UL));
-                    else
-                        context.Options.AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(10.0);
+                    context.Options.AccessTokenExpireTimeSpan = ClientApiProvider.ClientTokenCacheTimeInMinutes > 0UL ? TimeSpan.FromMinutes(ClientApiProvider.ClientTokenCacheTimeInMinutes + 1UL) : TimeSpan.FromMinutes(10.0);
                 }
                 else
                     context.Options.AccessTokenExpireTimeSpan = Startup.AccessTokenExpireTimeSpan;
-                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync((UserManager<ApplicationUser, int>)userManager, "Bearer");
-                IList<Claim> userClaims = (IList<Claim>)Enumerable.ToList<Claim>(Enumerable.Select<Claim, Claim>(oAuthIdentity.Claims, (Func<Claim, Claim>)(m => m)));
-                context.OwinContext.Set<IList<Claim>>("data:claims", userClaims);
-                foreach (string str in ApplicationOAuthProvider._mobileProfileClaims.Keys)
+                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, "Bearer");
+                IList<Claim> userClaims = oAuthIdentity.Claims.Select(m => m).ToList();
+                context.OwinContext.Set("data:claims", userClaims);
+                foreach (string str in _mobileProfileClaims.Keys)
                 {
                     string claimType = str;
-                    Claim claim = Enumerable.FirstOrDefault<Claim>(oAuthIdentity.Claims, (Func<Claim, bool>)(m => m.Type == claimType));
+                    var claim = oAuthIdentity.Claims.FirstOrDefault(m => m.Type == claimType);
                     if (claim != null)
                         oAuthIdentity.TryRemoveClaim(claim);
                 }
@@ -226,15 +205,15 @@ namespace Quang.Auth.Api.Providers
                 string userClientId = clientInfo.Key;
                 IList<Claim> userClientClaims = clientInfo.Value;
                 if (userClientClaims.Count > 0)
-                    oAuthIdentity.AddClaims((IEnumerable<Claim>)userClientClaims);
+                    oAuthIdentity.AddClaims(userClientClaims);
                 if (deviceInfo != null)
-                    oAuthIdentity.AddClaims(AppAuthorizeAttribute.GetDeviceInfoClaims(deviceInfo.DeviceKey, deviceInfo.DeviceName, (IEnumerable<string>)null));
-                string clientId = context.ClientId == null ? string.Empty : context.ClientId;
-                long? countSuccessLoggedIn = new long?();
+                    oAuthIdentity.AddClaims(AppAuthorizeAttribute.GetDeviceInfoClaims(deviceInfo.DeviceKey, deviceInfo.DeviceName, null));
+                string clientId = context.ClientId ?? string.Empty;
+                var countSuccessLoggedIn = new long?();
                 if (clientId == "MMuaVe")
-                    countSuccessLoggedIn = new long?(await this.CountSuccessLoggedIn(user.UserName));
-                AuthenticationProperties properties = await ApplicationOAuthProvider.CreateProperties(clientId, user, userClientId, clientApiSecret, countSuccessLoggedIn, userClaims);
-                AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
+                    countSuccessLoggedIn = await CountSuccessLoggedIn(user.UserName);
+                AuthenticationProperties properties = await CreateProperties(clientId, user, userClientId, clientApiSecret, countSuccessLoggedIn, userClaims);
+                var ticket = new AuthenticationTicket(oAuthIdentity, properties);
                 context.Validated(ticket);
             }
             
@@ -247,23 +226,23 @@ namespace Quang.Auth.Api.Providers
             if (str != clientId)
             {
                 context.SetError("invalid_clientId", "Refresh token is issued to a different clientId.");
-                return (Task)Task.FromResult<object>((object)null);
+                return Task.FromResult((object)null);
             }
-            ClaimsIdentity identity = new ClaimsIdentity((IIdentity)context.Ticket.Identity);
+            var identity = new ClaimsIdentity(context.Ticket.Identity);
             AppAuthorizeAttribute.UpdateClientInfoCacheTime(identity, TimeSpan.FromDays(2.0));
             if (context.Ticket.Properties.Dictionary.ContainsKey("isFirstLogin"))
                 context.Ticket.Properties.Dictionary["isFirstLogin"] = bool.FalseString;
             if (clientId == "MMuaVe")
             {
-                foreach (string key in ApplicationOAuthProvider._mobileProfileClaims.Values)
+                foreach (string key in _mobileProfileClaims.Values)
                 {
                     if (context.Ticket.Properties.Dictionary.ContainsKey(key))
                         context.Ticket.Properties.Dictionary.Remove(key);
                 }
             }
-            AuthenticationTicket ticket = new AuthenticationTicket(identity, context.Ticket.Properties);
+            var ticket = new AuthenticationTicket(identity, context.Ticket.Properties);
             context.Validated(ticket);
-            return (Task)Task.FromResult<object>((object)null);
+            return Task.FromResult((object)null);
         }
 
         private string GetUserClientApiKey(string clientAuthorization)
@@ -271,29 +250,29 @@ namespace Quang.Auth.Api.Providers
             string[] autherizationHeaderValues = ClientApiProvider.GetAutherizationHeaderValues(clientAuthorization);
             if (autherizationHeaderValues != null && autherizationHeaderValues.Length > 0)
                 return autherizationHeaderValues[0];
-            return (string)null;
+            return null;
         }
 
         private async Task<Tuple<ApplicationUser, string>> GetUserByClientAuthorization(IOwinContext context, string clientAuthorization, string clientRequestUri, string clientRequestMethod, string clientHostName, string clientHostAddress)
         {
-            Tuple<ApplicationUser, string> result = (Tuple<ApplicationUser, string>)null;
+            Tuple<ApplicationUser, string> result = null;
             string[] autherizationHeaderArray = ClientApiProvider.GetAutherizationHeaderValues(clientAuthorization);
             if (autherizationHeaderArray != null)
             {
-                Log.Logger.Debug("DuongDQ4");
+               // Log.Logger.Debug("DuongDQ4");
                 string apiKey = autherizationHeaderArray[0];
                 string incomingSignatureHash = autherizationHeaderArray[1];
                 string nonce = autherizationHeaderArray[2];
                 string requestTimeStamp = autherizationHeaderArray[3];
-                IUserBll userBll = UnityContainerExtensions.Resolve<IUserBll>(UnityConfig.GetConfiguredContainer());
+                var userBll = UnityConfig.GetConfiguredContainer().Resolve<IUserBll>();
                 UserApp userApp = await userBll.GetUserApp(apiKey);
                 if (userApp != null && !string.IsNullOrEmpty(userApp.ApiSecret))
                 {
-                    Log.Logger.Debug("DuongDQ5: Get user app ok");
-                    if (this.CheckClientHost(userApp.AppHosts, userApp.AppIps, clientHostName, clientHostAddress))
+                   // Log.Logger.Debug("DuongDQ5: Get user app ok");
+                    if (CheckClientHost(userApp.AppHosts, userApp.AppIps, clientHostName, clientHostAddress))
                     {
-                        Log.Logger.Debug("DuongDQ6: check host ok");
-                        bool isValid = false;
+                       // Log.Logger.Debug("DuongDQ6: check host ok");
+                        bool isValid;
                         try
                         {
                             isValid = ClientApiProvider.isValidRequest(clientRequestUri, clientRequestMethod, userApp.ApiKey, userApp.ApiSecret, incomingSignatureHash, nonce, requestTimeStamp);
@@ -304,86 +283,72 @@ namespace Quang.Auth.Api.Providers
                         }
                         if (isValid)
                         {
-                            Log.Logger.Debug("DuongDQ7: Valid request");
-                            ApplicationUserManager userManager = OwinContextExtensions.GetUserManager<ApplicationUserManager>(context);
+                           // Log.Logger.Debug("DuongDQ7: Valid request");
+                            var userManager = context.GetUserManager<ApplicationUserManager>();
                             ApplicationUser user = await userManager.FindByIdAsync(userApp.UserId);
                             if (user != null)
                             {
-                                Log.Logger.Debug(string.Format("{0}: Find user ok", (object)clientHostAddress));
+                                //Log.Logger.Debug(string.Format("{0}: Find user ok", (object)clientHostAddress));
                                 result = new Tuple<ApplicationUser, string>(user, userApp.ApiSecret);
                             }
                             else
-                                Log.Logger.Debug(string.Format("{0}: Not found user", (object)clientHostAddress));
+                                Log.Logger.Debug(string.Format("{0}: Not found user", clientHostAddress));
                         }
                         else
-                            Log.Logger.Debug(string.Format("{0}: Invalid request", (object)clientHostAddress));
+                            Log.Logger.Debug(string.Format("{0}: Invalid request", clientHostAddress));
                     }
                 }
                 else
-                    Log.Logger.Debug(string.Format("{0}: Invalid api key", (object)clientHostAddress));
+                    Log.Logger.Debug(string.Format("{0}: Invalid api key", clientHostAddress));
             }
             return result;
         }
 
         private bool CheckClientHost(string allowHosts, string allowIps, string clientHostName, string clientHostAddress)
         {
-            bool flag = true;
-            if (flag && !string.IsNullOrEmpty(allowHosts))
+            var flag = true;
+            if (!string.IsNullOrEmpty(allowHosts))
             {
-                if (!string.IsNullOrEmpty(clientHostName))
-                    flag = Enumerable.Contains<string>(Enumerable.Select<string, string>((IEnumerable<string>)allowHosts.Split(new char[2]
-                    {
-            ';',
-            ','
-                    }), (Func<string, string>)(m => m.Trim().ToLower())), clientHostName.ToLower());
-                else
-                    flag = false;
+                flag = !string.IsNullOrEmpty(clientHostName) && allowHosts.Split(new[]{';',','}).Select(m => m.Trim().ToLower()).Contains(clientHostName.ToLower());
             }
             if (flag && !string.IsNullOrEmpty(allowIps))
             {
-                if (!string.IsNullOrEmpty(clientHostAddress))
-                    flag = Enumerable.Contains<string>(Enumerable.Select<string, string>((IEnumerable<string>)allowIps.Split(new char[2]
-                    {
-            ';',
-            ','
-                    }), (Func<string, string>)(m => m.Trim().ToLower())), clientHostAddress.ToLower());
-                else
-                    flag = false;
+                flag = !string.IsNullOrEmpty(clientHostAddress) && allowIps.Split(new[]{';',','}).Select(m => m.Trim().ToLower()).Contains(clientHostAddress.ToLower());
             }
             return flag;
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
         {
-            foreach (KeyValuePair<string, string> keyValuePair in (IEnumerable<KeyValuePair<string, string>>)context.Properties.Dictionary)
+            foreach (KeyValuePair<string, string> keyValuePair in context.Properties.Dictionary)
             {
                 if (keyValuePair.Key == "isFirstLogin")
                 {
                     bool result;
                     if (!bool.TryParse(keyValuePair.Value, out result))
                         result = false;
-                    context.AdditionalResponseParameters.Add(keyValuePair.Key, (object)(result ? 1 : 0));
+                    context.AdditionalResponseParameters.Add(keyValuePair.Key, result ? 1 : 0);
                 }
                 else
-                    context.AdditionalResponseParameters.Add(keyValuePair.Key, (object)keyValuePair.Value);
+                    context.AdditionalResponseParameters.Add(keyValuePair.Key, keyValuePair.Value);
             }
             if (context.Properties.Dictionary["as:client_id"] == "MMuaVe")
             {
-                IList<Claim> list = context.OwinContext.Get<IList<Claim>>("data:claims");
+                var list = context.OwinContext.Get<IList<Claim>>("data:claims");
                 if (list != null)
                 {
-                    foreach (KeyValuePair<string, string> keyValuePair in ApplicationOAuthProvider._mobileProfileClaims)
+                    foreach (KeyValuePair<string, string> keyValuePair in _mobileProfileClaims)
                     {
                         KeyValuePair<string, string> profileClaim = keyValuePair;
-                        Claim claim = Enumerable.FirstOrDefault<Claim>((IEnumerable<Claim>)list, (Func<Claim, bool>)(m => m.Type == profileClaim.Key));
+                        Claim claim = list.FirstOrDefault(m => m.Type == profileClaim.Key);
                         if (claim != null)
-                            context.AdditionalResponseParameters.Add(profileClaim.Value, string.IsNullOrEmpty(claim.Value) ? (object)string.Empty : (object)claim.Value);
+                            context.AdditionalResponseParameters.Add(profileClaim.Value, string.IsNullOrEmpty(claim.Value) ? string.Empty : claim.Value);
                         else
-                            context.AdditionalResponseParameters.Add(profileClaim.Value, (object)string.Empty);
+                            context.AdditionalResponseParameters.Add(profileClaim.Value, string.Empty);
                     }
                 }
             }
-            return (Task)Task.FromResult<object>((object)null);
+            return Task.FromResult<object>(null);
         }
 
         private LoginType DetectLoginType(IFormCollection form)
@@ -399,7 +364,6 @@ namespace Quang.Auth.Api.Providers
         {
             string clientId = string.Empty;
             string clientSecret = string.Empty;
-            Client client = (Client)null;
             if (!context.TryGetBasicCredentials(out clientId, out clientSecret))
                 context.TryGetFormCredentials(out clientId, out clientSecret);
             if (context.ClientId == null)
@@ -408,14 +372,14 @@ namespace Quang.Auth.Api.Providers
             }
             else
             {
-                UnityContainer unityContainer = UnityConfig.GetConfiguredContainer() as UnityContainer;
-                IRefreshTokenBll refreshTokenBll = UnityContainerExtensions.Resolve<IRefreshTokenBll>((IUnityContainer)unityContainer);
-                client = await refreshTokenBll.GetOneClient(context.ClientId);
+                var unityContainer = UnityConfig.GetConfiguredContainer() as UnityContainer;
+                var refreshTokenBll = unityContainer.Resolve<IRefreshTokenBll>();
+                Client client = await refreshTokenBll.GetOneClient(context.ClientId);
                 if (client == null)
                 {
-                    context.SetError("invalid_clientId", string.Format("Client '{0}' is not registered in the system.", (object)context.ClientId));
+                    context.SetError("invalid_clientId", string.Format("Client '{0}' is not registered in the system.", context.ClientId));
                     IFormCollection form = await context.Request.ReadFormAsync();
-                    await this.LogHistory(this.DetectLoginType(form), LoginStatus.InvalidCientId, context.ClientId, (string)null, (string)null, (string)null, (string)null, (string)null);
+                    await LogHistory(DetectLoginType(form), LoginStatus.InvalidCientId, context.ClientId, null, null, null);
                 }
                 else
                 {
@@ -425,14 +389,14 @@ namespace Quang.Auth.Api.Providers
                         {
                             context.SetError("invalid_clientId", "Client secret should be sent.");
                             IFormCollection form = await context.Request.ReadFormAsync();
-                            await this.LogHistory(this.DetectLoginType(form), LoginStatus.InvalidCientSecret, context.ClientId, (string)null, (string)null, (string)null, (string)null, (string)null);
+                            await LogHistory(DetectLoginType(form), LoginStatus.InvalidCientSecret, context.ClientId, null, null, null);
                             
                         }
-                        else if (client.Secret != ApplicationOAuthProvider.GetSecretHash(clientSecret))
+                        else if (client.Secret != GetSecretHash(clientSecret))
                         {
                             context.SetError("invalid_clientId", "Client secret is invalid.");
                             IFormCollection form = await context.Request.ReadFormAsync();
-                            await this.LogHistory(this.DetectLoginType(form), LoginStatus.InvalidCientSecret, context.ClientId, (string)null, (string)null, (string)null, (string)null, (string)null);
+                            await LogHistory(DetectLoginType(form), LoginStatus.InvalidCientSecret, context.ClientId, null, null, null);
                             
                         }
                     }
@@ -440,12 +404,12 @@ namespace Quang.Auth.Api.Providers
                     {
                         context.SetError("invalid_clientId", "Client is inactive.");
                         IFormCollection form = await context.Request.ReadFormAsync();
-                        await this.LogHistory(this.DetectLoginType(form), LoginStatus.InvalidCientActive, context.ClientId, (string)null, (string)null, (string)null, (string)null, (string)null);
+                        await LogHistory(DetectLoginType(form), LoginStatus.InvalidCientActive, context.ClientId, null, null, null);
                     }
                     else
                     {
-                        context.OwinContext.Set<string>("as:clientAllowedOrigin", client.AllowedOrigin);
-                        context.OwinContext.Set<string>("as:clientRefreshTokenLifeTime", client.RefreshTokenLifeTime.ToString());
+                        context.OwinContext.Set("as:clientAllowedOrigin", client.AllowedOrigin);
+                        context.OwinContext.Set("as:clientRefreshTokenLifeTime", client.RefreshTokenLifeTime.ToString(CultureInfo.InvariantCulture));
                         context.Validated();
                     }
                 }
@@ -455,19 +419,19 @@ namespace Quang.Auth.Api.Providers
 
         public override Task ValidateClientRedirectUri(OAuthValidateClientRedirectUriContext context)
         {
-            if (context.ClientId == this._publicClientId)
+            if (context.ClientId == _publicClientId)
             {
                 if (new Uri(context.Request.Uri, "/").AbsoluteUri == context.RedirectUri)
                     context.Validated();
                 context.Validated();
             }
-            return (Task)Task.FromResult<object>((object)null);
+            return Task.FromResult((object)null);
         }
 
         public static async Task<AuthenticationProperties> CreateProperties(string clientId, ApplicationUser user, string userClientId, string clientApiSecret, long? countSuccessLoggedIn, IList<Claim> userClaims)
         {
-            ApplicationUserManager userManager = OwinContextExtensions.GetUserManager<ApplicationUserManager>(HttpContextExtensions.GetOwinContext(HttpContext.Current.Request));
-            Claim claim = Enumerable.FirstOrDefault<Claim>(userClaims, m => m.Type == "displayName");
+            var userManager = HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            Claim claim = userClaims.FirstOrDefault(m => m.Type == "displayName");
             IDictionary<string, string> dictionary1 = new Dictionary<string, string>();
             dictionary1.Add("as:client_id", clientId);
             dictionary1.Add("userName", user.UserName);
@@ -479,9 +443,9 @@ namespace Quang.Auth.Api.Providers
             if (countSuccessLoggedIn.HasValue)
             {
                 IDictionary<string, string> dictionary2 = dictionary1;
-                string key = "isFirstLogin";
+                const string key = "isFirstLogin";
                 long? nullable = countSuccessLoggedIn;
-                string str = (nullable.GetValueOrDefault() != 1L ? 0 : (nullable.HasValue ? 1 : 0)) != 0 ? bool.TrueString : bool.FalseString;
+                string str = (nullable.GetValueOrDefault() != 1L ? 0 : (1)) != 0 ? bool.TrueString : bool.FalseString;
                 dictionary2.Add(key, str);
             }
             IList<string> result = userManager.GetRolesAsync(user.Id).Result;
@@ -508,7 +472,7 @@ namespace Quang.Auth.Api.Providers
                 else if (authenticationHeaderValue != null && authenticationHeaderValue.Scheme == "Bearer")
                 {
                     string username = headers.Get("userName");
-                    string realAccessToken = (string)null;
+                    string realAccessToken;
                     if (AppAuthorizeAttribute.ValidateOAuthAuthorizationHeader(username, authenticationHeaderValue.Parameter, out realAccessToken))
                     {
                         string str = new AuthenticationHeaderValue(authenticationHeaderValue.Scheme, realAccessToken).ToString();

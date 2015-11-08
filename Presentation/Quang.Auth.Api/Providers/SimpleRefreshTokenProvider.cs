@@ -2,13 +2,9 @@
 using Microsoft.Practices.Unity;
 using Quang.Auth.Api.BusinessLogic;
 using Quang.Auth.Api.Dto;
-using Quang.Auth.Api.Models;
-
 using Quang.Auth.Entities;
 using Quang.Common.Auth;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 

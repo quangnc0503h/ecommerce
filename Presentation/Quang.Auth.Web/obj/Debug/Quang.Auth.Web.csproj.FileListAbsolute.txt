@@ -13,3 +13,6 @@ D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Auth.Web\obj\Debug\Quan
 C:\Projects\ecommerce\Presentation\Quang.Auth.Web\bin\Microsoft.Owin.dll
 C:\Projects\ecommerce\Presentation\Quang.Auth.Web\bin\Owin.dll
 C:\Projects\ecommerce\Presentation\Quang.Auth.Web\bin\Microsoft.Owin.xml
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Auth.Web\bin\Microsoft.Owin.dll
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Auth.Web\bin\Owin.dll
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Auth.Web\bin\Microsoft.Owin.xml

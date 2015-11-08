@@ -190,3 +190,9 @@ C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\MiniProfiler.xml
 C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\Sigil.dll
 C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\Sigil.pdb
 C:\Projects\ecommerce\Presentation\Quang.Cate.Api\bin\Sigil.xml
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\Microsoft.Owin.Cors.dll
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\System.Web.Cors.dll
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\Sigil.dll
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\Microsoft.Owin.Cors.xml
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\Sigil.pdb
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.Cate.Api\bin\Sigil.xml

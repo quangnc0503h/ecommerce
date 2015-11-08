@@ -11,3 +11,6 @@ C:\Projects\ecommerce\Libraries\Quang.Cate.Entities\obj\Debug\Quang.Cate.Entitie
 C:\Projects\ecommerce\Libraries\Quang.Cate.Entities\bin\Debug\Microsoft.Owin.dll
 C:\Projects\ecommerce\Libraries\Quang.Cate.Entities\bin\Debug\Owin.dll
 C:\Projects\ecommerce\Libraries\Quang.Cate.Entities\bin\Debug\Microsoft.Owin.xml
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.Entities\bin\Debug\Microsoft.Owin.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.Entities\bin\Debug\Owin.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.Entities\bin\Debug\Microsoft.Owin.xml

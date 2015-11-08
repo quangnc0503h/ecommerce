@@ -34,3 +34,7 @@ C:\Projects\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Microsoft.Owin.dll
 C:\Projects\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Owin.dll
 C:\Projects\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Microsoft.Owin.xml
 C:\Projects\ecommerce\Libraries\Quang.RedisCache\obj\Debug\Quang.RedisCache.csprojResolveAssemblyReference.cache
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Quang.RedisCache.dll.config
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Microsoft.Owin.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Owin.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.RedisCache\bin\Debug\Microsoft.Owin.xml

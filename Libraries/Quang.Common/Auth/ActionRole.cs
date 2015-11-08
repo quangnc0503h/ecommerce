@@ -76,15 +76,15 @@ namespace Quang.Common.Auth
                 {
                     _dictionaryItems = new Dictionary<string, ActionRoleItem>();
                     Type[] local_0 = typeof(ActionRole).Assembly.GetTypes();
-                    foreach (Type item_3 in Enumerable.Where(local_0, type => type.DeclaringType == typeof(ActionRole)))
+                    foreach (Type item_3 in local_0.Where(type => type.DeclaringType == typeof(ActionRole)))
                     {
                         Type item = item_3;
-                        foreach (FieldInfo item_0 in (IEnumerable<FieldInfo>)Enumerable.OrderBy<FieldInfo, object>(Enumerable.Where<FieldInfo>((IEnumerable<FieldInfo>)item.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.FlattenHierarchy), (Func<FieldInfo, bool>)(m =>
-                        {
-                            if (m.IsLiteral)
-                                return !m.IsInitOnly;
-                            return false;
-                        })), m => m.GetRawConstantValue()))
+                        foreach (FieldInfo item_0 in item.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.FlattenHierarchy).Where(m =>
+                                                                                                                                                     {
+                                                                                                                                                         if (m.IsLiteral)
+                                                                                                                                                             return !m.IsInitOnly;
+                                                                                                                                                         return false;
+                                                                                                                                                     }).OrderBy(m => m.GetRawConstantValue()))
                         {
                             object local_4 = item_0.GetRawConstantValue();
                             if (local_4 != null)
@@ -98,14 +98,14 @@ namespace Quang.Common.Auth
                                 });
                             }
                         }
-                        foreach (Type item_2 in Enumerable.Where<Type>((IEnumerable<Type>)local_0, (Func<Type, bool>)(type => type.DeclaringType == item)))
+                        foreach (Type item_2 in local_0.Where(type => type.DeclaringType == item))
                         {
-                            foreach (FieldInfo item_1 in (IEnumerable<FieldInfo>)Enumerable.OrderBy<FieldInfo, object>(Enumerable.Where<FieldInfo>((IEnumerable<FieldInfo>)item_2.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.FlattenHierarchy), (Func<FieldInfo, bool>)(m =>
-                            {
-                                if (m.IsLiteral)
-                                    return !m.IsInitOnly;
-                                return false;
-                            })), (Func<FieldInfo, object>)(m => m.GetRawConstantValue())))
+                            foreach (FieldInfo item_1 in item_2.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.FlattenHierarchy).Where(m =>
+                                                                                                                                                           {
+                                                                                                                                                               if (m.IsLiteral)
+                                                                                                                                                                   return !m.IsInitOnly;
+                                                                                                                                                               return false;
+                                                                                                                                                           }).OrderBy(m => m.GetRawConstantValue()))
                             {
                                 object local_11 = item_1.GetRawConstantValue();
                                 if (local_11 != null)

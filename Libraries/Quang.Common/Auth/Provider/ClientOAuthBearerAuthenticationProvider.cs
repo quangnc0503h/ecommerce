@@ -21,7 +21,7 @@ namespace Quang.Common.Auth.Provider
                 if (!string.IsNullOrEmpty(input))
                 {
                     if (input.IndexOf(' ') == -1)
-                        input = string.Format("{0} {1}", (object)"Cliamx", (object)input);
+                        input = string.Format("{0} {1}", "Cliamx", input);
                     AuthenticationHeaderValue authenticationHeaderValue = AuthenticationHeaderValue.Parse(input);
                     if (authenticationHeaderValue != null && authenticationHeaderValue.Scheme == "Cliamx")
                     {
@@ -38,7 +38,7 @@ namespace Quang.Common.Auth.Provider
                         if (authenticationHeaderValue.Scheme == "Bearer")
                         {
                             string username = headers.Get("userName");
-                            string realAccessToken = (string)null;
+                            string realAccessToken;
                             if (AppAuthorizeAttribute.ValidateOAuthAuthorizationHeader(username, authenticationHeaderValue.Parameter, out realAccessToken))
                             {
                                 string str = new AuthenticationHeaderValue(authenticationHeaderValue.Scheme, realAccessToken).ToString();
@@ -48,7 +48,7 @@ namespace Quang.Common.Auth.Provider
                             else
                             {
                                 context.Request.Headers.Remove("Authorization");
-                                context.Token = (string)null;
+                                context.Token = null;
                             }
                         }
                     }
@@ -67,7 +67,7 @@ namespace Quang.Common.Auth.Provider
             if (string.IsNullOrEmpty(input))
                 return;
             AuthenticationHeaderValue authenticationHeaderValue = AuthenticationHeaderValue.Parse(input);
-            if (authenticationHeaderValue == null || !(authenticationHeaderValue.Scheme == "Cliamx"))
+            if (authenticationHeaderValue == null || authenticationHeaderValue.Scheme != "Cliamx")
                 return;
             string result = ClientApiProvider.GetAccessToken(authenticationHeaderValue, context.OwinContext.Request).Result;
             if (string.IsNullOrEmpty(result))
@@ -84,7 +84,7 @@ namespace Quang.Common.Auth.Provider
             if (string.IsNullOrEmpty(input))
                 return;
             AuthenticationHeaderValue authenticationHeaderValue = AuthenticationHeaderValue.Parse(input);
-            if (authenticationHeaderValue == null || !(authenticationHeaderValue.Scheme == "Bearer"))
+            if (authenticationHeaderValue == null || authenticationHeaderValue.Scheme != "Bearer")
                 return;
             string username = headers.Get("userName");
             string realAccessToken = (string)null;

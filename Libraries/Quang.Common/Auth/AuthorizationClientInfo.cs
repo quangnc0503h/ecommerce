@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Quang.Common.Auth
+﻿namespace Quang.Common.Auth
 {
     public class AuthorizationClientInfo
     {
@@ -13,14 +7,14 @@ namespace Quang.Common.Auth
         public string ClientCode { get; set; }
 
         public AuthorizationClientInfo()
-          : this((string)null, (string)null)
+          : this(null, null)
         {
         }
 
         public AuthorizationClientInfo(string userName, string clientCode)
         {
-            this.UserName = userName;
-            this.ClientCode = clientCode;
+            UserName = userName;
+            ClientCode = clientCode;
         }
     }
 }

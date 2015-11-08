@@ -7,3 +7,12 @@ C:\Projects\ecommerce\Presentation\Quang.RaoVat.Web\bin\Microsoft.Owin.xml
 C:\Projects\ecommerce\Presentation\Quang.RaoVat.Web\obj\Debug\Quang.RaoVat.Web.csprojResolveAssemblyReference.cache
 C:\Projects\ecommerce\Presentation\Quang.RaoVat.Web\obj\Debug\Quang.RaoVat.Web.dll
 C:\Projects\ecommerce\Presentation\Quang.RaoVat.Web\obj\Debug\Quang.RaoVat.Web.pdb
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.RaoVat.Web\bin\Quang.RaoVat.Web.dll.config
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.RaoVat.Web\bin\Quang.RaoVat.Web.dll
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.RaoVat.Web\bin\Quang.RaoVat.Web.pdb
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.RaoVat.Web\bin\Microsoft.Owin.dll
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.RaoVat.Web\bin\Owin.dll
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.RaoVat.Web\bin\Microsoft.Owin.xml
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.RaoVat.Web\obj\Debug\Quang.RaoVat.Web.csprojResolveAssemblyReference.cache
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.RaoVat.Web\obj\Debug\Quang.RaoVat.Web.dll
+D:\Websites\Working\VS 2013\ecommerce\Presentation\Quang.RaoVat.Web\obj\Debug\Quang.RaoVat.Web.pdb

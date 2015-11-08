@@ -43,3 +43,6 @@ C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Serilog.FullNetF
 C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Microsoft.Owin.dll
 C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Owin.dll
 C:\Projects\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Microsoft.Owin.xml
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Microsoft.Owin.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Owin.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Cate.DataAccess\bin\Debug\Microsoft.Owin.xml

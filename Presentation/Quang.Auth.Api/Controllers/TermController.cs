@@ -18,7 +18,7 @@ namespace Quang.Auth.Api.Controllers
     [RoutePrefix("api/Term")]
     public class TermController : ApiController
     {
-        private ITermBll _termBll;
+        private readonly ITermBll _termBll;
 
         public TermController()
         {
@@ -26,7 +26,7 @@ namespace Quang.Auth.Api.Controllers
 
         public TermController(ITermBll termBll)
         {
-            this._termBll = termBll;
+            _termBll = termBll;
         }
 
       //  [AppAuthorize(Roles = "130")]
@@ -34,15 +34,15 @@ namespace Quang.Auth.Api.Controllers
         [HttpPost]
         public async Task<DanhSachTermOutput> GetAll(FilterTermInput filter)
         {
-            return await this._termBll.GetAll(filter);
+            return await _termBll.GetAll(filter);
         }
 
        // [AppAuthorize(Roles = "130")]
         [Route("GetGrantedUsersByTerm")]
         [HttpPost]
-        public async Task<IEnumerable<Quang.Auth.Entities.User>> GetGrantedUsersByTerm(GetOneTermInput input)
+        public async Task<IEnumerable<User>> GetGrantedUsersByTerm(GetOneTermInput input)
         {
-            return await this._termBll.GetGrantedUsersByTerm(input.Id);
+            return await _termBll.GetGrantedUsersByTerm(input.Id);
         }
 
        // [AppAuthorize(Roles = "130")]
@@ -50,7 +50,7 @@ namespace Quang.Auth.Api.Controllers
         [Route("GetMissingTerms")]
         public async Task<IEnumerable<ActionRoleItem>> GetMissingTerms()
         {
-            return await this._termBll.GetMissingTerms();
+            return await _termBll.GetMissingTerms();
         }
 
         [HttpPost]
@@ -58,7 +58,7 @@ namespace Quang.Auth.Api.Controllers
         [Route("GetOneTerm")]
         public async Task<GetOneTermOutput> GetOneTerm(GetOneTermInput input)
         {
-            Term result = await this._termBll.GetOneTerm(input.Id);
+            Term result = await _termBll.GetOneTerm(input.Id);
             return new GetOneTermOutput()
             {
                 Term = result
@@ -70,14 +70,14 @@ namespace Quang.Auth.Api.Controllers
         [Route("CreateTerm")]
         public async Task<CreateTermOutput> CreateTerm(CreateTermInput input)
         {
-            CreateTermOutput result = new CreateTermOutput()
+            var result = new CreateTermOutput()
             {
                 Status = 1
             };
-            int test = await this._termBll.InsertTerm(input);
+            int test = await _termBll.InsertTerm(input);
             if (test > 0)
             {
-                await this._termBll.SynchTermsToRoles();
+                await _termBll.SynchTermsToRoles();
                 result.Status = 0;
             }
             return result;
@@ -88,14 +88,14 @@ namespace Quang.Auth.Api.Controllers
       //  [AppAuthorize(Roles = "130")]
         public async Task<UpdateTermOutput> UpdateTerm(UpdateTermInput input)
         {
-            UpdateTermOutput result = new UpdateTermOutput()
+            var result = new UpdateTermOutput()
             {
                 Status = 1
             };
-            int test = await this._termBll.UpdateTerm(input);
+            int test = await _termBll.UpdateTerm(input);
             if (test > 0)
             {
-                await this._termBll.SynchTermsToRoles();
+                await _termBll.SynchTermsToRoles();
                 result.Status = 0;
             }
             return result;
@@ -106,11 +106,11 @@ namespace Quang.Auth.Api.Controllers
       //  [AppAuthorize(Roles = "130")]
         public async Task<DeleteTermOutput> DeleteTerm(DeleteTermInput input)
         {
-            DeleteTermOutput result = new DeleteTermOutput()
-            {
+            var result = new DeleteTermOutput
+                         {
                 Status = 1
             };
-            int test = await this._termBll.DeleteTerm((IEnumerable<int>)input.Ids);
+            int test = await _termBll.DeleteTerm(input.Ids);
             if (test > 0)
             {
                 await this._termBll.SynchTermsToRoles();
@@ -136,7 +136,7 @@ namespace Quang.Auth.Api.Controllers
        // [AppAuthorize(Roles = "140")]
         public async Task<IEnumerable<GrantUserTerm>> GetGrantTermsUser(GetOneUserInput input)
         {
-            IEnumerable<GrantUserTerm> grantTermsUser = await this._termBll.GetGrantTermsUser(input.Id);
+            IEnumerable<GrantUserTerm> grantTermsUser = await _termBll.GetGrantTermsUser(input.Id);
             return grantTermsUser;
         }
 
@@ -145,9 +145,9 @@ namespace Quang.Auth.Api.Controllers
         [HttpPost]
         public async Task<UpdateTermOutput> UpdateUserGrant(UpdateUserGrantInput input)
         {
-            int success = await this._termBll.UpdateUserGrant(input);
-            UpdateTermOutput result = new UpdateTermOutput()
-            {
+            int success = await _termBll.UpdateUserGrant(input);
+            var result = new UpdateTermOutput
+                         {
                 Status = 1
             };
             if (success > 0)
@@ -160,7 +160,7 @@ namespace Quang.Auth.Api.Controllers
         [Route("GetGrantTermsGroup")]
         public async Task<IEnumerable<GrantGroupTerm>> GetGrantTermsGroup(GetOneGroupInput input)
         {
-            IEnumerable<GrantGroupTerm> grantTermsGroup = await this._termBll.GetGrantTermsGroup(input.Id);
+            IEnumerable<GrantGroupTerm> grantTermsGroup = await _termBll.GetGrantTermsGroup(input.Id);
             return grantTermsGroup;
         }
 
@@ -170,7 +170,7 @@ namespace Quang.Auth.Api.Controllers
         public async Task<UpdateTermOutput> UpdateGroupGrant(UpdateGroupGrantInput input)
         {
             int success = await this._termBll.UpdateGroupGrant(input);
-            UpdateTermOutput result = new UpdateTermOutput()
+            var result = new UpdateTermOutput()
             {
                 Status = 1
             };

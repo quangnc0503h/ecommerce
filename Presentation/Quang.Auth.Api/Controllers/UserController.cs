@@ -1,10 +1,6 @@
 ﻿using Quang.Auth.Api.Models;
-
-using StackExchange.Exceptional;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -12,7 +8,6 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
 using Quang.Auth.Entities;
 using Quang.Common.Auth;
-using System.Security.Claims;
 using Quang.Auth.Api.Dto;
 using System.Web;
 using Quang.Auth.Api.BusinessLogic;
@@ -24,21 +19,19 @@ namespace Quang.Auth.Api.Controllers
     {
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
-        private IUserBll _userBll;
-        private ITermBll _termBll;
-        private IGroupBll _groupBll;
-        private IPermissionBll _permissionBll;
-        private ILoginHistoryBll _loginHistoryBll;
+        private readonly IUserBll _userBll;
+        private readonly IPermissionBll _permissionBll;
+        private readonly ILoginHistoryBll _loginHistoryBll;
 
         public ApplicationUserManager UserManager
         {
             get
             {
-                return this._userManager ?? OwinContextExtensions.GetUserManager<ApplicationUserManager>(OwinHttpRequestMessageExtensions.GetOwinContext(this.Request));
+                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
             private set
             {
-                this._userManager = value;
+                _userManager = value;
             }
         }
 
@@ -46,7 +39,7 @@ namespace Quang.Auth.Api.Controllers
         {
             get
             {
-                return this._roleManager ?? OwinContextExtensions.GetUserManager<ApplicationRoleManager>(OwinHttpRequestMessageExtensions.GetOwinContext(this.Request));
+                return _roleManager ?? this.Request.GetOwinContext().GetUserManager<ApplicationRoleManager>();
             }
             private set
             {
@@ -58,13 +51,11 @@ namespace Quang.Auth.Api.Controllers
         {
         }
 
-        public UserController(IUserBll userBll, ITermBll termBll, IGroupBll groupBll, IPermissionBll permissionBll, ILoginHistoryBll loginHistoryBll)
+        public UserController(IUserBll userBll, IPermissionBll permissionBll, ILoginHistoryBll loginHistoryBll)
         {
-            this._userBll = userBll;
-            this._groupBll = groupBll;
-            this._permissionBll = permissionBll;
-            this._termBll = termBll;
-            this._loginHistoryBll = loginHistoryBll;
+            _userBll = userBll;
+            _permissionBll = permissionBll;
+            _loginHistoryBll = loginHistoryBll;
         }
 
         [Route("GetAll")]
@@ -72,7 +63,7 @@ namespace Quang.Auth.Api.Controllers
        // [AppAuthorize(Roles = "100")]
         public async Task<DanhSachUserOutput> GetAll(FilterUserInput filter)
         {
-            return await this._userBll.GetAll(filter);
+            return await _userBll.GetAll(filter);
         }
 
         [Route("GetOneUser")]
@@ -80,7 +71,7 @@ namespace Quang.Auth.Api.Controllers
         [HttpPost]
         public async Task<GetOneUserOutput> GetOneUser(GetOneUserInput input)
         {
-            return await this._userBll.GetOneUser(input.Id, true);
+            return await _userBll.GetOneUser(input.Id, true);
         }
 
         [HttpPost]
@@ -88,7 +79,7 @@ namespace Quang.Auth.Api.Controllers
         [Route("GetCurrentUser")]
         public async Task<GetOneUserOutput> GetCurrentUser()
         {
-            int userId = IdentityExtensions.GetUserId<int>(this.User.Identity);
+            int userId = this.User.Identity.GetUserId<int>();
             GetOneUserOutput user = await this._userBll.GetOneUser(userId.ToString());
             return user;
         }
@@ -98,7 +89,7 @@ namespace Quang.Auth.Api.Controllers
         [HttpPost]
         public async Task<CreateUserOutput> CreateUser(CreateUserInput input)
         {
-            CreateUserOutput result = await this._userBll.CreateUser(input);
+            CreateUserOutput result = await _userBll.CreateUser(input);
             if (result.Status == 0)
             {
                 int num = await this._permissionBll.GenerateRolesForUser(input.Id);
@@ -111,13 +102,13 @@ namespace Quang.Auth.Api.Controllers
         [Route("CreateMobileUser")]
         public async Task<CreateMobileUserOutput> CreateMobileUser(CreateMobileUserInput input)
         {
-            CreateMobileUserOutput result = await this._userBll.CreateMobileUser(input);
+            CreateMobileUserOutput result = await _userBll.CreateMobileUser(input);
             if (result.Status == 0)
             {
-                ApplicationUser user = await this.UserManager.FindByNameAsync(input.Mobile);
+                ApplicationUser user = await UserManager.FindByNameAsync(input.Mobile);
                 if (user != null)
                 {
-                    int num = await this._permissionBll.GenerateRolesForUser(user.Id);
+                    int num = await _permissionBll.GenerateRolesForUser(user.Id);
                 }
             }
             return result;
@@ -130,9 +121,9 @@ namespace Quang.Auth.Api.Controllers
         {
             SetMobilePasswordOutput result = await this._userBll.SetMobilePassword(input);
             if (result.Status == 0)
-                await this.LogHistory(LoginType.ChangePassword, LoginStatus.Success, IdentityExtensions.GetUserName(this.User.Identity), input.Mobile, (string)null, (string)null);
+                await this.LogHistory(LoginType.ChangePassword, LoginStatus.Success, this.User.Identity.GetUserName(), input.Mobile, (string)null, (string)null);
             else
-                await this.LogHistory(LoginType.ChangePassword, LoginStatus.BadRequest, IdentityExtensions.GetUserName(this.User.Identity), input.Mobile, (string)null, (string)null);
+                await this.LogHistory(LoginType.ChangePassword, LoginStatus.BadRequest, this.User.Identity.GetUserName(), input.Mobile, (string)null, (string)null);
             return result;
         }
 
@@ -146,10 +137,10 @@ namespace Quang.Auth.Api.Controllers
                 ApplicationUser user = await this.UserManager.FindByNameAsync(input.UserName);
                 if (user == null)
                 {
-                    CreateUserOutput result = await this._userBll.CreateUser(input);
+                    CreateUserOutput result = await _userBll.CreateUser(input);
                     if (result.Status == 0)
                     {
-                        int num = await this._permissionBll.GenerateRolesForUser(input.Id);
+                        int num = await _permissionBll.GenerateRolesForUser(input.Id);
                     }
                 }
             }
@@ -166,10 +157,10 @@ namespace Quang.Auth.Api.Controllers
             {
                 int num = await this._permissionBll.GenerateRolesForUser(input.Id);
                 if (!string.IsNullOrEmpty(input.Password))
-                    await this.LogHistory(LoginType.ChangePassword, LoginStatus.Success, IdentityExtensions.GetUserName(this.User.Identity), input.UserName, (string)null, (string)null);
+                    await this.LogHistory(LoginType.ChangePassword, LoginStatus.Success, this.User.Identity.GetUserName(), input.UserName, (string)null, (string)null);
             }
             else if (result.Status != 0 && !string.IsNullOrEmpty(input.Password))
-                await this.LogHistory(LoginType.ChangePassword, LoginStatus.InvalidOldPassword, IdentityExtensions.GetUserName(this.User.Identity), input.UserName, (string)null, (string)null);
+                await this.LogHistory(LoginType.ChangePassword, LoginStatus.InvalidOldPassword, this.User.Identity.GetUserName(), input.UserName, null, (string)null);
             return result;
         }
 
@@ -178,11 +169,11 @@ namespace Quang.Auth.Api.Controllers
         [Route("UpdateCurrentUser")]
         public async Task<UpdateUserOutput> UpdateCurrentUser(UpdateUserInput input)
         {
-            input.Id = IdentityExtensions.GetUserId<int>(this.User.Identity);
-            input.Password = (string)null;
-            input.ConfirmPassword = (string)null;
-            input.UserGroups = (IEnumerable<Group>)null;
-            UpdateUserOutput result = await this._userBll.UpdateUser(input);
+            input.Id = User.Identity.GetUserId<int>();
+            input.Password = null;
+            input.ConfirmPassword = null;
+            input.UserGroups = null;
+            UpdateUserOutput result = await _userBll.UpdateUser(input);
             return result;
         }
 
@@ -227,7 +218,7 @@ namespace Quang.Auth.Api.Controllers
         [Route("UpdateUserClientApp")]
         public async Task<ResultUpdateOutput> UpdateUserClientApp(UpdateUserAppInput input)
         {
-            ResultUpdateOutput result = await this._userBll.UpdateUserApp(input, AppApiType.ClientApi);
+            ResultUpdateOutput result = await _userBll.UpdateUserApp(input, AppApiType.ClientApi);
             return result;
         }
 
@@ -247,13 +238,13 @@ namespace Quang.Auth.Api.Controllers
         {
             string clientIp = SecurityUtils.GetClientIPAddress();
             string clientUri = HttpContext.Current.Request.Url.AbsoluteUri;
-            int num = await this._loginHistoryBll.InsertLoginHistory(new InsertLoginHistoryInput()
+            int num = await _loginHistoryBll.InsertLoginHistory(new InsertLoginHistoryInput()
             {
                 Type = loginType.GetHashCode(),
                 UserName = username,
                 LoginTime = DateTime.Now,
                 LoginStatus = status.GetHashCode(),
-                AppId = string.IsNullOrEmpty(ownerUsername) ? (string)null : ownerUsername,
+                AppId = string.IsNullOrEmpty(ownerUsername) ? null : ownerUsername,
                 ClientUri = clientUri,
                 ClientIP = clientIp,
                 ClientUA = HttpContext.Current.Request.UserAgent,

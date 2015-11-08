@@ -1,15 +1,7 @@
 ﻿using Quang.Auth.Api.BusinessLogic;
 using Quang.Auth.Api.Dto;
-using Quang.Auth.Api.Models;
-
 using Quang.Auth.Entities;
-using Quang.Common.Auth;
-using StackExchange.Exceptional;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -18,42 +10,40 @@ namespace Quang.Auth.Api.Controllers
     [RoutePrefix("api/Permission")]
     public class PermissionController : ApiController
     {
-        private IPermissionBll _permissionBll;
-        private ITermBll _termBll;
+        private readonly IPermissionBll _permissionBll;
 
         public PermissionController()
         {
         }
 
-        public PermissionController(IPermissionBll permissionBll, ITermBll termBll)
+        public PermissionController(IPermissionBll permissionBll)
         {
-            this._permissionBll = permissionBll;
-            this._termBll = termBll;
+            _permissionBll = permissionBll;
         }
 
         [HttpPost]
         [Route("GetAll")]
-       // [AppAuthorize(Roles = "120")]
+        //[AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
         public async Task<DanhSachPermissionOutput> GetAll(FilterPermissionInput filter)
         {
-            return await this._permissionBll.GetAll(filter);
+            return await _permissionBll.GetAll(filter);
         }
 
         [HttpPost]
-        //[AppAuthorize(Roles = "120")]
+        //[AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
         [Route("GetOnePermission")]
         public async Task<GetOnePermissionOutput> GetOnePermission(GetByIdInput input)
         {
-            Permission result = await this._permissionBll.GetOnePermission(input.Id);
-            return new GetOnePermissionOutput()
-            {
+            Permission result = await _permissionBll.GetOnePermission(input.Id);
+            return new GetOnePermissionOutput
+                   {
                 Permission = result
             };
         }
 
         [Route("CreatePermission")]
         [HttpPost]
-       // [AppAuthorize(Roles = "120")]
+       // [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
         public async Task<ResultUpdateOutput> CreatePermission(CreatePermissionInput input)
         {
             ResultUpdateOutput result = new ResultUpdateOutput()
@@ -68,29 +58,29 @@ namespace Quang.Auth.Api.Controllers
 
         [HttpPost]
         [Route("UpdatePermission")]
-      //  [AppAuthorize(Roles = "120")]
+      //  [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
         public async Task<ResultUpdateOutput> UpdatePermission(UpdatePermissionInput input)
         {
-            ResultUpdateOutput result = new ResultUpdateOutput()
+            var result = new ResultUpdateOutput()
             {
                 Status = 1
             };
-            int test = await this._permissionBll.UpdatePermission(input);
+            int test = await _permissionBll.UpdatePermission(input);
             if (test > 0)
                 result.Status = 0;
             return result;
         }
 
         [HttpPost]
-       // [AppAuthorize(Roles = "120")]
+       // [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
         [Route("DeletePermission")]
         public async Task<ResultUpdateOutput> DeletePermission(DeletePermissionInput input)
         {
-            ResultUpdateOutput result = new ResultUpdateOutput()
+            var result = new ResultUpdateOutput()
             {
                 Status = 1
             };
-            int test = await this._permissionBll.DeletePermission((IEnumerable<int>)input.Ids);
+            int test = await _permissionBll.DeletePermission((IEnumerable<int>)input.Ids);
             if (test > 0)
                 result.Status = 0;
             return result;
@@ -100,33 +90,33 @@ namespace Quang.Auth.Api.Controllers
         [Route("ListAllPermission")]
         public async Task<DanhSachPermissionOutput> ListAllPermission()
         {
-            IEnumerable<Permission> permissions = await this._permissionBll.GetAllPermissions();
-            DanhSachPermissionOutput result = new DanhSachPermissionOutput()
-            {
+            IEnumerable<Permission> permissions = await _permissionBll.GetAllPermissions();
+            var result = new DanhSachPermissionOutput
+                         {
                 DanhSachPermissions = permissions
             };
             return result;
         }
 
         [HttpPost]
-        //[AppAuthorize(Roles = "120")]
+        //[AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
         [Route("GetPermissionGrants")]
         public async Task<GetPermissionGrantsOutput> GetPermissionGrants(GetByIdInput input)
         {
-            GetPermissionGrantsOutput result = await this._permissionBll.GetPermissionGrants(input.Id);
+            GetPermissionGrantsOutput result = await _permissionBll.GetPermissionGrants(input.Id);
             return result;
         }
 
         [HttpPost]
-       // [AppAuthorize(Roles = "120")]
+       // [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
         [Route("UpdatePermissionGrants")]
         public async Task<ResultUpdateOutput> UpdatePermissionGrants(UpdatePermissionGrantsInput input)
         {
-            ResultUpdateOutput result = new ResultUpdateOutput()
+            var result = new ResultUpdateOutput()
             {
                 Status = 1
             };
-            int test = await this._permissionBll.UpdatePermissionGrants(input);
+            int test = await _permissionBll.UpdatePermissionGrants(input);
             if (test > 0)
                 result.Status = 0;
             return result;
@@ -137,7 +127,7 @@ namespace Quang.Auth.Api.Controllers
        // [AppAuthorize(Roles = "140")]
         public async Task<IEnumerable<PermissionItemGrant>> GetUserPermissions(GetByIdInput input)
         {
-            IEnumerable<PermissionItemGrant> result = await this._permissionBll.GetUserPermissions(input.Id);
+            IEnumerable<PermissionItemGrant> result = await _permissionBll.GetUserPermissions(input.Id);
             return result;
         }
 

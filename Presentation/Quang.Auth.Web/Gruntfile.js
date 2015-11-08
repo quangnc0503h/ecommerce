@@ -417,10 +417,7 @@ module.exports = function (grunt) {
 			version: '1.0.0', // Must be x.x.x
 			name: 'development',
 			urlIframeSso: 'http://localhost:9001/cdlsi.html',
-			urlApiAuth: 'http://localhost:8085/',
-			urlApiDanhMuc: 'http://localhost:19822/',
-			urlApiKeHoach: '',
-			urlApiBanVe: ''
+			urlApiAuth: 'http://localhost:8085/'
 		  }
 		}
 	  },
@@ -433,10 +430,8 @@ module.exports = function (grunt) {
 			version: '1.0.0', // Must be x.x.x
 			name: 'production',
 			urlIframeSso: 'http://localhost:9001/cdlsi.html',
-			urlApiAuth: 'http://localhost:8085/',
-			urlApiDanhMuc: '',
-			urlApiKeHoach: '',
-			urlApiBanVe: ''
+			urlApiAuth: 'http://localhost:8085/'
+		
 		  }
 		}
 	  }

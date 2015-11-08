@@ -11,3 +11,6 @@ D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Commerce.BusinessLogic\obj
 C:\Projects\ecommerce\Libraries\Quang.Commerce.BusinessLogic\bin\Debug\Microsoft.Owin.dll
 C:\Projects\ecommerce\Libraries\Quang.Commerce.BusinessLogic\bin\Debug\Owin.dll
 C:\Projects\ecommerce\Libraries\Quang.Commerce.BusinessLogic\bin\Debug\Microsoft.Owin.xml
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Commerce.BusinessLogic\bin\Debug\Microsoft.Owin.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Commerce.BusinessLogic\bin\Debug\Owin.dll
+D:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.Commerce.BusinessLogic\bin\Debug\Microsoft.Owin.xml
