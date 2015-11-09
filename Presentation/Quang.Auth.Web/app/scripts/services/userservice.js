@@ -173,7 +173,7 @@ angular.module('quangauthwebApp')
       serviceFactory.getUserPermissions = function (userId, callback) {
           rs.getUserPermissions({ Id: userId }).$promise.then(function (res) {
               if (callback) {
-                  callback(res.Data);
+                  callback(res);
               }
           });
       }

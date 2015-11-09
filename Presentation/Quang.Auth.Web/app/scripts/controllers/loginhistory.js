@@ -15,7 +15,7 @@ angular.module("quangauthwebApp").controller("LoginHistoryCtrl", ["$scope", "$mo
     $scope.currentPage = pageInfo.currentPage;
     $scope.itemsPerPage = pageInfo.itemsPerPage;
     $scope.totalItems = 0;
-    $scope.maxSize = 8;
+    $scope.maxSize = 10;
     $scope.missingLoginHistorys = [];
     var isChecked = function (a, b) {
         if (b && b.length > 0)
@@ -106,6 +106,7 @@ angular.module("quangauthwebApp").controller("LoginHistoryCtrl", ["$scope", "$mo
             $scope.currentPage = pageInfo.currentPage;
             loaded = true;
             $scope.isDisabledBtnSearch = false;
+            //console.log(res.items);
         });
         loaded = false;
         $scope.isDisabledBtnSearch = true;

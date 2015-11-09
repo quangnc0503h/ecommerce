@@ -64,7 +64,7 @@ angular.module('quangauthwebApp')
       serviceFactory.savePermission = function (item, callback) {
           rs.save(item).$promise.then(function (res) {
               if (callback) {
-                  console.log(res);
+                  //console.log(res);
                   callback(res.Status == 0); // Return 0 on success
               }
           });

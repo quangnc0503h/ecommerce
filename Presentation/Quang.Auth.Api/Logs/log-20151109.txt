@@ -1,0 +1,217 @@
+﻿2015-11-09 09:06:57.258 +07:00 [Information] HTTP "GET" for "/"
+2015-11-09 09:07:02.863 +07:00 [Information] HTTP "GET" for "/exceptions.axd"
+2015-11-09 09:07:02.872 +07:00 [Information] HTTP "GET" for "/exceptions.axd/js"
+2015-11-09 09:07:02.872 +07:00 [Information] HTTP "GET" for "/exceptions.axd/css"
+2015-11-09 09:07:02.930 +07:00 [Information] HTTP "GET" for "/exceptions.axd/top-bg.png"
+2015-11-09 09:21:10.771 +07:00 [Information] HTTP "OPTIONS" for "/api/User/GetAll"
+2015-11-09 09:21:10.771 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/ListAllGroup"
+2015-11-09 09:21:10.857 +07:00 [Information] HTTP "POST" for "/api/User/GetAll"
+2015-11-09 09:21:10.858 +07:00 [Information] HTTP "GET" for "/api/Group/ListAllGroup"
+2015-11-09 09:21:11.114 +07:00 [Error] Error caught in global handler: "No connection is available to service this operation: GET AuthTokenClientId.z6GrLv1fgkIUcWjobCNHmJdRMGmGt5z4a0"
+StackExchange.Redis.RedisConnectionException: No connection is available to service this operation: GET AuthTokenClientId.z6GrLv1fgkIUcWjobCNHmJdRMGmGt5z4a0
+   at StackExchange.Redis.ConnectionMultiplexer.ExecuteSyncImpl[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\TeamCity\buildAgent\work\3ae0647004edff78\StackExchange.Redis\StackExchange\Redis\ConnectionMultiplexer.cs:line 1927
+   at StackExchange.Redis.RedisBase.ExecuteSync[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\TeamCity\buildAgent\work\3ae0647004edff78\StackExchange.Redis\StackExchange\Redis\RedisBase.cs:line 80
+   at StackExchange.Redis.RedisDatabase.StringGet(RedisKey key, CommandFlags flags) in c:\TeamCity\buildAgent\work\3ae0647004edff78\StackExchange.Redis\StackExchange\Redis\RedisDatabase.cs:line 1431
+   at Quang.RedisCache.RedisCacheClient.Get[T](String key) in d:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.RedisCache\RedisCacheClient.cs:line 100
+   at Quang.Common.Auth.AppAuthorizeAttribute.ValidateOAuthAuthorizationHeader(String username, String headerValue, String& realAccessToken) in C:\Projects\ecommerce\Libraries\Quang.Common\Auth\AppAuthorizeAttribute.cs:line 77
+   at Quang.Auth.Api.Providers.ApplicationOAuthProvider.MatchEndpoint(OAuthMatchEndpointContext context) in C:\Projects\ecommerce\Presentation\Quang.Auth.Api\Providers\ApplicationOAuthProvider.cs:line 476
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeAsync>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Cors.CorsMiddleware.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContextStage.<RunApp>d__5.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContext.<DoFinalWork>d__2.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.StageAsyncResult.End(IAsyncResult ar)
+   at System.Web.HttpApplication.AsyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+2015-11-09 09:21:11.115 +07:00 [Error] Error caught in global handler: "No connection is available to service this operation: GET AuthTokenClientId.z6GrLv1fgkIUcWjobCNHmJdRMGmGt5z4a0"
+StackExchange.Redis.RedisConnectionException: No connection is available to service this operation: GET AuthTokenClientId.z6GrLv1fgkIUcWjobCNHmJdRMGmGt5z4a0
+   at StackExchange.Redis.ConnectionMultiplexer.ExecuteSyncImpl[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\TeamCity\buildAgent\work\3ae0647004edff78\StackExchange.Redis\StackExchange\Redis\ConnectionMultiplexer.cs:line 1927
+   at StackExchange.Redis.RedisBase.ExecuteSync[T](Message message, ResultProcessor`1 processor, ServerEndPoint server) in c:\TeamCity\buildAgent\work\3ae0647004edff78\StackExchange.Redis\StackExchange\Redis\RedisBase.cs:line 80
+   at StackExchange.Redis.RedisDatabase.StringGet(RedisKey key, CommandFlags flags) in c:\TeamCity\buildAgent\work\3ae0647004edff78\StackExchange.Redis\StackExchange\Redis\RedisDatabase.cs:line 1431
+   at Quang.RedisCache.RedisCacheClient.Get[T](String key) in d:\Websites\Working\VS 2013\ecommerce\Libraries\Quang.RedisCache\RedisCacheClient.cs:line 100
+   at Quang.Common.Auth.AppAuthorizeAttribute.ValidateOAuthAuthorizationHeader(String username, String headerValue, String& realAccessToken) in C:\Projects\ecommerce\Libraries\Quang.Common\Auth\AppAuthorizeAttribute.cs:line 77
+   at Quang.Auth.Api.Providers.ApplicationOAuthProvider.MatchEndpoint(OAuthMatchEndpointContext context) in C:\Projects\ecommerce\Presentation\Quang.Auth.Api\Providers\ApplicationOAuthProvider.cs:line 476
+   at Microsoft.Owin.Security.OAuth.OAuthAuthorizationServerHandler.<InvokeAsync>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Security.Infrastructure.AuthenticationMiddleware`1.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.AspNet.Identity.Owin.IdentityFactoryMiddleware`2.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Cors.CorsMiddleware.<Invoke>d__0.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContextStage.<RunApp>d__5.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.IntegratedPipelineContext.<DoFinalWork>d__2.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.Owin.Host.SystemWeb.IntegratedPipeline.StageAsyncResult.End(IAsyncResult ar)
+   at System.Web.HttpApplication.AsyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+2015-11-09 09:21:48.801 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/ListAllGroup"
+2015-11-09 09:21:48.819 +07:00 [Information] HTTP "OPTIONS" for "/api/User/GetAll"
+2015-11-09 09:21:49.281 +07:00 [Information] HTTP "GET" for "/api/Group/ListAllGroup"
+2015-11-09 09:21:50.135 +07:00 [Information] HTTP "POST" for "/api/User/GetAll"
+2015-11-09 09:25:32.978 +07:00 [Information] HTTP "GET" for "/exceptions.axd"
+2015-11-09 09:25:32.987 +07:00 [Information] HTTP "GET" for "/exceptions.axd/css"
+2015-11-09 09:25:32.987 +07:00 [Information] HTTP "GET" for "/exceptions.axd/js"
+2015-11-09 09:25:33.114 +07:00 [Information] HTTP "GET" for "/exceptions.axd/top-bg.png"
+2015-11-09 09:30:15.639 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/ListAllGroup"
+2015-11-09 09:30:15.639 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/GetAll"
+2015-11-09 09:30:15.770 +07:00 [Information] HTTP "GET" for "/api/Group/ListAllGroup"
+2015-11-09 09:30:15.776 +07:00 [Information] HTTP "POST" for "/api/Group/GetAll"
+2015-11-09 09:30:19.252 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetAll"
+2015-11-09 09:30:19.385 +07:00 [Information] HTTP "POST" for "/api/Permission/GetAll"
+2015-11-09 09:30:22.932 +07:00 [Information] HTTP "OPTIONS" for "/api/Term/GetMissingTerms"
+2015-11-09 09:30:22.932 +07:00 [Information] HTTP "OPTIONS" for "/api/Term/GetAll"
+2015-11-09 09:30:23.023 +07:00 [Information] HTTP "GET" for "/api/Term/GetMissingTerms"
+2015-11-09 09:30:23.063 +07:00 [Information] HTTP "POST" for "/api/Term/GetAll"
+2015-11-09 09:30:33.510 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-09 09:30:33.647 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-09 09:32:19.607 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAllClients"
+2015-11-09 09:32:19.608 +07:00 [Information] HTTP "OPTIONS" for "/api/LoginHistory/GetAll"
+2015-11-09 09:32:19.844 +07:00 [Information] HTTP "GET" for "/api/Device/GetAllClients"
+2015-11-09 09:32:19.898 +07:00 [Information] HTTP "POST" for "/api/LoginHistory/GetAll"
+2015-11-09 09:38:12.791 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAllClients"
+2015-11-09 09:38:12.794 +07:00 [Information] HTTP "OPTIONS" for "/api/LoginHistory/GetAll"
+2015-11-09 09:38:13.143 +07:00 [Information] HTTP "POST" for "/api/LoginHistory/GetAll"
+2015-11-09 09:38:16.095 +07:00 [Information] HTTP "GET" for "/api/Device/GetAllClients"
+2015-11-09 09:38:54.582 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAllClients"
+2015-11-09 09:38:54.583 +07:00 [Information] HTTP "OPTIONS" for "/api/LoginHistory/GetAll"
+2015-11-09 09:38:54.849 +07:00 [Information] HTTP "GET" for "/api/Device/GetAllClients"
+2015-11-09 09:38:54.888 +07:00 [Information] HTTP "POST" for "/api/LoginHistory/GetAll"
+2015-11-09 09:39:26.930 +07:00 [Information] HTTP "OPTIONS" for "/api/User/GetAll"
+2015-11-09 09:39:26.930 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/ListAllGroup"
+2015-11-09 09:39:27.021 +07:00 [Information] HTTP "GET" for "/api/Group/ListAllGroup"
+2015-11-09 09:39:27.933 +07:00 [Information] HTTP "POST" for "/api/User/GetAll"
+2015-11-09 09:39:33.468 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetUserPermissions"
+2015-11-09 09:39:33.583 +07:00 [Information] HTTP "POST" for "/api/Permission/GetUserPermissions"
+2015-11-09 09:40:30.803 +07:00 [Information] HTTP "OPTIONS" for "/api/User/GetAll"
+2015-11-09 09:40:31.686 +07:00 [Information] HTTP "POST" for "/api/User/GetAll"
+2015-11-09 09:47:03.866 +07:00 [Information] HTTP "OPTIONS" for "/api/User/GetAll"
+2015-11-09 09:47:03.866 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/ListAllGroup"
+2015-11-09 09:47:04.354 +07:00 [Information] HTTP "GET" for "/api/Group/ListAllGroup"
+2015-11-09 09:47:05.145 +07:00 [Information] HTTP "POST" for "/api/User/GetAll"
+2015-11-09 09:47:15.810 +07:00 [Information] HTTP "OPTIONS" for "/api/User/GetAll"
+2015-11-09 09:47:16.687 +07:00 [Information] HTTP "POST" for "/api/User/GetAll"
+2015-11-09 09:47:57.991 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/ListAllGroup"
+2015-11-09 09:47:57.991 +07:00 [Information] HTTP "OPTIONS" for "/api/User/GetAll"
+2015-11-09 09:47:58.140 +07:00 [Information] HTTP "GET" for "/api/Group/ListAllGroup"
+2015-11-09 09:47:58.933 +07:00 [Information] HTTP "POST" for "/api/User/GetAll"
+2015-11-09 09:48:09.325 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/ListAllGroup"
+2015-11-09 09:48:09.325 +07:00 [Information] HTTP "OPTIONS" for "/api/User/GetAll"
+2015-11-09 09:48:09.446 +07:00 [Information] HTTP "GET" for "/api/Group/ListAllGroup"
+2015-11-09 09:48:10.264 +07:00 [Information] HTTP "POST" for "/api/User/GetAll"
+2015-11-09 09:48:22.563 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/ListAllGroup"
+2015-11-09 09:48:22.563 +07:00 [Information] HTTP "OPTIONS" for "/api/User/GetAll"
+2015-11-09 09:48:22.689 +07:00 [Information] HTTP "GET" for "/api/Group/ListAllGroup"
+2015-11-09 09:48:23.501 +07:00 [Information] HTTP "POST" for "/api/User/GetAll"
+2015-11-09 09:48:33.376 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/ListAllGroup"
+2015-11-09 09:48:33.377 +07:00 [Information] HTTP "OPTIONS" for "/api/User/GetAll"
+2015-11-09 09:48:33.494 +07:00 [Information] HTTP "GET" for "/api/Group/ListAllGroup"
+2015-11-09 09:48:34.309 +07:00 [Information] HTTP "POST" for "/api/User/GetAll"
+2015-11-09 09:55:32.480 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/GetAll"
+2015-11-09 09:55:32.481 +07:00 [Information] HTTP "OPTIONS" for "/api/Group/ListAllGroup"
+2015-11-09 09:55:32.611 +07:00 [Information] HTTP "GET" for "/api/Group/ListAllGroup"
+2015-11-09 09:55:32.615 +07:00 [Information] HTTP "POST" for "/api/Group/GetAll"
+2015-11-09 09:55:39.724 +07:00 [Information] HTTP "OPTIONS" for "/api/Permission/GetAll"
+2015-11-09 09:55:39.850 +07:00 [Information] HTTP "POST" for "/api/Permission/GetAll"
+2015-11-09 09:55:42.256 +07:00 [Information] HTTP "OPTIONS" for "/api/Term/GetAll"
+2015-11-09 09:55:42.256 +07:00 [Information] HTTP "OPTIONS" for "/api/Term/GetMissingTerms"
+2015-11-09 09:55:42.348 +07:00 [Information] HTTP "GET" for "/api/Term/GetMissingTerms"
+2015-11-09 09:55:42.384 +07:00 [Information] HTTP "POST" for "/api/Term/GetAll"
+2015-11-09 09:55:50.442 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAll"
+2015-11-09 09:55:50.591 +07:00 [Information] HTTP "POST" for "/api/Device/GetAll"
+2015-11-09 09:55:54.795 +07:00 [Information] HTTP "OPTIONS" for "/api/LoginHistory/GetAll"
+2015-11-09 09:55:54.795 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAllClients"
+2015-11-09 09:55:55.026 +07:00 [Information] HTTP "GET" for "/api/Device/GetAllClients"
+2015-11-09 09:55:55.082 +07:00 [Information] HTTP "POST" for "/api/LoginHistory/GetAll"
+2015-11-09 09:56:47.770 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAllClients"
+2015-11-09 09:56:47.771 +07:00 [Information] HTTP "OPTIONS" for "/api/LoginHistory/GetAll"
+2015-11-09 09:56:48.028 +07:00 [Information] HTTP "GET" for "/api/Device/GetAllClients"
+2015-11-09 09:56:48.069 +07:00 [Information] HTTP "POST" for "/api/LoginHistory/GetAll"
+2015-11-09 09:58:47.260 +07:00 [Information] HTTP "OPTIONS" for "/api/LoginHistory/GetAll"
+2015-11-09 09:58:47.261 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAllClients"
+2015-11-09 09:58:47.529 +07:00 [Information] HTTP "GET" for "/api/Device/GetAllClients"
+2015-11-09 09:58:47.568 +07:00 [Information] HTTP "POST" for "/api/LoginHistory/GetAll"
+2015-11-09 10:00:51.917 +07:00 [Information] HTTP "OPTIONS" for "/api/LoginHistory/GetAll"
+2015-11-09 10:00:51.919 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAllClients"
+2015-11-09 10:00:52.212 +07:00 [Information] HTTP "GET" for "/api/Device/GetAllClients"
+2015-11-09 10:00:52.548 +07:00 [Information] HTTP "POST" for "/api/LoginHistory/GetAll"
+2015-11-09 10:01:09.893 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAllClients"
+2015-11-09 10:01:09.893 +07:00 [Information] HTTP "OPTIONS" for "/api/LoginHistory/GetAll"
+2015-11-09 10:01:10.159 +07:00 [Information] HTTP "GET" for "/api/Device/GetAllClients"
+2015-11-09 10:01:10.197 +07:00 [Information] HTTP "POST" for "/api/LoginHistory/GetAll"
+2015-11-09 10:02:37.746 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAllClients"
+2015-11-09 10:02:37.747 +07:00 [Information] HTTP "OPTIONS" for "/api/LoginHistory/GetAll"
+2015-11-09 10:02:38.017 +07:00 [Information] HTTP "GET" for "/api/Device/GetAllClients"
+2015-11-09 10:02:38.355 +07:00 [Information] HTTP "POST" for "/api/LoginHistory/GetAll"
+2015-11-09 10:02:59.947 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAllClients"
+2015-11-09 10:02:59.947 +07:00 [Information] HTTP "OPTIONS" for "/api/LoginHistory/GetAll"
+2015-11-09 10:03:00.226 +07:00 [Information] HTTP "GET" for "/api/Device/GetAllClients"
+2015-11-09 10:03:00.263 +07:00 [Information] HTTP "POST" for "/api/LoginHistory/GetAll"
+2015-11-09 10:03:43.089 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAllClients"
+2015-11-09 10:03:43.089 +07:00 [Information] HTTP "OPTIONS" for "/api/LoginHistory/GetAll"
+2015-11-09 10:03:43.393 +07:00 [Information] HTTP "GET" for "/api/Device/GetAllClients"
+2015-11-09 10:03:43.435 +07:00 [Information] HTTP "POST" for "/api/LoginHistory/GetAll"
+2015-11-09 10:04:06.570 +07:00 [Information] HTTP "OPTIONS" for "/api/Device/GetAllClients"
+2015-11-09 10:04:06.570 +07:00 [Information] HTTP "OPTIONS" for "/api/LoginHistory/GetAll"
+2015-11-09 10:04:06.855 +07:00 [Information] HTTP "GET" for "/api/Device/GetAllClients"
+2015-11-09 10:04:06.896 +07:00 [Information] HTTP "POST" for "/api/LoginHistory/GetAll"

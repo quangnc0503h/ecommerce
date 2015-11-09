@@ -16,6 +16,7 @@ angular.module('quangauthwebApp').controller('GroupCtrl', ['$scope', '$modal', '
         $scope.itemsPerPage = pageInfo.itemsPerPage;
         $scope.totalItems = 0;
         $scope.listAllParents = [];
+        $scope.maxSize = 5;
         var loadList = function() {
             var filter = {
                 Keyword: $scope.qsearch,

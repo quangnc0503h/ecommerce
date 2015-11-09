@@ -11,9 +11,14 @@ namespace Quang.Auth.Api
         public static void Register(HttpConfiguration config)
         {
            // config.EnableCors();
-            config.SuppressDefaultHostAuthentication();
-            config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
-
+          OwinHttpConfigurationExtensions.SuppressDefaultHostAuthentication(config);
+      config.Filters.Add((IFilter) new HostAuthenticationFilter("Bearer"));
+      HttpConfigurationExtensions.MapHttpAttributeRoutes(config);
+      HttpRouteCollectionExtensions.MapHttpRoute(config.Routes, "DefaultApi", "api/{controller}/{id}", (object) new
+      {
+        id = RouteParameter.Optional
+      });
+      config.DependencyResolver = (IDependencyResolver) new UnityDependencyResolver(UnityConfig.GetConfiguredContainer());
 
             // Web API routes
             config.MapHttpAttributeRoutes();

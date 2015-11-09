@@ -19,7 +19,7 @@ angular.module('quangauthwebApp')
       $scope.currentPage = pageInfo.currentPage;
       $scope.itemsPerPage = pageInfo.itemsPerPage;
       $scope.totalItems = 0;
-
+      $scope.maxSize = 5;
       $scope.missingTerms = [];
       
       // Load list function

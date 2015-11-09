@@ -15,7 +15,11 @@
         filter = filter ? filter : {};
         rs.query(filter).$promise.then(function (res) {
             if (callback)
+            {
+                //console.log( res.DanhSachLoginHistories);
                 callback({ items: res.DanhSachLoginHistories, totalCount: res.TotalCount });
+            }
+                
         })
     };
     serviceFactory.getLoginHistory = function (id, callback) {

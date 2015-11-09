@@ -26,15 +26,13 @@ namespace Quang.Auth.Api.Providers
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
         //private static readonly ICacheClient _redisCache = (ICacheClient)new RedisCacheClient(RedisConnection.SecurityConn, (ISerializer)null, 0);
-        private static readonly Dictionary<string, string> _mobileProfileClaims = new Dictionary<string, string>()
-    {
-    
-    {"profile:cmnd","cmnd"},
-      {"profile:cty","congTy"},
-      {"profile:diachi","diaChi"},
-      {"profile:mst","maSoThue"},
-      {"profile:avartar","avatar"}
-    };
+        private static readonly Dictionary<string, string> _mobileProfileClaims = new Dictionary<string, string>(){
+            { "profile:cmnd","cmnd"},
+            { "profile:cty","congTy"},
+            { "profile:diachi","diaChi"},
+            { "profile:mst","maSoThue"},
+            { "profile:avartar","avatar"}
+        };
         private const string CientMobileMuaVe = "MMuaVe";
         private readonly string _publicClientId;
 

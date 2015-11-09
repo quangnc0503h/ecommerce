@@ -14,6 +14,7 @@ angular.module('quangauthwebApp').controller('DeviceCtrl', [
         $scope.itemsPerPage = pageInfo.itemsPerPage,
         $scope.totalItems = 0,
         $scope.missingDevices = [];
+        $scope.maxSize = 5;
         var loadList = function() {
             var filter = {
                 Keyword: $scope.qsearch,
