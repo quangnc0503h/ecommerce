@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc overview
- * @name quangauthwebApp
+ * @name authclientApp
  * @description
- * # quangauthwebApp
+ * # authclientApp
  *
  * Main module of the application.
  */
 var app = angular
-    .module('quangauthwebApp', [
+    .module('authclientApp', [
         'config',
         'ngAnimate',
         'ngCookies',

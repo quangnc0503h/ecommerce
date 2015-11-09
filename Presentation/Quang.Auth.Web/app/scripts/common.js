@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('quangauthwebApp')
+angular.module('authclientApp')
     .directive('showIfAuthenticated', ['$rootScope', 'authService', function ($rootScope, authService) {
        
         var render = function ($scope, element, attrs, ctrl) {
@@ -68,7 +68,7 @@ angular.module('quangauthwebApp')
         }
     }]);
 
-angular.module('quangauthwebApp')
+angular.module('authclientApp')
     .directive('authData', ['$rootScope', '$parse', 'authService', function ($rootScope, $parse, authService) {
         var render = function ($scope, element, attrs) {
             $rootScope.$watch("isAuthLoaded", function () {
@@ -97,7 +97,7 @@ angular.module('quangauthwebApp')
             }
         }
     }]);
-angular.module('quangauthwebApp')
+angular.module('authclientApp')
     .directive('authInitializing', ['$route', '$rootScope', function ($route, $rootScope) {
         return {
             restrict: 'C',
@@ -113,7 +113,7 @@ angular.module('quangauthwebApp')
             }
         }
     }]);
-angular.module('quangauthwebApp')
+angular.module('authclientApp')
     .directive('menuActiveUrl', ['$route', '$location', function ($route, $location) {
 
         return {
@@ -154,7 +154,7 @@ angular.module('quangauthwebApp')
         }
     }]);
 
-angular.module('quangauthwebApp')
+angular.module('authclientApp')
   .filter('isActiveText', function () {
       return function (text, activeText, inActiveText) {
           if (text) {
@@ -164,7 +164,7 @@ angular.module('quangauthwebApp')
       }
   });
 
-angular.module('quangauthwebApp')
+angular.module('authclientApp')
   .service('localDataService', ['localStorageService', 'ENV', function (localStorageService, ENV) {
       var keyPrefix = 'ldv_' + ENV.version + '_';
       var serviceFactory = {};

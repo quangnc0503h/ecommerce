@@ -8,7 +8,7 @@ using System.Web.Http;
 namespace Quang.Auth.Api.Controllers
 {
     [RoutePrefix("api/Permission")]
-    public class PermissionController : ApiController
+    public class PermissionController : BaseApiController
     {
         private readonly IPermissionBll _permissionBll;
 

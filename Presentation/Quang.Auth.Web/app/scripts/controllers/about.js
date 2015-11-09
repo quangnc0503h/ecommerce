@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name quangauthwebApp.controller:AboutCtrl
+ * @name authclientApp.controller:AboutCtrl
  * @description
  * # AboutCtrl
- * Controller of the quangauthwebApp
+ * Controller of the authclientApp
  */
-angular.module('quangauthwebApp')
+angular.module('authclientApp')
   .controller('AboutCtrl', function () {
     this.awesomeThings = [
       'HTML5 Boilerplate',

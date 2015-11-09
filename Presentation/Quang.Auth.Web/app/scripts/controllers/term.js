@@ -7,7 +7,7 @@
  * # TermCtrl
  * Controller of the authclientApp
  */
-angular.module('quangauthwebApp')
+angular.module('authclientApp')
   .controller('TermCtrl', ['$scope', '$modal', '$location', 'termService', 'localDataService', function ($scope, $modal, $location, termService, localDataService) {
       var pagekey = 'TermCtrlPageInfo';
       var pageInfo = { qsearch: '', currentPage: 1, itemsPerPage: 20 };

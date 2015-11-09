@@ -1,8 +1,5 @@
-﻿using Microsoft.Owin.Security.OAuth;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
+using Unity.WebApi;
 
 namespace Quang.Auth.Api
 {
@@ -10,16 +7,10 @@ namespace Quang.Auth.Api
     {
         public static void Register(HttpConfiguration config)
         {
-           // config.EnableCors();
-          OwinHttpConfigurationExtensions.SuppressDefaultHostAuthentication(config);
-      config.Filters.Add((IFilter) new HostAuthenticationFilter("Bearer"));
-      HttpConfigurationExtensions.MapHttpAttributeRoutes(config);
-      HttpRouteCollectionExtensions.MapHttpRoute(config.Routes, "DefaultApi", "api/{controller}/{id}", (object) new
-      {
-        id = RouteParameter.Optional
-      });
-      config.DependencyResolver = (IDependencyResolver) new UnityDependencyResolver(UnityConfig.GetConfiguredContainer());
-
+            // config.EnableCors();
+            config.SuppressDefaultHostAuthentication();
+            config.Filters.Add(new HostAuthenticationFilter("Bearer"));
+            config.DependencyResolver = new UnityDependencyResolver(UnityConfig.GetConfiguredContainer());
             // Web API routes
             config.MapHttpAttributeRoutes();
 

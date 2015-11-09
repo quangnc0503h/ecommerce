@@ -1,22 +1,17 @@
 ﻿using Quang.Auth.Api.BusinessLogic;
 using Quang.Auth.Api.Dto;
-using Quang.Auth.Api.Models;
-
 using Quang.Auth.Entities;
 using Quang.Common.Auth;
 using StackExchange.Exceptional;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace Quang.Auth.Api.Controllers
 {
     [RoutePrefix("api/Term")]
-    public class TermController : ApiController
+    public class TermController : BaseApiController
     {
         private readonly ITermBll _termBll;
 
@@ -29,106 +24,171 @@ namespace Quang.Auth.Api.Controllers
             _termBll = termBll;
         }
 
-      //  [AppAuthorize(Roles = "130")]
+        //[AppAuthorize(Roles = ActionRole.HeThong.Terms)]
         [Route("GetAll")]
         [HttpPost]
         public async Task<DanhSachTermOutput> GetAll(FilterTermInput filter)
         {
-            return await _termBll.GetAll(filter);
+            try
+            {
+                return await _termBll.GetAll(filter);
+            }
+            catch (Exception ex)
+            {
+                ErrorStore.LogExceptionWithoutContext(ex);
+            }
+            return new DanhSachTermOutput();
         }
 
-       // [AppAuthorize(Roles = "130")]
+       // [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
         [Route("GetGrantedUsersByTerm")]
         [HttpPost]
         public async Task<IEnumerable<User>> GetGrantedUsersByTerm(GetOneTermInput input)
         {
-            return await _termBll.GetGrantedUsersByTerm(input.Id);
+            try
+            {
+                return await _termBll.GetGrantedUsersByTerm(input.Id);
+            }
+            catch (Exception ex)
+            {
+                ErrorStore.LogExceptionWithoutContext(ex);
+            }
+            return null;
         }
 
-       // [AppAuthorize(Roles = "130")]
+       // [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
         [HttpGet]
         [Route("GetMissingTerms")]
         public async Task<IEnumerable<ActionRoleItem>> GetMissingTerms()
         {
-            return await _termBll.GetMissingTerms();
+            try
+            {
+                return await _termBll.GetMissingTerms();
+            }
+            catch (Exception ex)
+            {
+                ErrorStore.LogExceptionWithoutContext(ex);
+            }
+            return null;
         }
 
         [HttpPost]
-        //[AppAuthorize(Roles = "130")]
+        //[AppAuthorize(Roles = ActionRole.HeThong.Terms)]
         [Route("GetOneTerm")]
         public async Task<GetOneTermOutput> GetOneTerm(GetOneTermInput input)
         {
-            Term result = await _termBll.GetOneTerm(input.Id);
-            return new GetOneTermOutput()
+            try
             {
-                Term = result
-            };
+                Term result = await _termBll.GetOneTerm(input.Id);
+                return new GetOneTermOutput()
+                {
+                    Term = result
+                };
+            }
+            catch (Exception ex)
+            {
+                ErrorStore.LogExceptionWithoutContext(ex);
+            }
+            return new GetOneTermOutput();
         }
 
-       // [AppAuthorize(Roles = "130")]
+       // [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
         [HttpPost]
         [Route("CreateTerm")]
         public async Task<CreateTermOutput> CreateTerm(CreateTermInput input)
         {
-            var result = new CreateTermOutput()
+            try
             {
-                Status = 1
-            };
-            int test = await _termBll.InsertTerm(input);
-            if (test > 0)
-            {
-                await _termBll.SynchTermsToRoles();
-                result.Status = 0;
+                var result = new CreateTermOutput()
+                {
+                    Status = 1
+                };
+                int test = await _termBll.InsertTerm(input);
+                if (test > 0)
+                {
+                    await _termBll.SynchTermsToRoles();
+                    result.Status = 0;
+                }
+                return result;
             }
-            return result;
+            catch (Exception ex)
+            {
+                ErrorStore.LogExceptionWithoutContext(ex);
+            }
+            return new CreateTermOutput();
         }
 
         [Route("UpdateTerm")]
         [HttpPost]
-      //  [AppAuthorize(Roles = "130")]
+      //  [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
         public async Task<UpdateTermOutput> UpdateTerm(UpdateTermInput input)
         {
-            var result = new UpdateTermOutput()
+            try
             {
-                Status = 1
-            };
-            int test = await _termBll.UpdateTerm(input);
-            if (test > 0)
-            {
-                await _termBll.SynchTermsToRoles();
-                result.Status = 0;
+                var result = new UpdateTermOutput()
+                {
+                    Status = 1
+                };
+                int test = await _termBll.UpdateTerm(input);
+                if (test > 0)
+                {
+                    await _termBll.SynchTermsToRoles();
+                    result.Status = 0;
+                }
+                return result;
             }
-            return result;
+            catch (Exception ex)
+            {
+                ErrorStore.LogExceptionWithoutContext(ex);
+            }
+            return new UpdateTermOutput();
         }
 
         [Route("DeleteTerm")]
         [HttpPost]
-      //  [AppAuthorize(Roles = "130")]
+      //  [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
         public async Task<DeleteTermOutput> DeleteTerm(DeleteTermInput input)
         {
-            var result = new DeleteTermOutput
-                         {
-                Status = 1
-            };
-            int test = await _termBll.DeleteTerm(input.Ids);
-            if (test > 0)
+            try
             {
-                await this._termBll.SynchTermsToRoles();
-                result.Status = 0;
+                var result = new DeleteTermOutput
+                {
+                    Status = 1
+                };
+                int test = await _termBll.DeleteTerm(input.Ids);
+                if (test > 0)
+                {
+                    await this._termBll.SynchTermsToRoles();
+                    result.Status = 0;
+                }
+                return result;
             }
-            return result;
+            catch (Exception ex)
+            {
+                ErrorStore.LogExceptionWithoutContext(ex);
+            }
+            return new DeleteTermOutput();
         }
 
         [Route("ListRoleOptions")]
         [HttpGet]
-        //[AppAuthorize(Roles = "130")]
+        //[AppAuthorize(Roles = ActionRole.HeThong.Terms)]
         public ListRoleOptionsOutput ListRoleOptions()
         {
-            IEnumerable<ActionRoleItem> listRoleOptions = this._termBll.GetListRoleOptions();
-            return new ListRoleOptionsOutput()
+            try
             {
-                Options = listRoleOptions
-            };
+                IEnumerable<ActionRoleItem> listRoleOptions = this._termBll.GetListRoleOptions();
+                return new ListRoleOptionsOutput()
+                {
+                    Options = listRoleOptions
+                };
+            }
+            catch (Exception ex)
+            {
+                ErrorStore.LogExceptionWithoutContext(ex);
+            }
+            return new ListRoleOptionsOutput();
+            
         }
 
         [Route("GetGrantTermsUser")]
@@ -136,8 +196,16 @@ namespace Quang.Auth.Api.Controllers
        // [AppAuthorize(Roles = "140")]
         public async Task<IEnumerable<GrantUserTerm>> GetGrantTermsUser(GetOneUserInput input)
         {
-            IEnumerable<GrantUserTerm> grantTermsUser = await _termBll.GetGrantTermsUser(input.Id);
-            return grantTermsUser;
+            try
+            {
+                IEnumerable<GrantUserTerm> grantTermsUser = await _termBll.GetGrantTermsUser(input.Id);
+                return grantTermsUser;
+            }
+            catch (Exception ex)
+            {
+                ErrorStore.LogExceptionWithoutContext(ex);
+            }
+            return null;
         }
 
        // [AppAuthorize(Roles = "140")]
@@ -145,14 +213,22 @@ namespace Quang.Auth.Api.Controllers
         [HttpPost]
         public async Task<UpdateTermOutput> UpdateUserGrant(UpdateUserGrantInput input)
         {
-            int success = await _termBll.UpdateUserGrant(input);
-            var result = new UpdateTermOutput
-                         {
-                Status = 1
-            };
-            if (success > 0)
-                result.Status = 0;
-            return result;
+            try
+            {
+                int success = await _termBll.UpdateUserGrant(input);
+                var result = new UpdateTermOutput
+                {
+                    Status = 1
+                };
+                if (success > 0)
+                    result.Status = 0;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                ErrorStore.LogExceptionWithoutContext(ex);
+            }
+            return new UpdateTermOutput();
         }
 
         [HttpPost]
@@ -160,8 +236,16 @@ namespace Quang.Auth.Api.Controllers
         [Route("GetGrantTermsGroup")]
         public async Task<IEnumerable<GrantGroupTerm>> GetGrantTermsGroup(GetOneGroupInput input)
         {
-            IEnumerable<GrantGroupTerm> grantTermsGroup = await _termBll.GetGrantTermsGroup(input.Id);
-            return grantTermsGroup;
+            try
+            {
+                IEnumerable<GrantGroupTerm> grantTermsGroup = await _termBll.GetGrantTermsGroup(input.Id);
+                return grantTermsGroup;
+            }
+            catch (Exception ex)
+            {
+                ErrorStore.LogExceptionWithoutContext(ex);
+            }
+            return null;
         }
 
         //[AppAuthorize(Roles = "140")]
@@ -169,14 +253,22 @@ namespace Quang.Auth.Api.Controllers
         [HttpPost]
         public async Task<UpdateTermOutput> UpdateGroupGrant(UpdateGroupGrantInput input)
         {
-            int success = await this._termBll.UpdateGroupGrant(input);
-            var result = new UpdateTermOutput()
+            try
             {
-                Status = 1
-            };
-            if (success > 0)
-                result.Status = 0;
-            return result;
+                int success = await _termBll.UpdateGroupGrant(input);
+                var result = new UpdateTermOutput()
+                {
+                    Status = 1
+                };
+                if (success > 0)
+                    result.Status = 0;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                ErrorStore.LogExceptionWithoutContext(ex);
+            }
+            return new UpdateTermOutput();
         }
     }
 }

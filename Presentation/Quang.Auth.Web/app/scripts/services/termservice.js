@@ -7,7 +7,7 @@
  * # termservice
  * Service in the authclientApp.
  */
-angular.module('quangauthwebApp')
+angular.module('authclientApp')
   .service('termService', ['$resource', 'ENV', function ($resource, ENV) {
       
       var rs = $resource('', {}, {

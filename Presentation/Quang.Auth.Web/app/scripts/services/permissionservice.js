@@ -7,7 +7,7 @@
  * # permissionservice
  * Service in the authclientApp.
  */
-angular.module('quangauthwebApp')
+angular.module('authclientApp')
   .service('permissionService', ['$resource', 'ENV', function ($resource, ENV) {
       
       var rs = $resource('', {}, {

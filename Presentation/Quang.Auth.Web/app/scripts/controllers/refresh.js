@@ -7,7 +7,7 @@
  * # RefreshCtrl
  * Controller of the authclientApp
  */
-angular.module('quangauthwebApp')
+angular.module('authclientApp')
   .controller('RefreshCtrl', ['$scope', '$location', 'authService', function ($scope, $location, authService) {
       $scope.authentication = authService.authentication;
       $scope.tokenRefreshed = false;

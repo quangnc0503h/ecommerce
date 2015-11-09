@@ -1,4 +1,4 @@
-﻿angular.module("quangauthwebApp").service("loginHistoryService", ["$resource", "ENV", function ($resource, ENV) {
+﻿angular.module("authclientApp").service("loginHistoryService", ["$resource", "ENV", function ($resource, ENV) {
     var rs = $resource("", {}, {
         query: { method: "POST", url: ENV.urlApiAuth + "api/LoginHistory/GetAll" },
         queryRequest: { method: "POST", url: ENV.urlApiAuth + "api/LoginHistory/GetAllRequest" },

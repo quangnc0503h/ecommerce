@@ -1,6 +1,6 @@
 /* --- Made by justgoscha and licensed under MIT license --- */
 
-var app = angular.module('quangauthwebApp');
+var app = angular.module('authclientApp');
 
 app.directive('autocomplete', function() {
   var index = -1;

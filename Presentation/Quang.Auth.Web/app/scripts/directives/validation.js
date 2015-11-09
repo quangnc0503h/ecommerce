@@ -6,7 +6,7 @@
  * @description
  * # validSubmit
  */
-angular.module('quangauthwebApp')
+angular.module('authclientApp')
 .directive('validSubmit', ['$parse', function ($parse) {
 
     var linkFn = function ($scope, el, attrs, formCtrl) {

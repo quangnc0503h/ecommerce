@@ -7,7 +7,7 @@
  * # userservice
  * Service in the authclientApp.
  */
-angular.module('quangauthwebApp')
+angular.module('authclientApp')
   .service('userService', ['$resource', 'ENV', function ($resource, ENV) {
       
       var rs = $resource('', {}, {

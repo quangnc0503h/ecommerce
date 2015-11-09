@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
-using StackExchange.Exceptional;
-using StackExchange.Exceptional.MySQL;
 using Microsoft.AspNet.Identity.Owin;
 
 namespace Quang.Auth.Api.Controllers
@@ -19,11 +14,11 @@ namespace Quang.Auth.Api.Controllers
         {
             get
             {
-                return this._userManager ?? OwinContextExtensions.GetUserManager<ApplicationUserManager>(HttpContextBaseExtensions.GetOwinContext(this.Request));
+                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
             private set
             {
-                this._userManager = value;
+                _userManager = value;
             }
         }
 
@@ -31,11 +26,11 @@ namespace Quang.Auth.Api.Controllers
         {
             get
             {
-                return this._roleManager ?? OwinContextExtensions.GetUserManager<ApplicationRoleManager>(HttpContextBaseExtensions.GetOwinContext(this.Request));
+                return _roleManager ?? Request.GetOwinContext().GetUserManager<ApplicationRoleManager>();
             }
             private set
             {
-                this._roleManager = value;
+                _roleManager = value;
             }
         }
 
@@ -45,8 +40,8 @@ namespace Quang.Auth.Api.Controllers
 
         public HomeController(ApplicationUserManager userManager, ApplicationRoleManager roleManager)
         {
-            this._userManager = userManager;
-            this._roleManager = roleManager;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public ActionResult Index()
@@ -55,7 +50,7 @@ namespace Quang.Auth.Api.Controllers
             // ISSUE: reference to a compiler-generated field
             // ISSUE: reference to a compiler-generated field
            
-            return (ActionResult)this.View();
+            return View();
         }
     }
     //[Authorize]

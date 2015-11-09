@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('quangauthwebApp').controller('GroupCtrl', ['$scope', '$modal', '$location', 'groupService', 'localDataService',
+angular.module('authclientApp').controller('GroupCtrl', ['$scope', '$modal', '$location', 'groupService', 'localDataService',
     function ($scope, $modal, $location, groupService, localDataService) {
         var pagekey = 'GroupCtrlPageInfo';
         var pageInfo = { qsearch: '', parentId: '', currentPage: 1, itemsPerPage: 10 };

@@ -7,7 +7,7 @@
  * # tokensmanagerservice
  * Service in the authclientApp.
  */
-angular.module('quangauthwebApp')
+angular.module('authclientApp')
   .service('tockensmanagerService', ['$http', 'ENV', function ($http, ENV) {
       
       var tokenManagerServiceFactory = {};

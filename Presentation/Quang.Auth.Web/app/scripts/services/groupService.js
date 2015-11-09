@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('quangauthwebApp').service('groupService', ['$resource', 'ENV', function ($resource, ENV) {
+angular.module('authclientApp').service('groupService', ['$resource', 'ENV', function ($resource, ENV) {
       
     var rs = $resource('', {}, {
 

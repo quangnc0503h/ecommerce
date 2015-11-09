@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module("quangauthwebApp").controller("LoginHistoryCtrl", ["$scope", "$modal", "$location", "deviceService", "loginHistoryService", "localDataService", function ($scope, $modal, $location, deviceService, loginHistoryService, localDataService) {
+angular.module("authclientApp").controller("LoginHistoryCtrl", ["$scope", "$modal", "$location", "deviceService", "loginHistoryService", "localDataService", function ($scope, $modal, $location, deviceService, loginHistoryService, localDataService) {
     var pagekey = "pLoginHistoryCtrlPageInfo",
         pageInfo = { qsearch: { ThoiGianBatDau: new Date(2e3, 0, 1, 0, 0, 0, 0), ThoiGianKetThuc: new Date(2e3, 0, 1, 23, 59, 59, 0) }, currentPage: 1, itemsPerPage: 20 };
     if (localDataService.get(pagekey) !== null) {

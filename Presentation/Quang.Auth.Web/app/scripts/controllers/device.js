@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('quangauthwebApp').controller('DeviceCtrl', [
+angular.module('authclientApp').controller('DeviceCtrl', [
     '$scope', '$modal', '$location', 'deviceService', 'localDataService',
     function ($scope, $modal, $location, deviceService, localDataService) {
         var pagekey = 'DeviceCtrlPageInfo';

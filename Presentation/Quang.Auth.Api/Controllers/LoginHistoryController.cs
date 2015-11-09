@@ -16,9 +16,9 @@ using System.Web.Http;
 namespace Quang.Auth.Api.Controllers
 {
     [RoutePrefix("api/LoginHistory")]
-    public class LoginHistoryController : ApiController
+    public class LoginHistoryController : BaseApiController
     {
-        private ILoginHistoryBll _loginHistoryBll;
+        private readonly ILoginHistoryBll _loginHistoryBll;
 
         public LoginHistoryController()
         {

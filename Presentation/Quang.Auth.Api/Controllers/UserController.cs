@@ -11,42 +11,19 @@ using Quang.Common.Auth;
 using Quang.Auth.Api.Dto;
 using System.Web;
 using Quang.Auth.Api.BusinessLogic;
+using StackExchange.Exceptional;
 
 namespace Quang.Auth.Api.Controllers
 {
     [RoutePrefix("api/User")]
-    public class UserController : ApiController
+    public class UserController : BaseApiController
     {
-        private ApplicationUserManager _userManager;
-        private ApplicationRoleManager _roleManager;
+        
         private readonly IUserBll _userBll;
         private readonly IPermissionBll _permissionBll;
         private readonly ILoginHistoryBll _loginHistoryBll;
 
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
-
-        public ApplicationRoleManager RoleManager
-        {
-            get
-            {
-                return _roleManager ?? this.Request.GetOwinContext().GetUserManager<ApplicationRoleManager>();
-            }
-            private set
-            {
-                this._roleManager = value;
-            }
-        }
-
+     
         public UserController()
         {
         }
@@ -152,16 +129,24 @@ namespace Quang.Auth.Api.Controllers
         //[AppAuthorize(Roles = "100")]
         public async Task<UpdateUserOutput> UpdateUser(UpdateUserInput input)
         {
-            UpdateUserOutput result = await this._userBll.UpdateUser(input, true);
-            if (result.Status == 0)
+            try
             {
-                int num = await this._permissionBll.GenerateRolesForUser(input.Id);
-                if (!string.IsNullOrEmpty(input.Password))
-                    await this.LogHistory(LoginType.ChangePassword, LoginStatus.Success, this.User.Identity.GetUserName(), input.UserName, (string)null, (string)null);
+                var result = await _userBll.UpdateUser(input, true);
+                if (result.Status == 0)
+                {
+                    await _permissionBll.GenerateRolesForUser(input.Id);
+                    if (!string.IsNullOrEmpty(input.Password))
+                        await LogHistory(LoginType.ChangePassword, LoginStatus.Success, User.Identity.GetUserName(), input.UserName, null, null);
+                }
+                else if (result.Status != 0 && !string.IsNullOrEmpty(input.Password))
+                    await LogHistory(LoginType.ChangePassword, LoginStatus.InvalidOldPassword, User.Identity.GetUserName(), input.UserName, null, null);
+                return result;
             }
-            else if (result.Status != 0 && !string.IsNullOrEmpty(input.Password))
-                await this.LogHistory(LoginType.ChangePassword, LoginStatus.InvalidOldPassword, this.User.Identity.GetUserName(), input.UserName, null, (string)null);
-            return result;
+            catch (Exception ex)
+            {
+                ErrorStore.LogExceptionWithoutContext(ex);
+            }
+            return new UpdateUserOutput();
         }
 
         [HttpPost]
@@ -238,8 +223,8 @@ namespace Quang.Auth.Api.Controllers
         {
             string clientIp = SecurityUtils.GetClientIPAddress();
             string clientUri = HttpContext.Current.Request.Url.AbsoluteUri;
-            int num = await _loginHistoryBll.InsertLoginHistory(new InsertLoginHistoryInput()
-            {
+            int num = await _loginHistoryBll.InsertLoginHistory(new InsertLoginHistoryInput
+                                                                {
                 Type = loginType.GetHashCode(),
                 UserName = username,
                 LoginTime = DateTime.Now,

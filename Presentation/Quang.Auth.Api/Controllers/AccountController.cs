@@ -1,4 +1,5 @@
-﻿using AspNet.Identity.MySQL;
+﻿using System.Globalization;
+using AspNet.Identity.MySQL;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -28,27 +29,16 @@ namespace Quang.Auth.Api.Controllers
 
     [RoutePrefix("api/Account")]
     [AppAuthorize]
-    public class AccountController : ApiController
+    public class AccountController : BaseApiController
     {
-        private const string LocalLoginProvider = "Local";
-        private ApplicationUserManager _userManager;
-        private IUserBll _userBll;
-        private ITermBll _termBll;
-        private IGroupBll _groupBll;
-        private IPermissionBll _permissionBll;
-        private ILoginHistoryBll _loginHistoryBll;
+        /*
+                private const string LocalLoginProvider = "Local";
+        */
+        /// private ApplicationUserManager _userManager;
+        private readonly IUserBll _userBll;
+        private readonly ILoginHistoryBll _loginHistoryBll;
 
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return this._userManager ?? OwinContextExtensions.GetUserManager<ApplicationUserManager>(OwinHttpRequestMessageExtensions.GetOwinContext(this.Request));
-            }
-            private set
-            {
-                this._userManager = value;
-            }
-        }
+
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
@@ -56,7 +46,7 @@ namespace Quang.Auth.Api.Controllers
         {
             get
             {
-                return OwinHttpRequestMessageExtensions.GetOwinContext(this.Request).Authentication;
+                return Request.GetOwinContext().Authentication;
             }
         }
 
@@ -64,48 +54,45 @@ namespace Quang.Auth.Api.Controllers
         {
         }
 
-        public AccountController(IUserBll userBll, ITermBll termBll, IGroupBll groupBll, IPermissionBll permissionBll, ILoginHistoryBll loginHistoryBll)
+        public AccountController(IUserBll userBll, ILoginHistoryBll loginHistoryBll)
         {
-            this._userBll = userBll;
-            this._groupBll = groupBll;
-            this._permissionBll = permissionBll;
-            this._termBll = termBll;
-            this._loginHistoryBll = loginHistoryBll;
+            _userBll = userBll;
+            _loginHistoryBll = loginHistoryBll;
         }
 
         [HostAuthentication("ExternalBearer")]
         [Route("UserInfo")]
         public UserInfoViewModel GetUserInfo()
         {
-            AccountController.ExternalLoginData externalLoginData = AccountController.ExternalLoginData.FromIdentity(this.User.Identity as ClaimsIdentity);
-            return new UserInfoViewModel()
-            {
-                Email = IdentityExtensions.GetUserName(this.User.Identity),
-                HasRegistered = externalLoginData == null,
-                LoginProvider = externalLoginData != null ? externalLoginData.LoginProvider : (string)null
-            };
+            ExternalLoginData externalLoginData = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
+            return new UserInfoViewModel
+                   {
+                       Email = User.Identity.GetUserName(),
+                       HasRegistered = externalLoginData == null,
+                       LoginProvider = externalLoginData != null ? externalLoginData.LoginProvider : null
+                   };
         }
 
         [Route("Logout")]
         public IHttpActionResult Logout()
         {
-            ClaimsIdentity identity = this.User.Identity as ClaimsIdentity;
-            this.Authentication.SignOut("Cookies");
+            var identity = User.Identity as ClaimsIdentity;
+            Authentication.SignOut("Cookies");
             AppAuthorizeAttribute.ClearAuthClientInfo(identity);
-            return (IHttpActionResult)this.Ok();
+            return Ok();
         }
 
         [Route("Logout4Mobile")]
         public LogoutMobileOutput Logout4Mobile()
         {
-            LogoutMobileOutput logoutMobileOutput = new LogoutMobileOutput()
-            {
+            var logoutMobileOutput = new LogoutMobileOutput
+                                     {
                 Status = 0
             };
             try
             {
-                ClaimsIdentity identity = this.User.Identity as ClaimsIdentity;
-                this.Authentication.SignOut("Cookies");
+                var identity = User.Identity as ClaimsIdentity;
+                Authentication.SignOut("Cookies");
                 if (identity != null)
                     AppAuthorizeAttribute.ClearAuthClientInfo(identity);
             }
@@ -120,28 +107,28 @@ namespace Quang.Auth.Api.Controllers
         [Route("ManageInfo")]
         public async Task<ManageInfoViewModel> GetManageInfo(string returnUrl, bool generateState = false)
         {
-            IdentityUser user = (IdentityUser)await this.UserManager.FindByIdAsync(IdentityExtensions.GetUserId<int>(this.User.Identity));
+            var user = (IdentityUser)await UserManager.FindByIdAsync(User.Identity.GetUserId<int>());
             ManageInfoViewModel manageInfoViewModel;
             if (user == null)
             {
-                manageInfoViewModel = (ManageInfoViewModel)null;
+                manageInfoViewModel = null;
             }
             else
             {
-                List<UserLoginInfoViewModel> logins = new List<UserLoginInfoViewModel>();
+                var logins = new List<UserLoginInfoViewModel>();
                 if (user.PasswordHash != null)
-                    logins.Add(new UserLoginInfoViewModel()
-                    {
-                        LoginProvider = "Local",
-                        ProviderKey = user.UserName
-                    });
-                manageInfoViewModel = new ManageInfoViewModel()
-                {
-                    LocalLoginProvider = "Local",
-                    Email = user.UserName,
-                    Logins = (IEnumerable<UserLoginInfoViewModel>)logins,
-                    ExternalLoginProviders = this.GetExternalLogins(returnUrl, generateState)
-                };
+                    logins.Add(new UserLoginInfoViewModel
+                               {
+                                   LoginProvider = "Local",
+                                   ProviderKey = user.UserName
+                               });
+                manageInfoViewModel = new ManageInfoViewModel
+                                      {
+                                          LocalLoginProvider = "Local",
+                                          Email = user.UserName,
+                                          Logins = logins,
+                                          ExternalLoginProviders = GetExternalLogins(returnUrl, generateState)
+                                      };
             }
             return manageInfoViewModel;
         }
@@ -150,23 +137,23 @@ namespace Quang.Auth.Api.Controllers
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
         {
             IHttpActionResult httpActionResult;
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                await this.LogHistory(LoginType.ChangePassword, LoginStatus.BadRequest, SecurityUtils.GetConnectAppId(this.User), IdentityExtensions.GetUserName(this.User.Identity), SecurityUtils.GetConnectDeviceKey(this.User), (string)null);
-                httpActionResult = (IHttpActionResult)this.BadRequest(this.ModelState);
+                await LogHistory(LoginType.ChangePassword, LoginStatus.BadRequest, User.GetConnectAppId(), User.Identity.GetUserName(), User.GetConnectDeviceKey(), null);
+                httpActionResult = BadRequest(ModelState);
             }
             else
             {
-                IdentityResult result = await this.UserManager.ChangePasswordAsync(IdentityExtensions.GetUserId<int>(this.User.Identity), model.OldPassword, model.NewPassword);
+                IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId<int>(), model.OldPassword, model.NewPassword);
                 if (!result.Succeeded)
                 {
-                    await this.LogHistory(LoginType.ChangePassword, LoginStatus.InvalidOldPassword, SecurityUtils.GetConnectAppId(this.User), IdentityExtensions.GetUserName(this.User.Identity), SecurityUtils.GetConnectDeviceKey(this.User), (string)null);
-                    httpActionResult = this.GetErrorResult(result);
+                    await LogHistory(LoginType.ChangePassword, LoginStatus.InvalidOldPassword, User.GetConnectAppId(), User.Identity.GetUserName(), User.GetConnectDeviceKey(), null);
+                    httpActionResult = GetErrorResult(result);
                 }
                 else
                 {
-                    await this.LogHistory(LoginType.ChangePassword, LoginStatus.Success, SecurityUtils.GetConnectAppId(this.User), IdentityExtensions.GetUserName(this.User.Identity), SecurityUtils.GetConnectDeviceKey(this.User), (string)null);
-                    httpActionResult = (IHttpActionResult)this.Ok();
+                    await LogHistory(LoginType.ChangePassword, LoginStatus.Success, User.GetConnectAppId(), User.Identity.GetUserName(), User.GetConnectDeviceKey(), null);
+                    httpActionResult = Ok();
                 }
             }
             return httpActionResult;
@@ -175,29 +162,29 @@ namespace Quang.Auth.Api.Controllers
         [Route("ChangePassword4Mobile")]
         public async Task<ChangePasswordMobileOutput> ChangePassword4Mobile(ChangePasswordBindingModel model)
         {
-            ChangePasswordMobileOutput output = new ChangePasswordMobileOutput()
-            {
+            var output = new ChangePasswordMobileOutput
+                         {
                 Status = 0
             };
             ChangePasswordMobileOutput passwordMobileOutput;
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 output.Status = 1;
                 output.ErrorMsg = "Invalid input";
-                await this.LogHistory(LoginType.ChangePassword, LoginStatus.BadRequest, SecurityUtils.GetConnectAppId(this.User), IdentityExtensions.GetUserName(this.User.Identity), SecurityUtils.GetConnectDeviceKey(this.User), (string)null);
+                await LogHistory(LoginType.ChangePassword, LoginStatus.BadRequest, User.GetConnectAppId(), User.Identity.GetUserName(), User.GetConnectDeviceKey(), null);
                 passwordMobileOutput = output;
             }
             else
             {
-                IdentityResult result = await this.UserManager.ChangePasswordAsync(IdentityExtensions.GetUserId<int>(this.User.Identity), model.OldPassword, model.NewPassword);
+                var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId<int>(), model.OldPassword, model.NewPassword);
                 if (!result.Succeeded)
                 {
                     output.Status = 1;
-                    output.ErrorMsg = result.Errors == null || Enumerable.Count<string>(result.Errors) <= 0 ? "Unknown errors" : Enumerable.First<string>(result.Errors);
-                    await this.LogHistory(LoginType.ChangePassword, LoginStatus.InvalidOldPassword, SecurityUtils.GetConnectAppId(this.User), IdentityExtensions.GetUserName(this.User.Identity), SecurityUtils.GetConnectDeviceKey(this.User), (string)null);
+                    output.ErrorMsg = result.Errors == null || !result.Errors.Any() ? "Unknown errors" : result.Errors.First();
+                    await LogHistory(LoginType.ChangePassword, LoginStatus.InvalidOldPassword, User.GetConnectAppId(), User.Identity.GetUserName(), User.GetConnectDeviceKey(), null);
                 }
                 else
-                    await this.LogHistory(LoginType.ChangePassword, LoginStatus.InvalidOldPassword, SecurityUtils.GetConnectAppId(this.User), IdentityExtensions.GetUserName(this.User.Identity), SecurityUtils.GetConnectDeviceKey(this.User), (string)null);
+                    await LogHistory(LoginType.ChangePassword, LoginStatus.InvalidOldPassword, User.GetConnectAppId(), User.Identity.GetUserName(), User.GetConnectDeviceKey(), null);
                 passwordMobileOutput = output;
             }
             return passwordMobileOutput;
@@ -206,7 +193,7 @@ namespace Quang.Auth.Api.Controllers
         [Route("GetMobileProfile")]
         public async Task<GetMobileProfileOutput> GetMobileProfile()
         {
-            GetMobileProfileOutput output = await this._userBll.GetMobileProfile(IdentityExtensions.GetUserId<int>(this.User.Identity));
+            var output = await _userBll.GetMobileProfile(User.Identity.GetUserId<int>());
             return output;
         }
 
@@ -214,7 +201,7 @@ namespace Quang.Auth.Api.Controllers
         [HttpPost]
         public async Task<UpdateMobileProfileOutput> UpdateMobileProfile(UpdateMobileProfileInput input)
         {
-            UpdateMobileProfileOutput output = await this._userBll.UpdateMobileProfile(IdentityExtensions.GetUserId<int>(this.User.Identity), input);
+            UpdateMobileProfileOutput output = await _userBll.UpdateMobileProfile(User.Identity.GetUserId<int>(), input);
             return output;
         }
 
@@ -224,21 +211,21 @@ namespace Quang.Auth.Api.Controllers
             IHttpActionResult httpActionResult;
             if (!this.ModelState.IsValid)
             {
-                httpActionResult = (IHttpActionResult)this.BadRequest(this.ModelState);
+                httpActionResult = BadRequest(ModelState);
             }
             else
             {
-                ApplicationUser user = await this.UserManager.FindByIdAsync(IdentityExtensions.GetUserId<int>(this.User.Identity));
+                ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId<int>());
                 if (user == null)
-                    httpActionResult = (IHttpActionResult)this.BadRequest("Not found user");
+                    httpActionResult = BadRequest("Not found user");
                 else if (!string.IsNullOrEmpty(user.PasswordHash))
                 {
-                    httpActionResult = (IHttpActionResult)this.BadRequest("Not allow create password");
+                    httpActionResult = BadRequest("Not allow create password");
                 }
                 else
                 {
-                    IdentityResult result = await this.UserManager.AddPasswordAsync(IdentityExtensions.GetUserId<int>(this.User.Identity), model.NewPassword);
-                    httpActionResult = result.Succeeded ? (IHttpActionResult)this.Ok() : this.GetErrorResult(result);
+                    IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId<int>(), model.NewPassword);
+                    httpActionResult = result.Succeeded ? Ok() : GetErrorResult(result);
                 }
             }
             return httpActionResult;
@@ -250,27 +237,27 @@ namespace Quang.Auth.Api.Controllers
             IHttpActionResult httpActionResult;
             if (!this.ModelState.IsValid)
             {
-                httpActionResult = (IHttpActionResult)this.BadRequest(this.ModelState);
+                httpActionResult = BadRequest(ModelState);
             }
             else
             {
-                this.Authentication.SignOut("ExternalCookie");
-                AuthenticationTicket ticket = this.AccessTokenFormat.Unprotect(model.ExternalAccessToken);
+                Authentication.SignOut("ExternalCookie");
+                AuthenticationTicket ticket = AccessTokenFormat.Unprotect(model.ExternalAccessToken);
                 if (ticket == null || ticket.Identity == null || ticket.Properties != null && ticket.Properties.ExpiresUtc.HasValue && ticket.Properties.ExpiresUtc.Value < DateTimeOffset.UtcNow)
                 {
-                    httpActionResult = (IHttpActionResult)this.BadRequest("External login failure.");
+                    httpActionResult = BadRequest("External login failure.");
                 }
                 else
                 {
-                    AccountController.ExternalLoginData externalData = AccountController.ExternalLoginData.FromIdentity(ticket.Identity);
+                    ExternalLoginData externalData = ExternalLoginData.FromIdentity(ticket.Identity);
                     if (externalData == null)
                     {
-                        httpActionResult = (IHttpActionResult)this.BadRequest("The external login is already associated with an account.");
+                        httpActionResult = BadRequest("The external login is already associated with an account.");
                     }
                     else
                     {
-                        IdentityResult result = await this.UserManager.AddLoginAsync(IdentityExtensions.GetUserId<int>(this.User.Identity), new UserLoginInfo(externalData.LoginProvider, externalData.ProviderKey));
-                        httpActionResult = result.Succeeded ? (IHttpActionResult)this.Ok() : this.GetErrorResult(result);
+                        IdentityResult result = await UserManager.AddLoginAsync(User.Identity.GetUserId<int>(), new UserLoginInfo(externalData.LoginProvider, externalData.ProviderKey));
+                        httpActionResult = result.Succeeded ? Ok() : GetErrorResult(result);
                     }
                 }
             }
@@ -283,16 +270,16 @@ namespace Quang.Auth.Api.Controllers
             IHttpActionResult httpActionResult;
             if (!this.ModelState.IsValid)
             {
-                httpActionResult = (IHttpActionResult)this.BadRequest(this.ModelState);
+                httpActionResult = BadRequest(ModelState);
             }
             else
             {
                 IdentityResult result;
                 if (model.LoginProvider == "Local")
-                    result = await this.UserManager.RemovePasswordAsync(IdentityExtensions.GetUserId<int>(this.User.Identity));
+                    result = await UserManager.RemovePasswordAsync(User.Identity.GetUserId<int>());
                 else
-                    result = await this.UserManager.RemoveLoginAsync(IdentityExtensions.GetUserId<int>(this.User.Identity), new UserLoginInfo(model.LoginProvider, model.ProviderKey));
-                httpActionResult = result.Succeeded ? (IHttpActionResult)this.Ok() : this.GetErrorResult(result);
+                    result = await UserManager.RemoveLoginAsync(User.Identity.GetUserId<int>(), new UserLoginInfo(model.LoginProvider, model.ProviderKey));
+                httpActionResult = result.Succeeded ? Ok() : GetErrorResult(result);
             }
             return httpActionResult;
         }
@@ -306,42 +293,42 @@ namespace Quang.Auth.Api.Controllers
             string redirectUri = string.Empty;
             IHttpActionResult httpActionResult;
             if (error != null)
-                httpActionResult = (IHttpActionResult)this.BadRequest(Uri.EscapeDataString(error));
-            else if (!this.User.Identity.IsAuthenticated)
+                httpActionResult = BadRequest(Uri.EscapeDataString(error));
+            else if (!User.Identity.IsAuthenticated)
             {
-                httpActionResult = (IHttpActionResult)new ChallengeResult(provider, (ApiController)this);
+                httpActionResult = new ChallengeResult(provider, this);
             }
             else
             {
-                string redirectUriValidationResult = this.ValidateClientAndRedirectUri(this.Request, ref redirectUri);
+                string redirectUriValidationResult = ValidateClientAndRedirectUri(Request, ref redirectUri);
                 if (!string.IsNullOrWhiteSpace(redirectUriValidationResult))
                 {
-                    httpActionResult = (IHttpActionResult)this.BadRequest(redirectUriValidationResult);
+                    httpActionResult = BadRequest(redirectUriValidationResult);
                 }
                 else
                 {
-                    AccountController.ExternalLoginData externalLogin = AccountController.ExternalLoginData.FromIdentity(this.User.Identity as ClaimsIdentity);
+                    var externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
                     if (externalLogin == null)
-                        httpActionResult = (IHttpActionResult)this.InternalServerError();
+                        httpActionResult = InternalServerError();
                     else if (externalLogin.LoginProvider != provider)
                     {
-                        this.Authentication.SignOut("ExternalCookie");
-                        httpActionResult = (IHttpActionResult)new ChallengeResult(provider, (ApiController)this);
+                        Authentication.SignOut("ExternalCookie");
+                        httpActionResult = new ChallengeResult(provider, this);
                     }
                     else
                     {
                         string email = string.Empty;
-                        ClaimsIdentity externalIdentity = await AuthenticationManagerExtensions.GetExternalIdentityAsync(HttpContextExtensions.GetOwinContext(HttpContext.Current).Authentication, "ExternalCookie");
+                        var externalIdentity = await HttpContext.Current.GetOwinContext().Authentication.GetExternalIdentityAsync("ExternalCookie");
                         if (externalIdentity != null)
                         {
-                            Claim claim = Enumerable.FirstOrDefault<Claim>(externalIdentity.Claims, (Func<Claim, bool>)(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"));
+                            var claim = externalIdentity.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress");
                             if (claim != null)
                                 email = claim.Value;
                         }
-                        ApplicationUser user = await this.UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider, externalLogin.ProviderKey));
+                        ApplicationUser user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider, externalLogin.ProviderKey));
                         bool hasRegistered = user != null;
                         redirectUri = string.Format("{0}#external_access_token={1}&provider={2}&haslocalaccount={3}&external_user_name={4}&external_email={5}", (object)redirectUri, (object)externalLogin.ExternalAccessToken, (object)externalLogin.LoginProvider, (object)hasRegistered.ToString(), (object)externalLogin.UserName, (object)email);
-                        httpActionResult = (IHttpActionResult)this.Redirect(redirectUri);
+                        httpActionResult = Redirect(redirectUri);
                     }
                 }
             }
@@ -352,27 +339,19 @@ namespace Quang.Auth.Api.Controllers
         [Route("ExternalLogins")]
         public IEnumerable<ExternalLoginViewModel> GetExternalLogins(string returnUrl, bool generateState = false)
         {
-            IEnumerable<AuthenticationDescription> authenticationTypes = AuthenticationManagerExtensions.GetExternalAuthenticationTypes(this.Authentication);
-            List<ExternalLoginViewModel> list = new List<ExternalLoginViewModel>();
-            string str = !generateState ? (string)null : AccountController.RandomOAuthStateGenerator.Generate(256);
-            foreach (AuthenticationDescription authenticationDescription in authenticationTypes)
-            {
-                ExternalLoginViewModel externalLoginViewModel = new ExternalLoginViewModel()
-                {
-                    Name = authenticationDescription.Caption,
-                    Url = this.Url.Route("ExternalLogin", (object)new
-                    {
-                        provider = authenticationDescription.AuthenticationType,
-                        response_type = "token",
-                        client_id = Startup.PublicClientId,
-                        redirect_uri = new Uri(this.Request.RequestUri, returnUrl).AbsoluteUri,
-                        state = str
-                    }),
-                    State = str
-                };
-                list.Add(externalLoginViewModel);
-            }
-            return (IEnumerable<ExternalLoginViewModel>)list;
+            IEnumerable<AuthenticationDescription> authenticationTypes = Authentication.GetExternalAuthenticationTypes();
+            string str = !generateState ? null : RandomOAuthStateGenerator.Generate(256);
+            return authenticationTypes.Select(authenticationDescription => new ExternalLoginViewModel
+                                                                           {
+                                                                               Name = authenticationDescription.Caption,
+                                                                               Url = Url.Route("ExternalLogin", new
+                                                                                                                {
+                                                                                                                    provider = authenticationDescription.AuthenticationType,
+                                                                                                                    response_type= "token",
+                                                                                                                    client_id= Startup.PublicClientId,
+                                                                                                                    redirect_uri=new Uri(Request.RequestUri, returnUrl).AbsoluteUri,
+                                                                                                                    state= str}),
+                                                                                                                    State = str}).ToList();
         }
 
         [AllowAnonymous]
@@ -382,16 +361,14 @@ namespace Quang.Auth.Api.Controllers
             IHttpActionResult httpActionResult;
             if (!this.ModelState.IsValid)
             {
-                httpActionResult = (IHttpActionResult)this.BadRequest(this.ModelState);
+                httpActionResult = BadRequest(ModelState);
             }
             else
             {
-                ApplicationUser applicationUser = new ApplicationUser();
-                applicationUser.UserName = model.Email;
-                applicationUser.Email = model.Email;
+                var applicationUser = new ApplicationUser {UserName = model.Email, Email = model.Email};
                 ApplicationUser user = applicationUser;
-                IdentityResult result = await this.UserManager.CreateAsync(user, model.Password);
-                httpActionResult = result.Succeeded ? (IHttpActionResult)this.Ok() : this.GetErrorResult(result);
+                IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+                httpActionResult = result.Succeeded ? Ok() : GetErrorResult(result);
             }
             return httpActionResult;
         }
@@ -401,54 +378,56 @@ namespace Quang.Auth.Api.Controllers
         public async Task<IHttpActionResult> RegisterExternal(RegisterExternalBindingModel model)
         {
             IHttpActionResult httpActionResult;
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                httpActionResult = (IHttpActionResult)this.BadRequest(this.ModelState);
+                httpActionResult = BadRequest(ModelState);
             }
             else
             {
-                ParsedExternalAccessToken verifiedAccessToken = await this.VerifyExternalAccessToken(model.Provider, model.ExternalAccessToken);
+                var verifiedAccessToken = await VerifyExternalAccessToken(model.Provider, model.ExternalAccessToken);
                 if (verifiedAccessToken == null)
                 {
-                    httpActionResult = (IHttpActionResult)this.BadRequest("Invalid Provider or External Access Token");
+                    httpActionResult = BadRequest("Invalid Provider or External Access Token");
                 }
                 else
                 {
-                    AccountController.ExternalLoginData.FromIdentity(this.User.Identity as ClaimsIdentity);
-                    ApplicationUser user = await this.UserManager.FindAsync(new UserLoginInfo(model.Provider, verifiedAccessToken.ProviderKey));
-                    bool hasRegistered = user != null;
+                    ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
+                    var user = await UserManager.FindAsync(new UserLoginInfo(model.Provider, verifiedAccessToken.ProviderKey));
+                    var hasRegistered = user != null;
                     if (hasRegistered)
                     {
-                        httpActionResult = (IHttpActionResult)this.BadRequest("External user is already registered");
+                        httpActionResult = BadRequest("External user is already registered");
                     }
                     else
                     {
-                        ApplicationUser applicationUser = new ApplicationUser();
-                        applicationUser.UserName = model.Provider.ToLower() + verifiedAccessToken.ProviderKey.ToLower();
-                        applicationUser.Email = model.Email;
+                        var applicationUser = new ApplicationUser
+                                              {
+                                                  UserName =model.Provider.ToLower() +verifiedAccessToken.ProviderKey.ToLower(),
+                                                  Email = model.Email
+                                              };
                         user = applicationUser;
-                        IdentityResult result = await this.UserManager.CreateAsync(user);
+                        var result = await UserManager.CreateAsync(user);
                         if (!result.Succeeded)
                         {
-                            httpActionResult = this.GetErrorResult(result);
+                            httpActionResult = GetErrorResult(result);
                         }
                         else
                         {
-                            ExternalLoginInfo info = new ExternalLoginInfo()
+                            var info = new ExternalLoginInfo()
                             {
                                 DefaultUserName = user.UserName,
                                 Login = new UserLoginInfo(model.Provider, verifiedAccessToken.ProviderKey)
                             };
-                            result = await this.UserManager.AddLoginAsync(user.Id, info.Login);
+                            result = await UserManager.AddLoginAsync(user.Id, info.Login);
                             if (!result.Succeeded)
                             {
-                                httpActionResult = this.GetErrorResult(result);
+                                httpActionResult = GetErrorResult(result);
                             }
                             else
                             {
-                                result = await this.UserManager.AddClaimAsync(user.Id, new Claim("displayName", model.UserName));
-                                JObject accessTokenResponse = await this.GenerateLocalAccessTokenResponse(user);
-                                httpActionResult = (IHttpActionResult)this.Ok<JObject>(accessTokenResponse);
+                                result = await UserManager.AddClaimAsync(user.Id, new Claim("displayName", model.UserName));
+                                var accessTokenResponse = await GenerateLocalAccessTokenResponse(user);
+                                httpActionResult = Ok(accessTokenResponse);
                             }
                         }
                     }
@@ -465,27 +444,27 @@ namespace Quang.Auth.Api.Controllers
             IHttpActionResult httpActionResult;
             if (string.IsNullOrWhiteSpace(provider) || string.IsNullOrWhiteSpace(externalAccessToken))
             {
-                httpActionResult = (IHttpActionResult)this.BadRequest("Provider or external access token is not sent");
+                httpActionResult = BadRequest("Provider or external access token is not sent");
             }
             else
             {
-                ParsedExternalAccessToken verifiedAccessToken = await this.VerifyExternalAccessToken(provider, externalAccessToken);
+                var verifiedAccessToken = await VerifyExternalAccessToken(provider, externalAccessToken);
                 if (verifiedAccessToken == null)
                 {
-                    httpActionResult = (IHttpActionResult)this.BadRequest("Invalid Provider or External Access Token");
+                    httpActionResult = BadRequest("Invalid Provider or External Access Token");
                 }
                 else
                 {
-                    ApplicationUser user = await this.UserManager.FindAsync(new UserLoginInfo(provider, verifiedAccessToken.ProviderKey));
+                    ApplicationUser user = await UserManager.FindAsync(new UserLoginInfo(provider, verifiedAccessToken.ProviderKey));
                     bool hasRegistered = user != null;
                     if (!hasRegistered)
                     {
-                        httpActionResult = (IHttpActionResult)this.BadRequest("External user is not registered");
+                        httpActionResult = BadRequest("External user is not registered");
                     }
                     else
                     {
-                        JObject accessTokenResponse = await this.GenerateLocalAccessTokenResponse(user);
-                        httpActionResult = (IHttpActionResult)this.Ok<JObject>(accessTokenResponse);
+                        var accessTokenResponse = await GenerateLocalAccessTokenResponse(user);
+                        httpActionResult = Ok(accessTokenResponse);
                     }
                 }
             }
@@ -493,15 +472,15 @@ namespace Quang.Auth.Api.Controllers
         }
         private async Task LogHistory(LoginType loginType, LoginStatus status, string clientId, string username, string device, string apiKey)
         {
-            string clientIp =SecurityUtils.GetClientIPAddress();
+            string clientIp = SecurityUtils.GetClientIPAddress();
             string clientUri = HttpContext.Current.Request.Url.AbsoluteUri;
-            int num = await this._loginHistoryBll.InsertLoginHistory(new InsertLoginHistoryInput()
+            int num = await _loginHistoryBll.InsertLoginHistory(new InsertLoginHistoryInput()
             {
                 Type = loginType.GetHashCode(),
                 UserName = username,
                 LoginTime = DateTime.Now,
                 LoginStatus = status.GetHashCode(),
-                AppId = string.IsNullOrEmpty(clientId) ? (string)null : clientId,
+                AppId = string.IsNullOrEmpty(clientId) ? null : clientId,
                 ClientUri = clientUri,
                 ClientIP = clientIp,
                 ClientUA = HttpContext.Current.Request.UserAgent,
@@ -523,13 +502,13 @@ namespace Quang.Auth.Api.Controllers
 
         private string ValidateClientAndRedirectUri(HttpRequestMessage request, ref string redirectUriOutput)
         {
-            string queryString1 = this.GetQueryString(this.Request, "redirect_uri");
+            string queryString1 = GetQueryString(Request, "redirect_uri");
             if (string.IsNullOrWhiteSpace(queryString1))
                 return "redirect_uri is required";
             Uri result;
             if (!Uri.TryCreate(queryString1, UriKind.Absolute, out result))
                 return "redirect_uri is invalid";
-            string queryString2 = this.GetQueryString(this.Request, "client_id");
+            string queryString2 = GetQueryString(Request, "client_id");
             if (string.IsNullOrWhiteSpace(queryString2))
                 return "client_Id is required";
             if (queryString2 != "ngAuthApp")
@@ -554,7 +533,7 @@ namespace Quang.Auth.Api.Controllers
 
             if (queryStrings == null) return null;
 
-            var match = queryStrings.FirstOrDefault(keyValue => string.Compare(keyValue.Key, key, true) == 0);
+            var match = queryStrings.FirstOrDefault(keyValue => String.Compare(keyValue.Key, key, StringComparison.OrdinalIgnoreCase) == 0);
 
             if (string.IsNullOrEmpty(match.Value)) return null;
 
@@ -590,7 +569,7 @@ namespace Quang.Auth.Api.Controllers
             {
                 var content = await response.Content.ReadAsStringAsync();
 
-                dynamic jObj = (JObject)Newtonsoft.Json.JsonConvert.DeserializeObject(content);
+                dynamic jObj = Newtonsoft.Json.JsonConvert.DeserializeObject(content);
 
                 parsedToken = new ParsedExternalAccessToken();
 
@@ -624,63 +603,63 @@ namespace Quang.Auth.Api.Controllers
         private JObject GenerateLocalAccessTokenResponseBackup(ApplicationUser user)
         {
             TimeSpan timeSpan = TimeSpan.FromDays(1.0);
-            ClaimsIdentity identity = new ClaimsIdentity("Bearer");
+            var identity = new ClaimsIdentity("Bearer");
             identity.AddClaim(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name", user.UserName));
-            AuthenticationProperties properties = new AuthenticationProperties()
+            var properties = new AuthenticationProperties()
             {
-                IssuedUtc = new DateTimeOffset?((DateTimeOffset)DateTime.UtcNow),
-                ExpiresUtc = new DateTimeOffset?((DateTimeOffset)DateTime.UtcNow.Add(timeSpan))
+                IssuedUtc = DateTime.UtcNow,
+                ExpiresUtc = DateTime.UtcNow.Add(timeSpan)
             };
-            AuthenticationTicket data = new AuthenticationTicket(identity, properties);
+            var data = new AuthenticationTicket(identity, properties);
             string str = Startup.OAuthOptions.AccessTokenFormat.Protect(data);
-            return new JObject(new object[7]
-            {
-        (object) new JProperty("userName", (object) user.UserName),
-        (object) new JProperty("roles", (object) string.Empty),
-        (object) new JProperty("access_token", (object) str),
-        (object) new JProperty("token_type", (object) "bearer"),
-        (object) new JProperty("expires_in", (object) timeSpan.TotalSeconds.ToString()),
-        (object) new JProperty(".issued", (object) data.Properties.IssuedUtc.ToString()),
-        (object) new JProperty(".expires", (object) data.Properties.ExpiresUtc.ToString())
-            });
+            return new JObject(new object[]
+                               {
+                                   new JProperty("userName", user.UserName),
+                                   new JProperty("roles", string.Empty),
+                                   new JProperty("access_token", str),
+                                   new JProperty("token_type", "bearer"),
+                                   new JProperty("expires_in", timeSpan.TotalSeconds.ToString()),
+                                   new JProperty(".issued", data.Properties.IssuedUtc.ToString()),
+                                   new JProperty(".expires", data.Properties.ExpiresUtc.ToString())
+                               });
         }
 
 
         private async Task<JObject> GenerateLocalAccessTokenResponse(ApplicationUser user)
         {
             TimeSpan tokenExpiration = TimeSpan.FromDays(1.0);
-            ApplicationUserManager userManager = OwinContextExtensions.GetUserManager<ApplicationUserManager>(HttpContextExtensions.GetOwinContext(HttpContext.Current));
-            ClaimsIdentity identity = await user.GenerateUserIdentityAsync((Microsoft.AspNet.Identity.UserManager<ApplicationUser, int>)userManager, "Bearer");
-            KeyValuePair<string, IList<Claim>> clientInfo = AppAuthorizeAttribute.GenerateClientInfo(user.UserName, tokenExpiration);
+            var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var identity = await user.GenerateUserIdentityAsync(userManager, "Bearer");
+            var clientInfo = AppAuthorizeAttribute.GenerateClientInfo(user.UserName, tokenExpiration);
             string userClientId = clientInfo.Key;
-            IList<Claim> userClientClaims = clientInfo.Value;
-            identity.AddClaims((IEnumerable<Claim>)userClientClaims);
+            var userClientClaims = clientInfo.Value;
+            identity.AddClaims(userClientClaims);
             IList<string> roles = await userManager.GetRolesAsync(user.Id);
-            IDictionary<string, string> data = (IDictionary<string, string>)new Dictionary<string, string>();
+            var data = (IDictionary<string, string>)new Dictionary<string, string>();
             data.Add("userName", user.UserName);
             data.Add("userClientId", userClientId);
-            data.Add("roles", string.Join(",", (IEnumerable<string>)roles));
-            AuthenticationProperties props = new AuthenticationProperties(data)
+            data.Add("roles", string.Join(",", roles));
+            var props = new AuthenticationProperties(data)
             {
-                IssuedUtc = new DateTimeOffset?((DateTimeOffset)DateTime.UtcNow),
-                ExpiresUtc = new DateTimeOffset?((DateTimeOffset)DateTime.UtcNow.Add(tokenExpiration))
+                IssuedUtc = DateTime.UtcNow,
+                ExpiresUtc = DateTime.UtcNow.Add(tokenExpiration)
             };
             IList<Claim> claims = await userManager.GetClaimsAsync(user.Id);
-            Claim displayName = Enumerable.FirstOrDefault<Claim>((IEnumerable<Claim>)claims, (Func<Claim, bool>)(m => m.Type == "displayName"));
-            AuthenticationTicket ticket = new AuthenticationTicket(identity, props);
+            var displayName = claims.FirstOrDefault(m => m.Type == "displayName");
+            var ticket = new AuthenticationTicket(identity, props);
             string accessToken = Startup.OAuthOptions.AccessTokenFormat.Protect(ticket);
-            JObject tokenResponse = new JObject(new object[9]
-            {
-        (object) new JProperty("userName", (object) user.UserName),
-        (object) new JProperty("displayName", displayName != null ? (object) displayName.Value : (object) user.UserName),
-        (object) new JProperty("roles", (object) string.Join(",", (IEnumerable<string>) roles)),
-        (object) new JProperty("access_token", (object) accessToken),
-        (object) new JProperty("token_type", (object) "bearer"),
-        (object) new JProperty("expires_in", (object) tokenExpiration.TotalSeconds.ToString()),
-        (object) new JProperty("userClientId", (object) userClientId),
-        (object) new JProperty(".issued", (object) ticket.Properties.IssuedUtc.ToString()),
-        (object) new JProperty(".expires", (object) ticket.Properties.ExpiresUtc.ToString())
-            });
+            var tokenResponse = new JObject(new[]
+                                            {
+                                                new JProperty("userName", user.UserName),
+                                                new JProperty("displayName",displayName != null ? displayName.Value : user.UserName),
+                                                new JProperty("roles", string.Join(",", roles)),
+                                                new JProperty("access_token", accessToken),
+                                                new JProperty("token_type", "bearer"),
+                                                new JProperty("expires_in", tokenExpiration.TotalSeconds.ToString(CultureInfo.InvariantCulture)),
+                                                new JProperty("userClientId", userClientId),
+                                                new JProperty(".issued", ticket.Properties.IssuedUtc.ToString()),
+                                                (object)new JProperty(".expires", ticket.Properties.ExpiresUtc.ToString())
+                                            });
             return tokenResponse;
         }
         #region Helpers
@@ -690,66 +669,66 @@ namespace Quang.Auth.Api.Controllers
         private IHttpActionResult GetErrorResult(IdentityResult result)
         {
             if (result == null)
-                return (IHttpActionResult)this.InternalServerError();
+                return InternalServerError();
             if (result.Succeeded)
-                return (IHttpActionResult)null;
+                return null;
             if (result.Errors != null)
             {
                 foreach (string errorMessage in result.Errors)
-                    this.ModelState.AddModelError("", errorMessage);
+                    ModelState.AddModelError("", errorMessage);
             }
-            if (this.ModelState.IsValid)
-                return (IHttpActionResult)this.BadRequest();
-            return (IHttpActionResult)this.BadRequest(this.ModelState);
+            if (ModelState.IsValid)
+                return BadRequest();
+            return BadRequest(ModelState);
         }
         private class ExternalLoginData
         {
-            public string LoginProvider { get; set; }
+            public string LoginProvider { get; private set; }
 
-            public string ProviderKey { get; set; }
+            public string ProviderKey { get; private set; }
 
-            public string UserName { get; set; }
+            public string UserName { get; private set; }
 
-            public string ExternalAccessToken { get; set; }
+            public string ExternalAccessToken { get; private set; }
 
             public IList<Claim> GetClaims()
             {
-                IList<Claim> list = (IList<Claim>)new List<Claim>();
-                list.Add(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", this.ProviderKey, (string)null, this.LoginProvider));
-                if (this.UserName != null)
-                    list.Add(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name", this.UserName, (string)null, this.LoginProvider));
+                var list = (IList<Claim>)new List<Claim>();
+                list.Add(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", ProviderKey, null, LoginProvider));
+                if (UserName != null)
+                    list.Add(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name", UserName, null, LoginProvider));
                 return list;
             }
 
-            public static AccountController.ExternalLoginData FromIdentity(ClaimsIdentity identity)
+            public static ExternalLoginData FromIdentity(ClaimsIdentity identity)
             {
                 if (identity == null)
-                    return (AccountController.ExternalLoginData)null;
-                Claim first = identity.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+                    return null;
+                var first = identity.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
                 if (first == null || string.IsNullOrEmpty(first.Issuer) || string.IsNullOrEmpty(first.Value))
-                    return (AccountController.ExternalLoginData)null;
+                    return null;
                 if (first.Issuer == "LOCAL AUTHORITY")
-                    return (AccountController.ExternalLoginData)null;
-                return new AccountController.ExternalLoginData()
-                {
+                    return null;
+                return new ExternalLoginData
+                       {
                     LoginProvider = first.Issuer,
                     ProviderKey = first.Value,
-                    UserName = IdentityExtensions.FindFirstValue(identity, "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"),
-                    ExternalAccessToken = IdentityExtensions.FindFirstValue(identity, "ExternalAccessToken")
+                    UserName = identity.FindFirstValue("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"),
+                    ExternalAccessToken = identity.FindFirstValue("ExternalAccessToken")
                 };
             }
         }
 
         private static class RandomOAuthStateGenerator
         {
-            private static RandomNumberGenerator _random = (RandomNumberGenerator)new RNGCryptoServiceProvider();
+            private static readonly RandomNumberGenerator _random = new RNGCryptoServiceProvider();
 
             public static string Generate(int strengthInBits)
             {
                 if (strengthInBits % 8 != 0)
                     throw new ArgumentException("strengthInBits must be evenly divisible by 8.", "strengthInBits");
-                byte[] numArray = new byte[strengthInBits / 8];
-                AccountController.RandomOAuthStateGenerator._random.GetBytes(numArray);
+                var numArray = new byte[strengthInBits / 8];
+                _random.GetBytes(numArray);
                 return HttpServerUtility.UrlTokenEncode(numArray);
             }
         }

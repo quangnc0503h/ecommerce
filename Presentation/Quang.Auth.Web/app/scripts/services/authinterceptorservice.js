@@ -7,7 +7,7 @@
  * # authintercepterservice
  * Service in the authclientApp.
  */
-angular.module('quangauthwebApp')
+angular.module('authclientApp')
 .service('authInterceptorService', ['$q', '$injector', '$location', '$window', 'localStorageService', function ($q, $injector, $location, $window, localStorageService) {
     // AngularJS will instantiate a singleton by calling "new" on this function
     var authInterceptorServiceFactory = {};

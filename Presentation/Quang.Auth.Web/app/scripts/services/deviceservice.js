@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('quangauthwebApp').service('deviceService', ['$resource', 'ENV', function ($resource, ENV) {
+angular.module('authclientApp').service('deviceService', ['$resource', 'ENV', function ($resource, ENV) {
     var rs = $resource('', {}, {
 
         query: { method: "POST", url: ENV.urlApiAuth + "api/Device/GetAll" },

@@ -7,7 +7,7 @@
  * # LoginCtrl
  * Controller of the authclientApp
  */
-angular.module('quangauthwebApp').
+angular.module('authclientApp').
 controller("LoginCtrl", ["$scope", "$location", "$routeParams", "authService", "ngAuthSettings", "ENV", "xdLocalStorage", function ($scope, $location, $routeParams, authService, ngAuthSettings, ENV, xdLocalStorage) {
     var current_back_url;
     $routeParams.returnUrl && xdLocalStorage.getItem("url_" + $routeParams.returnUrl).then(function (response) {

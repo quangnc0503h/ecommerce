@@ -7,7 +7,7 @@
  * # authservice
  * Service in the authclientApp.
  */
-angular.module('quangauthwebApp')
+angular.module('authclientApp')
   .service('authService', ['$rootScope', '$http', '$q', 'localStorageService', 'ngAuthSettings', 'ENV', 'xdLocalStorage', function ($rootScope, $http, $q, localStorageService, ngAuthSettings, ENV, xdLocalStorage) {
       
       var authServiceFactory = {};
