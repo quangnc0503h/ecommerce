@@ -1,6 +1,7 @@
 ﻿using Quang.Auth.Api.BusinessLogic;
 using Quang.Auth.Api.Dto;
 using Quang.Auth.Entities;
+using Quang.Common.Auth;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -23,7 +24,7 @@ namespace Quang.Auth.Api.Controllers
 
         [HttpPost]
         [Route("GetAll")]
-        //[AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
         public async Task<DanhSachPermissionOutput> GetAll(FilterPermissionInput filter)
         {
             return await _permissionBll.GetAll(filter);

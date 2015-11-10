@@ -6,6 +6,7 @@ using Quang.Auth.Entities;
 using Quang.Auth.Api.Dto;
 using Quang.Auth.Api.BusinessLogic;
 using StackExchange.Exceptional;
+using Quang.Common.Auth;
 
 namespace Quang.Auth.Api.Controllers
 {
@@ -28,7 +29,7 @@ namespace Quang.Auth.Api.Controllers
             _permissionBll = permissionBll;
         }
 
-       // [AppAuthorize(Roles = ActionRole.HeThong.Groups)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Groups)]
         [Route("GetAll")]
         [HttpPost]
         public async Task<DanhSachGroupOutput> GetAll(FilterGroupInput filter)
@@ -45,7 +46,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-       // [AppAuthorize(Roles = ActionRole.HeThong.Groups)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Groups)]
         [Route("GetOneGroup")]
         public async Task<GetOneGroupOutput> GetOneGroup(GetOneGroupInput input)
         {
@@ -64,7 +65,7 @@ namespace Quang.Auth.Api.Controllers
             return new GetOneGroupOutput();
         }
 
-        //[AppAuthorize(Roles = ActionRole.HeThong.Groups)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Groups)]
         [Route("CreateGroup")]
         [HttpPost]
         public async Task<CreateGroupOutput> CreateGroup(CreateGroupInput input)
@@ -88,7 +89,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-      //  [AppAuthorize(Roles = ActionRole.HeThong.Groups)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Groups)]
         [Route("UpdateGroup")]
         public async Task<UpdateGroupOutput> UpdateGroup(UpdateGroupInput input)
         {
@@ -111,7 +112,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-      //  [AppAuthorize(Roles = ActionRole.HeThong.Groups)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Groups)]
         [Route("DeleteGroup")]
         public async Task<DeleteGroupOutput> DeleteGroup(DeleteGroupInput input)
         {
@@ -141,7 +142,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpGet]
-      //  [AppAuthorize]
+        [AppAuthorize]
         [Route("ListAllGroup")]
         public async Task<DanhSachGroupOutput> ListAllGroup()
         {

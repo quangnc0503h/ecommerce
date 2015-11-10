@@ -179,16 +179,13 @@ namespace Quang.Auth.Api.DataAccess
                 return this._database.Execute("INSERT INTO LoginHistory\n                (   Id,\n                    Type,\n                    UserName,\n                    LoginTime,\n                    LoginStatus,\n                    RefreshToken,\n                    AppId,\n                    ClientUri,\n                    ClientIP,\n                    ClientUA,\n                    ClientDevice,\n                    ClientApiKey,\n                    Created)\n                VALUES(\n                    @Id,\n                    @Type,\n                    @UserName,\n                    @LoginTime,\n                    @LoginStatus,\n                    @RefreshToken,\n                    @AppId,\n                    @ClientUri,\n                    @ClientIP,\n                    @ClientUA,\n                    @ClientDevice,\n                    @ClientApiKey,\n                    @Created)", new Dictionary<string, object>()
         {
           {
-            "@Id",
-            (object) null
+            "@Id",            (object) null
           },
           {
-            "@Type",
-            (object) input.Type
+            "@Type",            (object) input.Type
           },
           {
-            "@UserName",
-            (object) input.UserName
+            "@UserName",            (object) input.UserName
           },
           {
             "@LoginTime",

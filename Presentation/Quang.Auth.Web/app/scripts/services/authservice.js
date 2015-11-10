@@ -51,16 +51,18 @@ angular.module('authclientApp')
 
               if (loginData.useRefreshTokens) {
                   //localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName, roles: response.roles.split(","), refreshToken: response.refresh_token, useRefreshTokens: true });
-                  xdLocalStorage.setItem('xd.authorization', JSON.stringify({ token: response.access_token, userName: loginData.userName, displayName: response.displayName, roles: response.roles.split(","), refreshToken: response.refresh_token, useRefreshTokens: true })).then(function (o) {
+                  xdLocalStorage.setItem('xd.authorization', JSON.stringify({ token: response.access_token, userName: loginData.userName, displayName: response.displayName, roles: response.roles.split(","), refreshToken: response.refresh_token, useRefreshTokens: true, cscode:response.userClientId })).then(function (o) {
                       if (o.success) {
                           _authentication.isAuth = true;
                           _authentication.userName = loginData.userName;
                           _authentication.displayName = response.displayName;
                           _authentication.useRefreshTokens = loginData.useRefreshTokens;
                           _authentication.roles = response.roles.split(",");
-                          _token = response.access_token;
+                          _token =  response.access_token;
+                          _authentication.cscode = response.userClientId;
                           $rootScope.isAuthLoaded = true;
                           deferred.resolve(response);
+                          console.log(_authentication.roles);
                       } else {
                           alert('Ops, could not store your data.');
                       }
@@ -68,7 +70,7 @@ angular.module('authclientApp')
               }
               else {
                   //localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName, roles: response.roles.split(","), refreshToken: '', useRefreshTokens: false });
-                  xdLocalStorage.setItem('xd.authorization', JSON.stringify({ token: response.access_token, userName: loginData.userName, displayName: response.displayName, roles: response.roles.split(","), refreshToken: response.refresh_token, useRefreshTokens: true })).then(function (o) {
+                  xdLocalStorage.setItem('xd.authorization', JSON.stringify({ token: response.access_token, userName: loginData.userName, displayName: response.displayName, roles: response.roles.split(","), refreshToken: response.refresh_token, useRefreshTokens: true, cscode: response.userClientId })).then(function (o) {
                       if (o.success) {
                           _authentication.isAuth = true;
                           _authentication.userName = loginData.userName;
@@ -76,8 +78,10 @@ angular.module('authclientApp')
                           _authentication.useRefreshTokens = loginData.useRefreshTokens;
                           _authentication.roles = response.roles.split(",");
                           _token = response.access_token;
+                          _authentication.cscode = response.userClientId;
                           $rootScope.isAuthLoaded = true;
                           deferred.resolve(response);
+                          console.log(_token);
                       } else {
                           alert('Ops, could not store your data.');
                       }
@@ -100,6 +104,7 @@ angular.module('authclientApp')
               _authentication.userName = '';
               _authentication.roles = [];
               _authentication.useRefreshTokens = false;
+              _authentication.cscode = '';
               $rootScope.isAuthLoaded = true;
               deferred.resolve();
           });
@@ -115,7 +120,9 @@ angular.module('authclientApp')
               _authentication.displayName = authData.displayName;
               _authentication.useRefreshTokens = authData.useRefreshTokens;
               _authentication.roles = authData.roles;
+              _authentication.cscode = authData.cscode;
               _token = token;
+              console.log(authData.cscode);
           }
       };
 
@@ -140,14 +147,15 @@ angular.module('authclientApp')
                   $http.post(ENV.urlApiAuth + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
 
                       //localStorageService.set('authorizationData', { token: response.access_token, userName: response.userName, displayName: response.displayName, refreshToken: response.refresh_token, useRefreshTokens: true });
-                      xdLocalStorage.setItem('xd.authorization', JSON.stringify({ token: response.access_token, userName: response.userName, displayName: response.displayName, refreshToken: response.refresh_token, useRefreshTokens: true })).then(function (o) {
+                      xdLocalStorage.setItem('xd.authorization', JSON.stringify({ token: response.access_token, userName: response.userName, displayName: response.displayName, refreshToken: response.refresh_token, useRefreshTokens: true, cscode: response.userClientId })).then(function (o) {
                           if (o.success) {
                               _authentication.isAuth = true;
                               _authentication.userName = response.userName;
                               _authentication.displayName = response.displayName;
                               _authentication.useRefreshTokens = true;
                               _authentication.roles = response.roles.split(",");
-                              _token = response.access_token;
+                              _token =  response.access_token;
+                              _authentication.cscode = response.userClientId;
                               $rootScope.isAuthLoaded = true;
                               deferred.resolve(response);
                           } else {
@@ -173,14 +181,15 @@ angular.module('authclientApp')
           $http.get(ENV.urlApiAuth + 'api/account/ObtainLocalAccessToken', { params: { provider: externalData.provider, externalAccessToken: externalData.externalAccessToken } }).success(function (response) {
               
               //localStorageService.set('authorizationData', { token: response.access_token, userName: response.userName, displayName: response.displayName, roles: response.roles.split(","), refreshToken: '', useRefreshTokens: false });
-              xdLocalStorage.setItem('xd.authorization', JSON.stringify({ token: response.access_token, userName: response.userName, displayName: response.displayName, roles: response.roles.split(","), refreshToken: '', useRefreshTokens: false })).then(function (o) {
+              xdLocalStorage.setItem('xd.authorization', JSON.stringify({ token: response.access_token, userName: response.userName, displayName: response.displayName, roles: response.roles.split(","), refreshToken: '', useRefreshTokens: false, cscode: response.userClientId })).then(function (o) {
                   if (o.success) {
                       _authentication.isAuth = true;
                       _authentication.userName = response.userName;
                       _authentication.displayName = response.displayName;
                       _authentication.useRefreshTokens = false;
                       _authentication.roles = response.roles.split(",");
-                      _token = response.access_token;
+                      _token =  response.access_token;
+                      _authentication.cscode = response.userClientId;
                       $rootScope.isAuthLoaded = true;
                       deferred.resolve(response);
                   } else {
@@ -203,7 +212,7 @@ angular.module('authclientApp')
           $http.post(ENV.urlApiAuth + 'api/account/registerexternal', registerExternalData).success(function (response) {
 
               //localStorageService.set('authorizationData', { token: response.access_token, userName: response.userName, displayName: response.displayName, roles: response.roles.split(","), refreshToken: '', useRefreshTokens: false });
-              xdLocalStorage.setItem('xd.authorization', JSON.stringify({ token: response.access_token, userName: response.userName, displayName: response.displayName, roles: response.roles.split(","), refreshToken: '', useRefreshTokens: false })).then(function (o) {
+              xdLocalStorage.setItem('xd.authorization', JSON.stringify({ token: response.access_token, userName: response.userName, displayName: response.displayName, roles: response.roles.split(","), refreshToken: '', useRefreshTokens: false, cscode: response.userClientId })).then(function (o) {
                   if (o.success) {
                       _authentication.isAuth = true;
                       _authentication.userName = response.userName;
@@ -212,6 +221,7 @@ angular.module('authclientApp')
                       _authentication.roles = response.roles.split(",");
                       _token = response.access_token;
                       $rootScope.isAuthLoaded = true;
+                      _authentication.cscode = response.userClientId;
                       deferred.resolve(response);
                   } else {
                       alert('Ops, could not store your data.');

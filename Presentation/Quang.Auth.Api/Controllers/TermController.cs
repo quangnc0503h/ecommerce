@@ -24,7 +24,7 @@ namespace Quang.Auth.Api.Controllers
             _termBll = termBll;
         }
 
-        //[AppAuthorize(Roles = ActionRole.HeThong.Terms)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
         [Route("GetAll")]
         [HttpPost]
         public async Task<DanhSachTermOutput> GetAll(FilterTermInput filter)
@@ -40,7 +40,7 @@ namespace Quang.Auth.Api.Controllers
             return new DanhSachTermOutput();
         }
 
-       // [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
         [Route("GetGrantedUsersByTerm")]
         [HttpPost]
         public async Task<IEnumerable<User>> GetGrantedUsersByTerm(GetOneTermInput input)
@@ -56,7 +56,7 @@ namespace Quang.Auth.Api.Controllers
             return null;
         }
 
-       // [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
         [HttpGet]
         [Route("GetMissingTerms")]
         public async Task<IEnumerable<ActionRoleItem>> GetMissingTerms()
@@ -73,7 +73,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        //[AppAuthorize(Roles = ActionRole.HeThong.Terms)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
         [Route("GetOneTerm")]
         public async Task<GetOneTermOutput> GetOneTerm(GetOneTermInput input)
         {
@@ -92,7 +92,7 @@ namespace Quang.Auth.Api.Controllers
             return new GetOneTermOutput();
         }
 
-       // [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
         [HttpPost]
         [Route("CreateTerm")]
         public async Task<CreateTermOutput> CreateTerm(CreateTermInput input)
@@ -120,7 +120,7 @@ namespace Quang.Auth.Api.Controllers
 
         [Route("UpdateTerm")]
         [HttpPost]
-      //  [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
+       [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
         public async Task<UpdateTermOutput> UpdateTerm(UpdateTermInput input)
         {
             try
@@ -146,7 +146,7 @@ namespace Quang.Auth.Api.Controllers
 
         [Route("DeleteTerm")]
         [HttpPost]
-      //  [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
         public async Task<DeleteTermOutput> DeleteTerm(DeleteTermInput input)
         {
             try
@@ -172,7 +172,7 @@ namespace Quang.Auth.Api.Controllers
 
         [Route("ListRoleOptions")]
         [HttpGet]
-        //[AppAuthorize(Roles = ActionRole.HeThong.Terms)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Terms)]
         public ListRoleOptionsOutput ListRoleOptions()
         {
             try
@@ -193,7 +193,7 @@ namespace Quang.Auth.Api.Controllers
 
         [Route("GetGrantTermsUser")]
         [HttpPost]
-       // [AppAuthorize(Roles = "140")]
+        [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
         public async Task<IEnumerable<GrantUserTerm>> GetGrantTermsUser(GetOneUserInput input)
         {
             try
@@ -208,7 +208,7 @@ namespace Quang.Auth.Api.Controllers
             return null;
         }
 
-       // [AppAuthorize(Roles = "140")]
+        [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
         [Route("UpdateUserGrant")]
         [HttpPost]
         public async Task<UpdateTermOutput> UpdateUserGrant(UpdateUserGrantInput input)
@@ -232,7 +232,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-       // [AppAuthorize(Roles = "140")]
+        [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
         [Route("GetGrantTermsGroup")]
         public async Task<IEnumerable<GrantGroupTerm>> GetGrantTermsGroup(GetOneGroupInput input)
         {
@@ -248,7 +248,7 @@ namespace Quang.Auth.Api.Controllers
             return null;
         }
 
-        //[AppAuthorize(Roles = "140")]
+        [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
         [Route("UpdateGroupGrant")]
         [HttpPost]
         public async Task<UpdateTermOutput> UpdateGroupGrant(UpdateGroupGrantInput input)

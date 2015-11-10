@@ -455,6 +455,7 @@ namespace Quang.Auth.Api.Providers
         {
             IHeaderDictionary headers = context.Request.Headers;
             string input = headers.Get("Authorization");
+            
             if (!string.IsNullOrEmpty(input))
             {
                 AuthenticationHeaderValue authenticationHeaderValue = AuthenticationHeaderValue.Parse(input);
@@ -470,8 +471,9 @@ namespace Quang.Auth.Api.Providers
                 else if (authenticationHeaderValue != null && authenticationHeaderValue.Scheme == "Bearer")
                 {
                     string username = headers.Get("userName");
+                    string userClientId = headers.Get("cscode");
                     string realAccessToken;
-                    if (AppAuthorizeAttribute.ValidateOAuthAuthorizationHeader(username, authenticationHeaderValue.Parameter, out realAccessToken))
+                    if (AppAuthorizeAttribute.ValidateOAuthAuthorizationHeader(username, authenticationHeaderValue.Parameter, out realAccessToken, userClientId))
                     {
                         string str = new AuthenticationHeaderValue(authenticationHeaderValue.Scheme, realAccessToken).ToString();
                         context.Request.Headers.Set("Authorization", str);

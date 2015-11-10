@@ -31,13 +31,13 @@ namespace Quang.Common.Auth
         public static KeyValuePair<string, IList<Claim>> GenerateClientInfo(string userName, TimeSpan expiresIn)
         {
             string key1 = GenerateClientId();
-            string clientCode = SecurityUtils.MD5Hash(string.Format("dsvn_v2_2015_{0}_{1}", "0.0.0.0", HttpContext.Current.Request.UserAgent));
+            string clientCode = SecurityUtils.MD5Hash(string.Format(UserClientCodeFormatValue, "0.0.0.0", HttpContext.Current.Request.UserAgent));
             //Log.Debug("ua:" + clientCode + ":" + HttpContext.Current.Request.UserAgent);
             var authorizationClientInfo = new AuthorizationClientInfo(userName, clientCode);
             IList<Claim> list = new List<Claim>();
-            list.Add(new Claim("Dsvn:ClientId", key1));
-            list.Add(new Claim("Dsvn:ClientCode", clientCode));
-            string key2 = string.Format("AuthTokenClientId.{0}", key1);
+            list.Add(new Claim(ClaimTypeClientId, key1));
+            list.Add(new Claim(ClaimTypeClientCode, clientCode));
+            string key2 = string.Format(CurrentTokenClientIdCacheKey, key1);
             
             _redisCache.Add(key2, authorizationClientInfo, expiresIn);
             return new KeyValuePair<string, IList<Claim>>(key1, list);
@@ -47,10 +47,10 @@ namespace Quang.Common.Auth
         {
             if (identity == null || identity.Claims == null)
                 return;
-            Claim claim = identity.Claims.SingleOrDefault(m => m.Type == "Dsvn:ClientId");
+            Claim claim = identity.Claims.SingleOrDefault(m => m.Type == ClaimTypeClientId);
             if (claim == null || string.IsNullOrEmpty(claim.Value))
                 return;
-            string key = string.Format("AuthTokenClientId.{0}", claim.Value);
+            string key = string.Format(CurrentTokenClientIdCacheKey, claim.Value);
             var authorizationClientInfo = _redisCache.Get<AuthorizationClientInfo>(key);
             if (authorizationClientInfo == null)
                 return;
@@ -62,24 +62,25 @@ namespace Quang.Common.Auth
         {
             string str = deviceGroupKeys != null ? string.Join(",", deviceGroupKeys.ToArray()) : string.Empty;
             var list = (IList<Claim>)new List<Claim>();
-            list.Add(new Claim("Dsvn:DeviceKey", deviceKey));
-            list.Add(new Claim("Dsvn:DeviceName", deviceName));
-            list.Add(new Claim("Dsvn:DeviceGroups", str));
+            list.Add(new Claim(ClaimTypeDeviceKey, deviceKey));
+            list.Add(new Claim(ClaimTypeDeviceName, deviceName));
+            list.Add(new Claim(ClaimTypeDeviceGroups, str));
             return list;
         }
 
-        public static bool ValidateOAuthAuthorizationHeader(string username, string headerValue, out string realAccessToken)
+        public static bool ValidateOAuthAuthorizationHeader(string username, string headerValue, out string realAccessToken, string userClientId = null)
         {
             realAccessToken = null;
             if (!string.IsNullOrEmpty(headerValue))
             {
-                string key = string.Format("AuthTokenClientId.{0}", headerValue.Substring(0, 34));
+                string key =  string.Format(CurrentTokenClientIdCacheKey, userClientId?? headerValue.Substring(0, 34));
                 var authorizationClientInfo = _redisCache.Get<AuthorizationClientInfo>(key);
-                string str = SecurityUtils.MD5Hash(string.Format("dsvn_v2_2015_{0}_{1}", "0.0.0.0", HttpContext.Current.Request.UserAgent));
+                string str = SecurityUtils.MD5Hash(string.Format(UserClientCodeFormatValue, "0.0.0.0", HttpContext.Current.Request.UserAgent));
                 //Log.Debug("ua:" + str + ":" + HttpContext.Current.Request.UserAgent);
                 if (authorizationClientInfo != null && authorizationClientInfo.UserName == username && authorizationClientInfo.ClientCode == str)
                 {
                     realAccessToken = headerValue.Substring(34);
+                    //realAccessToken = headerValue;
                     return true;
                 }
             }
@@ -92,10 +93,10 @@ namespace Quang.Common.Auth
                 identity = HttpContext.Current.User.Identity as ClaimsIdentity;
             if (identity == null)
                 return;
-            Claim first = identity.FindFirst("Dsvn:ClientId");
+            Claim first = identity.FindFirst(ClaimTypeClientId);
             if (first == null)
                 return;
-            string key = string.Format("AuthTokenClientId.{0}", (object)first.Value);
+            string key = string.Format(CurrentTokenClientIdCacheKey, (object)first.Value);
             _redisCache.Remove(key);
         }
 
@@ -125,11 +126,11 @@ namespace Quang.Common.Auth
                 if (identity != null)
                 {
                     var first1 = identity.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name");
-                    var first2 = identity.FindFirst("Dsvn:ClientId");
-                    var first3 = identity.FindFirst("Dsvn:ClientCode");
+                    var first2 = identity.FindFirst(ClaimTypeClientId);
+                    var first3 = identity.FindFirst(ClaimTypeClientCode);
                     if (first1 != null && first2 != null && first3 != null)
                     {
-                        string key = string.Format("AuthTokenClientId.{0}", first2.Value);
+                        string key = string.Format(CurrentTokenClientIdCacheKey, first2.Value);
                         var authorizationClientInfo = _redisCache.Get<AuthorizationClientInfo>(key);
                         if (authorizationClientInfo != null && authorizationClientInfo.UserName == first1.Value && authorizationClientInfo.ClientCode == first3.Value)
                         {
@@ -145,12 +146,12 @@ namespace Quang.Common.Auth
 
         private bool isDeviceAuthorized(ClaimsIdentity identity)
         {
-            var first1 = identity.FindFirst("Dsvn:DeviceKey");
+            var first1 = identity.FindFirst(ClaimTypeDeviceKey);
             if (first1 != null && !string.IsNullOrEmpty(first1.Value))
             {
                 if (string.IsNullOrEmpty(DeviceGroup))
                     return true;
-                Claim first2 = identity.FindFirst("Dsvn:DeviceGroups");
+                Claim first2 = identity.FindFirst(ClaimTypeDeviceGroups);
                 if (first2 != null && !string.IsNullOrEmpty(first2.Value))
                     return first2.Value.Split(',').Contains(DeviceGroup);
             }

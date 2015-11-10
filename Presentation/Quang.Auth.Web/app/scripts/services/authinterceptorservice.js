@@ -18,8 +18,10 @@ angular.module('authclientApp')
         //var authData = localStorageService.get('authorizationData');
         if (authService.authentication.isAuth) {
             //config.headers.Authorization = 'Bearer ' + authData.token;
-            config.headers.Authorization = 'Bearer ' + authService.token();
+            config.headers.Authorization = 'Bearer ' + authService.authentication.cscode + authService.token();
             config.headers.userName = authService.authentication.userName;
+            config.headers.cscode = authService.authentication.cscode;
+            //console.log(authService.token());
         }
 
         return config;
