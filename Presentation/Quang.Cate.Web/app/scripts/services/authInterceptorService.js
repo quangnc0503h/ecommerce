@@ -25,44 +25,57 @@ angular.module('quangcatewebApp')
           return config;
       }
 
+      var _isShowingModal = false;
+
+      var _showModalUnauthorized = function (rejection) {
+          var $modal = $injector.get('$modal');
+          var modalInstance = $modal.open({
+              templateUrl: 'views/unauthorized.html',
+              controller: 'UnauthorizedCtrl',
+              resolve: {
+                  Message: function () {
+                      return rejection.data.Message;
+                  },
+                  MessageDetail: function () {
+                      return rejection.data.MessageDetail;
+                  }
+              },
+              backdropClass: 'backdrop-unauthorized'
+          });
+          modalInstance.result.then(function (shouldLoginRedirect) {
+              if (shouldLoginRedirect) {
+                  window.location.href = shouldLoginRedirect;
+              } else {
+                  $location.path('/');
+              }
+              _isShowingModal = false;
+          }, function () {
+              _isShowingModal = false;
+              $location.path('/login');
+          });
+      }
+
       var _responseError = function (rejection) {
           if (rejection.status === 401) {
               var authService = $injector.get('authService');
-              var authData = localStorageService.get('authorizationData');
-              if (authData && authData.useRefreshTokens) {
+              //var authData = localStorageService.get('authorizationData');
+              if (authService.authentication.isAuth && authService.authentication.useRefreshTokens) {
                   $location.path('/refresh');
                   return $q.reject(rejection);
-              } else {
-                  var $modal = $injector.get('$modal');
-                  var modalInstance = $modal.open({
-                      templateUrl: 'views/unauthorized.html',
-                      controller: 'UnauthorizedCtrl',
-                      resolve: {
-                          Message: function () {
-                              return rejection.data.Message;
-                          },
-                          MessageDetail: function () {
-                              return rejection.data.MessageDetail;
-                          }
-                      },
-                      backdropClass: 'backdrop-unauthorized'
-                  });
-                  modalInstance.result.then(function (shouldLogin) {
-                      if (shouldLogin) {
-                          $location.path('/login');
-                      } else {
-                          $window.history.back();
+              } else if (authService.authentication.isAuth) {
+                  var objMsg = { data: {} };
+                  authService.logOut().then(function () {
+                      if (!_isShowingModal) {
+                          _isShowingModal = true;
+                          _showModalUnauthorized(objMsg);
                       }
-                  }, function () {
-                      $location.path('/login');
                   });
+              } else {
+                  if (!_isShowingModal) {
+                      _isShowingModal = true;
+                      _showModalUnauthorized(rejection);
+                  }
               }
-          } else if (rejection.status === 400) {
-              alert('Lỗi 400!');
-          } else if (rejection.status === 500) {
-              alert('Lỗi 500!');
-          } else if (rejection.status === 503) {
-              alert('Lỗi 503!');
           }
           return $q.reject(rejection);
       }
