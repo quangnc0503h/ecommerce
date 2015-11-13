@@ -89,6 +89,7 @@
     <Content Include="app\views\language.html" />
     <Content Include="app\views\login.html" />
     <Content Include="app\views\logout.html" />
+    <Content Include="app\views\refresh.html" />
     <Content Include="app\views\unauthorized.html" />
     <Content Include="bower.json" />
     <Content Include="bower_components\angular-animate\.bower.json" />
