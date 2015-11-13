@@ -19,7 +19,7 @@ namespace Quang.Cate.Api.Controllers
     public class LanguageController : ApiController
     {
         [HttpPost]
-        //[AppAuthorize(Roles = ActionRole.DanhMuc.Languages)]
+        [AppAuthorize(Roles = ActionRole.DanhMuc.Languages)]
         [Route("GetAll")]
         public async Task<DataSourceResult> GetAll(DataSourceRequest command)
         {
@@ -43,7 +43,7 @@ namespace Quang.Cate.Api.Controllers
         }
 
         [HttpPost]
-        //[AppAuthorize(Roles = ActionRole.DanhMuc.Languages)]
+        [AppAuthorize(Roles = ActionRole.DanhMuc.Languages)]
         [Route("GetOneLanguage")]
         public async Task<LanguageModel> GetOneLanguage(GetOneInputModel input)
         {
@@ -71,7 +71,7 @@ namespace Quang.Cate.Api.Controllers
         }
 
         [HttpPost]
-       // [AppAuthorize(Roles = ActionRole.DanhMuc.Languages)]
+        [AppAuthorize(Roles = ActionRole.DanhMuc.Languages)]
         [Route("CreateLanguage")]
         public async Task<NotificationResultModel> CreateLanguage(LanguageModel input)
         {
@@ -97,7 +97,7 @@ namespace Quang.Cate.Api.Controllers
             }
         }
         [HttpPost]
-       // [AppAuthorize(Roles = ActionRole.DanhMuc.Languages)]
+        [AppAuthorize(Roles = ActionRole.DanhMuc.Languages)]
         [Route("UpdateLanguage")]
         public async Task<NotificationResultModel> UpdateLanguage(LanguageModel input)
         {
@@ -125,7 +125,7 @@ namespace Quang.Cate.Api.Controllers
         }
 
         [HttpPost]
-      //  [AppAuthorize(Roles = ActionRole.DanhMuc.Languages)]
+        [AppAuthorize(Roles = ActionRole.DanhMuc.Languages)]
         [Route("DeleteLanguage")]
         public async Task<NotificationResultModel> DeleteLanguage(DeleteInputModel input)
         {
