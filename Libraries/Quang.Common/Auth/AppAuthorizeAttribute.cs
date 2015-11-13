@@ -96,7 +96,7 @@ namespace Quang.Common.Auth
             Claim first = identity.FindFirst(ClaimTypeClientId);
             if (first == null)
                 return;
-            string key = string.Format(CurrentTokenClientIdCacheKey, (object)first.Value);
+            string key = string.Format(CurrentTokenClientIdCacheKey, first.Value);
             _redisCache.Remove(key);
         }
 

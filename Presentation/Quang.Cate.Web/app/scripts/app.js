@@ -88,29 +88,68 @@ app.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptorService');
 });
 
-app.run(['$rootScope', '$interval', 'localDataService', 'xdLocalStorage', 'authService', function ($rootScope, $interval, localDataService, xdLocalStorage, authService) {
+app.run(['$rootScope', '$injector', '$interval', 'localDataService', 'xdLocalStorage', 'authService', 'ENV', function ($rootScope, $injector, $interval, localDataService, xdLocalStorage, authService, ENV) {
     localDataService.init();
+    $rootScope.ENV = ENV;
     $interval(function () {
         if ($rootScope.isAuthLoaded) {
             xdLocalStorage.getItem('xd.authorization').then(function (data) {
-                var authData;
-                if (data.value) {
-                    try {
-                        authData = JSON.parse(data.value);
-                    } catch (err) {
-                        //not our message, can ignore
+                xdLocalStorage.getItem('cscode', true).then(function (cscode) {
+                    cscode = authService.textDecode(cscode.value);
+                    var authData;
+                    if (data.value) {
+                        try {
+                            authData = JSON.parse(data.value);
+                            if (authData.expires) {
+                                var expiredDt = new Date(authData.expires);
+                                var now = new Date();
+                                if (now.getTime() + 60 * 1000 > expiredDt.getTime()) {
+                                    authService.logOut().then(function () {
+                                        _showModalUnauthorized();
+                                    });
+                                }
+                            }
+                        } catch (err) {
+                            //not our message, can ignore
+                        }
                     }
-                }
-                if (authService.authentication.isAuth) {
-                    if (!authData || authData.token != authService.token()) {
-                        window.location.reload(true);
+                    if (authService.authentication.isAuth) {
+                        if (!authData || (cscode + authData.token) != authService.token()) {
+                            window.location.reload(true);
+                        }
+                    } else {
+                        if (authData && cscode && authData.token) {
+                            window.location.reload(true);
+                        }
                     }
-                } else {
-                    if (authData && authData.token) {
-                        window.location.reload(true);
-                    }
-                }
+                });
             });
         }
     }, 3000);
+    var _showModalUnauthorized = function () {
+        var $modal = $injector.get('$modal');
+        var $location = $injector.get('$location');
+        var modalInstance = $modal.open({
+            templateUrl: 'views/unauthorized.html',
+            controller: 'UnauthorizedCtrl',
+            resolve: {
+                Message: function () {
+                    return null;
+                },
+                MessageDetail: function () {
+                    return null;
+                }
+            },
+            backdropClass: 'backdrop-unauthorized'
+        });
+        modalInstance.result.then(function (shouldLoginRedirect) {
+            if (shouldLoginRedirect) {
+                window.location.href = shouldLoginRedirect;
+            } else {
+                $location.path('/');
+            }
+        }, function () {
+            $location.path('/login');
+        });
+    }
 }]);

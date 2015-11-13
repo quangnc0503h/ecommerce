@@ -3,14 +3,11 @@ using AspNet.Identity.MySQL;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Linq;
 using Quang.Auth.Api.BusinessLogic;
 using Quang.Auth.Api.Dto;
 using Quang.Auth.Api.Models;
 using Quang.Auth.Api.Results;
-
 using Quang.Auth.Entities;
 using Quang.Common.Auth;
 using System;

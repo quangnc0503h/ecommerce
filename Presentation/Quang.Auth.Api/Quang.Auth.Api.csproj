@@ -284,6 +284,11 @@
     <Compile Include="BusinessLogic\GroupBll.cs" />
     <Compile Include="BusinessLogic\IDeviceBll.cs" />
     <Compile Include="BusinessLogic\IGroupBll.cs" />
+    <Compile Include="BusinessLogic\ILoginHistoryBll.cs" />
+    <Compile Include="BusinessLogic\IPermissionBll.cs" />
+    <Compile Include="BusinessLogic\IRefreshTokenBll.cs" />
+    <Compile Include="BusinessLogic\ITermBll.cs" />
+    <Compile Include="BusinessLogic\IUserBll.cs" />
     <Compile Include="BusinessLogic\LoginHistoryBll.cs" />
     <Compile Include="BusinessLogic\PermissionBll.cs" />
     <Compile Include="BusinessLogic\RefreshTokenBll.cs" />

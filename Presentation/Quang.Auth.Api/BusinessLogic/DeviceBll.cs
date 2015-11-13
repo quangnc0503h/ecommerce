@@ -4,9 +4,7 @@ using Quang.Auth.Api.DataAccess;
 using Quang.Auth.Api.Dto;
 using Quang.Auth.Api.Models;
 using Quang.Auth.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using AutoMapper;
@@ -40,9 +38,9 @@ namespace Quang.Auth.Api.BusinessLogic
         public Task<DanhSachDeviceOutput> GetAll(FilterDeviceInput input)
         {
             int total = _deviceTable.GetTotal(input.ClientId, input.Keyword);
-            IEnumerable<Device> paging = this._deviceTable.GetPaging(input.PageSize, input.PageNumber, input.ClientId, input.Keyword);
-            return Task.FromResult(new DanhSachDeviceOutput()
-            {
+            IEnumerable<Device> paging = _deviceTable.GetPaging(input.PageSize, input.PageNumber, input.ClientId, input.Keyword);
+            return Task.FromResult(new DanhSachDeviceOutput
+                                   {
                 DanhSachDevices = paging,
                 TotalCount = total
             });
@@ -50,10 +48,10 @@ namespace Quang.Auth.Api.BusinessLogic
 
         public Task<DanhSachRequestDeviceOutput> GetAllRequest(FilterRequestDeviceInput input)
         {
-            int total = this._requestDeviceTable.GetTotal(input.ClientId, input.Keyword, input.DateFrom, input.DateTo);
+            int total = _requestDeviceTable.GetTotal(input.ClientId, input.Keyword, input.DateFrom, input.DateTo);
             IEnumerable<RequestDevice> paging = _requestDeviceTable.GetPaging(input.PageSize, input.PageNumber, input.ClientId, input.Keyword, input.DateFrom, input.DateTo);
-            return Task.FromResult(new DanhSachRequestDeviceOutput()
-            {
+            return Task.FromResult(new DanhSachRequestDeviceOutput
+                                   {
                 DanhSachRequestDevices = paging,
                 TotalCount = total
             });
@@ -76,52 +74,52 @@ namespace Quang.Auth.Api.BusinessLogic
 
         public Task<int> DeleteRequestDevice(int Id)
         {
-            return Task.FromResult<int>(this._requestDeviceTable.Delete(Id));
+            return Task.FromResult(_requestDeviceTable.Delete(Id));
         }
 
         public Task<int> DeleteRequestDevice(IEnumerable<int> Ids)
         {
-            return Task.FromResult<int>(this._requestDeviceTable.Delete(Ids));
+            return Task.FromResult(_requestDeviceTable.Delete(Ids));
         }
 
         public Task<int> InsertDevice(CreateDeviceInput input)
         {
             Mapper.CreateMap<CreateDeviceInput, Device>();
-            int result = this._deviceTable.Insert(Mapper.Map<Device>((object)input));
+            int result = _deviceTable.Insert(Mapper.Map<Device>(input));
             if (result > 0)
-                this._requestDeviceTable.UpdateRequestDeviceStatus(input.ClientId, input.DeviceKey, true);
-            return Task.FromResult<int>(result);
+                _requestDeviceTable.UpdateRequestDeviceStatus(input.ClientId, input.DeviceKey, true);
+            return Task.FromResult(result);
         }
 
         public Task<int> UpdateDevice(UpdateDeviceInput input)
         {
             Mapper.CreateMap<UpdateDeviceInput, Device>();
-            int result = this._deviceTable.Update(Mapper.Map<Device>((object)input));
+            int result = _deviceTable.Update(Mapper.Map<Device>(input));
             if (result > 0)
-                this._requestDeviceTable.UpdateRequestDeviceStatus(input.ClientId, input.DeviceKey, true);
-            return Task.FromResult<int>(result);
+                _requestDeviceTable.UpdateRequestDeviceStatus(input.ClientId, input.DeviceKey, true);
+            return Task.FromResult(result);
         }
 
         public Task<Device> GetDevice(string clientId, string deviceKey, string deviceSecret)
         {
-            return Task.FromResult<Device>(this._deviceTable.GetDevice(clientId, deviceKey, deviceSecret));
+            return Task.FromResult(_deviceTable.GetDevice(clientId, deviceKey, deviceSecret));
         }
 
         public Task<InformNewAppOutput> InformNewApp(InformNewAppInput newApp)
         {
             int num = 0;
-            string str = (string)null;
-            if (this._deviceTable.GetDevice(newApp.ClientId, newApp.DeviceKey) == null)
+            string str = null;
+            if (_deviceTable.GetDevice(newApp.ClientId, newApp.DeviceKey) == null)
             {
-                if (!this._requestDeviceTable.IsExistRequestDevice(newApp.ClientId, newApp.DeviceKey))
-                    this._requestDeviceTable.CreateRequestDevice(newApp);
+                if (!_requestDeviceTable.IsExistRequestDevice(newApp.ClientId, newApp.DeviceKey))
+                    _requestDeviceTable.CreateRequestDevice(newApp);
                 else
-                    this._requestDeviceTable.UpdateRequestDevice(newApp);
-                RequestDevice requestDevice = this._requestDeviceTable.GetRequestDevice(newApp.ClientId, newApp.DeviceKey);
+                    _requestDeviceTable.UpdateRequestDevice(newApp);
+                RequestDevice requestDevice = _requestDeviceTable.GetRequestDevice(newApp.ClientId, newApp.DeviceKey);
                 if (requestDevice != null)
                 {
                     if (!requestDevice.IsApproved)
-                        str = string.Format("R{0}", (object)requestDevice.Id.ToString("D4"));
+                        str = string.Format("R{0}", requestDevice.Id.ToString("D4"));
                     else
                         num = 3;
                 }
@@ -130,8 +128,8 @@ namespace Quang.Auth.Api.BusinessLogic
             }
             else
                 num = 1;
-            return Task.FromResult<InformNewAppOutput>(new InformNewAppOutput()
-            {
+            return Task.FromResult(new InformNewAppOutput
+                                   {
                 Status = num,
                 DeviceName = str
             });
@@ -139,11 +137,11 @@ namespace Quang.Auth.Api.BusinessLogic
 
         public Task<IsExistDeviceIOutput> IsExistDevice(string clientId, string deviceKey, int id)
         {
-            IsExistDeviceIOutput result = new IsExistDeviceIOutput()
-            {
+            var result = new IsExistDeviceIOutput
+                         {
                 Check = 0
             };
-            Device device = this._deviceTable.GetDevice(clientId, deviceKey);
+            Device device = _deviceTable.GetDevice(clientId, deviceKey);
             if (device != null)
             {
                 if (id > 0)
@@ -154,16 +152,16 @@ namespace Quang.Auth.Api.BusinessLogic
                 else
                     result.Check = 1;
             }
-            return Task.FromResult<IsExistDeviceIOutput>(result);
+            return Task.FromResult(result);
         }
 
         public Task<CheckDeviceOutput> CheckDevice(CheckDeviceInput input)
         {
-            CheckDeviceOutput result = new CheckDeviceOutput()
-            {
+            var result = new CheckDeviceOutput
+                         {
                 Status = 0
             };
-            Device device = this._deviceTable.GetDevice(input.ClientId, input.DeviceKey);
+            Device device = _deviceTable.GetDevice(input.ClientId, input.DeviceKey);
             if (device != null)
             {
                 if (!device.IsActived)
@@ -174,7 +172,7 @@ namespace Quang.Auth.Api.BusinessLogic
             }
             else
             {
-                RequestDevice requestDevice = this._requestDeviceTable.GetRequestDevice(input.ClientId, input.DeviceKey);
+                RequestDevice requestDevice = _requestDeviceTable.GetRequestDevice(input.ClientId, input.DeviceKey);
                 if (requestDevice != null && !requestDevice.IsApproved)
                 {
                     result.Status = 2;
@@ -186,12 +184,12 @@ namespace Quang.Auth.Api.BusinessLogic
                     result.Description = "Device not exist";
                 }
             }
-            return Task.FromResult<CheckDeviceOutput>(result);
+            return Task.FromResult(result);
         }
 
         public Task<IEnumerable<Client>> GetAllClients()
         {
-            return Task.FromResult<IEnumerable<Client>>(this._deviceTable.GetAllClients());
+            return Task.FromResult(_deviceTable.GetAllClients());
         }
     }
 }

@@ -18,9 +18,8 @@ namespace Quang.Auth.Api.BusinessLogic
 {
     public class TermBll : ITermBll
     {
-        private ITermTable _termTable;
-        private IUserTable _userTable;
-        private GroupTable _groupTable;
+        private readonly ITermTable _termTable;
+        private readonly IUserTable _userTable;
 
         public MySQLDatabase Database { get; private set; }
 
@@ -28,7 +27,7 @@ namespace Quang.Auth.Api.BusinessLogic
         {
             get
             {
-                return OwinContextExtensions.GetUserManager<ApplicationUserManager>(HttpContextExtensions.GetOwinContext(HttpContext.Current.Request));
+                return HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
         }
 
@@ -36,24 +35,24 @@ namespace Quang.Auth.Api.BusinessLogic
         {
             get
             {
-                return OwinContextExtensions.GetUserManager<ApplicationRoleManager>(HttpContextExtensions.GetOwinContext(HttpContext.Current.Request));
+                return HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationRoleManager>();
             }
         }
 
         public TermBll()
         {
-            this.Database = (MySQLDatabase)OwinContextExtensions.Get<ApplicationDbContext>(HttpContextExtensions.GetOwinContext(HttpContext.Current.Request));
-            this._termTable = (ITermTable)new TermTable(this.Database);
-            this._userTable = (IUserTable)new UserTable(this.Database);
-            this._groupTable = new GroupTable(this.Database);
+            Database = HttpContext.Current.Request.GetOwinContext().Get<ApplicationDbContext>();
+            _termTable = new TermTable(Database);
+            _userTable = new UserTable(Database);
+            new GroupTable(this.Database);
         }
 
         public Task<Term> GetOneTerm(int termId)
         {
-            Term term = this._termTable.GetOneTerm(termId);
+            Term term = _termTable.GetOneTerm(termId);
             if (term != null)
             {
-                ActionRoleItem actionRoleItem = Enumerable.FirstOrDefault<ActionRoleItem>(Enumerable.Where<ActionRoleItem>(this.GetListRoleOptions(), (Func<ActionRoleItem, bool>)(m => m.RoleKey == term.RoleKey)));
+                var actionRoleItem = GetListRoleOptions().FirstOrDefault(m => m.RoleKey == term.RoleKey);
                 if (actionRoleItem != null)
                     term.RoleKeyLabel = actionRoleItem.RoleKeyLabel;
             }
@@ -62,18 +61,18 @@ namespace Quang.Auth.Api.BusinessLogic
 
         public Task<DanhSachTermOutput> GetAll(FilterTermInput input)
         {
-            int total = this._termTable.GetTotal(input.Keyword);
-            IEnumerable<Term> paging = this._termTable.GetPaging(input.PageSize, input.PageNumber, input.Keyword);
-            IDictionary<string, ActionRoleItem> listRoleDictionary = this.GetListRoleDictionary();
+            int total = _termTable.GetTotal(input.Keyword);
+            IEnumerable<Term> paging = _termTable.GetPaging(input.PageSize, input.PageNumber, input.Keyword);
+            IDictionary<string, ActionRoleItem> listRoleDictionary = GetListRoleDictionary();
             foreach (Term term in paging)
             {
                 if (listRoleDictionary.ContainsKey(term.RoleKey) && listRoleDictionary[term.RoleKey] != null)
                     term.RoleKeyLabel = listRoleDictionary[term.RoleKey].RoleKeyLabel;
             }
-            return Task.FromResult<DanhSachTermOutput>(new DanhSachTermOutput()
+            return Task.FromResult(new DanhSachTermOutput()
             {
                 DanhSachTerms = paging,
-                TotalCount = (long)total
+                TotalCount = total
             });
         }
 
@@ -86,16 +85,16 @@ namespace Quang.Auth.Api.BusinessLogic
                 if (listRoleDictionary.ContainsKey(term.RoleKey) && listRoleDictionary[term.RoleKey] != null)
                     term.RoleKeyLabel = listRoleDictionary[term.RoleKey].RoleKeyLabel;
             }
-            return Task.FromResult<IEnumerable<Term>>(allTerms);
+            return Task.FromResult(allTerms);
         }
 
         public async Task<IEnumerable<Quang.Auth.Entities.User>> GetGrantedUsersByTerm(int termId)
         {
-            IEnumerable<Quang.Auth.Entities.User> users = (IEnumerable<Quang.Auth.Entities.User>)new List<Quang.Auth.Entities.User>();
+            IEnumerable<User> users = new List<User>();
             Term term = this._termTable.GetOneTerm(termId);
             if (term != null)
             {
-                ApplicationRole role = await this.RoleManager.FindByNameAsync(term.RoleKey);
+                var role = await RoleManager.FindByNameAsync(term.RoleKey);
                 if (role != null)
                     users = this._userTable.GetUsersByRole(role.Id);
             }
@@ -104,13 +103,13 @@ namespace Quang.Auth.Api.BusinessLogic
 
         public Task<IEnumerable<ActionRoleItem>> GetMissingTerms()
         {
-            IEnumerable<Term> terms = this._termTable.GetAllTerms();
-            return Task.FromResult<IEnumerable<ActionRoleItem>>((IEnumerable<ActionRoleItem>)Enumerable.ToArray<ActionRoleItem>(Enumerable.Where<ActionRoleItem>(this.GetListRoleOptions(), (Func<ActionRoleItem, bool>)(m => !Enumerable.Any<Term>(terms, (Func<Term, bool>)(n => n.RoleKey == m.RoleKey))))));
+            IEnumerable<Term> terms = _termTable.GetAllTerms();
+            return Task.FromResult<IEnumerable<ActionRoleItem>>(GetListRoleOptions().Where(m => terms.All(n => n.RoleKey != m.RoleKey)).ToArray());
         }
 
         public Task<int> DeleteTerm(int termId)
         {
-            return Task.FromResult<int>(this._termTable.Delete(termId));
+            return Task.FromResult(_termTable.Delete(termId));
         }
 
         public Task<int> DeleteTerm(IEnumerable<int> Ids)
@@ -274,35 +273,34 @@ namespace Quang.Auth.Api.BusinessLogic
                     return n.Key.Id == m.Id;
                 return false;
             }))));
-            userRoles = (IEnumerable<Term>)Enumerable.ToArray<Term>(Enumerable.Union<Term>(userRoles, Enumerable.Select<KeyValuePair<Term, bool>, Term>(Enumerable.Where<KeyValuePair<Term, bool>>((IEnumerable<KeyValuePair<Term, bool>>)userTerms, (Func<KeyValuePair<Term, bool>, bool>)(m => m.Value)), (Func<KeyValuePair<Term, bool>, Term>)(m => m.Key)), (IEqualityComparer<Term>)new TermBll.TermComparer()));
-            string[] newUserRoles = Enumerable.ToArray<string>(Enumerable.Select<Term, string>(Enumerable.Where<Term>(userRoles, (Func<Term, bool>)(m => !Enumerable.Any<string>((IEnumerable<string>)currentUserRoles, (Func<string, bool>)(n => n == m.RoleKey)))), (Func<Term, string>)(m => m.RoleKey)));
-            string[] oldUserRoles = Enumerable.ToArray<string>(Enumerable.Where<string>((IEnumerable<string>)currentUserRoles, (Func<string, bool>)(m => !Enumerable.Any<Term>(userRoles, (Func<Term, bool>)(n => n.RoleKey == m)))));
-            IdentityResult identityResult1 = await this.UserManager.RemoveFromRolesAsync(userId, oldUserRoles);
-            IdentityResult identityResult2 = await this.UserManager.AddToRolesAsync(userId, newUserRoles);
+            userRoles = userRoles.Union(userTerms.Where(m => m.Value).Select(m => m.Key), new TermComparer()).ToArray();
+            string[] newUserRoles = userRoles.Where(m => currentUserRoles.All(n => n != m.RoleKey)).Select(m => m.RoleKey).ToArray();
+            string[] oldUserRoles = currentUserRoles.Where(m => !userRoles.Any(n => n.RoleKey == m)).ToArray();
+            await this.UserManager.RemoveFromRolesAsync(userId, oldUserRoles);
+            await this.UserManager.AddToRolesAsync(userId, newUserRoles);
         }
 
         public async Task ReUpdateGroupRole(int groupId)
         {
-            IEnumerable<Quang.Auth.Entities.User> users = this._userTable.GetUsersByGroup(groupId);
-            foreach (Quang.Auth.Entities.User user in users)
-                await this.ReUpdateUserRole(user.Id);
+            IEnumerable<User> users = _userTable.GetUsersByGroup(groupId);
+            foreach (User user in users)
+                await ReUpdateUserRole(user.Id);
         }
 
         public async Task SynchTermsToRoles()
         {
-            ApplicationRole[] currentRoles = Enumerable.ToArray<ApplicationRole>((IEnumerable<ApplicationRole>)this.RoleManager.Roles);
-            IEnumerable<Term> terms = this._termTable.GetAllTerms();
-            string[] newRoles = Enumerable.ToArray<string>(Enumerable.Select<Term, string>(Enumerable.Where<Term>(terms, (Func<Term, bool>)(m => !Enumerable.Any<ApplicationRole>((IEnumerable<ApplicationRole>)currentRoles, (Func<ApplicationRole, bool>)(n => n.Name == m.RoleKey)))), (Func<Term, string>)(m => m.RoleKey)));
-            ApplicationRole[] oldRoles = Enumerable.ToArray<ApplicationRole>(Enumerable.Where<ApplicationRole>((IEnumerable<ApplicationRole>)currentRoles, (Func<ApplicationRole, bool>)(m => !Enumerable.Any<Term>(terms, (Func<Term, bool>)(n => n.RoleKey == m.Name)))));
+            ApplicationRole[] currentRoles = RoleManager.Roles.ToArray();
+            IEnumerable<Term> terms = _termTable.GetAllTerms();
+            string[] newRoles = terms.Where(m => currentRoles.All(n => n.Name != m.RoleKey)).Select(m => m.RoleKey).ToArray();
+            ApplicationRole[] oldRoles = currentRoles.Where(m => !terms.Any(n => n.RoleKey == m.Name)).ToArray();
             foreach (ApplicationRole role in oldRoles)
             {
-                IdentityResult identityResult = await this.RoleManager.DeleteAsync(role);
+                await this.RoleManager.DeleteAsync(role);
             }
             bool flag=false;
-            int num1 = flag ? 1 : 0;
             foreach (string name in newRoles)
             {
-                IdentityResult async = await this.RoleManager.CreateAsync(new ApplicationRole(name));
+                await RoleManager.CreateAsync(new ApplicationRole(name));
             }
             int num2 = flag ? 1 : 0;
         }

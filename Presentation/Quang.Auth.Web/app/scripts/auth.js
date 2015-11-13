@@ -1,7 +1,6 @@
 ﻿(function (window, angular, undefined) {
     'use strict';
     var module = angular.module('auth', ['config']).provider('$auth', $authProvider);
-
     function $authProvider() {
         var t = this;
         this.routeResolve = function (resolve) {
@@ -10,7 +9,7 @@
             }
             return angular.extend(Object.create(resolve), {
                 authUser: t.loadAuthUser()
-            })
+            });
         }
         this.loadAuthUser = function () {
             return ['$q', '$injector', '$rootScope', '$timeout', 'xdLocalStorage', 'authService', 'ENV', function ($q, $injector, $rootScope, $timeout, xdLocalStorage, authService, ENV) {
@@ -22,20 +21,47 @@
                         iframeUrl: ENV.urlIframeSso
                     }).then(function () {
                         xdLocalStorage.getItem('xd.authorization').then(function (data) {
-                            var authData;
-                            if (data.value) {
-                                try {
-                                    authData = JSON.parse(data.value);
-                                } catch (err) {
-                                    //not our message, can ignore
+                            xdLocalStorage.getItem('cscode', true).then(function (cscode) {
+                                if (cscode.value) {
+                                    cscode = authService.textDecode(cscode.value);
+                                    var authData;
+                                    if (data.value) {
+                                        try {
+                                            authData = JSON.parse(data.value);
+                                        } catch (err) {
+                                            //not our message, can ignore
+                                        }
+                                    }
+                                    if (authData && authData.token) {
+                                        authService.fillAuthData(authData, cscode + authData.token);
+                                    }
+                                    $rootScope.isAuthLoaded = true;
+                                    defer.resolve(authService.authentication);
+                                } else {
+                                    xdLocalStorage.removeItem('xd.authorization').then(function () {
+                                        $rootScope.isAuthLoaded = true;
+                                        defer.resolve({});
+                                    }, function () {
+                                        $rootScope.isAuthLoaded = true;
+                                        defer.resolve({});
+                                    });
                                 }
-                            }
-                            if (authData && authData.token) {
-                                authService.fillAuthData(authData, authData.token);
-                            }
-                            defer.resolve(authService.authentication);
+                            }, function () {
+                                xdLocalStorage.removeItem('xd.authorization').then(function () {
+                                    $rootScope.isAuthLoaded = true;
+                                    defer.resolve({});
+                                }, function () {
+                                    $rootScope.isAuthLoaded = true;
+                                    defer.resolve({});
+                                });
+                            });
+                        }, function (err) {
                             $rootScope.isAuthLoaded = true;
+                            defer.resolve({});
                         });
+                    }, function (err) {
+                        $rootScope.isAuthLoaded = true;
+                        defer.resolve({});
                     });
                     return defer.promise;
                 }

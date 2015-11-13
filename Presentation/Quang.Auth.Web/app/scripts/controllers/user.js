@@ -283,7 +283,7 @@ angular.module('authclientApp')
 
     if ($routeParams.id) {
         userService.getUser($routeParams.id, function (item) {
-            console.log(item);
+            //console.log(item);
             $scope.item = item;
         });
     }

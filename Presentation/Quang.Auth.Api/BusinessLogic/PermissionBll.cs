@@ -1,13 +1,11 @@
 ﻿using AspNet.Identity.MySQL;
 using AutoMapper;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Practices.Unity;
 using Quang.Auth.Api.DataAccess;
 using Quang.Auth.Api.Dto;
 using Quang.Auth.Api.Models;
 using Quang.Auth.Entities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -56,8 +54,8 @@ namespace Quang.Auth.Api.BusinessLogic
         {
             int total = _permissionTable.GetTotal(input.Keyword);
             IEnumerable<Permission> paging = _permissionTable.GetPaging(input.PageSize, input.PageNumber, input.Keyword);
-            return Task.FromResult(new DanhSachPermissionOutput()
-            {
+            return Task.FromResult(new DanhSachPermissionOutput
+                                   {
                 DanhSachPermissions = paging,
                 TotalCount = total
             });
@@ -191,13 +189,12 @@ namespace Quang.Auth.Api.BusinessLogic
 
         public async Task<int> GenerateRolesForGroup(int groupId)
         {
-            int result;
             IEnumerable<User> users = _userTable.GetUsersByGroup(groupId);
             foreach (User user in users)
             {
-                int num = await GenerateRolesForUser(user.Id);
+                await GenerateRolesForUser(user.Id);
             }
-            result = users.Count();
+            int result = users.Count();
             return result;
         }
 
