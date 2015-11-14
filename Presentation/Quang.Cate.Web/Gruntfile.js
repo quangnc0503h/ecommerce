@@ -424,7 +424,7 @@ module.exports = function (grunt) {
                         urlLogoutSso: 'http://localhost:9001/#/getout',
                         urlIframeSso: 'http://localhost:9001/cdlsi.html',
                         urlApiAuth: 'http://localhost:8085/',
-                        urlApiCate: 'http://localhost:8086/',
+                        urlApiCate: 'http://localhost:17185/',
                         urlWebAuth: 'http://localhost:9001/',
                         urlApiKeHoach: '',
                         urlApiBanVe: ''

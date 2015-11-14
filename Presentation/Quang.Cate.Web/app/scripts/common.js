@@ -19,14 +19,26 @@
                         }
                     } else {
                         if (authService.authentication.isAuth) {
+                            var re;
                             var isAccess = false;
                             var allowRoles = attrs.showIfAuthenticated.split('|');
                             var userRoles = authService.authentication.roles ? authService.authentication.roles : [];
                             for (var j = 0; j < allowRoles.length; j++) {
+                                var re = false;
+                                if (allowRoles[j] && allowRoles[j].length > 1 && allowRoles[j][0] == '/' && allowRoles[j][allowRoles[j].length - 1] == '/') {
+                                    re = new RegExp(allowRoles[j].substring(1, allowRoles[j].length - 1));
+                                }
                                 for (var i = 0; i < userRoles.length; i++) {
-                                    if (userRoles[i] == allowRoles[j]) {
-                                        isAccess = true;
-                                        break;
+                                    if (re) {
+                                        if (re.test(userRoles[i])) {
+                                            isAccess = true;
+                                            break;
+                                        }
+                                    } else {
+                                        if (userRoles[i] == allowRoles[j]) {
+                                            isAccess = true;
+                                            break;
+                                        }
                                     }
                                 }
                                 if (isAccess) {
@@ -189,14 +201,14 @@
     }]);
 
     app.service('tmpDataService', ['localDataService', function (localDataService) {
-        
+
         var t = this;
 
         this.tmpData = {};
 
         var serviceFactory = {};
 
-        var compare = function(a,b) {
+        var compare = function (a, b) {
             if (a.value.expired > b.value.expired)
                 return -1;
             if (a.value.expired < b.value.expired)
@@ -223,7 +235,7 @@
             var expiredDt = new Date();
             expiredDt.setMinutes(expiredDt.getMinutes() + expired);
             expired = expiredDt.getTime();
-            
+
             var prefix = "tLocalValue";
             var realKey = prefix + key;
             localValue[realKey] = { value: value, expired: expired };
@@ -232,7 +244,7 @@
             } else {
                 t.tmpData = localValue;
             }
-            
+
             window.setTimeout(function () {
                 var tmp = [];
                 for (var item in localValue) {
@@ -245,7 +257,7 @@
                         }
                     }
                 }
-                
+
                 // Max tmp item is 100;
                 var maxItems = 100;
                 if (tmp.length > maxItems) {
@@ -259,7 +271,7 @@
                 } else {
                     t.tmpData = localValue;
                 }
-            },100);
+            }, 100);
         };
 
         // Wrapper to get
@@ -292,7 +304,6 @@
 
         return serviceFactory;
     }]);
-
   
 
     app.filter('isActiveText', function () {

@@ -44,14 +44,23 @@
                         <li show-if-authenticated="110" style="display: none;" menu-active-url="group"><a ng-href="#/group"><i class="fa fa-users"></i> Quản lý nhóm</a></li>
                         <li show-if-authenticated="120" style="display: none;" menu-active-url="role"><a ng-href="#/role"><i class="fa fa-cogs"></i> Quản lý quyền</a></li>
                         <li show-if-authenticated="130" style="display: none;" menu-active-url="term"><a ng-href="#/term"><i class="fa fa-bars"></i> Quản lý chức năng</a></li>
-                        <li show-if-authenticated="160" menu-active-url="(device|login-history)" class="dropdown" style="display: none"> <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Chức năng khác<span class="caret"></span></a> <ul class="dropdown-menu" role="menu"> <li show-if-authenticated="160" style="display: none" menu-active-url="device"><a ng-href="#/device">Quản lý thiết bị</a></li> <li show-if-authenticated="160" style="display: none" menu-active-url="login-history"><a ng-href="#/login-history">Lịch sử đăng nhập</a></li> </ul> </li>
+                        <li show-if-authenticated="160" menu-active-url="(device|login-history)" class="dropdown" style="display: none">
+                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Chức năng khác<span class="caret"></span></a> 
+                        <ul class="dropdown-menu" role="menu"> 
+                            <li show-if-authenticated="160" style="display: none" menu-active-url="device"><a ng-href="#/device">Quản lý thiết bị</a></li> 
+                            <li class="divider"></li>
+                            <li show-if-authenticated="160" style="display: none" menu-active-url="login-history"><a ng-href="#/login-history">Lịch sử đăng nhập</a></li> 
+                            </ul> 
+                        </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li show-if-authenticated="true" menu-active-url="(settings|changepass)" class="dropdown" style="display: none;">
                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-cog"></i> <strong auth-data="displayName"></strong><span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a ng-href="#/settings"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Cài đặt cá nhân</a></li>
+                                <li class="divider"></li>
                                 <li><a ng-href="#/changepass"><i class="fa fa-lock"></i> Đổi mật khẩu</a></li>
+                                <li class="divider"></li>
                                 <li><a ng-href="#/logout"><i class="fa fa-sign-out"></i> <strong>Thoát</strong></a></li>
                             </ul>
                         </li>

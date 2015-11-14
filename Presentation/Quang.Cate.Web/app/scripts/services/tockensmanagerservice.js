@@ -8,26 +8,26 @@
  * Service in the danhmucApp.
  */
 angular.module('quangcatewebApp')
-  .service('tockensmanagerService', ['$http', 'ENV', function ($http, ENV) {
-      
-      var tokenManagerServiceFactory = {};
+ .service('tokensmanagerService', ['$http', 'ENV', function ($http, ENV) {
 
-      var _getRefreshTokens = function () {
+     var tokenmanagerServiceFactory = {};
 
-          return $http.get(ENV.urlApiAuth + 'api/refreshtokens').then(function (results) {
-              return results;
-          });
-      };
+     var _getRefreshTokens = function () {
 
-      var _deleteRefreshTokens = function (tokenid) {
+         return $http.get(ENV.urlApiAuth + 'api/refreshtokens').then(function (results) {
+             return results;
+         });
+     };
 
-          return $http.delete(ENV.urlApiAuth + 'api/refreshtokens/?tokenid=' + tokenid).then(function (results) {
-              return results;
-          });
-      };
+     var _deleteRefreshTokens = function (tokenid) {
 
-      tokenManagerServiceFactory.deleteRefreshTokens = _deleteRefreshTokens;
-      tokenManagerServiceFactory.getRefreshTokens = _getRefreshTokens;
+         return $http.delete(ENV.urlApiAuth + 'api/refreshtokens/?tokenid=' + tokenid).then(function (results) {
+             return results;
+         });
+     };
 
-      return tokenManagerServiceFactory;
-  }]);
+     tokenmanagerServiceFactory.deleteRefreshTokens = _deleteRefreshTokens;
+     tokenmanagerServiceFactory.getRefreshTokens = _getRefreshTokens;
+
+     return tokenmanagerServiceFactory;
+ }]);
