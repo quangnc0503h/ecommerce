@@ -31,11 +31,11 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        //[AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
         [Route("GetOnePermission")]
         public async Task<GetOnePermissionOutput> GetOnePermission(GetByIdInput input)
         {
-            Permission result = await _permissionBll.GetOnePermission(input.Id);
+            var result = await _permissionBll.GetOnePermission(input.Id);
             return new GetOnePermissionOutput
                    {
                 Permission = result
@@ -44,14 +44,14 @@ namespace Quang.Auth.Api.Controllers
 
         [Route("CreatePermission")]
         [HttpPost]
-       // [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
         public async Task<ResultUpdateOutput> CreatePermission(CreatePermissionInput input)
         {
-            ResultUpdateOutput result = new ResultUpdateOutput()
-            {
+            var result = new ResultUpdateOutput
+                         {
                 Status = 1
             };
-            int test = await this._permissionBll.InsertPermission(input);
+            int test = await _permissionBll.InsertPermission(input);
             if (test > 0)
                 result.Status = 0;
             return result;
@@ -59,11 +59,11 @@ namespace Quang.Auth.Api.Controllers
 
         [HttpPost]
         [Route("UpdatePermission")]
-      //  [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
         public async Task<ResultUpdateOutput> UpdatePermission(UpdatePermissionInput input)
         {
-            var result = new ResultUpdateOutput()
-            {
+            var result = new ResultUpdateOutput
+                         {
                 Status = 1
             };
             int test = await _permissionBll.UpdatePermission(input);
@@ -73,15 +73,15 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-       // [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
         [Route("DeletePermission")]
         public async Task<ResultUpdateOutput> DeletePermission(DeletePermissionInput input)
         {
-            var result = new ResultUpdateOutput()
-            {
+            var result = new ResultUpdateOutput
+                         {
                 Status = 1
             };
-            int test = await _permissionBll.DeletePermission((IEnumerable<int>)input.Ids);
+            int test = await _permissionBll.DeletePermission(input.Ids);
             if (test > 0)
                 result.Status = 0;
             return result;
@@ -100,7 +100,7 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-        //[AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
         [Route("GetPermissionGrants")]
         public async Task<GetPermissionGrantsOutput> GetPermissionGrants(GetByIdInput input)
         {
@@ -109,12 +109,12 @@ namespace Quang.Auth.Api.Controllers
         }
 
         [HttpPost]
-       // [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
+        [AppAuthorize(Roles = ActionRole.HeThong.Permissions)]
         [Route("UpdatePermissionGrants")]
         public async Task<ResultUpdateOutput> UpdatePermissionGrants(UpdatePermissionGrantsInput input)
         {
-            var result = new ResultUpdateOutput()
-            {
+            var result = new ResultUpdateOutput
+                         {
                 Status = 1
             };
             int test = await _permissionBll.UpdatePermissionGrants(input);
@@ -125,47 +125,47 @@ namespace Quang.Auth.Api.Controllers
 
         [Route("GetUserPermissions")]
         [HttpPost]
-       // [AppAuthorize(Roles = "140")]
+        [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
         public async Task<IEnumerable<PermissionItemGrant>> GetUserPermissions(GetByIdInput input)
         {
             IEnumerable<PermissionItemGrant> result = await _permissionBll.GetUserPermissions(input.Id);
             return result;
         }
 
-      //  [AppAuthorize(Roles = "140")]
+        [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
         [HttpPost]
         [Route("GetGroupPermissions")]
         public async Task<IEnumerable<PermissionItemGrant>> GetGroupPermissions(GetByIdInput input)
         {
-            IEnumerable<PermissionItemGrant> result = await this._permissionBll.GetGroupPermissions(input.Id);
+            IEnumerable<PermissionItemGrant> result = await _permissionBll.GetGroupPermissions(input.Id);
             return result;
         }
 
         [Route("UpdateUserPermissions")]
         [HttpPost]
-      //  [AppAuthorize(Roles = "140")]
+        [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
         public async Task<ResultUpdateOutput> UpdateUserPermissions(UpdateUserPermissionInput input)
         {
-            ResultUpdateOutput result = new ResultUpdateOutput()
-            {
+            var result = new ResultUpdateOutput
+                         {
                 Status = 1
             };
-            int status = await this._permissionBll.UpdateUserPermissions(input);
+            int status = await _permissionBll.UpdateUserPermissions(input);
             if (status > 0)
                 result.Status = 0;
             return result;
         }
 
         [HttpPost]
-       // [AppAuthorize(Roles = "140")]
+        [AppAuthorize(Roles = ActionRole.HeThong.Grant)]
         [Route("UpdateGroupPermissions")]
         public async Task<ResultUpdateOutput> UpdateGroupPermissions(UpdateGroupPermissionInput input)
         {
-            ResultUpdateOutput result = new ResultUpdateOutput()
-            {
+            var result = new ResultUpdateOutput
+                         {
                 Status = 1
             };
-            int status = await this._permissionBll.UpdateGroupPermissions(input);
+            int status = await _permissionBll.UpdateGroupPermissions(input);
             if (status > 0)
                 result.Status = 0;
             return result;

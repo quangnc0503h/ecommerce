@@ -206,7 +206,7 @@ namespace Quang.Auth.Api.Controllers
         public async Task<IHttpActionResult> SetPassword(SetPasswordBindingModel model)
         {
             IHttpActionResult httpActionResult;
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 httpActionResult = BadRequest(ModelState);
             }
@@ -232,7 +232,7 @@ namespace Quang.Auth.Api.Controllers
         public async Task<IHttpActionResult> AddExternalLogin(AddExternalLoginBindingModel model)
         {
             IHttpActionResult httpActionResult;
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 httpActionResult = BadRequest(ModelState);
             }
@@ -265,7 +265,7 @@ namespace Quang.Auth.Api.Controllers
         public async Task<IHttpActionResult> RemoveLogin(RemoveLoginBindingModel model)
         {
             IHttpActionResult httpActionResult;
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 httpActionResult = BadRequest(ModelState);
             }
@@ -297,7 +297,7 @@ namespace Quang.Auth.Api.Controllers
             }
             else
             {
-                string redirectUriValidationResult = ValidateClientAndRedirectUri(Request, ref redirectUri);
+                string redirectUriValidationResult = ValidateClientAndRedirectUri(ref redirectUri);
                 if (!string.IsNullOrWhiteSpace(redirectUriValidationResult))
                 {
                     httpActionResult = BadRequest(redirectUriValidationResult);
@@ -356,7 +356,7 @@ namespace Quang.Auth.Api.Controllers
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
         {
             IHttpActionResult httpActionResult;
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 httpActionResult = BadRequest(ModelState);
             }
@@ -410,8 +410,8 @@ namespace Quang.Auth.Api.Controllers
                         }
                         else
                         {
-                            var info = new ExternalLoginInfo()
-                            {
+                            var info = new ExternalLoginInfo
+                                       {
                                 DefaultUserName = user.UserName,
                                 Login = new UserLoginInfo(model.Provider, verifiedAccessToken.ProviderKey)
                             };
@@ -422,7 +422,6 @@ namespace Quang.Auth.Api.Controllers
                             }
                             else
                             {
-                                result = await UserManager.AddClaimAsync(user.Id, new Claim("displayName", model.UserName));
                                 var accessTokenResponse = await GenerateLocalAccessTokenResponse(user);
                                 httpActionResult = Ok(accessTokenResponse);
                             }
@@ -471,19 +470,19 @@ namespace Quang.Auth.Api.Controllers
         {
             string clientIp = SecurityUtils.GetClientIPAddress();
             string clientUri = HttpContext.Current.Request.Url.AbsoluteUri;
-            int num = await _loginHistoryBll.InsertLoginHistory(new InsertLoginHistoryInput()
-            {
-                Type = loginType.GetHashCode(),
-                UserName = username,
-                LoginTime = DateTime.Now,
-                LoginStatus = status.GetHashCode(),
-                AppId = string.IsNullOrEmpty(clientId) ? null : clientId,
-                ClientUri = clientUri,
-                ClientIP = clientIp,
-                ClientUA = HttpContext.Current.Request.UserAgent,
-                ClientApiKey = apiKey,
-                ClientDevice = device
-            });
+            await _loginHistoryBll.InsertLoginHistory(new InsertLoginHistoryInput
+                                                      {
+                                                          Type = loginType.GetHashCode(),
+                                                          UserName = username,
+                                                          LoginTime = DateTime.Now,
+                                                          LoginStatus = status.GetHashCode(),
+                                                          AppId = string.IsNullOrEmpty(clientId) ? null : clientId,
+                                                          ClientUri = clientUri,
+                                                          ClientIP = clientIp,
+                                                          ClientUA = HttpContext.Current.Request.UserAgent,
+                                                          ClientApiKey = apiKey,
+                                                          ClientDevice = device
+                                                      });
         }
 
         protected override void Dispose(bool disposing)
@@ -497,7 +496,7 @@ namespace Quang.Auth.Api.Controllers
             base.Dispose(disposing);
         }
 
-        private string ValidateClientAndRedirectUri(HttpRequestMessage request, ref string redirectUriOutput)
+        private string ValidateClientAndRedirectUri(ref string redirectUriOutput)
         {
             string queryString1 = GetQueryString(Request, "redirect_uri");
             if (string.IsNullOrWhiteSpace(queryString1))
@@ -509,7 +508,7 @@ namespace Quang.Auth.Api.Controllers
             if (string.IsNullOrWhiteSpace(queryString2))
                 return "client_Id is required";
             if (queryString2 != "ngAuthApp")
-                return string.Format("Client_id '{0}' is not registered in the system.", (object)queryString2);
+                return string.Format("Client_id '{0}' is not registered in the system.", queryString2);
             redirectUriOutput = result.AbsoluteUri;
             return string.Empty;
         }
@@ -540,7 +539,7 @@ namespace Quang.Auth.Api.Controllers
         {
             ParsedExternalAccessToken parsedToken = null;
 
-            var verifyTokenEndPoint = "";
+            string verifyTokenEndPoint;
 
             if (provider == "Facebook")
             {

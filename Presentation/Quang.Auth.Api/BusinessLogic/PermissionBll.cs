@@ -128,9 +128,9 @@ namespace Quang.Auth.Api.BusinessLogic
                 permissionGrant.Type = 0;
                 permissionGrant.PermissionId = input.PermissionId;
                 if (permissionGrant.IsExactPattern)
-                    permissionGrant.TermPattern = (string)null;
+                    permissionGrant.TermPattern = null;
                 else
-                    permissionGrant.TermExactPattern = (string)null;
+                    permissionGrant.TermExactPattern = null;
             }
             PermissionGrant[] permissionGrants = input.AllowGrants.Concat(input.DenyGrants).Where(m =>
                                                                                                              {
@@ -210,7 +210,7 @@ namespace Quang.Auth.Api.BusinessLogic
             foreach (PermissionGrant permissionGrant in permissionGrants)
             {
                 if (permissionGrant.Type == 1)
-                    allowTerms = allowTerms.Concat(this.GetTermFromPermissionGrant(permissionGrant, allTerms));
+                    allowTerms = allowTerms.Concat(GetTermFromPermissionGrant(permissionGrant, allTerms));
                 else if (permissionGrant.Type == 0)
                     denyTerms = denyTerms.Concat(GetTermFromPermissionGrant(permissionGrant, allTerms));
             }

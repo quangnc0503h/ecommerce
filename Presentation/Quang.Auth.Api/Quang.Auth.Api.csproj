@@ -306,6 +306,13 @@
     <Compile Include="DataAccess\DeviceTable.cs" />
     <Compile Include="DataAccess\GroupTable.cs" />
     <Compile Include="DataAccess\IDeviceTable.cs" />
+    <Compile Include="DataAccess\IGroupTable.cs" />
+    <Compile Include="DataAccess\ILoginHistoryTable.cs" />
+    <Compile Include="DataAccess\IPermissionTable.cs" />
+    <Compile Include="DataAccess\IRefreshTokenTable.cs" />
+    <Compile Include="DataAccess\IRequestDeviceTable.cs" />
+    <Compile Include="DataAccess\ITermTable.cs" />
+    <Compile Include="DataAccess\IUserTable.cs" />
     <Compile Include="DataAccess\LoginHistoryTable.cs" />
     <Compile Include="DataAccess\PermissionTable.cs" />
     <Compile Include="DataAccess\RefreshTokenTable.cs" />
