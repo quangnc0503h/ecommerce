@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Jil;
 using System.Text;
 using System.Threading.Tasks;
-using Jil;
 
 namespace Quang.RedisCache
 {
-    public class JilSerializer:ISerializer
+    public class JilSerializer : ISerializer
     {
+        public static readonly Options JilOptions = new Options(dateFormat: DateTimeFormat.ISO8601);
         // TODO: May make this configurable in the future.
         /// <summary>
         /// Encoding to use to convert string to byte[] and the other way around.
@@ -21,7 +19,7 @@ namespace Quang.RedisCache
 
         public byte[] Serialize(object item)
         {
-            var jsonString = JSON.Serialize(item);
+            var jsonString = JSON.Serialize(item, JilOptions);
             return encoding.GetBytes(jsonString);
         }
 
@@ -33,7 +31,7 @@ namespace Quang.RedisCache
         public object Deserialize(byte[] serializedObject)
         {
             var jsonString = encoding.GetString(serializedObject);
-            return JSON.Deserialize(jsonString, typeof(object));
+            return JSON.Deserialize(jsonString, typeof(object), JilOptions);
         }
 
         public Task<object> DeserializeAsync(byte[] serializedObject)
@@ -44,7 +42,7 @@ namespace Quang.RedisCache
         public T Deserialize<T>(byte[] serializedObject) where T : class
         {
             var jsonString = encoding.GetString(serializedObject);
-            return JSON.Deserialize<T>(jsonString);
+            return JSON.Deserialize<T>(jsonString, JilOptions);
         }
 
         public Task<T> DeserializeAsync<T>(byte[] serializedObject) where T : class

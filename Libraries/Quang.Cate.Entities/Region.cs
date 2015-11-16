@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Quang.Cate.Entities
 {
-    public class Khuvuc
+    public class Region
     {
         public long Id { get; set; }
 

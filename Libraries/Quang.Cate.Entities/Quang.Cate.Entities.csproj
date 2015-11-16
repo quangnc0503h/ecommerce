@@ -50,7 +50,7 @@
   <ItemGroup>
     <Compile Include="Country.cs" />
     <Compile Include="District.cs" />
-    <Compile Include="Khuvuc.cs" />
+    <Compile Include="Region.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="LocaleStringResource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

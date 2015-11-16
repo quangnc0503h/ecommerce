@@ -11,6 +11,8 @@
         </member>
         <member name="F:Jil.DateTimeFormat.NewtonsoftStyleMillisecondsSinceUnixEpoch">
             <summary>
+            Obsolete: Use MicrosoftStyleMillisecondsSinceUnixEpoch instead
+            
             DateTimes will be formatted as "\/Date(##...##)\/" where ##...## is the 
             number of milliseconds since the unix epoch (January 1st, 1970 UTC).
             
@@ -64,6 +66,18 @@
             Examples:
                 Thu, 10 Apr 2008 13:30:00 GMT
                 Tue, 10 Mar 2015 00:14:34 GMT
+                
+            TimeSpans will be formatted as "days.hours:minutes:seconds.fractionalSeconds"
+            </summary>
+        </member>
+        <member name="F:Jil.DateTimeFormat.MicrosoftStyleMillisecondsSinceUnixEpoch">
+            <summary>
+            DateTimes will be formatted as "\/Date(##...##)\/" where ##...## is the 
+            number of milliseconds since the unix epoch (January 1st, 1970 UTC).
+            See: https://msdn.microsoft.com/en-us/library/bb299886.aspx
+            
+            Example:
+                "\/Date(628318530718)\/"
                 
             TimeSpans will be formatted as "days.hours:minutes:seconds.fractionalSeconds"
             </summary>
@@ -239,6 +253,16 @@
             called with a different Options object.
             </summary>
         </member>
+        <member name="M:Jil.JSON.GetWriterAction``1(Jil.Options)">
+            <summary>
+            Generated giant switch of option finding via OptionsGeneration.linq
+            </summary>
+        </member>
+        <member name="M:Jil.JSON.GetThunkerDelegate``1(Jil.Options)">
+            <summary>
+            Generated giant switch of option finding via OptionsGeneration.linq
+            </summary>
+        </member>
         <member name="M:Jil.JSON.Serialize``1(``0,Jil.Options)">
             <summary>
             Serializes the given data, returning the output as a string.
@@ -313,6 +337,8 @@
         </member>
         <member name="M:Jil.Options.#ctor(System.Boolean,System.Boolean,System.Boolean,Jil.DateTimeFormat,System.Boolean,Jil.UnspecifiedDateTimeKindBehavior)">
             <summary>
+            For compatibility with earlier Jil versions.
+            
             Configuration for Jil serialization options.
             
             Available options:
@@ -321,7 +347,21 @@
               jsonp - whether or not the serialized json should be valid for use with JSONP
               dateFormat - the style in which to serialize DateTimes and TimeSpans
               includeInherited - whether or not to serialize members declared by an objects base types
-              allowHashFunction - whether or not Jil should try to use hashes instead of strings when deserializing object members, malicious content may be able to force member collisions if this is enabled
+              unspecifiedDateTimeKindBehavior - how to treat DateTime's with a DateTimeKind of Unspecified (Jil converts all DateTimes to Utc for serialization, use DateTimeOffset to preserve time zone information)
+            </summary>
+        </member>
+        <member name="M:Jil.Options.#ctor(System.Boolean,System.Boolean,System.Boolean,Jil.DateTimeFormat,System.Boolean,Jil.UnspecifiedDateTimeKindBehavior,Jil.SerializationNameFormat)">
+            <summary>
+            Configuration for Jil serialization options.
+            
+            Available options:
+              prettyPrint - whether or not to include whitespace and newlines for ease of reading
+              excludeNulls - whether or not to write object members whose value is null
+              jsonp - whether or not the serialized json should be valid for use with JSONP
+              dateFormat - the style in which to serialize DateTimes and TimeSpans
+              includeInherited - whether or not to serialize members declared by an objects base types
+              unspecifiedDateTimeKindBehavior - how to treat DateTime's with a DateTimeKind of Unspecified (Jil converts all DateTimes to Utc for serialization, use DateTimeOffset to preserve time zone information)
+              serializationNameFormat - how to serialize names of properties/objects unless specified explicitly by an attribute
             </summary>
         </member>
         <member name="M:Jil.Options.ToString">
@@ -339,6 +379,42 @@
         <member name="M:Jil.Options.Equals(System.Object)">
             <summary>
             Returns true if two Options are equal, and false otherwise
+            </summary>
+        </member>
+        <member name="T:Jil.SerializationNameFormat">
+            <summary>
+            Specifies how to serialize names when not specified explicitly via an attribute.
+            
+            If an attrbiute is defined specifying the name (such as [JilDirective(Name="prop-name")] or [DataMember(Name="prop-name")]), 
+            that attribute will be used. If there is no attribute, the specified SerializationNameFormat will be used.
+            </summary>
+        </member>
+        <member name="F:Jil.SerializationNameFormat.Verbatim">
+            <summary>
+            Names for classes and properties will be seraialized exactly as they appear or as attributes define them.
+            
+            This is the default.
+            </summary>
+        </member>
+        <member name="F:Jil.SerializationNameFormat.CamelCase">
+            <summary>
+            Names for classes and properties (unless specified exactly via attribute) will be serialized to CamelCase.
+            
+            Example:
+                "MyClass" => "myClass"
+            
+            If an attrbiute is defined specifying the name (such as [JilDirective(Name="prop-name")] or [DataMember(Name="prop-name")]), 
+            that attribute will be used. If there is no attribute, the specified SerializationNameFormat will be used.
+            </summary>
+        </member>
+        <member name="T:Jil.SerializationNameFormatVerbatim">
+            <summary>
+            Class for generic caching differentiation
+            </summary>
+        </member>
+        <member name="T:Jil.SerializationNameFormatCamelCase">
+            <summary>
+            Class for generic caching differentiation
             </summary>
         </member>
         <member name="T:Jil.UnspecifiedDateTimeKindBehavior">
