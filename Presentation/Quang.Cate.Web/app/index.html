@@ -15,7 +15,7 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   </head>
   <body ng-app="quangcatewebApp">
       <!--[if lt IE 7]>
@@ -40,15 +40,26 @@
                           <!--<li show-if-authenticated="true" menu-active-url="user"><a ng-href="#/user">Quản lý người sử dụng</a></li>-->
                           <li show-if-authenticated="200|210|220|230|240|250|260|270|280" menu-active-url="(language|tuyen|pttt|nhomcho|loaicho|mactau|toaxe|language|ldkc)" class="dropdown" style="display: none">
                               <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hệ thống <span class="caret"></span></a>
-                              <ul class="dropdown-menu" role="menu">
+                              <ul class="dropdown-menu multi-level" role="menu">
                                   <li show-if-authenticated="200" style="display: none" menu-active-url="language"><a ng-href="#/language">Ngôn ngữ</a></li>
                                   <li class="divider"></li>
-                                  <li show-if-authenticated="210" style="display: none" menu-active-url="pttt" >
-                                      <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="icon-globe"></i> Vị trí địa lý</a>
-                                      <ul class="dropdown-menu dropdown-menu-right" >
-                                          <li show-if-authenticated="220" style="display: none" menu-active-url="ldkc"><a ng-href="#/ldkc">Quốc gia</a></li>
-                                      
-                                      </ul>
+                                  <li show-if-authenticated="210" class="dropdown-submenu" style="display: none" menu-active-url="(country)" >
+                                      <a   data-toggle="dropdown" role="button" aria-expanded="false"><i class="icon-globe"></i> Vị trí địa lý</a>
+                                 <ul class="dropdown-menu">
+                  <!-- <li><a  href="#">Quoc gia</a></li>
+				  <li class="divider"></li>
+                 <li class="dropdown-submenu">
+                    <a href="#">Even More..</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">3rd level</a></li>
+                    	<li><a href="#">3rd level</a></li>
+                    </ul>
+                  </li>-->
+				  
+                  <li><a href="#">Second level</a></li>
+				  <li class="divider"></li>
+                  <li><a href="#">Second level</a></li>
+                </ul>
                                   </li>
                                   <li class="divider"></li>
                                   <li show-if-authenticated="220" style="display: none" menu-active-url="ldkc"><a ng-href="#/ldkc">Lý do khóa chỗ</a></li>
@@ -140,5 +151,6 @@
       <script src="scripts/services/tockensmanagerservice.js"></script>
       <script src="scripts/services/languageservice.js"></script>
         <!-- endbuild -->
+	
 </body>
 </html>
