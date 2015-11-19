@@ -67,11 +67,14 @@
   <ItemGroup>
     <Compile Include="CountryDal.cs" />
     <Compile Include="DataAccessBase.cs" />
+    <Compile Include="DistrictDal.cs" />
     <Compile Include="LanguageDal.cs" />
     <Compile Include="LocalizationDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProvinceDal.cs" />
     <Compile Include="RegionDal.cs" />
     <Compile Include="Utils.cs" />
+    <Compile Include="WardsDal.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

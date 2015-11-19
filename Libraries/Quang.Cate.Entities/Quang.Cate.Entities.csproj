@@ -55,6 +55,7 @@
     <Compile Include="LocaleStringResource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Province.cs" />
+    <Compile Include="Ward.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
